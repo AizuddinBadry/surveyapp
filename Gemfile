@@ -43,6 +43,7 @@ end
 
 group :development, :production do
   gem 'semantic-ui-sass'
+  gem 'devise'
 end
 
 group :test do
