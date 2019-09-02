@@ -3,7 +3,7 @@ Rails.application.routes.draw do
         sessions: 'users/sessions'
       }
   devise_scope :user do
-    root to: "devise/sessions#new"
+    root to: "users/dashboards#index"
   end
 
 end
