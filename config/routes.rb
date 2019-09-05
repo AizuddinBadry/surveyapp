@@ -6,4 +6,10 @@ Rails.application.routes.draw do
     root to: "users/dashboards#index"
   end
 
+  namespace :users do
+    namespace :manage do
+      resources :surveys, only: [:index]
+    end
+  end
+
 end
