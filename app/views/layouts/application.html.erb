@@ -6,15 +6,51 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.4/semantic.js', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
 
   </head>
 
   <body>
     <%= render 'layouts/shared/nav'%>
-    <%= yield %>
+    <div class="section">
+      <div class="columns">
+        <aside class="column is-2">
+          <nav class="menu">
+            <p class="menu-label">
+              General
+            </p>
+            <ul class="menu-list">
+              <li><a class="is-active">Dashboard</a></li>
+            </ul>
+            <p class="menu-label">
+              Survey
+            </p>
+            <ul class="menu-list">
+              <li><a>Survey List</a></li>
+              <li>
+                <a class="">Question</a>
+                <ul>
+                  <li><a>Groups</a></li>
+                  <li><a>Question Types</a></li>
+                  <li><a>Questionaire</a></li>
+                </ul>
+              </li>
+            </ul>
+            <p class="menu-label">
+              Setting
+            </p>
+            <ul class="menu-list">
+              <li><a>User Settings</a></li>
+              <li><a>Survey Settings</a></li>
+            </ul>
+          </nav>
+        </aside>
+    
+        <%= yield %>
+      </div>
+    </div>
   </body>
 </html>
 

@@ -42,7 +42,7 @@ group :development do
 end
 
 group :development, :production do
-  gem 'semantic-ui-sass'
+  gem "bulma-rails", "~> 0.7.5"
   gem 'devise'
 end
 
