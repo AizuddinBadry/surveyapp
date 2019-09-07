@@ -22,36 +22,38 @@
         <div class="column is-12">
             <div class="card">
                 <div class="card-content">
-                    <div class="container">
-                        <div class="columns is-multiline">
-                            <div class="column is-2">
-                                <div class="field">
-                                    <label class="label">Title</label>
+                    <%= form_for(@survey, url: new_users_manage_survey_path) do |f|%>
+                        <div class="container">
+                            <div class="columns is-multiline">
+                                <div class="column is-2">
+                                    <div class="field">
+                                        <label class="label">Title</label>
+                                    </div>
+                                </div>
+                                <div class="column is-6">
+                                    <div class="field">
+                                        <div class="control">
+                                            <input class="input" type="text" placeholder="Survey title">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="column is-6">
-                                <div class="field">
-                                    <div class="control">
-                                        <input class="input" type="text" placeholder="Survey title">
+                            <div class="columns is-multiline">
+                                <div class="column is-2">
+                                    <div class="field">
+                                        <label class="label">Description</label>
+                                    </div>
+                                </div>
+                                <div class="column is-6">
+                                    <div class="field">
+                                        <div class="control">
+                                             <%= f.cktext_area :recipe, :size => 5, :id => "field-area5", :ckeditor => {:language => "us"}  %>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="columns is-multiline">
-                            <div class="column is-2">
-                                <div class="field">
-                                    <label class="label">Description</label>
-                                </div>
-                            </div>
-                            <div class="column is-6">
-                                <div class="field">
-                                    <div class="control">
-                                        <input class="input" type="text" placeholder="Survey title">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <% end %>
                 </div>
             </div>
         </div>

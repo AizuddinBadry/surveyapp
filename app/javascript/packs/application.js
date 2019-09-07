@@ -18,5 +18,19 @@ require("datatables-bulma");
 // const imagePath = (name) => images(name, true)
 
 $(document).ready(function() {
-  $("#example").DataTable();
+  $("#datatable").DataTable();
 });
+
+(function() {
+  var ready;
+
+  ready = function() {
+    return $(".ckeditor").each(function() {
+      return CKEDITOR.replace($(this).attr("id"));
+    });
+  };
+
+  $(document).ready(ready);
+
+  $(document).on("page:load", ready);
+}.call(this));
