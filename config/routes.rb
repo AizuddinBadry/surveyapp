@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount Ckeditor::Engine => '/ckeditor'
   devise_for :users, controllers: {
         sessions: 'users/sessions'
       }
@@ -8,7 +9,7 @@ Rails.application.routes.draw do
 
   namespace :users do
     namespace :manage do
-      resources :surveys, only: [:index]
+      resources :surveys
     end
   end
 

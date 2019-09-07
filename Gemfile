@@ -44,6 +44,9 @@ end
 group :development, :production do
   gem "bulma-rails", "~> 0.7.5"
   gem 'devise'
+  gem 'ckeditor'
+  gem 'carrierwave'
+  gem 'mini_magick'
 end
 
 group :test do
