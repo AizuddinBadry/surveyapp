@@ -1,0 +1,69 @@
+<main class="column">
+    <div class="level">
+        <div class="level-left">
+        <div class="level-item">
+            <div class="title">Survey # <%= @survey.id%></div>
+        </div>
+        </div>
+        <div class="level-right">
+        <div class="level-item">
+            <button type="button" class="button is-small">
+            March 8, 2017
+            </button>
+        </div>
+        </div>
+    </div>
+    <%= form_for(@survey, url: users_manage_survey_path(@survey.id), method: :put) do |f|%>
+        <section class="columns">
+            <div class="column is-12">
+                <%= link_to 'Back', users_manage_surveys_path, class: 'button is-black'%>
+                <%= f.submit 'Update', class: 'button is-primary'%>
+            </div>
+        </section>
+        <%= render '/users/manage/surveys/shared/form', f: f%>
+    <% end %>
+    <section class="columns">
+        <div class="column">
+            <div class="card">
+                <div class="card-header">
+                    <p class="card-header-title">Question Groups <a class="button is-primary is-circle is-small open-modal" data-target="modal-ter"><i class='fa fa-plus'> Add Group</i></a></p>
+                </div>
+                <div class="card-content">
+                    <table class="display datatable" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Question Group ID</th>
+                                <th>Group Name</th>
+                                <th>Description</th>
+                                <th>Question Count</th>
+                                <th>Group Order</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% @survey.question_groups.each do |group|%>
+                                <tr>
+                                    <td>#<%= group.id %></td>
+                                    <td><%= group.name %></td>
+                                    <td><%= group.description %></td>
+                                    <td>0</td>
+                                    <td><%= group.order == nil ? 0 : group.order %></td>
+                                    <td>
+                                        <p class="buttons">
+                                            <%= link_to '<span class="icon is-small"><i class="fa fa-cog"></i></span>'.html_safe, users_manage_question_group_path(group.id), class: 'button is-small is-primary action'%>
+                                            <%= link_to '<span class="icon is-small"><i class="fa fa-times"></i></span>'.html_safe, users_manage_question_group_path(group.id), :method => :delete, class: 'button is-small is-danger action'%>
+                                        </p>
+                                    </td>
+                                </tr>
+                            <% end %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<%= render '/users/manage/surveys/shared/modals/create_group'%>
+<script>
+    <%= render '/users/manage/surveys/shared/page.js'%>
+</script>

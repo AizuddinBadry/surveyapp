@@ -10,8 +10,8 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
+ *= require_tree ./vendors
  *= require_tree .
  *= require_self
  */
-@import url("https://fonts.googleapis.com/css?family=Ubuntu");
-$family-primary: "Ubuntu", sans-serif;
+@import "bulma-extensions/bulma-switch/dist/css/bulma-switch.min.css";

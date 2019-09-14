@@ -9,6 +9,7 @@ require("channels");
 require("jquery");
 require("datatables.net-dt");
 require("datatables-bulma");
+require("bulma-extensions");
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
@@ -18,19 +19,18 @@ require("datatables-bulma");
 // const imagePath = (name) => images(name, true)
 
 $(document).ready(function() {
-  $("#datatable").DataTable();
+  $(".datatable").DataTable();
+  $(".card-toggle").click(function() {
+    $(this)
+      .next()
+      .slideToggle();
+  });
+  $(".open-modal").click(function() {
+    var modal = $(this).data("target");
+    $("#" + modal).addClass("is-active");
+  });
+
+  $(".modal--close").click(function() {
+    $(".modal").removeClass("is-active");
+  });
 });
-
-(function() {
-  var ready;
-
-  ready = function() {
-    return $(".ckeditor").each(function() {
-      return CKEDITOR.replace($(this).attr("id"));
-    });
-  };
-
-  $(document).ready(ready);
-
-  $(document).on("page:load", ready);
-}.call(this));

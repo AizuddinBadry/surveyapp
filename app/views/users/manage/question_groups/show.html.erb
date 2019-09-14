@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Order:</strong>
+  <%= @question_group.order %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @question_group.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @question_group.description %>
+</p>
+
+<p>
+  <strong>Survey:</strong>
+  <%= @question_group.survey_id %>
+</p>
+
+<%= link_to 'Edit', edit_question_group_path(@question_group) %> |
+<%= link_to 'Back', question_groups_path %>

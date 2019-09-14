@@ -1,87 +1,42 @@
 
-  <style type="text/css">
-    body {
-      background-color: #DADADA;
-    }
-    body > .grid {
-      height: 100%;
-    }
-    .image {
-      margin-top: -100px;
-    }
-    .column {
-      max-width: 450px;
-    }
-  </style>
-
-<div class="ui middle aligned center aligned grid">
-  <div class="column">
-    <h2 class="ui teal image header">
-      <div class="content">
-        Surveyapp
-      </div>
-    </h2>
-    <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: 'ui large form'}) do |f| %>
-      <div class="ui stacked segment">
-        <div class="field">
-          <div class="ui left icon input">
-            <i class="user icon"></i>
-            <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: 'Email' %>
-          </div>
+<section class="hero is-primary is-fullheight">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-5-tablet is-4-desktop is-3-widescreen">
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: 'box'}) do |f| %>
+            <div class="field">
+              <label for="" class="label">Email</label>
+              <div class="control has-icons-left">
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: 'Email', class: 'input' %>
+                <span class="icon is-small is-left">
+                  <i class="fa fa-envelope"></i>
+                </span>
+              </div>
+            </div>
+            <div class="field">
+              <label for="" class="label">Password</label>
+              <div class="control has-icons-left">
+            <%= f.password_field :password, autocomplete: "current-password", placeholder: 'Password', class: 'input' %>
+                <span class="icon is-small is-left">
+                  <i class="fa fa-lock"></i>
+                </span>
+              </div>
+            </div>
+            <div class="field">
+              <label for="" class="checkbox">
+                <input type="checkbox">
+               Remember me
+              </label>
+            </div>
+            <div class="field">
+              <button class="button is-success">
+                Login
+              </button>
+            </div>
+          <% end %>
         </div>
-        <div class="field">
-          <div class="ui left icon input">
-            <i class="lock icon"></i>
-            <%= f.password_field :password, autocomplete: "current-password", placeholder: 'Password' %>
-          </div>
-        </div>
-        <button type="submit" class="ui fluid large teal submit button">Login</button>
       </div>
-
-      <div class="ui error message"></div>
-
-    <% end %>
-
-    <div class="ui message">
-      2019 - Surveyapp
     </div>
   </div>
-</div>
-<script>
-  $(document)
-    .ready(function() {
-      $('.ui.form')
-        .form({
-          fields: {
-            email: {
-              identifier  : 'email',
-              rules: [
-                {
-                  type   : 'empty',
-                  prompt : 'Please enter your e-mail'
-                },
-                {
-                  type   : 'email',
-                  prompt : 'Please enter a valid e-mail'
-                }
-              ]
-            },
-            password: {
-              identifier  : 'password',
-              rules: [
-                {
-                  type   : 'empty',
-                  prompt : 'Please enter your password'
-                },
-                {
-                  type   : 'length[6]',
-                  prompt : 'Your password must be at least 6 characters'
-                }
-              ]
-            }
-          }
-        })
-      ;
-    })
-  ;
-  </script>
+</section>

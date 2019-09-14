@@ -1,0 +1,16 @@
+    <% if @survey.present? && @survey.show_final_button == true%>
+        $('.final_enable').show()
+    <% else %>
+        $('.final_enable').hide()
+    <% end %>
+    $('#url-input').hide()
+    $("input[type=radio][name=final_button_action]").change(function(){ 
+        if( $(this).is(":checked") == '1' ){
+            $('#url-input').toggle()
+        } else if ($(this).is(":checked") == '0') {
+            $('#url-input').toggle()
+        }
+    });
+    $('#show-final-button').change(function(){
+        this.checked ? $('.final_enable').toggle() : $('.final_enable').toggle();
+    });

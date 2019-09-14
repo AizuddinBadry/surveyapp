@@ -7,54 +7,24 @@
 
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= stylesheet_link_tag 'https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.19.1/ui/trumbowyg.min.css', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-
+    <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
     <%= render 'layouts/shared/nav'%>
     <div class="section">
       <div class="columns">
-        <aside class="column is-2">
-          <nav class="menu">
-            <p class="menu-label">
-              General
-            </p>
-            <ul class="menu-list">
-              <li><%= link_to 'Dashboard', root_path%></li>
-            </ul>
-            <p class="menu-label">
-              Survey
-            </p>
-            <ul class="menu-list">
-              <li><%= link_to 'Survey List', users_manage_surveys_path%></li>
-              <li>
-                <a class="">Question</a>
-                <ul>
-                  <li><a>Groups</a></li>
-                  <li><a>Question Types</a></li>
-                  <li><a>Questionaire</a></li>
-                </ul>
-              </li>
-            </ul>
-            <p class="menu-label">
-              Setting
-            </p>
-            <ul class="menu-list">
-              <li><a>User Settings</a></li>
-              <li><a>Survey Settings</a></li>
-            </ul>
-          </nav>
-        </aside>
-    
+        <%= alert %>
         <%= yield %>
       </div>
     </div>
   </body>
 </html>
-
+    <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.19.1/trumbowyg.min.js', 'data-turbolinks-track': 'reload' %> 
 <script>
 $( document ).ready(function() {
   $(".openbtn").on("click", function() {
@@ -80,4 +50,7 @@ $( document ).ready(function() {
   });
 });
 
+</script>
+<script>
+$('.editor').trumbowyg();
 </script>

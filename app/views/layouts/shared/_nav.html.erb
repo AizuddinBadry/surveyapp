@@ -3,7 +3,6 @@
     <a class="navbar-item" href="">
       Surveyapp
     </a>
-
     <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
@@ -11,35 +10,79 @@
     </a>
   </div>
 
-  <div id="navbarBasicExample" class="navbar-menu">
+  <div class="navbar-menu">
     <div class="navbar-start">
-      <a class="navbar-item">
-        Home
-      </a>
-
-      <a class="navbar-item">
-        Documentation
-      </a>
-
-      <div class="navbar-item has-dropdown is-hoverable">
+      <%= link_to 'Dashboard', root_path, class: 'navbar-item main'%>
+      <div class="navbar-item has-dropdown is-hoverable main">
         <a class="navbar-link">
-          More
+          Survey
         </a>
 
         <div class="navbar-dropdown">
-          <a class="navbar-item">
-            About
-          </a>
-          <a class="navbar-item">
-            Jobs
-          </a>
-          <a class="navbar-item">
-            Contact
-          </a>
+          <%= link_to 'Survey Listings', users_manage_surveys_path, data: {turbolinks: false}, class: 'navbar-item'%>
+          <%= link_to 'Invoices', users_manage_surveys_path, class: 'navbar-item'%>
           <hr class="navbar-divider">
-          <a class="navbar-item">
-            Report an issue
-          </a>
+          <%= link_to 'Create Survey', new_users_manage_survey_path, data: {turbolinks: false}, class: 'navbar-item'%>
+        </div>
+      </div>
+      <div class="navbar-item has-dropdown is-hoverable main">
+        <a class="navbar-link">
+          Billing
+        </a>
+
+        <div class="navbar-dropdown">
+          <%= link_to 'Topup', users_manage_surveys_path, class: 'navbar-item'%>
+          <%= link_to 'Invoices', users_manage_surveys_path, class: 'navbar-item'%>
+        </div>
+      </div>
+      <div class="navbar-item has-dropdown is-hoverable main">
+        <a class="navbar-link">
+          License
+        </a>
+
+        <div class="navbar-dropdown">
+          <%= link_to 'Buy License', users_manage_surveys_path, class: 'navbar-item'%>
+          <%= link_to 'Case License', users_manage_surveys_path, class: 'navbar-item'%>
+          <%= link_to 'Device License', users_manage_surveys_path, class: 'navbar-item'%>
+          <%= link_to 'User License', users_manage_surveys_path, class: 'navbar-item'%>
+          <%= link_to 'License Report', users_manage_surveys_path, class: 'navbar-item'%>
+        </div>
+      </div>
+      <div class="navbar-item has-dropdown is-hoverable main">
+        <a class="navbar-link">
+          Permission
+        </a>
+
+        <div class="navbar-dropdown">
+          <%= link_to 'User Maintanence', users_manage_surveys_path, class: 'navbar-item'%>
+          <%= link_to 'Group Maintanence', users_manage_surveys_path, class: 'navbar-item'%>
+          <%= link_to 'Group Permission', users_manage_surveys_path, class: 'navbar-item'%>
+          <%= link_to 'Survey Permission', users_manage_surveys_path, class: 'navbar-item'%>
+          <%= link_to 'User Activities Log', users_manage_surveys_path, class: 'navbar-item'%>
+        </div>
+      </div>
+      <div class="navbar-item has-dropdown is-hoverable main">
+        <a class="navbar-link">
+          Setting
+        </a>
+
+        <div class="navbar-dropdown">
+          <%= link_to 'Backup Restore', users_manage_surveys_path, class: 'navbar-item'%>
+          <%= link_to 'Theme Editor', users_manage_surveys_path, class: 'navbar-item'%>
+          <%= link_to 'Question Library', users_manage_surveys_path, class: 'navbar-item'%>
+          <%= link_to 'Answer Library', users_manage_surveys_path, class: 'navbar-item'%>
+          <%= link_to 'General Setting', users_manage_surveys_path, class: 'navbar-item'%>
+        </div>
+      </div>
+      <div class="navbar-item has-dropdown is-hoverable main">
+        <a class="navbar-link">
+          Profile
+        </a>
+
+        <div class="navbar-dropdown">
+          <%= link_to 'Company Information', users_manage_surveys_path, class: 'navbar-item'%>
+          <%= link_to 'Login Information', users_manage_surveys_path, class: 'navbar-item'%>
+          <%= link_to 'Recovery Email', users_manage_surveys_path, class: 'navbar-item'%>
         </div>
       </div>
     </div>
@@ -47,9 +90,8 @@
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">
-          <a class="button is-black">
-            <strong>Logout</strong>
-          </a>
+        <%= link_to 'Logout', destroy_user_session_path, :method => :delete, class: 'button is-black'%>
+
         </div>
       </div>
     </div>

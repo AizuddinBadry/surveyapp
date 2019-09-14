@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   namespace :users do
     namespace :manage do
       resources :surveys
+      resources :question_groups
     end
   end
 
