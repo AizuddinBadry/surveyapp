@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_14_095436) do
+ActiveRecord::Schema.define(version: 2019_09_14_081545) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,16 +23,6 @@ ActiveRecord::Schema.define(version: 2019_09_14_095436) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["type"], name: "index_ckeditor_assets_on_type"
-  end
-
-  create_table "question_groups", force: :cascade do |t|
-    t.bigint "order"
-    t.text "name"
-    t.text "description"
-    t.bigint "survey_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["survey_id"], name: "index_question_groups_on_survey_id"
   end
 
   create_table "surveys", force: :cascade do |t|
@@ -63,6 +53,5 @@ ActiveRecord::Schema.define(version: 2019_09_14_095436) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "question_groups", "surveys"
   add_foreign_key "surveys", "users"
 end

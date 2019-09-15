@@ -65,7 +65,7 @@ table.dataTable thead .sorting_desc_disabled:after {
   bottom: 4px;
   right: 4px;
   display: block;
-  font-family: "FontAwesome";
+  font-family: "Font Awesome 5 Free";
   opacity: 0.5;
 }
 

@@ -14,6 +14,7 @@ $font: "Lato", sans-serif;
 body {
   font-family: "Montserrat", sans-serif !important;
   font-size: 12px;
+  margin: 0 !important;
 }
 
 input {
@@ -148,13 +149,14 @@ label:active:after {
 .alert {
   position: absolute;
   width: 400px;
-  height: 40px;
+  min-height: 40px;
   left: 50%;
   top: 15%;
   border-radius: 15px;
   box-shadow: 5px 5px 20px rgba($gray, 10%);
   perspective: 40px;
   transform: translate(-50%, -50%);
+  text-align: center;
 }
 
 .alert.alert-success {
@@ -166,7 +168,6 @@ label:active:after {
 
 .alert-success span,
 .alert-danger span {
-  position: absolute;
   color: white;
   left: 50%;
   top: 50%;

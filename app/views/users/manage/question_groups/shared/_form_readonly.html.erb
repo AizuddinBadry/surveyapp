@@ -1,0 +1,18 @@
+<section class="columns">
+  <div class="column">
+    <div class="field">
+      <label class="label">Group Name</label>
+      <%= f.hidden_field :survey_id, value: @survey.id%>
+      <%= f.text_field :name, class: 'input', disabled: params[:edit].present? ? false : true%>
+    </div>
+    <div class="field">
+      <label class="label">Description</label>
+      <%= f.text_area :description, class: 'input', html:{rows: '10'}, disabled: params[:edit].present? ? false : true%>
+    </div>
+    <div class="field">
+      <label class="label">Group Order</label>
+      <%= f.number_field :order, class: 'input', disabled: params[:edit].present? ? false : true%>
+      <small>Eg: 1</small>
+    </div>
+  </div>
+</section>

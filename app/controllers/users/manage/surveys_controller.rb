@@ -15,7 +15,7 @@ class Users::Manage::SurveysController < Users::BaseController
         @survey = Survey.new(survey_params.to_h.merge(:user_id => current_user.id))
         if @survey.save
             respond_to do |format|
-                format.html { redirect_to request.referrer, :flash => {:success => 'Successful created new survey.'}}
+                format.html { redirect_to @survey, :flash => {:success => 'Successful created new survey.'}}
                 format.json { render :json => @survey }
             end
         else
@@ -33,6 +33,12 @@ class Users::Manage::SurveysController < Users::BaseController
         else
             flash[:danger] = @survey.errors.full_messages.first
             redirect_to request.referrer
+        end
+    end
+
+    def destroy
+        if @survey.destroy
+            redirect_to request.referrer, :flash => {:success => 'Successful destroyed survey.'}
         end
     end
     

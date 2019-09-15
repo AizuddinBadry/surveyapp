@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :questions
   mount Ckeditor::Engine => '/ckeditor'
   devise_for :users, controllers: {
         sessions: 'users/sessions'

@@ -1,0 +1,29 @@
+<div class="card">
+    <div class="card-content">
+        <aside class="menu">
+        <p class="menu-label">
+            General
+        </p>
+        <ul class="menu-list">
+            <li><%= link_to '<i class="fa fa-edit"></i> Edit question group'.html_safe, users_manage_question_group_path(params[:id], survey_id: @survey.id, edit: true)%></li>
+            <li><a><i class="fa fa-times-circle"></i> Delete Question Group</a></li>
+            <li><a><i class="fa fa-external-link-alt"></i> Export Question Group</a></li>
+            <li><a><i class="fa fa-code-branch"></i> Check Question Group logic</a></li>
+        </ul>
+        <p class="menu-label">
+            Questionaire
+        </p>
+        <ul class="menu-list">
+            <li><a><i class="fa fa-plus-circle"></i> Add Questionaire</a></li>
+            <li><a><i class="fa fa-file-import"></i> Import Questionaire</a></li>
+        </ul>
+        <p class="menu-label">
+            Extra
+        </p>
+        <ul class="menu-list">
+            <li><a>Preview Survey</a></li>
+            <li><a>Preview Question Group</a></li>
+        </ul>
+        </aside>
+    </div>
+</div>

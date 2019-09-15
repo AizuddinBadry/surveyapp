@@ -1,3 +1,4 @@
+
 <main class="column">
     <div class="level">
         <div class="level-left">
@@ -54,7 +55,7 @@
                                         <td> 
                                         <p class="buttons">
                                             <%= link_to '<span class="icon is-small"><i class="fa fa-cog"></i></span>'.html_safe, users_manage_survey_path(survey.id), data: {turbolinks: false}, class: 'button is-small is-primary action'%>
-                                            <%= link_to '<span class="icon is-small"><i class="fa fa-times"></i></span>'.html_safe, users_manage_survey_path(survey.id), class: 'button is-small is-danger action'%>
+                                            <%= link_to '<span class="icon is-small"><i class="fa fa-times"></i></span>'.html_safe, users_manage_survey_path(survey.id), :method => :delete, class: 'button is-small is-danger action'%>
                                         </p>
                                         </td>
                                     </tr>

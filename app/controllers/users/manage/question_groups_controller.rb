@@ -10,6 +10,7 @@ class Users::Manage::QuestionGroupsController < ApplicationController
   # GET /question_groups/1
   # GET /question_groups/1.json
   def show
+    @survey = Survey.find_by_id(params[:survey_id])
   end
 
   # GET /question_groups/new
@@ -35,7 +36,7 @@ class Users::Manage::QuestionGroupsController < ApplicationController
         end
         format.json { render :show, status: :created, location: @question_group }
       else
-        format.html { render :new }
+        format.html { redirect_to request.referrer, flash: {danger: @question_group.errors}  }
         format.json { render json: @question_group.errors, status: :unprocessable_entity }
       end
     end
@@ -46,10 +47,10 @@ class Users::Manage::QuestionGroupsController < ApplicationController
   def update
     respond_to do |format|
       if @question_group.update(question_group_params)
-        format.html { redirect_to @question_group, notice: 'Question group was successfully updated.' }
+        format.html { redirect_to request.referrer, flash: {success: 'Question group was successfully updated.' }}
         format.json { render :show, status: :ok, location: @question_group }
       else
-        format.html { render :edit }
+        format.html { render :show }
         format.json { render json: @question_group.errors, status: :unprocessable_entity }
       end
     end
@@ -60,7 +61,7 @@ class Users::Manage::QuestionGroupsController < ApplicationController
   def destroy
     @question_group.destroy
     respond_to do |format|
-      format.html { redirect_to question_groups_url, notice: 'Question group was successfully destroyed.' }
+      format.html { redirect_to request.referrer, flash: {success: 'Question group was successfully destroyed.' }}
       format.json { head :no_content }
     end
   end

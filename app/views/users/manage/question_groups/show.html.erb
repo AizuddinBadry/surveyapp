@@ -1,24 +1,82 @@
-<p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Order:</strong>
-  <%= @question_group.order %>
-</p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @question_group.name %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @question_group.description %>
-</p>
-
-<p>
-  <strong>Survey:</strong>
-  <%= @question_group.survey_id %>
-</p>
-
-<%= link_to 'Edit', edit_question_group_path(@question_group) %> |
-<%= link_to 'Back', question_groups_path %>
+<main class="column">
+    <%= form_for :question_group, url: users_manage_question_group_path(params[:id]), method: :put do |f|%>
+        <div class="level">
+            <div class="level-left">
+            <div class="level-item">
+                <div class="title">Group #<%= @question_group.id %> Summary</div>
+            </div>
+            </div>
+            <div class="level-right">
+            <div class="level-item">
+                <button type="button" class="button is-small">
+                March 8, 2017
+                </button>
+            </div>
+            </div>
+        </div>
+        <section class="columns">
+            <div class="column is-12">
+                <%= link_to 'Back to survey', users_manage_survey_path(params[:survey_id]), class: 'button is-black', 'data-turbolinks' => false%>
+                <% if params[:edit].present? %>
+                    <%= f.submit 'Update', class: 'button is-primary'%>
+                <% end %>
+            </div>
+        </section>
+        <section class="columns">
+            <div class="column is-3">
+                <%= render '/users/manage/question_groups/shared/menu'%>
+            </div>
+            <div class="column is-9">
+                <section class="columns is-multiline">
+                    <div class="column is-12">
+                        <div class="card">
+                            <div class="card-content">
+                                <%= hidden_field_tag :external, value: true %>
+                                <%= render '/users/manage/question_groups/shared/form_readonly', f:f%>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <p class="card-header-title">Questionaire</p>
+                            </div>
+                            <div class="card-content">
+                                <table class="display datatable" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>Question Group ID</th>
+                                            <th>Group Name</th>
+                                            <th>Description</th>
+                                            <th>Question Count</th>
+                                            <th>Group Order</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% @survey.question_groups.each do |group|%>
+                                            <tr>
+                                                <td>#<%= group.id %></td>
+                                                <td><%= group.name %></td>
+                                                <td><%= group.description %></td>
+                                                <td>0</td>
+                                                <td><%= group.order == nil ? 0 : group.order %></td>
+                                                <td>
+                                                    <p class="buttons">
+                                                        <%= link_to '<span class="icon is-small"><i class="fa fa-cog"></i></span>'.html_safe, users_manage_question_group_path(group.id, survey_id: @survey.id), class: 'button is-small is-primary action'%>
+                                                        <%= link_to '<span class="icon is-small"><i class="fa fa-times"></i></span>'.html_safe, users_manage_question_group_path(group.id), :method => :delete, class: 'button is-small is-danger action'%>
+                                                    </p>
+                                                </td>
+                                            </tr>
+                                        <% end %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </section>
+    <% end %>
+</main>
