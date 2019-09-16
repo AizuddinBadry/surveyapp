@@ -15,7 +15,7 @@ class Users::Manage::SurveysController < Users::BaseController
         @survey = Survey.new(survey_params.to_h.merge(:user_id => current_user.id))
         if @survey.save
             respond_to do |format|
-                format.html { redirect_to @survey, :flash => {:success => 'Successful created new survey.'}}
+                format.html { redirect_to users_manage_survey_path(@survey.id), :flash => {:success => 'Successful created new survey.'}}
                 format.json { render :json => @survey }
             end
         else
