@@ -46,29 +46,17 @@
                                 <table class="display datatable" style="width:100%">
                                     <thead>
                                         <tr>
-                                            <th>Question Group ID</th>
-                                            <th>Group Name</th>
-                                            <th>Description</th>
-                                            <th>Question Count</th>
-                                            <th>Group Order</th>
+                                            <th>Code</th>
+                                            <th>Question</th>
+                                            <th>Question Type</th>
+                                            <th>Group</th>
+                                            <th>Mandatory</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <% @survey.question_groups.each do |group|%>
-                                            <tr>
-                                                <td>#<%= group.id %></td>
-                                                <td><%= group.name %></td>
-                                                <td><%= group.description %></td>
-                                                <td>0</td>
-                                                <td><%= group.order == nil ? 0 : group.order %></td>
-                                                <td>
-                                                    <p class="buttons">
-                                                        <%= link_to '<span class="icon is-small"><i class="fa fa-cog"></i></span>'.html_safe, users_manage_question_group_path(group.id, survey_id: @survey.id), class: 'button is-small is-primary action'%>
-                                                        <%= link_to '<span class="icon is-small"><i class="fa fa-times"></i></span>'.html_safe, users_manage_question_group_path(group.id), :method => :delete, class: 'button is-small is-danger action'%>
-                                                    </p>
-                                                </td>
-                                            </tr>
+                                        <% @question_group.questions.each do |question|%>
+                                            <%= render '/users/manage/questions/tables/questions', question: question%>
                                         <% end %>
                                     </tbody>
                                 </table>
@@ -80,3 +68,4 @@
         </section>
     <% end %>
 </main>
+<%= render '/users/manage/questions/shared/question_types'%>

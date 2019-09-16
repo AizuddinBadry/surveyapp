@@ -47,6 +47,7 @@ group :development, :production do
   gem 'ckeditor'
   gem 'carrierwave'
   gem 'mini_magick'
+  gem 'react_on_rails', '11.1.4'
 end
 
 group :test do
