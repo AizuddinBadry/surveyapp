@@ -47,7 +47,8 @@ group :development, :production do
   gem 'ckeditor'
   gem 'carrierwave'
   gem 'mini_magick'
-  
+  gem 'react-rails'
+  gem 'mini_racer'
 end
 
 group :test do
