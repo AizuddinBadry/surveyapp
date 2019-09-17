@@ -51,6 +51,6 @@ class Users::Manage::SurveysController < Users::BaseController
 
     def survey_params
         params.require(:survey).permit(:title, :welcome_message, :show_intro_screen, :end_message, :start_button_text, 
-                                        :show_final_button, :final_button_text, :final_button_url)
+                                        :show_final_button, :final_button_text, :final_button_url, :final_button_to_start)
     end
 end

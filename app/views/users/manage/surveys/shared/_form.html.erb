@@ -97,12 +97,12 @@
                         <div class="field final_enable">
                             <label>Final button behaviour : </label>
                             <div class="radio">
-                                <input id="back-start" name="final_button_action" type="radio" value="0" checked>
+                                <%= f.radio_button :final_button_to_start, true, :id => 'back-start', :class => 'radio_start'%>
                                 <label for="back-start" class="radio-label">Back to start</label>
                             </div>
                             <div class="radio">
-                                <input id="specific-url" name="final_button_action" value="1" type="radio">
-                                <label  for="specific-url" class="radio-label">Specific URL</label>
+                                <%= f.radio_button :final_button_to_start, false, :id => 'specific-url', :class => 'radio_start'%>
+                                <label for="specific-url" class="radio-label">Specific URL</label>
                             </div>
                         </div>
                         <div class="field" id="url-input">

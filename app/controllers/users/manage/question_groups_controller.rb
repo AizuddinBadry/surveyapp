@@ -5,6 +5,9 @@ class Users::Manage::QuestionGroupsController < ApplicationController
   # GET /question_groups.json
   def index
     @question_groups = QuestionGroup.all
+    respond_to do |format|
+      format.json {render json: @question_groups}
+    end
   end
 
   # GET /question_groups/1

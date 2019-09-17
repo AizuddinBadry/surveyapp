@@ -17,7 +17,10 @@ require("bulma-extensions");
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
-
+document.addEventListener("turbolinks:load", function() {
+  "use strict";
+  $(".datatable").DataTable();
+});
 $(document).ready(function() {
   $(".datatable").DataTable();
   $(".card-toggle").click(function() {

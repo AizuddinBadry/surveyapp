@@ -8,7 +8,7 @@
     <section class="modal-card-body">
       <div class="content">
         <div class="columns is-multiline">
-            <%= react_component("questions/TypeOptions") %>
+            <%= react_component("questions/TypeOptions", {group_id: @question_group.id}) %>
         </div>
       </div>
     </section>

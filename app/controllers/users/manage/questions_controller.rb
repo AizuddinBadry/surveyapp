@@ -25,7 +25,6 @@ class Users::Manage::QuestionsController < ApplicationController
   # POST /questions.json
   def create
     @question = Question.new(question_params)
-
     respond_to do |format|
       if @question.save
         format.html { redirect_to @question, notice: 'Question was successfully created.' }
@@ -56,7 +55,7 @@ class Users::Manage::QuestionsController < ApplicationController
   def destroy
     @question.destroy
     respond_to do |format|
-      format.html { redirect_to questions_url, notice: 'Question was successfully destroyed.' }
+      format.html { redirect_to request.referrer, flash: {success: 'Question was successfully destroyed.'} }
       format.json { head :no_content }
     end
   end

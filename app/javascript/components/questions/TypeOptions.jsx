@@ -6,10 +6,11 @@ import "react-trumbowyg/dist/trumbowyg.min.css";
 function Step(props) {
   const step = props.option;
   const handler = props.handler;
+  const group_id = props.group_id;
   if (step == 0) {
     return <Main handler={handler} />;
   } else if (step == 1) {
-    return <ListRadio handler={handler} />;
+    return <ListRadio handler={handler} group_id={group_id} />;
   }
 }
 
@@ -26,7 +27,13 @@ class TypeOptions extends React.Component {
   };
 
   render() {
-    return <Step option={this.state.option} handler={this.handler} />;
+    return (
+      <Step
+        option={this.state.option}
+        handler={this.handler}
+        group_id={this.props.group_id}
+      />
+    );
   }
 }
 
