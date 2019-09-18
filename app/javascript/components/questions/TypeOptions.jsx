@@ -1,37 +1,43 @@
 var React = require("react");
 import Main from "./types/Main";
-import ListRadio from "./types/ListRadio";
+import MultipleAnswer from "./types/MultipleAnswer";
 import "react-trumbowyg/dist/trumbowyg.min.css";
 
 function Step(props) {
   const step = props.option;
   const handler = props.handler;
   const group_id = props.group_id;
+  const types = props.types;
   if (step == 0) {
     return <Main handler={handler} />;
   } else if (step == 1) {
-    return <ListRadio handler={handler} group_id={group_id} />;
+    return (
+      <MultipleAnswer handler={handler} group_id={group_id} types={types} />
+    );
   }
 }
 
 class TypeOptions extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { option: 0 };
+    this.state = { option: 0, types: "" };
   }
 
-  handler = val => {
+  handler = (val, type) => {
     this.setState({
-      option: val
+      option: val,
+      types: type
     });
   };
 
   render() {
+    var self = this.state;
     return (
       <Step
-        option={this.state.option}
+        option={self.option}
         handler={this.handler}
         group_id={this.props.group_id}
+        types={self.types}
       />
     );
   }

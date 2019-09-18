@@ -13,20 +13,45 @@ class Main extends React.Component {
           <div className="buttons are-small">
             <a
               className="button is-primary is-rounded"
-              onClick={() => this.props.handler(1)}
+              onClick={() => this.props.handler(1, "List (Radio)")}
             >
               List Radio
             </a>
-            <a className="button is-primary is-rounded">List Dropdown</a>
-            <a className="button is-primary is-rounded">List with comment</a>
-            <a className="button is-primary is-rounded">5 point choice</a>
+            <a
+              className="button is-primary is-rounded"
+              onClick={() => this.props.handler(1, "List (Dropdown)")}
+            >
+              List Dropdown
+            </a>
+            <a
+              className="button is-primary is-rounded"
+              onClick={() => this.props.handler(1, "List With Comment")}
+            >
+              List with comment
+            </a>
+            <a
+              className="button is-primary is-rounded"
+              onClick={() => this.props.handler(1, "5 point")}
+            >
+              5 point choice
+            </a>
           </div>
         </div>
         <div className="field">
           <label className="label">Multiple Choice</label>
           <div className="buttons are-small">
-            <a className="button is-primary is-rounded">Multiple Choice</a>
-            <a className="button is-primary is-rounded">
+            <a
+              className="button is-primary is-rounded"
+              onClick={() => this.props.handler(1, "Multiple Choice")}
+            >
+              Multiple Choice
+            </a>
+            <a
+              className="button is-primary is-rounded"
+              onClick={() =>
+                this.props.handler(1, "Multiple Choice with comments")
+              }
+            >
               Multiple Choice with comments
             </a>
           </div>

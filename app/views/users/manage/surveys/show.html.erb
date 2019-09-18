@@ -26,7 +26,7 @@
         <div class="column">
             <div class="card">
                 <div class="card-header">
-                    <p class="card-header-title">Question Groups <a class="button is-primary is-circle is-small open-modal" data-target="modal-ter"><i class='fa fa-plus'> Add Group</i></a></p>
+                    <p class="card-header-title">Question Groups <a class="button is-primary is-circle is-small open-modal" data-target="modal-ter"><i class='fa fa-plus'> </i> Add Group</a></p>
                 </div>
                 <div class="card-content">
                     <table class="display datatable" style="width:100%">
@@ -46,7 +46,7 @@
                                     <td>#<%= group.id %></td>
                                     <td><%= group.name %></td>
                                     <td><%= group.description %></td>
-                                    <td>0</td>
+                                    <td><%= group.questions.size%></td>
                                     <td><%= group.order == nil ? 0 : group.order %></td>
                                     <td>
                                         <p class="buttons">

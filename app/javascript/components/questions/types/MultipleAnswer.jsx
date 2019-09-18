@@ -2,29 +2,11 @@ var React = require("react");
 import Trumbowyg from "react-trumbowyg";
 import { post } from "../../apiUtils/webApi";
 
-class ListRadio extends React.Component {
+export default class MultipleAnswer extends React.Component {
   constructor(props) {
     super(props);
     this.state = { values: [{ value: null }] };
   }
-
-  createUI = () => {
-    return this.state.values.map((el, i) => (
-      <div key={i}>
-        <input
-          type="text"
-          value={el.value || ""}
-          name="question[answer][]"
-          onChange={this.handleChange.bind(this, i)}
-        />
-        <input
-          type="button"
-          value="remove"
-          onClick={this.removeClick.bind(this, i)}
-        />
-      </div>
-    ));
-  };
 
   handleChange = (i, event) => {
     let values = [...this.state.values];
@@ -49,7 +31,7 @@ class ListRadio extends React.Component {
     const form = event.target;
     const data = new FormData(form);
     data.set("question[question_group_id]", this.props.group_id);
-    data.set("question[q_type]", "List (Radio)");
+    data.set("question[q_type]", this.props.types);
     post("/questions", data)
       .then(data => {
         console.log(data);
@@ -61,7 +43,6 @@ class ListRadio extends React.Component {
   };
 
   render() {
-    var self = this.state;
     return (
       <form onSubmit={this.handleSubmit}>
         <div className="column is-12">
@@ -78,7 +59,11 @@ class ListRadio extends React.Component {
           </div>
           <div className="content">
             <div className="field">
-              <label className="label">Description</label>
+              <label className="label">Question Code</label>
+              <input type="text" className="input" name="question[code]" />
+            </div>
+            <div className="field">
+              <label className="label">Title</label>
               <Trumbowyg
                 id="questionDescription"
                 name="question[description]"
@@ -132,5 +117,3 @@ class ListRadio extends React.Component {
     );
   }
 }
-
-export default ListRadio;

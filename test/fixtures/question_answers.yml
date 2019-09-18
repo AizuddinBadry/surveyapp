@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  question: one
+  code: MyText
+  value: 
+  exact_value: MyText
+
+two:
+  question: two
+  code: MyText
+  value: 
+  exact_value: MyText
