@@ -2,10 +2,14 @@ class Api::V1::QuestionsController < Api::BaseController
 
     def create
         @question = Question.new(question_params.merge(:description => params[:questionDescription]))
+        noEmptyAnswer = params[:answer].reject { |c| c.empty? }
+        if noEmptyAnswer.count > 0
+            noEmptyAnswer.each_with_index do |v, i|
+                @question.question_answers.build(:value => i, :exact_value => v)
+            end
+        end
         if @question.save
-            params[:question][:answer].each_with_index |v, i| do
-                @question.build_question_answer :value => i, :exact_value => v
-            end unless !params[:question][:answer].present?
+            @question.update mandatory: false unless question_params[:mandatory].present?
             flash[:success] = 'Successful created new question.'
             render json: {object: @question, status: 200}
         else

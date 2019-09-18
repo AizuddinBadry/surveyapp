@@ -3,7 +3,8 @@
     <td><%= question.description %></td>
     <td><%= question.q_type %></td>
     <td><%= question.question_group.name %></td>
-    <td><%= question.mandatory %></td>
+    <td><%= question.mandatory == true ? '<i class="fa fa-check-circle" style="color:green"></i>'.html_safe : '<i class="fa fa-times-circle" style="color:red"></i>'.html_safe %></td>
+    <td><%= question.question_answers.size > 0 ? question.question_answers.size : '<i class="fa fa-times-circle" style="color:red"></i>'.html_safe %></td>
     <td>
         <p class="buttons">
             <%= link_to '<span class="icon is-small"><i class="fa fa-cog"></i></span>'.html_safe, users_manage_question_path(question.id, survey_id: @survey.id), class: 'button is-small is-primary action'%>

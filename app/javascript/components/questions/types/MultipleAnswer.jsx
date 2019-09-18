@@ -97,7 +97,7 @@ export default class MultipleAnswer extends React.Component {
                     type="text"
                     value={el.value || ""}
                     className="input is-small"
-                    name="question[answer][]"
+                    name="answer[]"
                     onChange={e => this.handleChange(i, e)}
                   />
                 </div>
