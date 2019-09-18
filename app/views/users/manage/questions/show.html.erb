@@ -1,11 +1,9 @@
-
-<meta name="turbolinks-visit-control" content="reload">
 <main class="column">
     <%= form_for :question_group, url: users_manage_question_group_path(params[:id]), method: :put do |f|%>
         <div class="level">
             <div class="level-left">
             <div class="level-item">
-                <div class="title">Group #<%= @question_group.id %> Summary</div>
+                <div class="title">Question Summary</div>
             </div>
             </div>
             <div class="level-right">
@@ -18,7 +16,7 @@
         </div>
         <section class="columns">
             <div class="column is-12">
-                <%= link_to 'Back to survey', users_manage_survey_path(params[:survey_id]), class: 'button is-black', 'data-turbolinks' => false%>
+                <%= link_to 'Back to group', users_manage_question_group_path(params[:group_id], survey_id: @question.question_group.survey.id), class: 'button is-black', 'data-turbolinks' => false%>
                 <% if params[:edit].present? %>
                     <%= f.submit 'Update', class: 'button is-primary'%>
                 <% end %>
@@ -26,15 +24,14 @@
         </section>
         <section class="columns">
             <div class="column is-3">
-                <%= render '/users/manage/question_groups/shared/menu'%>
+                <%= render '/users/manage/questions/shared/menu'%>
             </div>
             <div class="column is-9">
                 <section class="columns is-multiline">
                     <div class="column is-12">
                         <div class="card">
                             <div class="card-content">
-                                <%= hidden_field_tag :external, value: true %>
-                                <%= render '/users/manage/question_groups/shared/form_readonly', f:f%>
+                                
                             </div>
                         </div>
                     </div>
@@ -57,9 +54,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <% @question_group.questions.each do |question|%>
-                                            <%= render '/users/manage/questions/tables/questions', question: question%>
-                                        <% end %>
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -70,4 +65,3 @@
         </section>
     <% end %>
 </main>
-<%= render '/users/manage/questions/shared/question_types'%>

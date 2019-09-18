@@ -1,0 +1,14 @@
+<div class="card">
+    <div class="card-content">
+        <aside class="menu">
+        <p class="menu-label">
+            General
+        </p>
+        <ul class="menu-list">
+            <li><%= link_to '<i class="fa fa-edit"></i> Edit Question'.html_safe, users_manage_question_path(params[:id], group_id: @question.question_group.id, edit: true), data: {turbolinks: false}%></li>
+            <li><%= link_to '<i class="fa fa-times-circle"></i> Delete Question'.html_safe, users_manage_question_group_path(params[:id]), :method => :delete, data: {confirm: 'Are you sure want delete this question group?'}%>
+            <li><a><i class="fa fa-code-branch"></i> Copy Question</a></li>
+        </ul>
+        </aside>
+    </div>
+</div>
