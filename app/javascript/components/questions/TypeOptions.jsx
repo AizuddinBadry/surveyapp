@@ -1,6 +1,7 @@
 var React = require("react");
 import Main from "./types/Main";
 import MultipleAnswer from "./types/MultipleAnswer";
+import OpenEnded from "./types/OpenEnded";
 import "react-trumbowyg/dist/trumbowyg.min.css";
 
 function Step(props) {
@@ -14,6 +15,8 @@ function Step(props) {
     return (
       <MultipleAnswer handler={handler} group_id={group_id} types={types} />
     );
+  } else if (step == 2) {
+    return <OpenEnded handler={handler} group_id={group_id} types={types} />;
   }
 }
 

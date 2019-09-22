@@ -59,7 +59,12 @@ class Main extends React.Component {
         <div className="field">
           <label className="label">Open Ended</label>
           <div className="buttons are-small">
-            <a className="button is-primary is-rounded">Textarea</a>
+            <a
+              className="button is-primary is-rounded"
+              onClick={() => this.props.handler(2, "Textarea")}
+            >
+              Textarea
+            </a>
             <a className="button is-primary is-rounded">Multiple input text</a>
           </div>
         </div>
