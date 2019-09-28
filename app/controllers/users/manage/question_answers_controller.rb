@@ -32,7 +32,7 @@ class Users::Manage::QuestionAnswersController < ApplicationController
       if @question_answer.save
         format.html { redirect_to @question_answer, notice: 'Question answer was successfully created.' }
         format.json { render :show, status: :created, location: @question_answer }
-        format.js {head :ok}
+        format.js {render json: @question_answer}
       else
         format.html { render :new }
         format.json { render json: @question_answer.errors, status: :unprocessable_entity }
