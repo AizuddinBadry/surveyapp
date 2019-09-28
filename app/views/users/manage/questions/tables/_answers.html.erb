@@ -1,0 +1,36 @@
+ <div class="column is-12">
+    <div class="card">
+        <div class="card-header">
+            <p class="card-header-title">Answer Listings 
+            <%= link_to "<i class='fa fa-plus'> </i> Add Answer".html_safe, users_manage_question_answers_path(question_answer:{:exact_value => 'New Question', :question_id => @question.id}), 
+            method: :post, remote:true, class: 'button is-primary is-circle is-small add-answer' %>
+            </p>
+        </div>
+        <div class="card-content">
+            <div id='answers-list' class="list-group columns is-multiline" data-url="<%= sort_users_manage_question_answers_path%>">
+                <%= f.fields_for :question_answers do |ff|%>
+                        <div class="answer list-group-item  column is-12 columns is-multiline" id='<%= dom_id(ff.object)%>'>
+                            <div class="card column is-11">
+                                <div class="card-header">
+                                    <p class="card-header-title"><i class='fa fa-bars pr-5'></i> 
+                                    <%= ff.text_field :exact_value, class: 'input'%>
+                                    <%= ff.hidden_field :id%>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="column is-1">
+                                <p class="buttons pt-15">
+                                    <%= link_to '<span class="icon is-small"><span class="icon is-small"><i class="fa fa-times"></i></span></a>'.html_safe, users_manage_question_answer_path(ff.object),
+                                    :method => :delete, remote: true, class: 'delete_answer button is-small is-danger', data: { confirm: 'Are you sure?' }%>
+                                </p>
+                            </div>
+                        </div>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+<%= render '/users/manage/question_answers/js/delete_answer.js'%>
+<%= render '/users/manage/question_answers/js/add_answer.js'%>
+</script>

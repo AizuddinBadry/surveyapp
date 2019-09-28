@@ -49,6 +49,8 @@ group :development, :production do
   gem 'mini_magick'
   gem 'react-rails'
   gem 'mini_racer'
+  gem "shrine", "~> 2.11"
+  gem 'acts_as_list', :require => 'acts_as_list'
 end
 
 group :test do

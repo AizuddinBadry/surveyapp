@@ -1,5 +1,7 @@
 class Users::Manage::QuestionsController < ApplicationController
-  before_action :set_question, only: [:show, :edit, :update, :destroy]
+  before_action :set_question, only: [:show, :edit, :update, :destroy, :change_type]
+  skip_before_action :verify_authenticity_token, only: :change_type
+
 
   # GET /questions
   # GET /questions.json
@@ -7,19 +9,15 @@ class Users::Manage::QuestionsController < ApplicationController
     @questions = Question.all
   end
 
-  # GET /questions/1
-  # GET /questions/1.json
   def show
   end
 
   # GET /questions/new
   def new
     @question = Question.new
+    @question.question_answers.new
   end
 
-  # GET /questions/1/edit
-  def edit
-  end
 
   # POST /questions
   # POST /questions.json
@@ -41,7 +39,7 @@ class Users::Manage::QuestionsController < ApplicationController
   def update
     respond_to do |format|
       if @question.update(question_params)
-        format.html { redirect_to @question, notice: 'Question was successfully updated.' }
+        format.html { redirect_to request.referrer, flash: {success: 'Question was successfully updated.' }}
         format.json { render :show, status: :ok, location: @question }
       else
         format.html { render :edit }
@@ -55,19 +53,30 @@ class Users::Manage::QuestionsController < ApplicationController
   def destroy
     @question.destroy
     respond_to do |format|
-      format.html { redirect_to request.referrer, flash: {success: 'Question was successfully destroyed.'} }
+      format.html { redirect_to users_manage_question_groups_path, flash: {success: 'Question was successfully destroyed.'} }
       format.json { head :no_content }
     end
   end
 
+  def change_type
+    if @question.update q_type: params[:type]
+      flash[:success] = 'Successful updated question type.'
+      redirect_to request.referrer
+    else
+      flash[:danger] = @question.errors.full_messages.first
+      redirect_to request.referrer
+    end
+  end
+
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_question
       @question = Question.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def question_params
-      params.require(:question).permit(:question_group_id, :q_type, :code, :description, :help, :mandatory, :position)
+      params.require(:question).permit(:question_group_id, :q_type, :code, :description, :help, :mandatory, :position, 
+                                        question_answers_attributes: [:exact_value, :id])
     end
+
+
 end

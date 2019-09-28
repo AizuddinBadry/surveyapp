@@ -7,6 +7,8 @@ require("turbolinks").start();
 require("@rails/activestorage").start();
 require("channels");
 require("jquery");
+require("jquery-ui/ui/widget");
+require("jquery-ui/ui/widgets/sortable");
 require("datatables.net-dt");
 require("datatables-bulma");
 require("bulma-extensions");
@@ -20,6 +22,15 @@ require("bulma-extensions");
 document.addEventListener("turbolinks:load", function() {
   "use strict";
   $(".datatable").DataTable();
+  $("#answers-list").sortable({
+    update: function(e, ui) {
+      $.ajax({
+        url: $(this).data("url"),
+        type: "PUT",
+        data: $(this).sortable("serialize")
+      });
+    }
+  });
 });
 $(document).ready(function() {
   $(".datatable").DataTable();

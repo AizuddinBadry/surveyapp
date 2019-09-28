@@ -14,6 +14,18 @@ export default class OpenEnded extends React.Component {
     this.setState({ values });
   };
 
+  addClick = () => {
+    this.setState(prevState => ({
+      values: [...prevState.values, { value: null }]
+    }));
+  };
+
+  removeClick = i => {
+    let values = [...this.state.values];
+    values.splice(i, 1);
+    this.setState({ values });
+  };
+
   handleSubmit = e => {
     e.preventDefault();
     const form = event.target;
@@ -31,8 +43,12 @@ export default class OpenEnded extends React.Component {
   };
 
   render() {
+    var self = this.props;
     return (
       <form onSubmit={this.handleSubmit}>
+        <div className="column is-12 ">
+          <h5>{self.types}</h5>
+        </div>
         <div className="column is-12">
           <div className="buttons">
             <a
@@ -49,13 +65,6 @@ export default class OpenEnded extends React.Component {
             <div className="field">
               <label className="label">Question Code</label>
               <input type="text" className="input" name="question[code]" />
-            </div>
-            <div className="field">
-              <label className="label">Title</label>
-              <Trumbowyg
-                id="questionDescription"
-                name="question[description]"
-              />
             </div>
             <div className="field">
               <label className="label">This question is mandatory?</label>

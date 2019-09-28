@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
+  mount Shrine.presign_endpoint(:cache) => "/upload"
   
-  resources :question_answers
   mount Ckeditor::Engine => '/ckeditor'
   devise_for :users, controllers: {
         sessions: 'users/sessions'
@@ -13,7 +13,16 @@ Rails.application.routes.draw do
     namespace :manage do
       resources :surveys
       resources :question_groups
-      resources :questions
+      resources :questions do
+        collection do
+          post :change_type
+        end
+      end
+      resources :question_answers do
+        collection do
+          put :sort
+        end
+      end
     end
   end
 

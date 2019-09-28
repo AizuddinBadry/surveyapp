@@ -1,9 +1,9 @@
 <main class="column">
-    <%= form_for :question_group, url: users_manage_question_group_path(params[:id]), method: :put do |f|%>
+    <%= form_for @question, url: users_manage_question_path(params[:id]), method: :put do |f|%>
         <div class="level">
             <div class="level-left">
             <div class="level-item">
-                <div class="title">Question Summary</div>
+                <div class="title"><%= @question.description%></div>
             </div>
             </div>
             <div class="level-right">
@@ -31,37 +31,24 @@
                     <div class="column is-12">
                         <div class="card">
                             <div class="card-content">
-                                
+                                <%= render '/users/manage/questions/shared/form' , f:f%>
                             </div>
                         </div>
                     </div>
-                    <div class="column is-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <p class="card-header-title">Questionaire</p>
-                            </div>
-                            <div class="card-content">
-                                <table class="display datatable" style="width:100%">
-                                    <thead>
-                                        <tr>
-                                            <th>Code</th>
-                                            <th>Question</th>
-                                            <th>Question Type</th>
-                                            <th>Group</th>
-                                            <th>Mandatory</th>
-                                            <th>Answers</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+                   <% if @question.q_type != 'Textarea'%>
+                        <%= render '/users/manage/questions/tables/answers', f:f%>
+                   <% end %>
                 </section>
             </div>
         </section>
     <% end %>
 </main>
+<script>
+    $('#question_q_type').on('change', function(){
+        $.post('<%=change_type_users_manage_questions_path %>', 
+            {id: <%= params[:id] %>, type: $(this).val()})
+            .done(function(response){
+                console.log(response)
+            })
+    })
+</script>

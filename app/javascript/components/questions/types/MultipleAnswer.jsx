@@ -27,15 +27,20 @@ export default class MultipleAnswer extends React.Component {
   };
 
   handleSubmit = e => {
+    var self = this.props;
     e.preventDefault();
     const form = event.target;
     const data = new FormData(form);
-    data.set("question[question_group_id]", this.props.group_id);
-    data.set("question[q_type]", this.props.types);
+    data.set("question[question_group_id]", self.group_id);
+    data.set("question[q_type]", self.types);
     post("/questions", data)
-      .then(data => {
-        console.log(data);
-        window.location.reload();
+      .then(response => {
+        window.location.href =
+          "/users/manage/questions/" +
+          response.data.object.id +
+          "?group_id=" +
+          self.group_id +
+          "";
       })
       .catch(errorMessage => {
         console.log(errorMessage);
@@ -43,8 +48,12 @@ export default class MultipleAnswer extends React.Component {
   };
 
   render() {
+    var self = this.props;
     return (
       <form onSubmit={this.handleSubmit}>
+        <div className="column is-12 ">
+          <h5>{self.types}</h5>
+        </div>
         <div className="column is-12">
           <div className="buttons">
             <a

@@ -7,6 +7,13 @@ class Users::Manage::QuestionAnswersController < ApplicationController
     @question_answers = QuestionAnswer.all
   end
 
+  def sort
+    params[:question_answer].each_with_index do |id, index|
+      QuestionAnswer.where(id: id).update_all position: index + 1
+    end
+    head :ok
+  end
+
   # GET /question_answers/1
   # GET /question_answers/1.json
   def show
@@ -17,22 +24,19 @@ class Users::Manage::QuestionAnswersController < ApplicationController
     @question_answer = QuestionAnswer.new
   end
 
-  # GET /question_answers/1/edit
-  def edit
-  end
-
   # POST /question_answers
   # POST /question_answers.json
   def create
     @question_answer = QuestionAnswer.new(question_answer_params)
-
     respond_to do |format|
       if @question_answer.save
         format.html { redirect_to @question_answer, notice: 'Question answer was successfully created.' }
         format.json { render :show, status: :created, location: @question_answer }
+        format.js {head :ok}
       else
         format.html { render :new }
         format.json { render json: @question_answer.errors, status: :unprocessable_entity }
+        format.js { render json: @question_answer.errors }
       end
     end
   end
@@ -58,6 +62,7 @@ class Users::Manage::QuestionAnswersController < ApplicationController
     respond_to do |format|
       format.html { redirect_to question_answers_url, notice: 'Question answer was successfully destroyed.' }
       format.json { head :no_content }
+      format.js {head :ok}
     end
   end
 

@@ -1,0 +1,26 @@
+<section class="columns">
+  <div class="column">
+    <div class="field">
+        <label class="label">Question Type : 
+        <% if params[:edit].present? %>
+        <div class="control">
+          <div class="select"><%= f.select :q_type, [['List (Radio)', 'List (Radio)'], ['List (Dropdown)', 'List (Dropdown)'], ['List With Comment', 'List With Comment'], 
+                ['5 point choice', '5 point choice'], ['Multiple Choice', 'Multiple Choice'], ['Multiple Choice With Comment', 'Multiple Choice With Comment'], ['Textarea', 'Textarea'], 
+                ['Multiple input text', 'Multiple input text']] %></div>
+        </div>
+        <% else %>
+          <span class="tag is-primary"><%= @question.q_type%> </span>
+        <% end %>
+        </label>
+    </div>
+    <div class="field">
+      <label class="label">Description</label>
+      <%= f.text_area :description, class: 'editor', disabled: params[:edit].present? ? false : true%>
+    </div>
+    <div class="field">
+        <label class="label">This question is mandatory?</label>
+        <%= f.check_box :mandatory, id: 'switch', disabled: params[:edit].present? ? false : true%>
+        <label class="toggle" for="switch"></label>
+    </div>
+  </div>
+</section>
