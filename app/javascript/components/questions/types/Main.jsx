@@ -13,29 +13,25 @@ class Main extends React.Component {
           <div className="buttons are-small">
             <a
               className="button is-primary is-rounded"
-              onClick={() => this.props.handler(1, "List (Radio) Questionaire")}
+              onClick={() => this.props.handler(1, "List (Radio)")}
             >
               List Radio
             </a>
             <a
               className="button is-primary is-rounded"
-              onClick={() =>
-                this.props.handler(1, "List (Dropdown) Questionaire")
-              }
+              onClick={() => this.props.handler(1, "List (Dropdown)")}
             >
               List Dropdown
             </a>
             <a
               className="button is-primary is-rounded"
-              onClick={() =>
-                this.props.handler(1, "List With Comment Questionaire")
-              }
+              onClick={() => this.props.handler(1, "List With Comment")}
             >
               List with comment
             </a>
             <a
               className="button is-primary is-rounded"
-              onClick={() => this.props.handler(1, "5 point Questionaire")}
+              onClick={() => this.props.handler(1, "5 point")}
             >
               5 point choice
             </a>
@@ -46,9 +42,7 @@ class Main extends React.Component {
           <div className="buttons are-small">
             <a
               className="button is-primary is-rounded"
-              onClick={() =>
-                this.props.handler(1, "Multiple Choice Questionaire")
-              }
+              onClick={() => this.props.handler(1, "Multiple Choice")}
             >
               Multiple Choice
             </a>
@@ -70,15 +64,13 @@ class Main extends React.Component {
           <div className="buttons are-small">
             <a
               className="button is-primary is-rounded"
-              onClick={() => this.props.handler(2, "Textarea Questionaire")}
+              onClick={() => this.props.handler(2, "Textarea")}
             >
               Textarea
             </a>
             <a
               className="button is-primary is-rounded"
-              onClick={() =>
-                this.props.handler(1, "Multiple input text Questionaire")
-              }
+              onClick={() => this.props.handler(1, "Multiple input text")}
             >
               Multiple input text
             </a>

@@ -11,8 +11,16 @@ Rails.application.routes.draw do
 
   namespace :users do
     namespace :manage do
-      resources :surveys
-      resources :question_groups
+      resources :surveys do
+        collection do 
+          get '/preview/:id', to: 'surveys#preview', as: 'preview'
+        end
+      end
+      resources :question_groups do
+        collection do
+          post :check_logic
+        end
+      end
       resources :questions do
         collection do
           post :change_type

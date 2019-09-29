@@ -1,0 +1,25 @@
+<% if @question.q_type == 'Textarea' %>
+    <%= f.text_area :answer, cols: "30", rows: "5", class: 'textarea' %>
+<% elsif @question.q_type == 'List (Radio)' %>
+    <% @question.question_answers.each do |answer|%>
+        <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
+        <%= f.radio_button :answer, answer.value %>
+        <%= f.label :answer, answer.exact_value, :value => answer.value, class: 'radio' %>
+        </div>
+    <% end %>
+<% elsif @question.q_type == 'List (Dropdown)'%>
+    <div class="select">
+        <% options = options_from_collection_for_select(@question.question_answers, 'value', 'exact_value') %>
+        <%= f.select :answer,  options, :include_blank => 'Please select an answer' %>
+    </div>
+<% elsif @question.q_type == 'Multiple Choice'%>
+    <% @question.question_answers.each do |answer|%>
+        <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
+            <label class="checkbox">
+                <%= f.check_box :answer %>
+                <%= answer.exact_value%>
+            </label>
+            
+        </div>
+    <% end %>
+<% end %>

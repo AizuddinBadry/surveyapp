@@ -1,5 +1,6 @@
 class Users::Manage::SurveysController < Users::BaseController
-    before_action :get_survey, only: [:show, :update, :destroy]
+    before_action :get_survey, only: [:show, :update, :destroy, :preview]
+    layout 'survey', only: [:preview]
     def index
         @surveys = Survey.all.order(:created_at => :desc)
     end
@@ -40,6 +41,11 @@ class Users::Manage::SurveysController < Users::BaseController
         if @survey.destroy
             redirect_to request.referrer, :flash => {:success => 'Successful destroyed survey.'}
         end
+    end
+
+    def preview
+        @question_group = QuestionGroup.where(survey_id: @survey.id, order: params[:g]).first unless !params[:g].present?
+        @question = Question.where(position: params[:q], question_group_id: @question_group.id).first unless !params[:q].present?
     end
     
 

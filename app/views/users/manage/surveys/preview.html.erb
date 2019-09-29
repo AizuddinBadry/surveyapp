@@ -1,0 +1,11 @@
+<div class="column is-12">
+    <div class="card" style="min-height: 600px;position: relative; ">
+        <div class="card-content">
+            <% if params[:intro].present? %>
+                <%= render '/users/manage/surveys/shared/start_screen'%>
+            <% elsif params[:g].present? %>
+                <%= render '/users/manage/surveys/shared/questionaire'%>
+            <% end %>
+        </div>
+    </div>
+</div>

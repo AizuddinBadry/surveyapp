@@ -16,8 +16,13 @@
     <%= form_for(@survey, url: users_manage_survey_path(@survey.id), method: :put) do |f|%>
         <section class="columns">
             <div class="column is-12">
-                <%= link_to 'Back', users_manage_surveys_path, class: 'button is-black', 'data-turbolinks' => false%>
+                <%= link_to 'Back', users_manage_surveys_path, class: 'button is-black'%>
                 <%= f.submit 'Update', class: 'button is-primary'%>
+                <% if @survey.show_intro_screen ==  true %>
+                    <%= link_to 'Preview', preview_users_manage_surveys_path(@survey.id, intro: true), class: 'button is-primary'%>
+                <% else %>
+                    <%= link_to 'Preview', preview_users_manage_surveys_path(@survey.id), class: 'button is-primary'%>
+                <% end %>
             </div>
         </section>
         <%= render '/users/manage/surveys/shared/form', f: f%>

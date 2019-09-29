@@ -33,6 +33,7 @@
                     <div class="column is-12">
                         <div class="card">
                             <div class="card-content">
+                                <%= render '/users/manage/question_groups/shared/error_logics'%>
                                 <%= hidden_field_tag :external, value: true %>
                                 <%= render '/users/manage/question_groups/shared/form_readonly', f:f%>
                             </div>

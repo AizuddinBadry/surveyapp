@@ -46,8 +46,6 @@ class Users::Manage::QuestionGroupsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /question_groups/1
-  # PATCH/PUT /question_groups/1.json
   def update
     respond_to do |format|
       if @question_group.update(question_group_params)
@@ -60,8 +58,6 @@ class Users::Manage::QuestionGroupsController < ApplicationController
     end
   end
 
-  # DELETE /question_groups/1
-  # DELETE /question_groups/1.json
   def destroy
     @question_group.destroy
     respond_to do |format|
@@ -70,13 +66,23 @@ class Users::Manage::QuestionGroupsController < ApplicationController
     end
   end
 
+  def check_logic
+    @verify = ErrorLogic::GroupLogic.call(params[:id])
+    if @verify
+      flash[:success] = 'This group doesnt have any logic error.'
+      redirect_to request.referrer
+    else
+      flash[:danger] = 'Please verify your question answer.'
+      redirect_to request.referrer
+    end
+  end
+
   private
-    # Use callbacks to share common setup or constraints between actions.
+
     def set_question_group
       @question_group = QuestionGroup.find(params[:id])
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def question_group_params
       params.require(:question_group).permit(:order, :name, :description, :survey_id)
     end

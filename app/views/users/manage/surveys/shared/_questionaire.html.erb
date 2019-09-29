@@ -1,0 +1,21 @@
+<%= form_for(:questionaire, url: '') do |f|%>
+<div class="columns is-multiline">
+    <div class="column is-12">
+        <label><%= @question_group.name%> : <%= @question_group.description%></label>
+    </div>
+    <div class="column is-12">
+        <h3 class="title"><%= @question.description.html_safe %></h3>
+    </div>
+    <div class="column is-12">
+        <%= render '/users/manage/surveys/shared/survey_questionaire/answer_types', f:f%>
+    </div>
+    <div class="column is-12 has-text-right pl-20" style="bottom:20px;position:absolute">
+        <%= link_to 'Back', request.referrer, class: 'button is-dark'%>
+        <% if @question_group.questions.size == params[:q].to_i%>
+                <%= link_to 'Next', preview_users_manage_surveys_path(@survey.id, g: params[:g].to_i + 1 , q: 1), class: 'button is-primary-gradient'%>
+        <% else %>
+            <%= link_to 'Next', preview_users_manage_surveys_path(@survey.id, g: params[:g] , q: params[:q].to_i + 1), class: 'button is-primary-gradient'%>
+        <%  end %>
+    </div>
+</div>
+<% end %>

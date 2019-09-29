@@ -7,14 +7,14 @@
         <ul class="menu-list">
             <li><%= link_to '<i class="fa fa-edit"></i> Edit question group'.html_safe, users_manage_question_group_path(params[:id], survey_id: @survey.id, edit: true), data: {turbolinks: false}%></li>
             <li><%= link_to '<i class="fa fa-times-circle"></i> Delete Question Group'.html_safe, users_manage_question_group_path(params[:id]), :method => :delete, data: {confirm: 'Are you sure want delete this question group?'}%>
-            <li><a><i class="fa fa-code-branch"></i> Check Question Group logic</a></li>
+            <li><%= link_to '<i class="fa fa-code-branch"></i> Check Question Group logic'.html_safe, check_logic_users_manage_question_groups_path(id: params[:id]), method: :post%></li>
         </ul>
         <p class="menu-label">
             Questionaire
         </p>
         <ul class="menu-list">
             <li><a data-target="modal-question-types" class="open-modal"><i class="fa fa-plus-circle"></i> Add Questionaire</a></li>
-            <li><a><i class="fa fa-file-import"></i> Import Questionaire</a></li>
+            <li><%= link_to '<i class="fa fa-file-import"></i> Import Questionaire'.html_safe, check_logic_users_manage_question_groups_path%></li>
         </ul>
         <p class="menu-label">
             Extra

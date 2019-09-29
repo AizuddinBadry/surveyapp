@@ -1,0 +1,51 @@
+<html>
+  <head>
+    <title>Surveyapp</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'https://use.fontawesome.com/releases/v5.10.2/css/all.css', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <style>
+    body{
+      background: linear-gradient(90deg, #00d2ff 0%, #3a47d5 100%);
+    }
+    .card{
+      border-radius: 20px;
+    }
+    .bg-warning{
+      background: #F2994A;  /* fallback for old browsers */
+      background: -webkit-linear-gradient(to left, #F2C94C, #F2994A);  /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to left, #F2C94C, #F2994A); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    }
+    .is-primary-gradient{
+      color: white !important;
+      background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(67,144,233,1) 0%, rgba(78,226,198,1) 90.1% );
+      text-transform: uppercase;
+    }
+  </style>
+
+  <body>
+    <div class="section">
+      <div class="columns is-multiline">
+        <% if controller.action_name == 'preview' %>
+          <div class="column is-4 is-offset-4">
+            <div class="card bg-warning">
+                <div class="card-content has-text-centered">
+                    This is preview mode, no data will be save.
+                </div>
+            </div>
+          </div>
+        <% end %>
+        <%= alert %>
+        <%= yield %>
+      </div>
+    </div>
+  </body>
+</html>

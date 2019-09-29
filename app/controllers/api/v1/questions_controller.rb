@@ -2,10 +2,12 @@ class Api::V1::QuestionsController < Api::BaseController
 
     def create
         @question = Question.new(question_params.merge(:description => params[:questionDescription]))
-        noEmptyAnswer = params[:answer].reject { |c| c.empty? }
-        if noEmptyAnswer.count > 0
-            noEmptyAnswer.each_with_index do |v, i|
-                @question.question_answers.build(:value => i, :exact_value => v)
+        noEmptyAnswer = params[:answer].reject { |c| c.empty? } unless !params[:answer].present?
+        if params[:answer].present?
+            if noEmptyAnswer.count > 0
+                noEmptyAnswer.each_with_index do |v, i|
+                    @question.question_answers.build(:value => i, :exact_value => v)
+                end
             end
         end
         if @question.save

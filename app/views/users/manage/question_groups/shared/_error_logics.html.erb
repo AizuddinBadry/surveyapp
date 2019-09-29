@@ -1,0 +1,10 @@
+<div class="pb-20">
+    <% if @question_group.verify_error == false%>
+        <span class="tag is-warning is-small">Warning: This group not verify logic error yet.</span>
+    <% end %>
+    <% if @question_group.any_error == true%>
+        <span class="tag is-danger is-small">Warning: This group contain a logic error (<%= @question_group.group_error_logics.size %>).</span>
+    <% elsif @question_group.any_error == false && @question_group.verify_error == true %>
+        <span class="tag is-success is-small">Logic Error: No logic error detected.</span>
+    <% end %>
+</div>
