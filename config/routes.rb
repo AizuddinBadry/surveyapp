@@ -31,6 +31,10 @@ Rails.application.routes.draw do
           put :sort
         end
       end
+      resources :settings do
+        collection do
+        end
+      end
     end
   end
 
