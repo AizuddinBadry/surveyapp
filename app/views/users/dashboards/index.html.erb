@@ -1,81 +1,151 @@
 <main class="column">
     <div class="level">
         <div class="level-left">
-        <div class="level-item">
-            <div class="title">Dashboard</div>
-        </div>
+            <div class="level-item">
+                <div class="title">Dashboard</div>
+            </div>
         </div>
         <div class="level-right">
-        <div class="level-item">
-            <button type="button" class="button is-small">
-            March 8, 2017
-            </button>
-        </div>
+            <div class="level-item">
+                <button type="button" class="button is-small">
+                    March 8, 2017
+                </button>
+            </div>
         </div>
     </div>
-    
+
     <div class="columns is-multiline">
-    <div class="column">
-        <div class="box container">
-        <div class="heading ">Welcome !</div>
+        <div class="column">
+            <div class="box container">
+                <div class="heading ">Welcome <strong><%= @users.email %></strong>!</div>
+            </div>
         </div>
     </div>
-    </div>
-    
+
     <div class="columns is-multiline">
-    <div class="column is-5">
-        <div class="card">
-            <header class="card-header">
-                <p class="card-header-title">
-                Survey Results
-                </p>
-                <a href="#" class="card-header-icon" aria-label="more options">
-                <span class="icon">
-                    <i class="fas fa-angle-down" aria-hidden="true"></i>
-                </span>
-                </a>
-            </header>
-            <div class="card-content">
-                <div class="content">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
-                <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
-                <br>
-                <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+        <div class="column is-one-third">
+            <div class="level-right">
+                <div class="level-item">
+                    <div class="card" style="width: 250px;">
+                        <%= link_to new_users_manage_survey_path do %>
+                            <p class="card-title" style="text-align:center;">
+                                <strong>Create Survey</strong>
+                            </p>
+                            <div class="card-content">
+                                <div class="content">
+                                    <p style="text-align:center;">
+                                        <img class="card-img-top smallimg" src="/add-new.png" alt="Create Survey" height="60" width="60">
+                                    </p>
+                                </div>
+                            </div>
+                            <% end %>
+                    </div>
                 </div>
             </div>
-            <footer class="card-footer">
-                <a href="#" class="card-footer-item">Save</a>
-                <a href="#" class="card-footer-item">Edit</a>
-                <a href="#" class="card-footer-item">Delete</a>
-            </footer>
         </div>
-    </div>
-    <div class="column is-7">
-        <div class="card">
-            <header class="card-header">
-                <p class="card-header-title">
-                Survey
-                </p>
-                <a href="#" class="card-header-icon" aria-label="more options">
-                <span class="icon">
-                    <i class="fas fa-angle-down" aria-hidden="true"></i>
-                </span>
-                </a>
-            </header>
-            <div class="card-content">
-                <div class="content">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
-                <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
-                <br>
-                <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+        <div class="column is-one-third">
+            <div class="level-center">
+                <div class="level-item">
+                    <div class="card" style="width: 250px;">
+                        <%= link_to users_manage_surveys_path do %>
+                            <p class="card-title" style="text-align:center;">
+                                <strong>List Surveys</strong>
+                            </p>
+                            <div class="card-content">
+                                <div class="content">
+                                    <p style="text-align:center;">
+                                        <img class="card-img-top smallimg" src="/list.png" alt="List Surveys" height="60" width="60">
+                                    </p>
+                                </div>
+                            </div>
+                            <% end %>
+                    </div>
                 </div>
             </div>
-            <footer class="card-footer">
-                <a href="#" class="card-footer-item">Save</a>
-                <a href="#" class="card-footer-item">Edit</a>
-                <a href="#" class="card-footer-item">Delete</a>
-            </footer>
         </div>
-    </div>
+
+        <div class="column is-one-third">
+            <div class="level-left">
+                <div class="level-item">
+                    <div class="card" style="width: 250px;">
+                        <a href="#">
+                            <p class="card-title" style="text-align:center;">
+                                <strong>Global Settings</strong>
+                            </p>
+                            <div class="card-content">
+                                <div class="content">
+                                    <p style="text-align:center;">
+                                        <img class="card-img-top smallimg" src="/settings.png" alt="Global Settings" height="60" width="60">
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="column is-one-third">
+            <div class="level-right">
+                <div class="level-item">
+                    <div class="card" style="width: 250px;">
+                        <a href="#">
+                            <p class="card-title" style="text-align:center;">
+                                <strong>Comfort Update</strong>
+                            </p>
+                            <div class="card-content">
+                                <div class="content">
+                                    <p style="text-align:center;">
+                                        <img class="card-img-top smallimg" src="/shield.png" alt="Comfort Update" height="60" width="60">
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="column is-one-third">
+            <div class="level-center">
+                <div class="level-item">
+                    <div class="card" style="width: 250px;">
+                        <a href="#">
+                            <p class="card-title" style="text-align:center;">
+                                <strong>Lime Store</strong>
+                            </p>
+                            <div class="card-content">
+                                <div class="content">
+                                    <p style="text-align:center;">
+                                        <img class="card-img-top smallimg" src="/add-to-cart.png" alt="Lime Store" height="60" width="60">
+                                    </p>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="column is-one-third">
+            <div class="level-left">
+                <div class="level-item">
+                    <div class="card" style="width: 250px;">
+                        <a href="#">
+                            <p class="card-title" style="text-align:center;">
+                                <strong>Themes</strong>
+                            </p>
+                            <div class="card-content">
+                                <div class="content">
+                                    <p style="text-align:center;">
+                                        <img class="card-img-top smallimg" src="/theme.png" alt="Themes" height="60" width="60">
+                                    </p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </main>
