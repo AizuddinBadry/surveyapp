@@ -31,6 +31,15 @@ Rails.application.routes.draw do
           put :sort
         end
       end
+      resources :company_settings do
+        collection do
+        end
+      end
+      resources :personal_settings do
+        collection do
+          patch :update_password
+        end
+      end
     end
   end
 
