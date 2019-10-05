@@ -15,10 +15,10 @@
         </div>
     </div>
 
-    <%= form_for(@user, url: users_manage_settings_path) do |f|%>
-        <%= render '/users/manage/settings/shared/form', f: f%>
+    <%= form_for(@company, url: users_manage_company_setting_path(@company.id)) do |f|%>
+        <%= render '/users/manage/company_settings/shared/form', f: f%>
     <% end %>
 </main>
 <script>
-    <%= render '/users/manage/settings/shared/form.js'%>
+    <%= render '/users/manage/company_settings/shared/form.js'%>
 </script>

@@ -1,0 +1,81 @@
+<section class="columns">
+    <div class="column">
+        <div class="card">
+            <div class="card-header card-toggle">
+                <p class="card-header-title">Personal Information</p>
+                <a class="card-header-icon">
+                    <i class="fa fa-angle-down"></i>
+                </a>
+            </div>
+            <div class="card-content toggle-content">
+
+                <div class="content">
+
+                     <div class="field is-horizontal">
+                    <div class="field-label is-normal">
+                        <label class="label">Company Name</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                <%= f.text_field :name, placeholder: 'Phone Number', class: 'input'%>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field is-horizontal">
+                    <div class="field-label is-normal">
+                        <label class="label">Company Logo</label>
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                <div id="file-js-example" class="file has-name">
+                                    <label class="file-label">
+                                        <%= f.file_field :image, class: 'file-input'%>
+                                        <span class="file-cta">
+                                            <span class="file-icon">
+                                                <i class="fas fa-upload"></i>
+                                            </span>
+                                            <span class="file-label">
+                                                Choose a file…
+                                            </span>
+                                        </span>
+                                        <span class="file-name">
+                                            No file uploaded
+                                        </span>
+                                    </label>
+                                </div>
+                                <br />
+                                <% if @company.image_data? %>
+                                <%= image_tag @company.image_url , style:"max-width:150px;" %>
+                                <% else %>
+                                <img id="blah" src="http://placehold.it/150" alt="your image" style=" max-width:150px;">
+                                <% end %>
+
+                                <br />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field is-horizontal">
+                    <div class="field-label">
+                        <!-- Left empty for spacing -->
+                    </div>
+                    <div class="field-body">
+                        <div class="field">
+                            <div class="control">
+                                <%= f.submit 'Update', class: 'button is-primary'%>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
