@@ -5,7 +5,7 @@
         <% if params[:edit].present? %>
         <div class="control">
           <div class="select"><%= f.select :q_type, [['List (Radio)', 'List (Radio)'], ['List (Dropdown)', 'List (Dropdown)'], ['List With Comment', 'List With Comment'], 
-                ['5 point choice', '5 point choice'], ['Multiple Choice', 'Multiple Choice'], ['Multiple Choice With Comment', 'Multiple Choice With Comment'], ['Textarea', 'Textarea'], 
+                ['5 point choice', '5 point choice'], ['Multiple Choice', 'Multiple Choice'], ['Multiple Choice With Comment', 'Multiple Choice With Comment'], ['Multiple Choice With Limit', 'Multiple Choice With Limit'], ['Textarea', 'Textarea'], 
                 ['Multiple input text', 'Multiple input text']] %></div>
         </div>
         <% else %>
@@ -17,6 +17,13 @@
       <label class="label">Description</label>
       <%= f.text_area :description, class: 'editor', disabled: params[:edit].present? ? false : true%>
     </div>
+  <% if @question.limit.present? %>
+    <div class="field">
+      <label class="label">Limit Answers</label>
+      <%= f.number_field :limit, class: 'input', disabled: params[:edit].present? ? false : true%>
+    </div>
+  <% end %>
+
     <div class="field">
         <label class="label">This question is mandatory?</label>
         <%= f.check_box :mandatory, id: 'switch', disabled: params[:edit].present? ? false : true%>

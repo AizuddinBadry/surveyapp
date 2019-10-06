@@ -22,6 +22,6 @@ class Api::V1::QuestionsController < Api::BaseController
     private
 
     def question_params
-        params.require(:question).permit(:question_group_id, :q_type, :code, :description, :help, :mandatory, :position)
+        params.require(:question).permit(:question_group_id, :q_type, :code, :description, :help, :mandatory, :limit ,:position)
     end
 end
