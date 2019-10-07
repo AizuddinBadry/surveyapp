@@ -104,7 +104,7 @@ export default class MultipleAnswer extends React.Component {
                 <div className="column is-3">
                   <input
                     type="text"
-                    value={el.value || "Q" + i}
+                    value={"Q" + i}
                     className="input is-small"
                     name="code[]"
                     placeholder="Code"
