@@ -101,7 +101,16 @@ export default class MultipleAnswer extends React.Component {
             {this.state.values.map((el, i) => (
               <div key={i} className="columns">
                 <div className="column is-2">{i + 1}.</div>
-                <div className="column is-8">
+                <div className="column is-2">
+                  <input
+                    type="text"
+                    value={el.value || ""}
+                    className="input is-small"
+                    name="code[]"
+                    onChange={e => this.handleChange(i, e)}
+                  />
+                </div>
+                <div className="column is-6">
                   <input
                     type="text"
                     value={el.value || ""}
