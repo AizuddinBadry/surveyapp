@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       resources :question_groups do
         collection do
           post :check_logic
+          put '/order/sort', to: 'question_groups#sort', as: 'group_sorting'
         end
       end
       resources :questions do

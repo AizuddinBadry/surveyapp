@@ -18,7 +18,7 @@
         </div>
         <section class="columns">
             <div class="column is-12">
-                <%= link_to 'Back to survey', users_manage_survey_path(params[:survey_id]), class: 'button is-black', 'data-turbolinks' => false%>
+                <%= link_to 'Back to survey', users_manage_survey_path(@question_group.survey_id), class: 'button is-black', 'data-turbolinks' => false%>
                 <% if params[:edit].present? %>
                     <%= f.submit 'Update', class: 'button is-primary'%>
                 <% end %>
@@ -42,7 +42,7 @@
                     <div class="column is-12">
                         <div class="card">
                             <div class="card-header">
-                                <p class="card-header-title">Questionaire</p>
+                                <p class="card-header-title">Questions</p>
                             </div>
                             <div class="card-content">
                                 <table class="display datatable" style="width:100%">
