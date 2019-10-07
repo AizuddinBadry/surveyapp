@@ -1,0 +1,24 @@
+
+<main class="column">
+    <div class="level">
+        <div class="level-left">
+        <div class="level-item">
+            <div class="title">Company Information</div>
+        </div>
+        </div>
+        <div class="level-right">
+        <div class="level-item">
+            <button type="button" class="button is-small">
+            March 8, 2017
+            </button>
+        </div>
+        </div>
+    </div>
+
+    <%= form_for(@company, url: users_manage_company_setting_path(@company.id)) do |f|%>
+        <%= render '/users/manage/company_settings/shared/form', f: f%>
+    <% end %>
+</main>
+<script>
+    <%= render '/users/manage/company_settings/shared/form.js'%>
+</script>
