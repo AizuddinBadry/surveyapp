@@ -32,6 +32,7 @@ Rails.application.routes.draw do
           put :sort
         end
       end
+      resources :subquestions
       resources :company_settings do
         collection do
         end
