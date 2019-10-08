@@ -17,6 +17,8 @@ function Step(props) {
     );
   } else if (step == 2) {
     return <OpenEnded handler={handler} group_id={group_id} types={types} />;
+  } else if (step == 3) {
+    return <Mask handler={handler} group_id={group_id} types={types} />;
   }
 }
 
