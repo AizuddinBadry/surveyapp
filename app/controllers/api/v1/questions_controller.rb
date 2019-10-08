@@ -6,7 +6,7 @@ class Api::V1::QuestionsController < Api::BaseController
         if params[:answer].present?
             if noEmptyAnswer.count > 0
                 noEmptyAnswer.each_with_index do |v, i|
-                    @question.question_answers.build(:value => i, :exact_value => v)
+                    @question.question_answers.build(:value => i, :exact_value => v, :code => params[:code][i])
                 end
             end
         end

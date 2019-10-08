@@ -80,9 +80,10 @@ export default class MultipleAnswer extends React.Component {
             <div className="field">
               <label className="label">Question Code</label>
               <input type="text" className="input" name="question[code]" />
+              <small>*Question code are required.</small>
             </div>
             <div className="field">
-              <label className="label">Title</label>
+              <label className="label">Question</label>
               <Trumbowyg
                 id="questionDescription"
                 name="question[description]"
@@ -113,13 +114,24 @@ export default class MultipleAnswer extends React.Component {
             </div>
             {this.state.values.map((el, i) => (
               <div key={i} className="columns">
-                <div className="column is-2">{i + 1}.</div>
-                <div className="column is-8">
+                <div className="column is-1">{i + 1}.</div>
+                <div className="column is-3">
+                  <input
+                    type="text"
+                    value={"A" + i}
+                    className="input is-small"
+                    name="code[]"
+                    placeholder="Code"
+                    onChange={e => this.handleChange(i, e)}
+                  />
+                </div>
+                <div className="column is-6">
                   <input
                     type="text"
                     value={el.value || ""}
                     className="input is-small"
                     name="answer[]"
+                    placeholder="Answer"
                     onChange={e => this.handleChange(i, e)}
                   />
                 </div>

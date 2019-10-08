@@ -4,9 +4,9 @@
         <label class="label">Question Type : 
         <% if params[:edit].present? %>
         <div class="control">
-          <div class="select"><%= f.select :q_type, [['List (Radio)', 'List (Radio)'], ['List (Dropdown)', 'List (Dropdown)'], ['List With Comment', 'List With Comment'], 
-                ['5 point choice', '5 point choice'], ['Multiple Choice', 'Multiple Choice'], ['Multiple Choice With Comment', 'Multiple Choice With Comment'], ['Multiple Choice With Limit', 'Multiple Choice With Limit'], ['Textarea', 'Textarea'], 
-                ['Multiple input text', 'Multiple input text']] %></div>
+          <div class="select"><%= f.select :q_type, [['Radio Button', 'Radio Button'], ['Select Dropdown', 'Select Dropdown'], ['Level', 'Level'], ['Radio Button With Comment', 'Radio Button With Comment'], 
+                ['5 point', '5 point'], ['Checkbox', 'Checkbox'], ['Checkbox With Comment', 'Checkbox With Comment'], ['Textarea', 'Textarea'], 
+                ['Multiple input text', 'Multiple input text'],['Multiple input with limit', 'Multiple input with limit'], ['Array', 'Array']] %></div>
         </div>
         <% else %>
           <span class="tag is-primary"><%= @question.q_type%> </span>

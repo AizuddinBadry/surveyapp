@@ -13,21 +13,21 @@ class Main extends React.Component {
           <div className="buttons are-small">
             <a
               className="button is-primary is-rounded"
-              onClick={() => this.props.handler(1, "List (Radio)")}
+              onClick={() => this.props.handler(1, "Radio Button")}
             >
-              List Radio
+              Radio Button
             </a>
             <a
               className="button is-primary is-rounded"
-              onClick={() => this.props.handler(1, "List (Dropdown)")}
+              onClick={() => this.props.handler(1, "Select Dropdown")}
             >
-              List Dropdown
+              Select Dropdown
             </a>
             <a
               className="button is-primary is-rounded"
-              onClick={() => this.props.handler(1, "List With Comment")}
+              onClick={() => this.props.handler(1, "Radio Button With Comment")}
             >
-              List with comment
+              Radio Button With Comment
             </a>
             <a
               className="button is-primary is-rounded"
@@ -48,20 +48,15 @@ class Main extends React.Component {
           <div className="buttons are-small">
             <a
               className="button is-primary is-rounded"
-              onClick={() => this.props.handler(1, "Multiple Choice")}
+              onClick={() => this.props.handler(1, "Checkbox")}
             >
-              Multiple Choice
+              Checkbox
             </a>
             <a
               className="button is-primary is-rounded"
-              onClick={() =>
-                this.props.handler(
-                  1,
-                  "Multiple Choice with comments Questionaire"
-                )
-              }
+              onClick={() => this.props.handler(1, "Checkbox With Comment")}
             >
-              Multiple Choice with comments
+              Checkbox With Comment
             </a>
             <a
               className="button is-primary is-rounded"
@@ -90,6 +85,17 @@ class Main extends React.Component {
               onClick={() => this.props.handler(1, "Multiple input text")}
             >
               Multiple input text
+            </a>
+          </div>
+        </div>
+        <div className="field">
+          <label className="label">Arrays</label>
+          <div className="buttons are-small">
+            <a
+              className="button is-primary is-rounded"
+              onClick={() => this.props.handler(1, "Array")}
+            >
+              Array
             </a>
           </div>
         </div>
