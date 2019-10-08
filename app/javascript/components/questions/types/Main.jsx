@@ -33,7 +33,13 @@ class Main extends React.Component {
               className="button is-primary is-rounded"
               onClick={() => this.props.handler(1, "5 point")}
             >
-              5 point choice
+              5 point
+            </a>
+            <a
+              className="button is-primary is-rounded"
+              onClick={() => this.props.handler(1, "Level")}
+            >
+              Level
             </a>
           </div>
         </div>
