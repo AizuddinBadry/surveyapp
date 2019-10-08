@@ -2,6 +2,7 @@
 // present in this directory. You're encouraged to place your actual application logic in
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
+var ReactRailsUJS = require("react_ujs");
 require("@rails/ujs").start();
 require("turbolinks").start();
 require("@rails/activestorage").start();
@@ -31,6 +32,15 @@ document.addEventListener("turbolinks:load", function() {
       });
     }
   });
+  $("#groups-list").sortable({
+    update: function(e, ui) {
+      $.ajax({
+        url: $(this).data("url"),
+        type: "PUT",
+        data: $(this).sortable("serialize")
+      });
+    }
+  });
 });
 $(document).ready(function() {
   $(".datatable").DataTable();
@@ -50,5 +60,4 @@ $(document).ready(function() {
 });
 // Support component names relative to this directory:
 var componentRequireContext = require.context("components", true);
-var ReactRailsUJS = require("react_ujs");
 ReactRailsUJS.useContext(componentRequireContext);

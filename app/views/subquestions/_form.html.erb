@@ -1,0 +1,42 @@
+<%= form_with(model: subquestion, local: true) do |form| %>
+  <% if subquestion.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(subquestion.errors.count, "error") %> prohibited this subquestion from being saved:</h2>
+
+      <ul>
+        <% subquestion.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :question_id %>
+    <%= form.text_field :question_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :code %>
+    <%= form.text_area :code %>
+  </div>
+
+  <div class="field">
+    <%= form.label :value %>
+    <%= form.text_field :value %>
+  </div>
+
+  <div class="field">
+    <%= form.label :exact_value %>
+    <%= form.text_area :exact_value %>
+  </div>
+
+  <div class="field">
+    <%= form.label :position %>
+    <%= form.text_field :position %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

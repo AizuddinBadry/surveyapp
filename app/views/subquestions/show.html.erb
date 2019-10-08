@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Question:</strong>
+  <%= @subquestion.question_id %>
+</p>
+
+<p>
+  <strong>Code:</strong>
+  <%= @subquestion.code %>
+</p>
+
+<p>
+  <strong>Value:</strong>
+  <%= @subquestion.value %>
+</p>
+
+<p>
+  <strong>Exact value:</strong>
+  <%= @subquestion.exact_value %>
+</p>
+
+<p>
+  <strong>Position:</strong>
+  <%= @subquestion.position %>
+</p>
+
+<%= link_to 'Edit', edit_subquestion_path(@subquestion) %> |
+<%= link_to 'Back', subquestions_path %>

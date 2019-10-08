@@ -50,6 +50,12 @@ input[type="checkbox"]#switch {
   visibility: hidden;
 }
 
+input[type="checkbox"]#show-final-button {
+  height: 0;
+  width: 0;
+  visibility: hidden;
+}
+
 label.toggle {
   cursor: pointer;
   text-indent: -9999px;

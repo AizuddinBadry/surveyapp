@@ -1,0 +1,36 @@
+<% @question_group = QuestionGroup.find_by_id(group.id)%>
+<div class="column is-12"> 
+    <div class="card">
+        <div class="card-header card-toggle">
+            <p class="card-header-title"><i class='fa fa-bars pr-5'></i>  Group :  <span class="pl-2"><%= link_to group.name, users_manage_question_group_path(group.id)%></span> <span class="pl-5">(<%= group.questions.size %>)</span></p>
+            <div class="card-header-icon pt-2">
+                <%= link_to '<span class="icon is-small"><i class="fas fa-eye"></i></span>'.html_safe, users_manage_question_group_path(group.id), class: 'button is-primary is-small mt-6', data: {turbolinks: false} %>
+            </div>
+            <a class="card-header-icon">
+                <i class="fa fa-angle-down"></i>
+            </a>
+        </div>
+        <div class="card-content toggle-content">
+            <div class="content">
+                <table class="display datatable" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Code</th>
+                            <th>Question</th>
+                            <th>Question Type</th>
+                            <th>Group</th>
+                            <th>Mandatory</th>
+                            <th>Answers</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% @question_group.questions.each do |question|%>
+                            <%= render '/users/manage/questions/tables/questions', question: question%>
+                        <% end %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

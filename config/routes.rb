@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       resources :question_groups do
         collection do
           post :check_logic
+          put '/order/sort', to: 'question_groups#sort', as: 'group_sorting'
         end
       end
       resources :questions do
@@ -31,6 +32,7 @@ Rails.application.routes.draw do
           put :sort
         end
       end
+      resources :subquestions
       resources :company_settings do
         collection do
         end
@@ -46,6 +48,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :questions, only: [:create]
+      resources :surveys, only: [:show]
     end
   end
 

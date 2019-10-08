@@ -77,6 +77,13 @@ class Users::Manage::QuestionGroupsController < ApplicationController
     end
   end
 
+  def sort
+    params[:question_group].each_with_index do |id, index|
+      QuestionGroup.where(id: id).update_all order: index + 1
+    end
+    head :ok
+  end
+
   private
 
     def set_question_group
