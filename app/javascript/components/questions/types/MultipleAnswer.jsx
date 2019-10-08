@@ -70,9 +70,10 @@ export default class MultipleAnswer extends React.Component {
             <div className="field">
               <label className="label">Question Code</label>
               <input type="text" className="input" name="question[code]" />
+              <small>*Question code are required.</small>
             </div>
             <div className="field">
-              <label className="label">Title</label>
+              <label className="label">Question</label>
               <Trumbowyg
                 id="questionDescription"
                 name="question[description]"
@@ -104,7 +105,7 @@ export default class MultipleAnswer extends React.Component {
                 <div className="column is-3">
                   <input
                     type="text"
-                    value={"Q" + i}
+                    value={"A" + i}
                     className="input is-small"
                     name="code[]"
                     placeholder="Code"

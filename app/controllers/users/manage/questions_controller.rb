@@ -51,9 +51,10 @@ class Users::Manage::QuestionsController < ApplicationController
   # DELETE /questions/1
   # DELETE /questions/1.json
   def destroy
+    @group_id = @question.group_id
     @question.destroy
     respond_to do |format|
-      format.html { redirect_to users_manage_question_group_path(params[:group_id], survey_id: params[:survey_id]), flash: {success: 'Question was successfully destroyed.'} }
+      format.html { redirect_to users_manage_question_group_path(@group_id), flash: {success: 'Question was successfully destroyed.'} }
       format.json { head :no_content }
     end
   end

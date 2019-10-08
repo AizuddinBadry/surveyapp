@@ -12,7 +12,10 @@
                     <div class="answer list-group-item  column is-12 columns is-multiline" id='<%= dom_id(ff.object)%>'>
                         <div class="card column is-11">
                             <div class="card-header">
-                                <p class="card-header-title"><i class='fa fa-bars pr-5'></i> 
+                                <p class="card-header-title">
+                                <i class='fa fa-bars pr-5'></i> 
+                                <div class="pr-3">
+                                <%= ff.text_field :code, class: 'input'%></div>
                                 <%= ff.text_field :exact_value, class: 'input'%>
                                 <%= ff.hidden_field :id%>
                                 </p>
