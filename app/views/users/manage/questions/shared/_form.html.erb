@@ -6,7 +6,7 @@
         <div class="control">
           <div class="select"><%= f.select :q_type, [['Radio Button', 'Radio Button'], ['Select Dropdown', 'Select Dropdown'], ['Radio Button With Comment', 'Radio Button With Comment'], 
                 ['5 point', '5 point'], ['Checkbox', 'Checkbox'], ['Checkbox With Comment', 'Checkbox With Comment'], ['Textarea', 'Textarea'], 
-                ['Multiple input text', 'Multiple input text']] %></div>
+                ['Multiple input text', 'Multiple input text'], ['Array', 'Array']] %></div>
         </div>
         <% else %>
           <span class="tag is-primary"><%= @question.q_type%> </span>
