@@ -1,8 +1,8 @@
  <div class="column is-12">
     <div class="card">
         <div class="card-header">
-            <p class="card-header-title">Answer Listings 
-            <%= link_to "<i class='fa fa-plus'> </i> Add Answer".html_safe, users_manage_question_answers_path(question_answer:{:exact_value => 'New Question', :question_id => @question.id}), 
+            <p class="card-header-title">Subquestion Listings 
+            <%= link_to "<i class='fa fa-plus'> </i> Add Subquestion".html_safe, users_manage_question_answers_path(question_answer:{:exact_value => 'New Question', :question_id => @question.id}), 
             method: :post, remote:true, class: 'button is-primary is-circle is-small add-answer' %>
             </p>
         </div>
