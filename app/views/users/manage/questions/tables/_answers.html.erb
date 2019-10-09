@@ -5,7 +5,7 @@
             <%= link_to "<i class='fa fa-plus'> </i> Add Answer".html_safe, users_manage_question_answers_path(question_answer:{:exact_value => 'New Question', :question_id => @question.id}), 
             method: :post, remote:true, class: 'button is-primary is-circle is-small add-answer' %>
             <% if @question.q_type == 'Array'%>
-            <%= link_to "Edit Subquestions".html_safe, nil, class: 'button is-primary is-circle is-small'%>
+            <%= link_to "Edit Subquestions".html_safe, users_manage_subquestions_path, class: 'button is-primary is-circle is-small'%>
             <% end %>
             </p>
         </div>
