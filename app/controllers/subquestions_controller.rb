@@ -1,14 +1,10 @@
 class SubquestionsController < ApplicationController
   before_action :set_subquestion, only: [:show, :edit, :update, :destroy]
 
-  # GET /subquestions
-  # GET /subquestions.json
   def index
     @subquestions = Subquestion.all
   end
 
-  # GET /subquestions/1
-  # GET /subquestions/1.json
   def show
   end
 
