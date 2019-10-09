@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_09_071531) do
+ActiveRecord::Schema.define(version: 2019_10_09_174913) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,13 +33,13 @@ ActiveRecord::Schema.define(version: 2019_10_09_071531) do
   end
 
   create_table "conditions", force: :cascade do |t|
-    t.text "qid"
-    t.text "cqid"
     t.text "method"
     t.text "value"
     t.text "scenario"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "question_id"
+    t.bigint "condition_question_id"
   end
 
   create_table "group_error_logics", force: :cascade do |t|

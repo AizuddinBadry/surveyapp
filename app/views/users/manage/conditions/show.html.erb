@@ -52,7 +52,7 @@
                             </thead>
                             <tbody>
                                 <% @result_condition.each do |result_conditions|%>
-                                    <tr><% @result = Question.where(id: result_conditions.cqid).first %>
+                                    <tr><% @result = Question.where(id: result_conditions.condition_question_id).first %>
                                         <td><%= @result.code%>: [<%= @result.q_type%>] <%= @result.description%></td>
                                         <td><%= result_conditions.method %></td>
                                         <td><%= result_conditions.value %></td>

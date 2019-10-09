@@ -24,7 +24,7 @@
   <div class="column is-4">
     <div class="field">
       <label class="label">Description</label>
-      <%= f.collection_select :cqid, @questions.all, :id, :name_dropdown, {}, size: 7  , class: 'form-control' %>
+      <%= f.collection_select :condition_question_id, @questions.all, :id, :name_dropdown, {}, size: 7  , class: 'form-control' %>
     </div>
 
   </div>
@@ -35,5 +35,5 @@
          <%= f.collection_select :value, @answer.all, :code, :exact_value, {}, size: 7 , class: 'form-control' %>
     </div>
   </div>
-  <%= f.hidden_field :qid , class:"input" , value: params[:id] %>
+  <%= f.hidden_field :question_id , class:"input" , value: params[:id] %>
 </section>

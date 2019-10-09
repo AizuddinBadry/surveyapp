@@ -9,7 +9,7 @@ class Users::Manage::ConditionsController < ApplicationController
   end
 
   def show
-    @result_condition = Condition.where(qid: params[:id])
+    @result_condition = Condition.where(question_id: params[:id])
     @survey = Survey.where(user_id: current_user.id).first
     @questions = Question.joins(:question_group).where(question_groups: {survey_id: @survey.id})
      @questions.each do |question|
@@ -73,7 +73,7 @@ class Users::Manage::ConditionsController < ApplicationController
     end
 
     def question_params
-      params.require(:condition).permit(:qid, :cqid, :method, :value, :scenario )
+      params.require(:condition).permit(:question_id, :condition_question_id, :method, :value, :scenario )
 
     end
 
