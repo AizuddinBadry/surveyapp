@@ -1,0 +1,39 @@
+<section class="columns">
+ 
+  <div class="column is-4">
+    <h2>Add condition</h2><br />
+    <h2>Scenario</h2><br />
+    <div id="defaultscenarioshow" class="col-xs-12">
+      <span>
+        Default scenario </span>
+        <%= f.number_field :scenario , class:"input" , value: 1 %>
+    </div>
+    <br />
+    <div class="field">
+      <label class="label">Comparison operator</label>
+        <div class="control">
+          <div class="select">
+            <%= f.select :method, [['Less than', '<'], ['Less than or equal to', '<='], ['Qquals', '=='], 
+                ['Not equal to', '!='], ['Greater than or equal to', '>='], ['Greater than', '>'], ['Regular expression', 'RX']] %>
+          </div>
+        </div>
+      
+    </div>
+
+  </div>
+  <div class="column is-4">
+    <div class="field">
+      <label class="label">Description</label>
+      <%= f.collection_select :cqid, @questions.all, :id, :name_dropdown, {}, size: 7  , class: 'form-control' %>
+    </div>
+
+  </div>
+  <div class="column is-4">
+     
+    <div class="field">
+      <label class="label">Answer</label>
+         <%= f.collection_select :value, @answer.all, :code, :exact_value, {}, size: 7 , class: 'form-control' %>
+    </div>
+  </div>
+  <%= f.hidden_field :qid , class:"input" , value: params[:id] %>
+</section>

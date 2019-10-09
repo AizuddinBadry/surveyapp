@@ -1,0 +1,96 @@
+<main class="column">
+    <%= form_for @condition, url: users_manage_conditions_path do |f|%>
+    <div class="level">
+        <div class="level-left">
+            <div class="level-item">
+                <div class="title"><%= @question.code%></div>
+            </div>
+        </div>
+        <div class="level-right">
+            <div class="level-item">
+                <button type="button" class="button is-small">
+                    March 8, 2017
+                </button>
+            </div>
+        </div>
+    </div>
+    <section class="columns">
+        <div class="column is-12">
+            <div class="pb-10">
+                <%= link_to 'Back to group', users_manage_question_group_path(params[:group_id], survey_id: @question.question_group.survey.id), class: 'button is-black', 'data-turbolinks' => false%>
+
+            </div>
+                <%= link_to 'Clear', users_manage_condition_path(params[:id], group_id: @question.question_group.id, edit: true), data: {turbolinks: false}, class: 'button is-primary'%>
+                <%= f.submit 'Add Condition', class: 'button is-primary'%>
+</div>
+    </section>
+    <section class="columns">
+        <div class="column is-12">
+            Conditions designer
+            <hr>
+            Only show question <%= @question.code %> : <%= @question.description %> if:<br />
+            <hr>
+
+        </div>
+    </section>
+    <section class="columns">
+        <div class="column is-12">
+            <section class="columns is-multiline">
+            <div class="column is-12">
+              <% if @result_condition.present? %>
+                    <div class="card">
+                        <div class="card-content">
+                             <table class="display datatable" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Method</th>
+                                    <th>Value</th>
+                                    <th>Scenario</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% @result_condition.each do |result_conditions|%>
+                                    <tr><% @result = Question.where(id: result_conditions.cqid).first %>
+                                        <td><%= @result.code%>: [<%= @result.q_type%>] <%= @result.description%></td>
+                                        <td><%= result_conditions.method %></td>
+                                        <td><%= result_conditions.value %></td>
+                                        <td><%= result_conditions.scenario %></td>
+                                        <td> 
+                                        <p class="buttons">
+                                            <%= link_to '<span class="icon is-small"><i class="fa fa-cog"></i></span>'.html_safe, users_manage_survey_path(result_conditions.id), data: {turbolinks: false}, class: 'button is-small is-primary action'%>
+                                            <%= link_to '<span class="icon is-small"><i class="fa fa-times"></i></span>'.html_safe, users_manage_survey_path(result_conditions.id), :method => :delete, class: 'button is-small is-danger action'%>
+                                        </p>
+                                        </td>
+                                    </tr>
+                                <% end %>
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
+                    <% end %>
+                </div>
+                <div class="column is-12">
+                    <div class="card">
+                        <div class="card-content">
+                            <%= render '/users/manage/conditions/shared/form' , f:f%>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </section>
+    <% end %>
+</main>
+<script>
+    $('#question_q_type').on('change', function () {
+        $.post('<%=change_type_users_manage_questions_path %>', {
+                id: < %= params[: id] % > ,
+                type: $(this).val()
+            })
+            .done(function (response) {
+                console.log(response)
+            })
+    })
+</script>
