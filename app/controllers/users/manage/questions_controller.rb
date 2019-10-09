@@ -51,7 +51,7 @@ class Users::Manage::QuestionsController < ApplicationController
   # DELETE /questions/1
   # DELETE /questions/1.json
   def destroy
-    @group_id = @question.group_id
+    @group_id = @question.question_group_id
     @question.destroy
     respond_to do |format|
       format.html { redirect_to users_manage_question_group_path(@group_id), flash: {success: 'Question was successfully destroyed.'} }
