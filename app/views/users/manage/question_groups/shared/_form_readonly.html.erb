@@ -2,7 +2,7 @@
   <div class="column">
     <div class="field">
       <label class="label">Group Name</label>
-      <%= f.hidden_field :survey_id, value: @question_group.id%>
+      <%= f.hidden_field :survey_id, value: @survey.present? ? @survey.id : @question_group.id%>
       <%= f.text_field :name, class: 'input', disabled: params[:edit].present? ? false : true%>
     </div>
     <div class="field">

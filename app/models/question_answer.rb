@@ -6,6 +6,6 @@ class QuestionAnswer < ApplicationRecord
     self.position ||= size + 1
   end
 
-  belongs_to :question
+  belongs_to :question, optional: true
   #acts_as_list scope: :question
 end

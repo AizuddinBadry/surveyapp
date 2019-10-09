@@ -16,17 +16,20 @@
         </div>
         <section class="columns">
             <div class="column is-12">
+                <div class="pb-10">
                 <%= link_to 'Back to group', users_manage_question_group_path(params[:group_id], survey_id: @question.question_group.survey.id), class: 'button is-black', 'data-turbolinks' => false%>
                 <% if params[:edit].present? %>
                     <%= f.submit 'Update', class: 'button is-primary'%>
                 <% end %>
+                </div>
+                <%= link_to '<i class="fa fa-edit"></i> Edit Question'.html_safe, users_manage_question_path(params[:id], group_id: @question.question_group.id, edit: true), data: {turbolinks: false}, class: 'button is-primary'%>
+                <a class="button is-primary"><i class="fa fa-code-branch"></i> Copy Question</a>
+                <%= link_to '<i class="fa fa-times-circle"></i> Delete Question'.html_safe, users_manage_question_path(params[:id]), :method => :delete, data: {confirm: 'Are you sure want delete this question?'}, class: 'button is-danger'%>
+                
             </div>
         </section>
         <section class="columns">
-            <div class="column is-3">
-                <%= render '/users/manage/questions/shared/menu'%>
-            </div>
-            <div class="column is-9">
+            <div class="column is-12">
                 <section class="columns is-multiline">
                     <div class="column is-12">
                         <div class="card">
