@@ -7,6 +7,11 @@ class Question < ApplicationRecord
     self.position ||= size + 1
   end
 
+  def name_dropdown
+    "#{code} : [ #{q_type} ]  #{description}"
+  end
+
+
 
   belongs_to :question_group, optional: true
   has_many :question_answers, :dependent => :destroy 

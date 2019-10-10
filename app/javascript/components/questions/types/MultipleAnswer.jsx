@@ -49,6 +49,16 @@ export default class MultipleAnswer extends React.Component {
 
   render() {
     var self = this.props;
+    var answer_limit;
+    const islimit = 'Multiple Choice with Limit';
+
+    if ( islimit == self.types )
+    {
+      answer_limit =  <div className="field">
+      <label className="label">Limit Answers</label>
+      <input type="number" className="input" name="question[limit]" id="answer_limit" placeholder/>
+    </div>
+    };
     return (
       <form onSubmit={this.handleSubmit}>
         <div className="column is-12 ">
@@ -79,6 +89,9 @@ export default class MultipleAnswer extends React.Component {
                 name="question[description]"
               />
             </div>
+            {answer_limit}
+           
+ 
             <div className="field">
               <label className="label">This question is mandatory?</label>
               <input
