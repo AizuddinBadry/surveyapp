@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_08_020931) do
+ActiveRecord::Schema.define(version: 2019_10_09_174913) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +30,16 @@ ActiveRecord::Schema.define(version: 2019_10_08_020931) do
     t.text "image_data"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "conditions", force: :cascade do |t|
+    t.text "method"
+    t.text "value"
+    t.text "scenario"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "question_id"
+    t.bigint "condition_question_id"
   end
 
   create_table "group_error_logics", force: :cascade do |t|
@@ -75,6 +85,7 @@ ActiveRecord::Schema.define(version: 2019_10_08_020931) do
     t.datetime "updated_at", precision: 6, null: false
     t.text "image"
     t.text "image_data"
+    t.bigint "limit"
     t.index ["question_group_id"], name: "index_questions_on_question_group_id"
   end
 

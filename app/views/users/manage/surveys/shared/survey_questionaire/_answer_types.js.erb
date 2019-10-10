@@ -1,0 +1,6 @@
+
+$(".limitcheck").click(function() {
+var nameValue = document.getElementById("limit_answers").value;
+var bol = $(".limitcheck:checked").length >= nameValue;     
+$(".limitcheck").not(":checked").attr("disabled",bol);
+});

@@ -12,7 +12,7 @@
         <% options = options_from_collection_for_select(@question.question_answers, 'value', 'exact_value') %>
         <%= f.select :answer,  options, :include_blank => 'Please select an answer' %>
     </div>
-<% elsif @question.q_type == 'Multiple Choice'%>
+<% elsif @question.q_type == 'Checkbox'%>
     <% @question.question_answers.each do |answer|%>
         <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
             <label class="checkbox">
@@ -21,4 +21,41 @@
             </label>
         </div>
     <% end %>
+<% elsif @question.q_type == 'Checkbox With Comment'%>
+    <% @question.question_answers.each do |answer|%>
+        <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
+            <label class="checkbox">
+                <%= f.check_box :answer %>
+                <%= answer.exact_value%>
+            </label>
+            <%= f.text_area :comment, cols: "30", rows: "2", class: 'textarea' %>
+        </div>
+    <% end %>
+<% elsif @question.q_type == 'Checkbox With Limit'%>
+        <%= f.hidden_field :limit , value: @question.limit , id:"limit_answers" %>
+    <% @question.question_answers.each do |answer|%>
+        <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
+            
+            <label class="checkbox">
+                <%= f.check_box :answer , class: 'limitcheck' %>
+                <%= answer.exact_value%>
+            </label>
+        </div>
+    <% end %>
+<% elsif @question.q_type == 'Level'%>
+    <% @question.question_answers.each do |answer|%>
+        <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
+        <%= f.radio_button :answer, answer.value %>
+        <%= f.label :answer, answer.exact_value, :value => answer.value, class: 'radio' %>
+        </div>
+<% end %>
+<% elsif @question.q_type == 'Ranking'%>
+   <% @question.question_answers.each do |answer|%>
+        <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
+        <%= f.number_field :answer , min: 1 , max: @question.question_answers.size %>
+        <%= answer.exact_value %>
+        </div>
+<% end %>
+<% elsif @question.q_type == 'Numerical'%>
+        <%= f.number_field :answer , maxlength: 20 ,class:"input" %>
 <% end %>

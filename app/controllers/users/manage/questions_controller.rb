@@ -75,8 +75,9 @@ class Users::Manage::QuestionsController < ApplicationController
     end
 
     def question_params
-      params.require(:question).permit(:question_group_id, :q_type, :code, :description, :help, :mandatory, :position, 
+      params.require(:question).permit(:question_group_id, :q_type, :code, :description, :help, :mandatory, :position, :limit,
                                         question_answers_attributes: [:exact_value, :id, :code])
+
     end
 
 
