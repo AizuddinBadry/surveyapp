@@ -10,5 +10,7 @@ class Question < ApplicationRecord
 
   belongs_to :question_group, optional: true
   has_many :question_answers, :dependent => :destroy 
+  has_many :subquestions, :dependent => :destroy
   accepts_nested_attributes_for :question_answers
+  accepts_nested_attributes_for :subquestions
 end

@@ -17,14 +17,15 @@ class Users::Manage::SubquestionsController < ApplicationController
 
   def create
     @subquestion = Subquestion.new(subquestion_params)
-
     respond_to do |format|
       if @subquestion.save
         format.html { redirect_to @subquestion, notice: 'Subquestion was successfully created.' }
         format.json { render :show, status: :created, location: @subquestion }
+        format.js {render json: @subquestion}
       else
         format.html { render :new }
         format.json { render json: @subquestion.errors, status: :unprocessable_entity }
+        format.js { render json: @subquestion.errors }
       end
     end
   end

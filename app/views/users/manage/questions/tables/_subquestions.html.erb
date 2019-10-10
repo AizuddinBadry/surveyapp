@@ -3,13 +3,13 @@
         <div class="card-header">
             <p class="card-header-title">Subquestion Listings 
             <%= link_to "<i class='fa fa-plus'> </i> Add Subquestion".html_safe, users_manage_question_answers_path(question_answer:{:exact_value => 'New Question', :question_id => @question.id}), 
-            method: :post, remote:true, class: 'button is-primary is-circle is-small add-answer' %>
+            method: :post, remote:true, class: 'button is-primary is-circle is-small add-subquestion' %>
             </p>
         </div>
         <div class="card-content">
-            <div id='answers-list' class="list-group columns is-multiline" data-url="<%= sort_users_manage_question_answers_path%>">
-                <%= f.fields_for :question_answers, f.object.question_answers.order(position: :asc) do |ff|%>
-                    <div class="answer list-group-item  column is-12 columns is-multiline" id='<%= dom_id(ff.object)%>'>
+            <div id='subquestion-list' class="list-group columns is-multiline" data-url="<%= sort_users_manage_question_answers_path%>">
+                <%= f.fields_for :subquestions, f.object.subquestions.order(position: :asc) do |ff|%>
+                    <div class="subquestions list-group-item  column is-12 columns is-multiline" id='<%= dom_id(ff.object)%>'>
                         <div class="card column is-11">
                             <div class="card-header">
                                 <p class="card-header-title">
@@ -33,7 +33,3 @@
         </div>
     </div>
 </div>
-<script>
-<%= render '/users/manage/question_answers/js/delete_answer.js'%>
-<%= render '/users/manage/question_answers/js/add_answer.js'%>
-</script>
