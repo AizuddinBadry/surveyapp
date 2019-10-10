@@ -192,3 +192,31 @@ label:active:after {
   margin-left: 10px;
   border-radius: 50px !important;
 }
+
+/* Custom table*/
+
+#arrays td,
+#arrays th {
+  border: 1px solid white;
+  padding: 8px;
+  min-width: 200px;
+  width: 100%;
+  font-size: 12px;
+  text-align: center !important;
+}
+
+#arrays tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+#arrays tr:hover {
+  background-color: #ddd;
+}
+
+#arrays th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: grey;
+  color: white;
+}

@@ -48,14 +48,34 @@
         <%= f.radio_button :answer, answer.value %>
         <%= f.label :answer, answer.exact_value, :value => answer.value, class: 'radio' %>
         </div>
-<% end %>
+    <% end %>
 <% elsif @question.q_type == 'Ranking'%>
    <% @question.question_answers.each do |answer|%>
         <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
         <%= f.number_field :answer , min: 1 , max: @question.question_answers.size %>
         <%= answer.exact_value %>
         </div>
-<% end %>
+    <% end %>
+<% elsif @question.q_type == 'Array' %>
+    <div style="margin-top:10px;padding:10px;">
+        <table class="table table-responsive" id="arrays">
+            <tr>
+                <th></th>
+                <% @question.question_answers.each do |answer|%>
+                    <th><%= answer.exact_value%></th>
+                <% end %>
+            </tr>
+            <% @question.subquestions.order(position: :asc).each_with_index do |subquestion, index|%>
+                <tr>
+                    <td><%=subquestion.exact_value%></td>
+                    <% @question.question_answers.order(position: :asc).each do |answer|%>
+                        <td><%= radio_button_tag "questionaire[#{index}][answer]", answer.value %></td>
+                    <% end %>
+                </tr>
+            <% end %>
+        </table>
+    </div>
+
 <% elsif @question.q_type == 'Numerical'%>
         <%= f.number_field :answer , maxlength: 20 ,class:"input" %>
 <% end %>

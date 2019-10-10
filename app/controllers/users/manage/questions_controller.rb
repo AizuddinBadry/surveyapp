@@ -50,6 +50,8 @@ class Users::Manage::QuestionsController < ApplicationController
   end
 
   def preview
+    @question_group = @question.question_group
+    @preview_mode = 'Question'
   end
 
   def change_type
