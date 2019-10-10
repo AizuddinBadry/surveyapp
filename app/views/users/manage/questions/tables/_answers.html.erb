@@ -2,7 +2,7 @@
     <div class="card">
         <div class="card-header">
             <p class="card-header-title">Answer Listings 
-            <%= link_to "<i class='fa fa-plus'> </i> Add Answer".html_safe, users_manage_question_answers_path(question_answer:{:exact_value => 'New Question', :question_id => @question.id}), 
+            <%= link_to "<i class='fa fa-plus'> </i> Add Answer".html_safe, users_manage_question_answers_path(question_answer:{:code => "A",:exact_value => 'New Question', :question_id => @question.id}), 
             method: :post, remote:true, class: 'button is-primary is-circle is-small add-answer' %>
             </p>
         </div>
@@ -22,7 +22,7 @@
                             </div>
                         </div>
                         <div class="column is-1">
-                            <p class="buttons pt-15">
+                            <p class="buttons pt-5">
                                 <%= link_to '<span class="icon is-small"><span class="icon is-small"><i class="fa fa-times"></i></span></a>'.html_safe, users_manage_question_answer_path(ff.object),
                                 :method => :delete, remote: true, class: 'delete_answer button is-small is-danger', data: { confirm: 'Are you sure?' }%>
                             </p>

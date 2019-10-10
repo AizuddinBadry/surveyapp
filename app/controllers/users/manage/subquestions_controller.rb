@@ -5,6 +5,13 @@ class Users::Manage::SubquestionsController < ApplicationController
     @subquestions = Subquestion.all
   end
 
+  def sort
+    params[:subquestion].each_with_index do |id, index|
+      Subquestion.where(id: id).update_all position: index + 1
+    end
+    head :ok
+  end
+
   def show
   end
 
@@ -47,6 +54,7 @@ class Users::Manage::SubquestionsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to subquestions_url, notice: 'Subquestion was successfully destroyed.' }
       format.json { head :no_content }
+      format.js {head :ok}
     end
   end
 
