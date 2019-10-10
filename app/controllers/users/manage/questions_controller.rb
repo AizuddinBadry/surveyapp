@@ -1,10 +1,8 @@
 class Users::Manage::QuestionsController < ApplicationController
-  before_action :set_question, only: [:show, :edit, :update, :destroy, :change_type]
+  before_action :set_question, only: [:show, :edit, :update, :destroy, :change_type, :preview]
   skip_before_action :verify_authenticity_token, only: :change_type
+  layout 'survey', only: [:preview]
 
-
-  # GET /questions
-  # GET /questions.json
   def index
     @questions = Question.all
   end
@@ -12,15 +10,11 @@ class Users::Manage::QuestionsController < ApplicationController
   def show
   end
 
-  # GET /questions/new
   def new
     @question = Question.new
     @question.question_answers.new
   end
 
-
-  # POST /questions
-  # POST /questions.json
   def create
     @question = Question.new(question_params)
     respond_to do |format|
@@ -34,8 +28,6 @@ class Users::Manage::QuestionsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /questions/1
-  # PATCH/PUT /questions/1.json
   def update
     respond_to do |format|
       if @question.update(question_params)
@@ -48,8 +40,6 @@ class Users::Manage::QuestionsController < ApplicationController
     end
   end
 
-  # DELETE /questions/1
-  # DELETE /questions/1.json
   def destroy
     @group_id = @question.question_group_id
     @question.destroy
@@ -57,6 +47,9 @@ class Users::Manage::QuestionsController < ApplicationController
       format.html { redirect_to users_manage_question_group_path(@group_id), flash: {success: 'Question was successfully destroyed.'} }
       format.json { head :no_content }
     end
+  end
+
+  def preview
   end
 
   def change_type

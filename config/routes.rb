@@ -25,6 +25,7 @@ Rails.application.routes.draw do
       resources :questions do
         collection do
           post :change_type
+          get '/preview/:id', to: 'questions#preview', as: 'preview'
         end
       end
       resources :question_answers do

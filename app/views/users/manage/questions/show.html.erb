@@ -23,8 +23,8 @@
                 <% end %>
                 </div>
                 <%= link_to '<i class="fa fa-edit"></i> Edit Question'.html_safe, users_manage_question_path(params[:id], group_id: @question.question_group.id, edit: true), data: {turbolinks: false}, class: 'button is-primary'%>
+                <%= link_to '<i class="fa fa-eye pr-2"></i> Preview Question'.html_safe, users_manage_condition_path(params[:id], group_id: @question.question_group.id, edit: true), data: {turbolinks: false}, class: 'button is-primary'%>
                 <a class="button is-primary"><i class="fa fa-code-branch"></i> Copy Question</a>
-                <%= link_to '<i class="fa fa-edit"></i> Set Conditions'.html_safe, users_manage_condition_path(params[:id], group_id: @question.question_group.id, edit: true), data: {turbolinks: false}, class: 'button is-primary'%>
                 <%= link_to '<i class="fa fa-times-circle"></i> Delete Question'.html_safe, users_manage_question_path(params[:id]), :method => :delete, data: {confirm: 'Are you sure want delete this question?'}, class: 'button is-danger'%>
             </div>
         </section>
