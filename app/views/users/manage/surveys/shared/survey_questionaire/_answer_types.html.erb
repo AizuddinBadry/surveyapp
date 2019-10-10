@@ -67,7 +67,7 @@
             </tr>
             <% @question.subquestions.order(position: :asc).each_with_index do |subquestion, index|%>
                 <tr>
-                    <td><%=subquestion.exact_value%></td>
+                    <td><%= subquestion.code %>. <%=subquestion.exact_value%></td>
                     <% @question.question_answers.order(position: :asc).each do |answer|%>
                         <td><%= radio_button_tag "questionaire[#{index}][answer]", answer.value %></td>
                     <% end %>

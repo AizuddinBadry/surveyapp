@@ -204,6 +204,9 @@ label:active:after {
   font-size: 12px;
   text-align: center !important;
 }
+#arrays td:first-child {
+  text-align: left !important;
+}
 
 #arrays tr:nth-child(even) {
   background-color: #f2f2f2;
