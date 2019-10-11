@@ -10,13 +10,20 @@ class Api::V1::QuestionsController < Api::BaseController
                 end
             end
         end
-        if @question.save
-            @question.update mandatory: false unless question_params[:mandatory].present?
-            flash[:success] = 'Successful created new question.'
-            render json: {object: @question, status: 200}
+        if Question::Exists.new(question_params[:code], question_params[:question_group_id])
+            render json: {object: 'Code is exists!', status: 500}, status: 500
         else
-            render json: {object: @question.errors.full_messages.first, status: 404}
+            if @question.save
+                @question.update mandatory: false unless question_params[:mandatory].present?
+                flash[:success] = 'Successful created new question.'
+                render json: {object: @question, status: 200}
+            else
+                render json: {object: @question.errors.full_messages.first, status: 404}
+            end
         end
+    end
+
+    def sort
     end
 
     private
@@ -24,4 +31,6 @@ class Api::V1::QuestionsController < Api::BaseController
     def question_params
         params.require(:question).permit(:question_group_id, :q_type, :code, :description, :help, :mandatory, :limit ,:position)
     end
+
+    
 end

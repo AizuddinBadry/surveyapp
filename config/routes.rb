@@ -56,7 +56,11 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :questions, only: [:create]
+      resources :questions, only: [:create] do
+        collection do
+          post :sort
+        end
+      end
       resources :surveys, only: [:show]
     end
   end

@@ -5,7 +5,12 @@ import { post } from "../../apiUtils/webApi";
 export default class MultipleAnswer extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { values: [{ value: null }] };
+    this.state = {
+      values: [{ value: null }],
+      status:
+        '<span class="tag is-warning" id="status">This code is exists. Please use unique code for each question.</span>',
+      error: false
+    };
   }
 
   handleChange = (i, event) => {
@@ -43,22 +48,35 @@ export default class MultipleAnswer extends React.Component {
           "";
       })
       .catch(errorMessage => {
-        console.log(errorMessage);
+        this.setState({
+          error: true
+        });
       });
   };
 
   render() {
     var self = this.props;
     var answer_limit;
-    const islimit = 'Multiple Choice with Limit';
+    var warning;
+    const islimit = "Multiple Choice with Limit";
 
-    if ( islimit == self.types )
-    {
-      answer_limit =  <div className="field">
-      <label className="label">Limit Answers</label>
-      <input type="number" className="input" name="question[limit]" id="answer_limit" placeholder/>
-    </div>
-    };
+    if (islimit == self.types) {
+      answer_limit = (
+        <div className="field">
+          <label className="label">Limit Answers</label>
+          <input
+            type="number"
+            className="input"
+            name="question[limit]"
+            id="answer_limit"
+            placeholder
+          />
+        </div>
+      );
+    }
+    if (this.state.error == true) {
+      warning = <div dangerouslySetInnerHTML={{ __html: this.state.status }} />;
+    }
     return (
       <form onSubmit={this.handleSubmit}>
         <div className="column is-12 ">
@@ -77,6 +95,7 @@ export default class MultipleAnswer extends React.Component {
             </button>
           </div>
           <div className="content">
+            <div className="field">{warning}</div>
             <div className="field">
               <label className="label">Question Code</label>
               <input type="text" className="input" name="question[code]" />
@@ -90,8 +109,7 @@ export default class MultipleAnswer extends React.Component {
               />
             </div>
             {answer_limit}
-           
- 
+
             <div className="field">
               <label className="label">This question is mandatory?</label>
               <input

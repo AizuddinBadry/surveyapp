@@ -11,6 +11,7 @@ require("jquery");
 require("jquery-ui/ui/widget");
 require("jquery-ui/ui/widgets/sortable");
 require("datatables.net-dt");
+require("datatables.net-rowreorder-dt");
 require("datatables-bulma");
 require("bulma-extensions");
 
@@ -53,6 +54,29 @@ document.addEventListener("turbolinks:load", function() {
 });
 $(document).ready(function() {
   $(".datatable").DataTable();
+
+  var table = $(".questions-datatable").DataTable({
+    rowReorder: true
+  });
+
+  table.on("row-reorder", function(e, diff, edit) {
+    var result =
+      "Reorder started on row: " + edit.triggerRow.data()[0] + "<br>";
+
+    for (var i = 0, ien = diff.length; i < ien; i++) {
+      var rowData = table.row(diff[i].node).data();
+
+      result +=
+        rowData[1] +
+        " updated to be in position " +
+        rowData[2] +
+        " (was " +
+        rowData[2] +
+        ")<br>";
+    }
+
+    $("#result").html("Event result:<br>" + result);
+  });
   $(".card-toggle").click(function() {
     $(this)
       .next()

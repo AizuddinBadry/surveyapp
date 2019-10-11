@@ -16,26 +16,37 @@ class Users::Manage::QuestionsController < ApplicationController
   end
 
   def create
-    @question = Question.new(question_params)
-    respond_to do |format|
-      if @question.save
-        format.html { redirect_to @question, notice: 'Question was successfully created.' }
-        format.json { render :show, status: :created, location: @question }
-      else
-        format.html { render :new }
-        format.json { render json: @question.errors, status: :unprocessable_entity }
+    if Question::Exists.new(question_params[:code], question_params[:question_group_id])
+      flash[:warning] = 'This code is exists. Please use unique code for each question.'
+      redirect_to request.referrer
+    else
+      @question = Question.new(question_params)
+      respond_to do |format|
+        if @question.save
+          format.html { redirect_to @question, notice: 'Question was successfully created.' }
+          format.json { render :show, status: :created, location: @question }
+        else
+          format.html { render :new }
+          format.json { render json: @question.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
 
   def update
-    respond_to do |format|
-      if @question.update(question_params)
-        format.html { redirect_to request.referrer, flash: {success: 'Question was successfully updated.' }}
-        format.json { render :show, status: :ok, location: @question }
-      else
-        format.html { render :edit }
-        format.json { render json: @question.errors, status: :unprocessable_entity }
+    @current = Question.where(question_group_id: @question.question_group_id, code: question_params[:code]).first
+    if @current.present? && @current != @question
+      flash[:danger] = 'Please use unique code for each question.'
+      redirect_to request.referrer
+    else
+      respond_to do |format|
+        if @question.update(question_params)
+          format.html { redirect_to request.referrer, flash: {success: 'Question was successfully updated.' }}
+          format.json { render :show, status: :ok, location: @question }
+        else
+          format.html { render :edit }
+          format.json { render json: @question.errors, status: :unprocessable_entity }
+        end
       end
     end
   end

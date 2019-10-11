@@ -7,6 +7,7 @@ class Question < ApplicationRecord
     self.position ||= size + 1
   end
 
+
   def name_dropdown
     "#{code} : [ #{q_type} ]  #{description}"
   end

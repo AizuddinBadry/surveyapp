@@ -12,11 +12,11 @@
     <div class="column is-12 has-text-right pl-20" style="bottom:20px;position:absolute">
         <%= link_to 'Back', request.referrer, class: 'button is-dark'%>
         <% if @preview_mode != 'Question' %>
-        <% if @question_group.questions.size == params[:q].to_i%>
+            <% if @question_group.questions.size == params[:q].to_i%>
                 <%= link_to 'Next', preview_users_manage_surveys_path(@survey.id, g: params[:g].to_i + 1 , q: 1), class: 'button is-primary-gradient'%>
-        <% else %>
-            <%= link_to 'Next', preview_users_manage_surveys_path(@survey.id, g: params[:g] , q: params[:q].to_i + 1), class: 'button is-primary-gradient'%>
-        <%  end %>
+            <% else %>
+                <%= link_to 'Next', preview_users_manage_surveys_path(@survey.id, g: params[:g] , q: params[:q].to_i + 1), class: 'button is-primary-gradient'%>
+            <%  end %>
         <% end %>
     </div>
 </div>
