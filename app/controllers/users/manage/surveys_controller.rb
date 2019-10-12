@@ -45,22 +45,18 @@ class Users::Manage::SurveysController < Users::BaseController
 
     def preview
         if !params[:intro].present?
-            if params[:question].present?
-                cookies[:group_position] = params[:question][:group_position]
-                cookies[:question_position] = question_params[:position]
-            else
-                cookies[:group_position] = 1
-                cookies[:question_position] = 1
-            end
+            set_preview_cookies
             @group = QuestionGroup.where(survey_id: @survey.id, position: cookies[:group_position]).first
             if !@group.present?
                 cookies[:group_position] = cookies[:group_position].to_i + 1
                 @group = QuestionGroup.where(survey_id: @survey.id, position: cookies[:group_position] + 1).first
             end
-            @question = Question.where(position: cookies[:question_position], question_group_id: @group.id).first
-            if !@question.present?
-                cookies[:question_position] = 1
+            if @group.present?
                 @question = Question.where(position: cookies[:question_position], question_group_id: @group.id).first
+                if !@question.present?
+                    cookies[:question_position] = 1
+                    @question = Question.where(position: cookies[:question_position], question_group_id: @group.id).first
+                end
             end
         end
     end
@@ -78,5 +74,15 @@ class Users::Manage::SurveysController < Users::BaseController
 
     def question_params
         params.require(:question).permit(:position, :question_group_id, :group_position)
+    end
+
+    def set_preview_cookies
+        if params[:question].present?
+            cookies[:group_position] = params[:question][:group_position]
+            cookies[:question_position] = question_params[:position]
+        else
+            cookies[:group_position] = 1
+            cookies[:question_position] = 1
+        end
     end
 end

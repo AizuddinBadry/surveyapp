@@ -3,6 +3,8 @@
         <div class="card-content">
             <% if params[:intro].present? %>
                 <%= render '/users/manage/surveys/shared/start_screen'%>
+            <% elsif params[:final].present? %>
+                <%= render '/users/manage/surveys/shared/final_screen'%>
             <% else %>
                 <%= render '/users/manage/surveys/shared/questionaire_new'%>
             <% end %>

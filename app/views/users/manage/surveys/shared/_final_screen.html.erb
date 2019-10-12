@@ -1,0 +1,10 @@
+<%= form_for(:question, url: preview_users_manage_surveys_path) do |f|%>
+<div class="columns is-multiline">
+    <div class="column is-12">
+        <%= @survey.end_message.html_safe %>
+    </div>
+    <div class="column is-12 has-text-centered" style="bottom:20px;position:absolute">
+        <%= f.submit @survey.start_button_text, class: 'button is-primary-gradient'%>
+    </div>
+</div>
+<% end %>
