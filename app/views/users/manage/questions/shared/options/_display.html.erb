@@ -1,4 +1,4 @@
-<div class="column is-12"> 
+<div class="column is-12">
     <div class="card">
         <div class="card-header card-toggle">
             <p class="card-header-title">Display</p>
@@ -7,7 +7,47 @@
             </a>
         </div>
         <div class="card-content toggle-content">
-            <div class="content">    
+            <div class="content">
+                <label class="label">Sort answers alphabetically</label>
+                <%= f.check_box :mandatory, id: 'switch', disabled: params[:edit].present? ? false : true%>
+                <label class="toggle" for="switch"></label>
+                <div class="field">
+                    <label class="label">Random Order : </label>
+                    <div class="control">
+                        <div class="select is-fullwidth"><%= f.select :q_type, [['Yes', 'Yes'], ['No', 'No']] %></div>
+                    
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Label for 'Other:' option (en) : </label>
+                    <div class="control">
+                        <%= f.text_field :q_type, class: "input" %>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Display columns : </label>
+                    <div class="control">
+                        <%= f.text_field :q_type, class: "input" %>
+                    </div>
+                </div>
+                <label class="label">Hide tip : </label>
+                <%= f.check_box :mandatory, id: 'switch', disabled: params[:edit].present? ? false : true%>
+                <label class="toggle" for="switch"></label>
+                <label class="label">Always hide this question : </label>
+                <%= f.check_box :mandatory, id: 'switch', disabled: params[:edit].present? ? false : true%>
+                <label class="toggle" for="switch"></label>
+                <div class="field">
+                    <label class="label">CSS class(es) : </label>
+                    <div class="control">
+                        <%= f.text_field :q_type, class: "input" %>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Relevance help for printable survey (en) : </label>
+                    <div class="control">
+                        <%= f.text_field :q_type, class: "input" %>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
