@@ -7,6 +7,14 @@
         <%= label_tag 'question[answer]', answer.exact_value, class: 'radio' %>
         </div>
     <% end %>
+    <% elsif @question.q_type == 'Radio Button With Comment' %>
+    <% @question.question_answers.each do |answer|%>
+        <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
+        <%= radio_button_tag 'question[answer]', answer.value, :value => answer.value %>
+        <%= label_tag 'question[answer]', answer.exact_value, class: 'radio' %>
+        <%= text_field 'question[comment]', class: 'input' %>
+        </div>
+    <% end %>
 <% elsif @question.q_type == 'List (Dropdown)'%>
     <div class="select">
         <% options = options_from_collection_for_select(@question.question_answers, 'value', 'exact_value') %>
@@ -31,18 +39,27 @@
             <%= text_area_tag 'question[comment]', cols: "30", rows: "2", class: 'textarea' %>
         </div>
     <% end %>
+<% elsif @question.q_type == 'Checkbox Input Text'%>
+    <% @question.question_answers.each do |answer|%>
+        <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
+            <label class="checkbox">
+                <%= answer.exact_value%>
+            </label>
+            <%= text_field 'question[answer]', class: 'input' %>
+        </div>
+    <% end %>
 <% elsif @question.q_type == 'Checkbox With Limit'%>
         <%= f.hidden_field :limit , value: @question.limit , id:"limit_answers" %>
     <% @question.question_answers.each do |answer|%>
         <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
             
             <label class="checkbox">
-                <%= check_box_tag 'question[answer]', class: 'limitcheck' %>
+                <%= check_box_tag 'question[answer]', 'question[answer]', false , :class => 'limitcheck' %>
                 <%= answer.exact_value%>
             </label>
         </div>
     <% end %>
-<% elsif @question.q_type == 'Level'%>
+<% elsif @question.q_type == 'Radio Button Level'%>
     <% @question.question_answers.each do |answer|%>
         <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
         <%= radio_button_tag 'question[answer]', answer.value %>
@@ -70,6 +87,25 @@
                     <td><%= subquestion.code %>. <%=subquestion.exact_value%></td>
                     <% @question.question_answers.order(position: :asc).each do |answer|%>
                         <td><%= radio_button_tag "questionaire[#{index}][answer]", answer.value %></td>
+                    <% end %>
+                </tr>
+            <% end %>
+        </table>
+    </div>
+    <% elsif @question.q_type == 'Array Numerical' %>
+    <div style="margin-top:10px;padding:10px;">
+        <table class="table table-responsive" id="arrays">
+            <tr>
+                <th></th>
+                <% @question.question_answers.each do |answer|%>
+                    <th><%= answer.exact_value%></th>
+                <% end %>
+            </tr>
+            <% @question.subquestions.order(position: :asc).each_with_index do |subquestion, index|%>
+                <tr>
+                    <td><%= subquestion.code %>. <%=subquestion.exact_value%></td>
+                    <% @question.question_answers.order(position: :asc).each do |answer|%>
+                        <td><%= number_field_tag "questionaire[#{index}][answer]", answer.value %></td>
                     <% end %>
                 </tr>
             <% end %>
