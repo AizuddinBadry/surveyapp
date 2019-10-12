@@ -1,8 +1,12 @@
+<%= form_for(:question, url: preview_users_manage_surveys_path) do |f|%>
+<%= f.hidden_field :group_position, value: 1%>
+<%= f.hidden_field :position, value: 1%>
 <div class="columns is-multiline">
     <div class="column is-12">
         <%= @survey.welcome_message.html_safe %>
     </div>
     <div class="column is-12 has-text-centered" style="bottom:20px;position:absolute">
-        <%= link_to @survey.start_button_text, preview_users_manage_surveys_path(@survey.id, g: 1, q:1), class: 'button is-primary-gradient'%>
+        <%= f.submit @survey.start_button_text, class: 'button is-primary-gradient'%>
     </div>
 </div>
+<% end %>

@@ -79,7 +79,7 @@ class Users::Manage::QuestionGroupsController < ApplicationController
 
   def sort
     params[:question_group].each_with_index do |id, index|
-      QuestionGroup.where(id: id).update_all order: index + 1
+      QuestionGroup.where(id: id).update_all position: index + 1
     end
     head :ok
   end
@@ -91,6 +91,6 @@ class Users::Manage::QuestionGroupsController < ApplicationController
     end
 
     def question_group_params
-      params.require(:question_group).permit(:order, :name, :description, :survey_id)
+      params.require(:question_group).permit(:position, :name, :description, :survey_id)
     end
 end

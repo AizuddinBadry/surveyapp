@@ -44,10 +44,26 @@ class Users::Manage::SurveysController < Users::BaseController
     end
 
     def preview
-        @question_group = QuestionGroup.where(survey_id: @survey.id, order: params[:g]).first unless !params[:g].present?
-        @question = Question.where(position: params[:q], question_group_id: @question_group.id).first unless !params[:q].present?
+        if !params[:intro].present?
+            if params[:question].present?
+                cookies[:group_position] = params[:question][:group_position]
+                cookies[:question_position] = question_params[:position]
+            else
+                cookies[:group_position] = 1
+                cookies[:question_position] = 1
+            end
+            @group = QuestionGroup.where(survey_id: @survey.id, position: cookies[:group_position]).first
+            if !@group.present?
+                cookies[:group_position] = cookies[:group_position].to_i + 1
+                @group = QuestionGroup.where(survey_id: @survey.id, position: cookies[:group_position] + 1).first
+            end
+            @question = Question.where(position: cookies[:question_position], question_group_id: @group.id).first
+            if !@question.present?
+                cookies[:question_position] = 1
+                @question = Question.where(position: cookies[:question_position], question_group_id: @group.id).first
+            end
+        end
     end
-    
 
     private
 
@@ -58,5 +74,9 @@ class Users::Manage::SurveysController < Users::BaseController
     def survey_params
         params.require(:survey).permit(:title, :welcome_message, :show_intro_screen, :end_message, :start_button_text, 
                                         :show_final_button, :final_button_text, :final_button_url, :final_button_to_start)
+    end
+
+    def question_params
+        params.require(:question).permit(:position, :question_group_id, :group_position)
     end
 end

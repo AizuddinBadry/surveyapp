@@ -1,22 +1,22 @@
 <% if @question.q_type == 'Textarea' %>
-    <%= f.text_area :answer, cols: "30", rows: "5", class: 'textarea' %>
-<% elsif @question.q_type == 'List (Radio)' %>
+    <%= text_area_tag 'question[answer]', nil, cols: "30", rows: "5", class: 'textarea' %>
+<% elsif @question.q_type == 'Radio Button' %>
     <% @question.question_answers.each do |answer|%>
         <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
-        <%= f.radio_button :answer, answer.value %>
-        <%= f.label :answer, answer.exact_value, :value => answer.value, class: 'radio' %>
+        <%= radio_button_tag 'question[answer]', answer.value, :value => answer.value %>
+        <%= label_tag 'question[answer]', answer.exact_value, class: 'radio' %>
         </div>
-<% end %>
+    <% end %>
 <% elsif @question.q_type == 'List (Dropdown)'%>
     <div class="select">
         <% options = options_from_collection_for_select(@question.question_answers, 'value', 'exact_value') %>
-        <%= f.select :answer,  options, :include_blank => 'Please select an answer' %>
+        <%= select_tag 'question[answer]',  options, :include_blank => 'Please select an answer' %>
     </div>
 <% elsif @question.q_type == 'Checkbox'%>
     <% @question.question_answers.each do |answer|%>
         <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
             <label class="checkbox">
-                <%= f.check_box :answer %>
+                <%= check_box_tag 'question[answer]' %>
                 <%= answer.exact_value%>
             </label>
         </div>
@@ -25,10 +25,10 @@
     <% @question.question_answers.each do |answer|%>
         <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
             <label class="checkbox">
-                <%= f.check_box :answer %>
+                <%= check_box_tag 'question[answer]' %>
                 <%= answer.exact_value%>
             </label>
-            <%= f.text_area :comment, cols: "30", rows: "2", class: 'textarea' %>
+            <%= text_area_tag 'question[comment]', cols: "30", rows: "2", class: 'textarea' %>
         </div>
     <% end %>
 <% elsif @question.q_type == 'Checkbox With Limit'%>
@@ -37,7 +37,7 @@
         <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
             
             <label class="checkbox">
-                <%= f.check_box :answer , class: 'limitcheck' %>
+                <%= check_box_tag 'question[answer]', class: 'limitcheck' %>
                 <%= answer.exact_value%>
             </label>
         </div>
@@ -45,14 +45,14 @@
 <% elsif @question.q_type == 'Level'%>
     <% @question.question_answers.each do |answer|%>
         <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
-        <%= f.radio_button :answer, answer.value %>
-        <%= f.label :answer, answer.exact_value, :value => answer.value, class: 'radio' %>
+        <%= radio_button_tag 'question[answer]', answer.value %>
+        <%= label_tag 'question[answer]', answer.exact_value, :value => answer.value, class: 'radio' %>
         </div>
     <% end %>
 <% elsif @question.q_type == 'Ranking'%>
    <% @question.question_answers.each do |answer|%>
         <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
-        <%= f.number_field :answer , min: 1 , max: @question.question_answers.size %>
+        <%= number_field_tag 'question[answer]' , min: 1 , max: @question.question_answers.size %>
         <%= answer.exact_value %>
         </div>
     <% end %>
@@ -77,5 +77,5 @@
     </div>
 
 <% elsif @question.q_type == 'Numerical'%>
-        <%= f.number_field :answer , maxlength: 20 ,class:"input" %>
+        <%= number_field 'question[answer]' , maxlength: 20 ,class:"input" %>
 <% end %>

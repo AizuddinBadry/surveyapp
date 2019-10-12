@@ -13,7 +13,7 @@ Rails.application.routes.draw do
     namespace :manage do
       resources :surveys do
         collection do 
-          get '/preview/:id', to: 'surveys#preview', as: 'preview'
+          match '/preview/:id', to: 'surveys#preview', as: 'preview', via: [:get, :post]
         end
       end
       resources :question_groups do
