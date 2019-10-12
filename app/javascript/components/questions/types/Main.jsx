@@ -70,6 +70,17 @@ class Main extends React.Component {
             >
               Checkbox with Limit
             </a>
+            <a
+              className="button is-primary is-rounded"
+              onClick={() =>
+                this.props.handler(
+                  1,
+                  "Checkbox With Text"
+                )
+              }
+            >
+              Checkbox With Text
+            </a>
           </div>
         </div>
         <div className="field">
@@ -80,12 +91,6 @@ class Main extends React.Component {
               onClick={() => this.props.handler(2, "Textarea")}
             >
               Textarea
-            </a>
-            <a
-              className="button is-primary is-rounded"
-              onClick={() => this.props.handler(1, "Multiple input text")}
-            >
-              Multiple input text
             </a>
           </div>
         </div>
@@ -120,6 +125,12 @@ class Main extends React.Component {
               onClick={() => this.props.handler(1, "Array")}
             >
               Array
+            </a>
+            <a
+              className="button is-primary is-rounded"
+              onClick={() => this.props.handler(1, "Array Numerical")}
+            >
+              Array Numerical
             </a>
           </div>
         </div>

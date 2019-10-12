@@ -58,7 +58,7 @@ export default class MultipleAnswer extends React.Component {
     var self = this.props;
     var answer_limit;
     var warning;
-    const islimit = "Multiple Choice with Limit";
+    const islimit = "Checkbox with Limit";
 
     if (islimit == self.types) {
       answer_limit = (

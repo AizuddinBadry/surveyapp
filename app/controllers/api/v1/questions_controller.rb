@@ -10,7 +10,7 @@ class Api::V1::QuestionsController < Api::BaseController
                 end
             end
         end
-        if Question::Exists.new(question_params[:code], question_params[:question_group_id])
+        if Question::Exists.new(question_params[:code], question_params[:question_group_id]).call
             render json: {object: 'Code is exists!', status: 500}, status: 500
         else
             if @question.save
