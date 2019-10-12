@@ -7,7 +7,31 @@
             </a>
         </div>
         <div class="card-content toggle-content">
-            <div class="content">    
+            <div class="content">
+              <label class="label">Question Type : 
+        <% if params[:edit].present? %>
+        <div class="control">
+          <div class="select"><%= f.select :q_type, [['Radio Button', 'Radio Button'], ['Select Dropdown', 'Select Dropdown'], ['Radio Button With Comment', 'Radio Button With Comment'], 
+                ['5 point', '5 point'], ['Textarea', 'Textarea'], ['Checkbox', 'Checkbox'], ['Checkbox With Comment', 'Checkbox With Comment'], 
+                ['Checkbox Input Text', 'Checkbox Input Text'],['Checkbox With Limit', 'Checkbox With Limit'],['Ranking', 'Ranking'], ['Level', 'Level'], ['Array', 'Array'], ['Array Numerical', 'Array Numerical']] %></div>
+        </div>
+        <% else %>
+          <span class="tag is-primary"><%= @question.q_type%> </span>
+        <% end %>
+        </label>
+        <label class="label">Question Group : 
+        <div class="control">
+          <div class="select"><%= f.select :q_type, [['Radio Button', 'Radio Button'], ['Select Dropdown', 'Select Dropdown'], ['Radio Button With Comment', 'Radio Button With Comment'], 
+                ['5 point', '5 point'], ['Textarea', 'Textarea'], ['Checkbox', 'Checkbox'], ['Checkbox With Comment', 'Checkbox With Comment'], 
+                ['Checkbox Input Text', 'Checkbox Input Text'],['Checkbox With Limit', 'Checkbox With Limit'],['Ranking', 'Ranking'], ['Level', 'Level'], ['Array', 'Array'], ['Array Numerical', 'Array Numerical']] %></div>
+        </div>
+        </label>
+         <label class="label">Option "Others"</label>
+        <%= f.check_box :mandatory, id: 'switch', disabled: params[:edit].present? ? false : true%>
+        <label class="toggle" for="switch"></label>
+        <label class="label">This question is mandatory?</label>
+        <%= f.check_box :mandatory, id: 'switch', disabled: params[:edit].present? ? false : true%>
+        <label class="toggle" for="switch"></label>
             </div>
         </div>
     </div>
