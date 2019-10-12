@@ -57,6 +57,8 @@ class Users::Manage::SurveysController < Users::BaseController
                     cookies[:question_position] = 1
                     @question = Question.where(position: cookies[:question_position], question_group_id: @group.id).first
                 end
+            else
+                redirect_to preview_users_manage_surveys_path(@survey.id, final: true)
             end
         end
     end

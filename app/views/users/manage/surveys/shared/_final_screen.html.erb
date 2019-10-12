@@ -4,7 +4,8 @@
         <%= @survey.end_message.html_safe %>
     </div>
     <div class="column is-12 has-text-centered" style="bottom:20px;position:absolute">
-        <%= f.submit @survey.start_button_text, class: 'button is-primary-gradient'%>
+        <%= link_to @survey.final_button_text, @survey.final_button_to_start == true ? preview_users_manage_surveys_path(@survey.id, intro: true) : @survey.final_button_url, 
+                class: 'button is-primary-gradient'%>
     </div>
 </div>
 <% end %>
