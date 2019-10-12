@@ -56,26 +56,30 @@ $(document).ready(function() {
   $(".datatable").DataTable();
 
   var table = $(".questions-datatable").DataTable({
-    rowReorder: true
+    rowReorder: true,
+    columnDefs: [
+      {
+        targets: [3],
+        visible: false,
+        searchable: false
+      },
+      {
+        targets: [0],
+        visible: false,
+        searchable: false
+      }
+    ]
   });
 
   table.on("row-reorder", function(e, diff, edit) {
-    var result =
-      "Reorder started on row: " + edit.triggerRow.data()[0] + "<br>";
-
     for (var i = 0, ien = diff.length; i < ien; i++) {
       var rowData = table.row(diff[i].node).data();
-
-      result +=
-        rowData[1] +
-        " updated to be in position " +
-        rowData[2] +
-        " (was " +
-        rowData[2] +
-        ")<br>";
+      $.post("/api/v1/questions/sort", {
+        question_group_id: rowData[3],
+        code: rowData[2],
+        position: diff[i].newData
+      }).done(function(data) {});
     }
-
-    $("#result").html("Event result:<br>" + result);
   });
   $(".card-toggle").click(function() {
     $(this)

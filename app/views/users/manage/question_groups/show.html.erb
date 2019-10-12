@@ -48,9 +48,10 @@
                                 <table class="display questions-datatable" style="width:100%">
                                     <thead>
                                         <tr>
+                                            <th>#</th>
                                             <th></th>
                                             <th>Code</th>
-                                            <th>Position</th>
+                                            <th>Group ID</th>
                                             <th>Question</th>
                                             <th>Question Type</th>
                                             <th>Group</th>
@@ -60,8 +61,8 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <% @question_group.questions.each do |question|%>
-                                            <%= render '/users/manage/questions/tables/questions', question: question%>
+                                        <% @question_group.questions.order(position: :asc).each_with_index do |question, index|%>
+                                            <%= render '/users/manage/questions/tables/questions', question: question, index: index%>
                                         <% end %>
                                     </tbody>
                                 </table>

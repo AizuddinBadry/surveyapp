@@ -24,6 +24,12 @@ class Api::V1::QuestionsController < Api::BaseController
     end
 
     def sort
+        @question = Question.where(question_group_id: params[:question_group_id], code: params[:code]).first
+        if @question.update position: params[:position]
+            render json: @question, status: 200
+        else
+            render json: 'Cannot reorder position', status: 404
+        end
     end
 
     private
