@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_12_092855) do
+ActiveRecord::Schema.define(version: 2019_10_13_080924) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -86,6 +86,8 @@ ActiveRecord::Schema.define(version: 2019_10_12_092855) do
     t.text "image"
     t.text "image_data"
     t.bigint "limit"
+    t.bigint "survey_id"
+    t.bigint "survey_position"
     t.index ["question_group_id"], name: "index_questions_on_question_group_id"
   end
 

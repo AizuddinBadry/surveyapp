@@ -1,41 +1,99 @@
-<main class="column">
-    <div class="level">
-        <div class="level-left">
-        <div class="level-item">
-            <div class="title">Survey # <%= @survey.id%></div>
+    <main class="column">
+    <%= form_for(@survey, url: users_manage_survey_path(@survey.id), method: :put, class: 'column') do |f|%>
+
+        <div class="level">
+            <div class="level-left">
+            <div class="level-item">
+                <div class="title">Survey # <%= @survey.id%></div>
+            </div>
+            </div>
+            <div class="level-right">
+            <div class="level-item">
+                <button type="button" class="button is-small">
+                March 8, 2017
+                </button>
+            </div>
+            </div>
         </div>
+            <section class="columns">
+                <div class="column is-12">
+                    <%= link_to 'Back', users_manage_surveys_path, class: 'button is-black'%>
+                    <%= f.submit 'Update', class: 'button is-primary'%>
+                    <a class="button is-primary open-modal" data-target="modal-ter"><i class='fa fa-plus'> </i> Add Group</a>
+                    <% if @survey.show_intro_screen ==  true %>
+                        <%= link_to "<i class='fa fa-eye'></i>  Preview".html_safe, preview_users_manage_surveys_path(@survey.id, intro: true), class: 'button is-primary'%>
+                    <% else %>
+                        <%= link_to 'Preview', preview_users_manage_surveys_path(@survey.id), class: 'button is-primary'%>
+                    <% end %>
+                </div>
+            </section>
+            <%= render '/users/manage/surveys/shared/form', f: f%>
+        <div id="groups-list" class="list-group" data-url="<%= group_sorting_users_manage_question_groups_path %>">
+        <% @survey.question_groups.each do |group|%>
+            <section class="columns list-group-item" id='<%= dom_id(group)%>'>
+                <%= render '/users/manage/surveys/shared/groups', group: group%>
+            </section>
+        <% end %>
         </div>
-        <div class="level-right">
-        <div class="level-item">
-            <button type="button" class="button is-small">
-            March 8, 2017
-            </button>
-        </div>
-        </div>
-    </div>
-    <%= form_for(@survey, url: users_manage_survey_path(@survey.id), method: :put) do |f|%>
         <section class="columns">
-            <div class="column is-12">
-                <%= link_to 'Back', users_manage_surveys_path, class: 'button is-black'%>
-                <%= f.submit 'Update', class: 'button is-primary'%>
-                <a class="button is-primary open-modal" data-target="modal-ter"><i class='fa fa-plus'> </i> Add Group</a>
-                <% if @survey.show_intro_screen ==  true %>
-                    <%= link_to "<i class='fa fa-eye'></i>  Preview".html_safe, preview_users_manage_surveys_path(@survey.id, intro: true), class: 'button is-primary'%>
-                <% else %>
-                    <%= link_to 'Preview', preview_users_manage_surveys_path(@survey.id), class: 'button is-primary'%>
-                <% end %>
+            <div class="column pb-20 pt-20">
+                <div class="card">
+                    <div class="card-header card-toggle">
+                        <p class="card-header-title">End Screen</p>
+                        <a class="card-header-icon">
+                            <i class="fa fa-angle-down"></i>
+                        </a>
+                    </div>
+                    <div class="card-content toggle-content">
+                        <div class="content">
+                                <div class="columns is-multiline">
+                                <div class="column is-12">
+                                    <h1 class="title">Final Screen</h1>
+                                </div>
+                            </div>
+                            <div class="columns is-multiline">
+                                <div class="column is-6">
+                                    <div class="field">
+                                        <label class="label">Final Screen Text</label>
+                                        <div class="control">
+                                            <%= f.text_area :end_message, class: 'editor'%>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="column is-4">
+                                    <div class="field">
+                                        <label class="label">Show final button?</label>
+                                        <%= f.check_box :show_final_button, :id => 'show-final-button' %><label class="toggle" for="show-final-button"></label>
+                                    </div>
+                                    <div class="field final_enable">
+                                        <label class="label">Final button text</label>
+                                        <%= f.text_field :final_button_text, value: 'Back to start', class: 'input'%>
+                                    </div>
+                                    <div class="field final_enable">
+                                        <label>Final button behaviour : </label>
+                                        <div class="radio">
+                                            <%= f.radio_button :final_button_to_start, true, :id => 'back-start', :class => 'radio_start'%>
+                                            <label for="back-start" class="radio-label">Back to start</label>
+                                        </div>
+                                        <div class="radio">
+                                            <%= f.radio_button :final_button_to_start, false, :id => 'specific-url', :class => 'radio_start'%>
+                                            <label for="specific-url" class="radio-label">Specific URL</label>
+                                        </div>
+                                    </div>
+                                    <div class="field" id="url-input">
+                                        <%= f.text_field :final_button_url, class: 'input'%>
+                                        <small>Eg : https://surveyapp.com</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
-        <%= render '/users/manage/surveys/shared/form', f: f%>
-    <% end %>
-    <div id="groups-list" class="list-group" data-url="<%= group_sorting_users_manage_question_groups_path %>">
-    <% @survey.question_groups.each do |group|%>
-        <section class="columns list-group-item" id='<%= dom_id(group)%>'>
-            <%= render '/users/manage/surveys/shared/groups', group: group%>
-        </section>
-    <% end %>
-    </div>
-</main>
+        <% end %>
+    </main>
+
 <%= render '/users/manage/surveys/shared/modals/create_group'%>
 <script>
     <%= render '/users/manage/surveys/shared/page.js'%>

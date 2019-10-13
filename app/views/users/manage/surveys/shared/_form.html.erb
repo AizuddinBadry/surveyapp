@@ -26,7 +26,7 @@
 <div class="column pb-20">
     <div class="card">
         <div class="card-header card-toggle">
-            <p class="card-header-title">Introduction Screen</p>
+            <p class="card-header-title">Introduction</p>
             <a class="card-header-icon">
                 <i class="fa fa-angle-down"></i>
             </a>
@@ -55,59 +55,6 @@
                         <div class="field">
                             <label class="label">Show introduction screen?</label>
                             <%= f.check_box :show_intro_screen, :id => 'switch' %><label class="toggle" for="switch">Toggle</label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-header card-toggle">
-            <p class="card-header-title">Final Screen</p>
-            <a class="card-header-icon">
-                <i class="fa fa-angle-down"></i>
-            </a>
-        </div>
-        <div class="card-content toggle-content">
-            <div class="content">
-                    <div class="columns is-multiline">
-                    <div class="column is-12">
-                        <h1 class="title">Final Screen</h1>
-                    </div>
-                </div>
-                <div class="columns is-multiline">
-                    <div class="column is-6">
-                        <div class="field">
-                            <label class="label">Final Screen Text</label>
-                            <div class="control">
-                                <%= f.text_area :end_message, class: 'editor'%>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="column is-4">
-                        <div class="field">
-                            <label class="label">Show final button?</label>
-                            <%= f.check_box :show_final_button, :id => 'show-final-button' %><label class="toggle" for="show-final-button"></label>
-                        </div>
-                        <div class="field final_enable">
-                            <label class="label">Final button text</label>
-                            <%= f.text_field :final_button_text, value: 'Back to start', class: 'input'%>
-                        </div>
-                        <div class="field final_enable">
-                            <label>Final button behaviour : </label>
-                            <div class="radio">
-                                <%= f.radio_button :final_button_to_start, true, :id => 'back-start', :class => 'radio_start'%>
-                                <label for="back-start" class="radio-label">Back to start</label>
-                            </div>
-                            <div class="radio">
-                                <%= f.radio_button :final_button_to_start, false, :id => 'specific-url', :class => 'radio_start'%>
-                                <label for="specific-url" class="radio-label">Specific URL</label>
-                            </div>
-                        </div>
-                        <div class="field" id="url-input">
-                            <%= f.text_field :final_button_url, class: 'input'%>
-                            <small>Eg : https://surveyapp.com</small>
                         </div>
                     </div>
                 </div>
