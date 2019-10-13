@@ -37,6 +37,7 @@ export default class MultipleAnswer extends React.Component {
     const form = event.target;
     const data = new FormData(form);
     data.set("question[question_group_id]", self.group_id);
+    data.set("question[survey_id]", this.props.survey_id);
     data.set("question[q_type]", self.types);
     post("/questions", data)
       .then(response => {

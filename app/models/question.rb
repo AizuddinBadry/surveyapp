@@ -5,7 +5,9 @@ class Question < ApplicationRecord
 
   def default_values
     size = Question.where(question_group_id: self.question_group_id).size
+    survey_question_size = Question.where(survey_id: self.survey_id).size
     self.position ||= size + 1
+    self.survey_position ||= survey_question_size + 1
   end
   
   def reorder_question_position
@@ -19,9 +21,8 @@ class Question < ApplicationRecord
     "#{code} : [ #{q_type} ]  #{description}"
   end
 
-
-
   belongs_to :question_group, optional: true
+  belongs_to :survey, class_name: 'Survey', foreign_key: 'survey_id', optional: true
   has_many :question_answers, :dependent => :destroy 
   has_many :subquestions, :dependent => :destroy
   accepts_nested_attributes_for :question_answers

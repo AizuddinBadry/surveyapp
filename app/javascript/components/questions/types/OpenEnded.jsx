@@ -36,6 +36,7 @@ export default class OpenEnded extends React.Component {
     const form = event.target;
     const data = new FormData(form);
     data.set("question[question_group_id]", this.props.group_id);
+    data.set("question[survey_id]", this.props.survey_id);
     data.set("question[q_type]", this.props.types);
     post("/questions", data)
       .then(data => {

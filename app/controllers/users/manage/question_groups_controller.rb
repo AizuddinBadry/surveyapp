@@ -61,7 +61,7 @@ class Users::Manage::QuestionGroupsController < ApplicationController
   def destroy
     @question_group.destroy
     respond_to do |format|
-      format.html { redirect_to request.referrer, flash: {success: 'Question group was successfully destroyed.' }}
+      format.html { redirect_to users_manage_survey_path(@question_group.survey_id), flash: {success: 'Question group was successfully destroyed.' }}
       format.json { head :no_content }
     end
   end
