@@ -4,7 +4,7 @@
         <label><%= @question_group.name%> : <%= @question_group.description%></label>
     </div>
     <div class="column is-12">
-        <h3 class="title"><%= @question&.description&.present? ? @question.description.html_safe : "" %> <%= @question&.limit&.present? ? @question.limit : "" %></h3>
+        <h3 class="title"><%= @question.code %>. <%= @question&.description&.present? ? @question.description.html_safe : "" %> <%= @question&.limit&.present? ? @question.limit : "" %></h3>
     </div>
     <div class="column is-12">
         <%= render '/users/manage/surveys/shared/survey_questionaire/answer_types', f:f%>

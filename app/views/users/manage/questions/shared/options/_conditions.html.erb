@@ -1,0 +1,22 @@
+<div class="column is-12"> 
+    <div class="card">
+        <div class="card-header card-toggle">
+            <p class="card-header-title">Condition</p>
+            <a class="card-header-icon">
+                <i class="fa fa-angle-down"></i>
+            </a>
+        </div>
+        <div class="card-content toggle-content">
+            <div class="content">
+                <div class="field">
+                    <label class="label">if</label>
+                    <div class="control">
+                        <div class="select">
+                            <%= select_tag :condition, options_for_select(['answer on question']), include_blank: 'Please select' %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

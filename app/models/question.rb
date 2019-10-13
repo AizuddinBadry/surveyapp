@@ -7,15 +7,6 @@ class Question < ApplicationRecord
     self.position ||= size + 1
   end
 
-  def next
-    question.where("position > ?", position).order(position: :asc).first
-  end
-  
-  def previous
-    question.where("position < ?", position).order(position: :asc).last
-  end
-
-
   def name_dropdown
     "#{code} : [ #{q_type} ]  #{description}"
   end
