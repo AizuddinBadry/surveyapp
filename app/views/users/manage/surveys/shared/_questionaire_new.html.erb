@@ -1,19 +1,5 @@
 <%= form_for(:question, url: preview_users_manage_surveys_path, method: :post) do |f|%>
-    <% @verify_question = Question.where(position: @question.position + 1, question_group_id: @group.id).first %>
-    <% if @verify_question.present? %>
-        <%= f.hidden_field :position, value: @question.position + 1 %>
-    <% else %>
-        <%= f.hidden_field :position, value: 1 %>
-    <% end %>
-<% if @group.present?%>
-    <% if @group.questions.size < @question.position + 1 %>
-    <%= f.hidden_field :group_position, value: @group.position + 1 %>
-    <% else %>
-    <%= f.hidden_field :group_position, value: cookies[:group_position]%>
-    <% end %>
-<% else %>
-    <%= f.hidden_field :group_position, value: cookies[:group_position]%>
-<% end %>
+<%= f.hidden_field :position, value: @question.survey_position + 1 %>
 <div class="columns is-multiline">
     <div class="column is-12 has-text-centered">
         <h2 class="title"><%= @question.question_group.name%> : <%= @question.question_group.description%></h2>
