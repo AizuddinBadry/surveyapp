@@ -1,14 +1,14 @@
 <% if @question.q_type == 'Textarea' %>
     <%= text_area_tag 'question[answer]', nil, cols: "30", rows: "5", class: 'textarea' %>
 <% elsif @question.q_type == 'Radio Button' %>
-    <% @question.question_answers.each do |answer|%>
+    <% @question.question_answers.order(position: :asc).each do |answer|%>
         <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
         <%= radio_button_tag 'question[answer]', answer.value, :value => answer.value %>
         <%= label_tag 'question[answer]', answer.exact_value, class: 'radio' %>
         </div>
     <% end %>
     <% elsif @question.q_type == 'Radio Button With Comment' %>
-    <% @question.question_answers.each do |answer|%>
+    <% @question.question_answers.order(position: :asc).each do |answer|%>
         <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
         <%= radio_button_tag 'question[answer]', answer.value, :value => answer.value %>
         <%= label_tag 'question[answer]', answer.exact_value, class: 'radio' %>
@@ -21,7 +21,7 @@
         <%= select_tag 'question[answer]',  options, :include_blank => 'Please select an answer' %>
     </div>
 <% elsif @question.q_type == 'Checkbox'%>
-    <% @question.question_answers.each do |answer|%>
+    <% @question.question_answers.order(position: :asc).each do |answer|%>
         <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
             <label class="checkbox">
                 <%= check_box_tag 'question[answer]' %>
@@ -30,7 +30,7 @@
         </div>
     <% end %>
 <% elsif @question.q_type == 'Checkbox With Comment'%>
-    <% @question.question_answers.each do |answer|%>
+    <% @question.question_answers.order(position: :asc).each do |answer|%>
         <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
             <label class="checkbox">
                 <%= check_box_tag 'question[answer]' %>
@@ -40,7 +40,7 @@
         </div>
     <% end %>
 <% elsif @question.q_type == 'Checkbox Input Text'%>
-    <% @question.question_answers.each do |answer|%>
+    <% @question.question_answers.order(position: :asc).each do |answer|%>
         <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
             <label class="checkbox">
                 <%= answer.exact_value%>
@@ -50,7 +50,7 @@
     <% end %>
 <% elsif @question.q_type == 'Checkbox With Limit'%>
         <%= f.hidden_field :limit , value: @question.limit , id:"limit_answers" %>
-    <% @question.question_answers.each do |answer|%>
+    <% @question.question_answers.order(position: :asc).each do |answer|%>
         <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
             
             <label class="checkbox">
@@ -60,7 +60,7 @@
         </div>
     <% end %>
 <% elsif @question.q_type == 'Radio Button Level'%>
-    <% @question.question_answers.each do |answer|%>
+    <% @question.question_answers.order(position: :asc).each do |answer|%>
         <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
         <%= radio_button_tag 'question[answer]', answer.value %>
         <%= label_tag 'question[answer]', answer.exact_value, :value => answer.value, class: 'radio' %>
@@ -78,14 +78,14 @@
         <table class="table table-responsive" id="arrays">
             <tr>
                 <th></th>
-                <% @question.question_answers.each do |answer|%>
+                <% @question.question_answers.order(position: :asc).each do |answer|%>
                     <th><%= answer.exact_value%></th>
                 <% end %>
             </tr>
             <% @question.subquestions.order(position: :asc).each_with_index do |subquestion, index|%>
                 <tr>
                     <td><%= subquestion.code %>. <%=subquestion.exact_value%></td>
-                    <% @question.question_answers.order(position: :asc).each do |answer|%>
+                    <% @question.question_answers.order(position: :asc).order(position: :asc).each do |answer|%>
                         <td><%= radio_button_tag "questionaire[#{index}][answer]", answer.value %></td>
                     <% end %>
                 </tr>
@@ -97,7 +97,7 @@
         <table class="table table-responsive" id="arrays">
             <tr>
                 <th></th>
-                <% @question.question_answers.each do |answer|%>
+                <% @question.question_answers.order(position: :asc).each do |answer|%>
                     <th><%= answer.exact_value%></th>
                 <% end %>
             </tr>
