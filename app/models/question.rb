@@ -15,9 +15,16 @@ class Question < ApplicationRecord
     group.questions.order(position: :asc).each_with_index do |question, index|
       question.update position: index.to_i + 1
     end
+    self.reorder_survey_position(group.survey_id)
   end
 
-
+  def self.reorder_survey_position(survey_id)
+    survey = Survey.find_by_id survey_id
+    survey.questions.joins(:question_group).order("question_groups.position ASC, questions.position ASC").each_with_index do |question, index|
+      question.update!(survey_position: index.to_i + 1)
+    end
+  end
+  
   def name_dropdown
     "#{code} : [ #{q_type} ]  #{description}"
   end

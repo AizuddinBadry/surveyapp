@@ -26,6 +26,7 @@ class Api::V1::QuestionsController < Api::BaseController
     def sort
         @question = Question.where(question_group_id: params[:question_group_id], code: params[:code]).first
         if @question.update position: params[:position]
+            Question.reorder_survey_position(@question.survey_id)
             render json: @question, status: 200
         else
             render json: 'Cannot reorder position', status: 404
