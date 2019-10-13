@@ -132,6 +132,18 @@ class Main extends React.Component {
             >
               Array Numerical
             </a>
+            <a
+              className="button is-primary is-rounded"
+              onClick={() => this.props.handler(1, "Array Multiple answer")}
+            >
+              Array Multiple answer
+            </a>
+            <a
+              className="button is-primary is-rounded"
+              onClick={() => this.props.handler(1, "Array Dropdown")}
+            >
+              Array Dropdown
+            </a>
           </div>
         </div>
       </div>

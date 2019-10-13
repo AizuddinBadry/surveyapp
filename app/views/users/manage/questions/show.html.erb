@@ -43,6 +43,12 @@
                    <% end %>
                    <% if @question.q_type == 'Array'%>
                         <%= render '/users/manage/questions/tables/subquestions', f:f%>
+                    <% elsif @question.q_type == 'Array Numerical'%>
+                        <%= render '/users/manage/questions/tables/subquestions', f:f%>
+                    <% elsif @question.q_type == 'Array Multiple Answer'%>
+                        <%= render '/users/manage/questions/tables/subquestions', f:f%>
+                    <% elsif @question.q_type == 'Array Dropdown'%>
+                        <%= render '/users/manage/questions/tables/subquestions', f:f%>
                    <% end %>
                 </section>
             </div>

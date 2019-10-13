@@ -105,7 +105,47 @@
                 <tr>
                     <td><%= subquestion.code %>. <%=subquestion.exact_value%></td>
                     <% @question.question_answers.order(position: :asc).each do |answer|%>
-                        <td><%= number_field_tag "questionaire[#{index}][answer]", answer.value %></td>
+                        <td><%= number_field_tag "questionaire[#{index}][answer]",class: "input"%></td>
+                    <% end %>
+                </tr>
+            <% end %>
+        </table>
+    </div>
+<% elsif @question.q_type == 'Array Multiple Answer' %>
+    <div style="margin-top:10px;padding:10px;">
+        <table class="table table-responsive" id="arrays">
+            <tr>
+                <th></th>
+                <% @question.question_answers.order(position: :asc).each do |answer|%>
+                    <th><%= answer.exact_value%></th>
+                <% end %>
+            </tr>
+            <% @question.subquestions.order(position: :asc).each_with_index do |subquestion, index|%>
+                <tr>
+                    <td><%= subquestion.code %>. <%=subquestion.exact_value%></td>
+                    <% @question.question_answers.order(position: :asc).each do |answer|%>
+                        <td><%= check_box_tag 'question[answer]' %>
+                        </td>
+                    <% end %>
+                </tr>
+            <% end %>
+        </table>
+    </div>
+<% elsif @question.q_type == 'Array Dropdown' %>
+    <div style="margin-top:10px;padding:10px;">
+        <table class="table table-responsive" id="arrays">
+            <tr>
+                <th></th>
+                <% @question.question_answers.order(position: :asc).each do |answer|%>
+                    <th><%= answer.exact_value%></th>
+                <% end %>
+            </tr>
+            <% @question.subquestions.order(position: :asc).each_with_index do |subquestion, index|%>
+                <tr>
+                    <td><%= subquestion.code %>. <%=subquestion.exact_value%></td>
+                    <% @question.question_answers.order(position: :asc).each do |answer|%>
+                        <td><%= select_tag 'question[answer]',  options, :include_blank => 'Please select an answer' %>
+                        </td>
                     <% end %>
                 </tr>
             <% end %>
