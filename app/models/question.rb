@@ -17,6 +17,7 @@ class Question < ApplicationRecord
     end
   end
 
+
   def name_dropdown
     "#{code} : [ #{q_type} ]  #{description}"
   end
