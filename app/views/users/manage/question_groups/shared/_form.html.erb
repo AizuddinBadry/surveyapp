@@ -11,7 +11,7 @@
     </div>
     <div class="field">
       <label class="label">Group Order</label>
-      <%= f.number_field :position, class: 'input'%>
+      <%= f.number_field :position, value: @survey.question_groups.size + 1, class: 'input'%>
       <small>Eg: 1</small>
     </div>
   </div>

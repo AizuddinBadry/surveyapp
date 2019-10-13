@@ -1,10 +1,18 @@
 class Question < ApplicationRecord
   include ImageUploader::Attachment.new(:image)
   before_save :default_values
+  after_destroy :reorder_question_position
 
   def default_values
     size = Question.where(question_group_id: self.question_group_id).size
     self.position ||= size + 1
+  end
+  
+  def reorder_question_position
+    group = QuestionGroup.find_by_id self.question_group_id
+    group.questions.order(position: :asc).each_with_index do |question, index|
+      question.update position: index.to_i + 1
+    end
   end
 
   def name_dropdown

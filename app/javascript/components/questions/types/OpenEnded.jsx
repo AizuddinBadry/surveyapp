@@ -43,7 +43,9 @@ export default class OpenEnded extends React.Component {
         window.location.reload();
       })
       .catch(errorMessage => {
-        console.log(errorMessage);
+        this.setState({
+          error: true
+        });
       });
   };
 

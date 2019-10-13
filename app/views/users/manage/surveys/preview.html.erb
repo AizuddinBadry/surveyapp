@@ -1,4 +1,8 @@
 <div class="column is-12">
+    <div class="progress-wrapper">
+        <progress class="progress is-success is-small" value="10" max="100"></progress>
+        <p class="progress-value has-text-black"><%= cookies[:question_position] %></p>
+    </div>
     <div class="card" style="min-height: 600px;position: relative; ">
         <div class="card-content">
             <% if params[:intro].present? %>
