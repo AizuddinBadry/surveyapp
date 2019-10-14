@@ -9,16 +9,60 @@
         <div class="card-content toggle-content">
             <div class="content">
               <label class="label">Question Type : 
-        <% if params[:edit].present? %>
         <div class="control">
-          <div class="select"><%= f.select :q_type, [['Radio Button', 'Radio Button'], ['Select Dropdown', 'Select Dropdown'], ['Radio Button With Comment', 'Radio Button With Comment'], 
-                ['5 point', '5 point'], ['Textarea', 'Textarea'], ['Checkbox', 'Checkbox'], ['Checkbox With Comment', 'Checkbox With Comment'], 
-                ['Checkbox Input Text', 'Checkbox Input Text'],['Checkbox With Limit', 'Checkbox With Limit'],['Ranking', 'Ranking'], ['Level', 'Level'], ['Array', 'Array'], ['Array Numerical', 'Array Numerical']] %></div>
+          <div class="select"><%= f.select :structure, [['Radio Button', 'Radio Button'], ['Select Dropdown', 'Select Dropdown'], ['Radio Button With Comment', 'Radio Button With Comment'], ['Radio Button Level', 'Radio Button Level'], ['Checkbox', 'Checkbox'], ['Checkbox With Comment', 'Checkbox With Comment'],['Checkbox With Limit', 'Checkbox With Limit'],['Checkbox With Text', 'Checkbox With Text'], ['Textarea', 'Textarea'],['Ranking', 'Ranking'], ['Numeric', 'Numeric'], ['Array', 'Array'], ['Array Numerical', 'Array Numerical'], ['Array Multiple answer', 'Array Multiple answer'], ['Array Dropdown', 'Array Dropdown']] %></div>
         </div>
-        <% else %>
-          <span class="tag is-primary"><%= @question.q_type%> </span>
-        <% end %>
         </label>
+        <% if @question.q_type == "Array" %>
+        <label class="label">Structure : 
+        <div class="control">
+          <div class="select"><%= f.select :structure, [['Subquestion Horizontal', 'Subquestion Horizontal'], ['Subquestion Vertical', 'Subquestion Vertical']] %></div>
+        </div>
+        </label>
+        <% elsif @question.q_type == "Array Numerical" %>
+        <label class="label">Structure : 
+        <div class="control">
+          <div class="select"><%= f.select :structure, [['Subquestion Horizontal', 'Subquestion Horizontal'], ['Subquestion Vertical', 'Subquestion Vertical']] %></div>
+        </div>
+        </label>
+        <% elsif @question.q_type == "Array Multiple Answer" %>
+        <label class="label">Structure : 
+        <div class="control">
+          <div class="select"><%= f.select :structure, [['Subquestion Horizontal', 'Subquestion Horizontal'], ['Subquestion Vertical', 'Subquestion Vertical']] %></div>
+        </div>
+        </label>
+        <% elsif @question.q_type == "Array Dropdown" %>
+        <label class="label">Structure : 
+        <div class="control">
+          <div class="select"><%= f.select :structure, [['Subquestion Horizontal', 'Subquestion Horizontal'], ['Subquestion Vertical', 'Subquestion Vertical']] %></div>
+        </div>
+        </label>
+        <% elsif @question.q_type == "Checkbox" %>
+        <label class="label">Structure : 
+        <div class="control">
+          <div class="select"><%= f.select :structure, [['One Column', 'One Column'], ['Two Column', 'Two Column']] %></div>
+        </div>
+        </label>
+        <% elsif @question.q_type == "Checkbox With Comment" %>
+        <label class="label">Structure : 
+        <div class="control">
+          <div class="select"><%= f.select :structure, [['One Column', 'One Column'], ['Two Column', 'Two Column']] %></div>
+        </div>
+        </label>
+        <% elsif @question.q_type == "Checkbox With Limit" %>
+        <label class="label">Structure : 
+        <div class="control">
+          <div class="select"><%= f.select :structure, [['One Column', 'One Column'], ['Two Column', 'Two Column']] %></div>
+        </div>
+        </label>
+        <% elsif @question.q_type == "Checkbox With Text" %>
+        <label class="label">Structure : 
+        <div class="control">
+          <div class="select"><%= f.select :structure, [['One Column', 'One Column'], ['Two Column', 'Two Column']] %></div>
+        </div>
+        </label>
+        <% end %>
+
          <label class="label">Option "Others"</label>
         <%= f.check_box :mandatory, id: 'switch', disabled: params[:edit].present? ? false : true%>
         <label class="toggle" for="switch"></label>

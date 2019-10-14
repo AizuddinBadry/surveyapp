@@ -34,14 +34,7 @@ class Main extends React.Component {
               onClick={() => this.props.handler(1, "Radio Button Level")}
             >
               Radio Button Level
-            </a>
-            <a
-              className="button is-primary is-rounded"
-              onClick={() => this.props.handler(1, "5 point")}
-            >
-              5 point
-            </a>
-            
+            </a>          
           </div>
         </div>
         <div className="field">
@@ -64,7 +57,7 @@ class Main extends React.Component {
               onClick={() =>
                 this.props.handler(
                   1,
-                  "Checkbox with Limit"
+                  "Checkbox With Limit"
                 )
               }
             >
@@ -102,12 +95,6 @@ class Main extends React.Component {
               onClick={() => this.props.handler(1, "Ranking")}
             >
               Ranking
-            </a>
-            <a
-              className="button is-primary is-rounded"
-              onClick={() => this.props.handler(1, "Level")}
-            >
-              Level
             </a>
             <a
               className="button is-primary is-rounded"
