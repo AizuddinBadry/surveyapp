@@ -46,6 +46,20 @@ class Users::Manage::SurveysController < Users::BaseController
     def preview
         if !params[:intro].present?
             set_preview_cookies
+            @verify_question = Question.where(survey_id: @survey.id, survey_position: cookies[:question_position]).first
+            if @verify_question.present?
+            @question = Question.where(survey_id: @survey.id, survey_position: cookies[:question_position]).first
+            else
+                redirect_to preview_users_manage_surveys_path(@survey.id, final: true)
+            end
+        else
+            cookies[:question_position] = 0
+        end
+    end
+
+    def preview_old
+        if !params[:intro].present?
+            set_preview_cookies
             @group = QuestionGroup.where(survey_id: @survey.id, position: cookies[:group_position]).first
             if !@group.present?
                 cookies[:group_position] = cookies[:group_position].to_i + 1
@@ -80,10 +94,8 @@ class Users::Manage::SurveysController < Users::BaseController
 
     def set_preview_cookies
         if params[:question].present?
-            cookies[:group_position] = params[:question][:group_position]
             cookies[:question_position] = question_params[:position]
         else
-            cookies[:group_position] = 1
             cookies[:question_position] = 1
         end
     end

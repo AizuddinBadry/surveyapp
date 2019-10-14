@@ -14,6 +14,7 @@ class Api::V1::QuestionsController < Api::BaseController
             render json: {object: 'Code is exists!', status: 500}, status: 500
         else
             if @question.save
+                Question.reorder_survey_position(@question.survey_id)
                 @question.update mandatory: false unless question_params[:mandatory].present?
                 flash[:success] = 'Successful created new question.'
                 render json: {object: @question, status: 200}
@@ -26,6 +27,7 @@ class Api::V1::QuestionsController < Api::BaseController
     def sort
         @question = Question.where(question_group_id: params[:question_group_id], code: params[:code]).first
         if @question.update position: params[:position]
+            Question.reorder_survey_position(@question.survey_id)
             render json: @question, status: 200
         else
             render json: 'Cannot reorder position', status: 404

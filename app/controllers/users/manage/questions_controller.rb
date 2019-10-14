@@ -41,6 +41,7 @@ class Users::Manage::QuestionsController < ApplicationController
     else
       respond_to do |format|
         if @question.update(question_params)
+          Question.reorder_survey_position(@question.survey_id)
           format.html { redirect_to request.referrer, flash: {success: 'Question was successfully updated.' }}
           format.json { render :show, status: :ok, location: @question }
         else
@@ -53,7 +54,9 @@ class Users::Manage::QuestionsController < ApplicationController
 
   def destroy
     @group_id = @question.question_group_id
+    @survey_id = @question.survey_id
     @question.destroy
+    Question.reorder_survey_position(@survey_id)
     respond_to do |format|
       format.html { redirect_to users_manage_question_group_path(@group_id), flash: {success: 'Question was successfully destroyed.'} }
       format.json { head :no_content }
