@@ -25,6 +25,7 @@
                     <% else %>
                         <%= link_to 'Preview', preview_users_manage_surveys_path(@survey.id), class: 'button is-primary'%>
                     <% end %>
+                    <%= link_to 'General Settings', preview_users_manage_surveys_path(@survey.id), class: 'button is-info'%>
                 </div>
             </section>
             <%= render '/users/manage/surveys/shared/form', f: f%>
