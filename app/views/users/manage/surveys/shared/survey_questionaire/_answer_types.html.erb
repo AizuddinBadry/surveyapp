@@ -1,117 +1,361 @@
-<% if @question.q_type == 'Textarea' %>
-    <%= text_area_tag 'question[answer]', nil, cols: "30", rows: "5", class: 'textarea' %>
-<% elsif @question.q_type == 'Radio Button' %>
-    <% @question.question_answers.order(position: :asc).each do |answer|%>
-        <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
-        <%= radio_button_tag 'question[answer]', answer.value, :value => answer.value %>
-        <%= label_tag 'question[answer]', answer.exact_value, class: 'radio' %>
-        </div>
-    <% end %>
-    <% elsif @question.q_type == 'Radio Button With Comment' %>
-    <% @question.question_answers.order(position: :asc).each do |answer|%>
-        <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
-        <%= radio_button_tag 'question[answer]', answer.value, :value => answer.value %>
-        <%= label_tag 'question[answer]', answer.exact_value, class: 'radio' %>
-        <%= text_field 'question[comment]', class: 'input' %>
-        </div>
-    <% end %>
-<% elsif @question.q_type == 'List (Dropdown)'%>
-    <div class="select">
-        <% options = options_from_collection_for_select(@question.question_answers, 'value', 'exact_value') %>
-        <%= select_tag 'question[answer]',  options, :include_blank => 'Please select an answer' %>
-    </div>
-<% elsif @question.q_type == 'Checkbox'%>
-    <% @question.question_answers.order(position: :asc).each do |answer|%>
-        <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
-            <label class="checkbox">
-                <%= check_box_tag 'question[answer]' %>
-                <%= answer.exact_value%>
-            </label>
-        </div>
-    <% end %>
-<% elsif @question.q_type == 'Checkbox With Comment'%>
-    <% @question.question_answers.order(position: :asc).each do |answer|%>
-        <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
-            <label class="checkbox">
-                <%= check_box_tag 'question[answer]' %>
-                <%= answer.exact_value%>
-            </label>
-            <%= text_area_tag 'question[comment]', cols: "30", rows: "2", class: 'textarea' %>
-        </div>
-    <% end %>
-<% elsif @question.q_type == 'Checkbox Input Text'%>
-    <% @question.question_answers.order(position: :asc).each do |answer|%>
-        <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
-            <label class="checkbox">
-                <%= answer.exact_value%>
-            </label>
-            <%= text_field 'question[answer]', class: 'input' %>
-        </div>
-    <% end %>
-<% elsif @question.q_type == 'Checkbox With Limit'%>
-        <%= f.hidden_field :limit , value: @question.limit , id:"limit_answers" %>
-    <% @question.question_answers.order(position: :asc).each do |answer|%>
-        <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
-            
-            <label class="checkbox">
-                <%= check_box_tag 'question[answer]', 'question[answer]', false , :class => 'limitcheck' %>
-                <%= answer.exact_value%>
-            </label>
-        </div>
-    <% end %>
+<% if @question.q_type == 'Radio Button' %>
+<% @question.question_answers.order(position: :asc).each do |answer|%>
+<div style="border: 1px solid grey;margin-top:10px;padding:10px;">
+    <%= radio_button_tag 'question[answer]', answer.value, :value => answer.value %>
+    <%= label_tag 'question[answer]', answer.exact_value, class: 'radio' %>
+</div>
+<% end %>
+<% elsif @question.q_type == 'Select Dropdown'%>
+<div class="select">
+    <% options = options_from_collection_for_select(@question.question_answers, 'value', 'exact_value') %>
+    <%= select_tag 'question[answer]',  options, :include_blank => 'Please select an answer' %>
+</div>
+<% elsif @question.q_type == 'Radio Button With Comment' %>
+<% @question.question_answers.order(position: :asc).each do |answer|%>
+<div style="border: 1px solid grey;margin-top:10px;padding:10px;">
+    <%= radio_button_tag 'question[answer]', answer.value, :value => answer.value %>
+    <%= label_tag 'question[answer]', answer.exact_value, class: 'radio' %>
+    <%= text_field 'question[comment]', class: 'input' %>
+</div>
+<% end %>
 <% elsif @question.q_type == 'Radio Button Level'%>
-    <% @question.question_answers.order(position: :asc).each do |answer|%>
-        <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
-        <%= radio_button_tag 'question[answer]', answer.value %>
-        <%= label_tag 'question[answer]', answer.exact_value, :value => answer.value, class: 'radio' %>
+<% @question.question_answers.order(position: :asc).each do |answer|%>
+<div style="border: 1px solid grey;margin-top:10px;padding:10px;">
+    <%= radio_button_tag 'question[answer]', answer.value %>
+    <%= label_tag 'question[answer]', answer.exact_value, :value => answer.value, class: 'radio' %>
+</div>
+<% end %>
+<% elsif @question.q_type == 'Checkbox'%>
+    
+    <% if @question.structure == "Two Column" %>
+        <div class="columns is-multiline">
+            <% @question.question_answers.first(@question.question_answers.length/2).each do |answer| %>
+            <div class="column is-6">
+                <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
+                    <label class="checkbox">
+                        <%= check_box_tag 'question[answer]' %>
+                        <%= answer.exact_value%>
+                    </label>
+                </div>
+            </div>
+            <% end %>
+            <% @question.question_answers.last(@question.question_answers.length/2).each do |answer| %>
+                <div class="column is-6">
+                    <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
+                        <label class="checkbox">
+                            <%= check_box_tag 'question[answer]' %>
+                            <%= answer.exact_value%>
+                        </label>
+                    </div>
+                </div>
+            <% end %>
         </div>
+    <% else %>
+        <% @question.question_answers.order(position: :asc).each do |answer|%>
+            <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
+                    <label class="checkbox">
+                        <%= check_box_tag 'question[answer]' %>
+                        <%= answer.exact_value%>
+                    </label>
+            </div>
+        <% end %>
     <% end %>
+
+
+<% elsif @question.q_type == 'Checkbox With Comment'%>
+    <% if @question.structure == "Two Column" %>
+        <div class="columns is-multiline">
+            <% @question.question_answers.first(@question.question_answers.length/2).each do |answer| %>
+            <div class="column is-6">
+                <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
+                    <label class="checkbox">
+                        <%= check_box_tag 'question[answer]' %>
+                        <%= answer.exact_value%>
+                    </label>
+                         <%= text_area_tag 'question[comment]', cols: "30", rows: "2", class: 'textarea' %>
+                </div>
+            </div>
+            <% end %>
+            <% @question.question_answers.last(@question.question_answers.length/2).each do |answer| %>
+                <div class="column is-6">
+                    <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
+                        <label class="checkbox">
+                            <%= check_box_tag 'question[answer]' %>
+                            <%= answer.exact_value%>
+                        </label>
+                             <%= text_area_tag 'question[comment]', cols: "30", rows: "2", class: 'textarea' %>
+                    </div>
+                </div>
+            <% end %>
+        </div>
+    <% else %>
+        <% @question.question_answers.order(position: :asc).each do |answer|%>
+            <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
+                    <label class="checkbox">
+                        <%= check_box_tag 'question[answer]' %>
+                        <%= answer.exact_value%>
+                    </label>
+                         <%= text_area_tag 'question[comment]', cols: "30", rows: "2", class: 'textarea' %>
+            </div>
+        <% end %>
+    <% end %>
+    
+<% elsif @question.q_type == 'Checkbox With Limit'%>
+
+     <% if @question.structure == "Two Column" %>
+        <div class="columns is-multiline">
+            <%= f.hidden_field :limit , value: @question.limit , id:"limit_answers" %>
+            <% @question.question_answers.first(@question.question_answers.length/2).each do |answer| %>
+            <div class="column is-6">
+                <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
+                <label class="checkbox">
+                    <%= check_box_tag 'question[answer]', 'question[answer]', false , :class => 'limitcheck' %>
+                    <%= answer.exact_value%>
+                </label>
+            </div>
+            </div>
+            <% end %>
+            <%= f.hidden_field :limit , value: @question.limit , id:"limit_answers" %>
+            <% @question.question_answers.last(@question.question_answers.length/2).each do |answer| %>
+                <div class="column is-6">
+                    <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
+                <label class="checkbox">
+                    <%= check_box_tag 'question[answer]', 'question[answer]', false , :class => 'limitcheck' %>
+                    <%= answer.exact_value%>
+                </label>
+            </div>
+                </div>
+            <% end %>
+        </div>
+    <% else %>
+        <%= f.hidden_field :limit , value: @question.limit , id:"limit_answers" %>
+            <% @question.question_answers.order(position: :asc).each do |answer|%>
+            <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
+                <label class="checkbox">
+                    <%= check_box_tag 'question[answer]', 'question[answer]', false , :class => 'limitcheck' %>
+                    <%= answer.exact_value%>
+                </label>
+            </div>
+        <% end %>
+    <% end %>
+    
+<% elsif @question.q_type == 'Checkbox Input Text'%>
+
+    <% if @question.structure == "Two Column" %>
+        <div class="columns is-multiline">
+            <% @question.question_answers.first(@question.question_answers.length/2).each do |answer| %>
+            <div class="column is-6">
+                <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
+                    <label class="checkbox">
+                        <%= answer.exact_value%>
+                    </label>
+                    <%= text_field 'question[answer]', class: 'input' %>
+                </div>
+            </div>
+            <% end %>
+            <% @question.question_answers.last(@question.question_answers.length/2).each do |answer| %>
+                <div class="column is-6">
+                    <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
+                        <label class="checkbox">
+                            <%= answer.exact_value%>
+                        </label>
+                        <%= text_field 'question[answer]', class: 'input' %>
+                    </div>
+                </div>
+            <% end %>
+        </div>
+    <% else %>
+        <% @question.question_answers.order(position: :asc).each do |answer|%>
+            <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
+                <label class="checkbox">
+                    <%= answer.exact_value%>
+                </label>
+                <%= text_field 'question[answer]', class: 'input' %>
+            </div>
+        <% end %>
+    <% end %>
+
+    
+<% elsif @question.q_type == 'Textarea' %>
+<%= text_area_tag 'question[answer]', nil, cols: "30", rows: "5", class: 'textarea' %>
 <% elsif @question.q_type == 'Ranking'%>
-   <% @question.question_answers.each do |answer|%>
-        <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
-        <%= number_field_tag 'question[answer]' , min: 1 , max: @question.question_answers.size %>
-        <%= answer.exact_value %>
-        </div>
-    <% end %>
+<% @question.question_answers.each do |answer|%>
+<div style="border: 1px solid grey;margin-top:10px;padding:10px;">
+    <%= number_field_tag 'question[answer]' , min: 1 , max: @question.question_answers.size %>
+    <%= answer.exact_value %>
+</div>
+<% end %>
+<% elsif @question.q_type == 'Numerical'%>
+<%= number_field 'question[answer]' , maxlength: 20 ,class:"input" %>
 <% elsif @question.q_type == 'Array' %>
-    <div style="margin-top:10px;padding:10px;">
-        <table class="table table-responsive" id="arrays">
-            <tr>
-                <th></th>
+
+    <% if @question.structure == "Subquestion Horizontal" %>
+        <div style="margin-top:10px;padding:10px;">
+            <table class="table table-responsive" id="arrays">
+                <tr>
+                    <th></th>
+                    <% @question.subquestions.order(position: :asc).each_with_index do |subquestion|%>
+                    <th><%= subquestion.code %>. <%=subquestion.exact_value%></th>
+                    <% end %>
+                </tr>
                 <% @question.question_answers.order(position: :asc).each do |answer|%>
-                    <th><%= answer.exact_value%></th>
+                <tr>
+                    <td><%= answer.exact_value%></td>
+                    <% @question.question_answers.order(position: :asc).order(position: :asc).each do |answer, index|%>
+                    <td><%= radio_button_tag "questionaire[#{index}][answer]", answer.value %></td>
+                    <% end %>
+                </tr>
                 <% end %>
-            </tr>
-            <% @question.subquestions.order(position: :asc).each_with_index do |subquestion, index|%>
+            </table>
+        </div>
+    <% else %>
+        <div style="margin-top:10px;padding:10px;">
+            <table class="table table-responsive" id="arrays">
+                <tr>
+                    <th></th>
+                    <% @question.question_answers.order(position: :asc).each do |answer|%>
+                    <th><%= answer.exact_value%></th>
+                    <% end %>
+                </tr>
+                <% @question.subquestions.order(position: :asc).each_with_index do |subquestion, index|%>
                 <tr>
                     <td><%= subquestion.code %>. <%=subquestion.exact_value%></td>
                     <% @question.question_answers.order(position: :asc).order(position: :asc).each do |answer|%>
-                        <td><%= radio_button_tag "questionaire[#{index}][answer]", answer.value %></td>
+                    <td><%= radio_button_tag "questionaire[#{index}][answer]", answer.value %></td>
                     <% end %>
                 </tr>
-            <% end %>
-        </table>
-    </div>
-    <% elsif @question.q_type == 'Array Numerical' %>
-    <div style="margin-top:10px;padding:10px;">
-        <table class="table table-responsive" id="arrays">
-            <tr>
-                <th></th>
-                <% @question.question_answers.order(position: :asc).each do |answer|%>
-                    <th><%= answer.exact_value%></th>
                 <% end %>
-            </tr>
-            <% @question.subquestions.order(position: :asc).each_with_index do |subquestion, index|%>
+            </table>
+        </div>
+    <% end %>
+        
+<% elsif @question.q_type == 'Array Numerical' %>
+
+    <% if @question.structure == "Subquestion Horizontal" %>
+        <div style="margin-top:10px;padding:10px;">
+            <table class="table table-responsive" id="arrays">
+                <tr>
+                    <th></th>
+                    <% @question.subquestions.order(position: :asc).each_with_index do |subquestion|%>
+                    <th><%= subquestion.code %>. <%=subquestion.exact_value%></th>
+                    <% end %>
+                </tr>
+                <% @question.question_answers.order(position: :asc).each do |answer|%>
+                <tr>
+                    <td><%= answer.exact_value%></td>
+                    <% @question.question_answers.order(position: :asc).order(position: :asc).each do |answer, index|%>
+                    <td><%= number_field_tag "questionaire[#{index}][answer]",class: "input"%></td>
+                    <% end %>
+                </tr>
+                <% end %>
+            </table>
+        </div>
+    <% else %>
+        <div style="margin-top:10px;padding:10px;">
+            <table class="table table-responsive" id="arrays">
+                <tr>
+                    <th></th>
+                    <% @question.question_answers.order(position: :asc).each do |answer|%>
+                    <th><%= answer.exact_value%></th>
+                    <% end %>
+                </tr>
+                <% @question.subquestions.order(position: :asc).each_with_index do |subquestion, index|%>
                 <tr>
                     <td><%= subquestion.code %>. <%=subquestion.exact_value%></td>
                     <% @question.question_answers.order(position: :asc).each do |answer|%>
-                        <td><%= number_field_tag "questionaire[#{index}][answer]", answer.value %></td>
+                    <td><%= number_field_tag "questionaire[#{index}][answer]",class: "input"%></td>
                     <% end %>
                 </tr>
-            <% end %>
-        </table>
-    </div>
+                <% end %>
+            </table>
+        </div>
+    <% end %>
+<% elsif @question.q_type == 'Array Multiple Answer' %>
 
-<% elsif @question.q_type == 'Numerical'%>
-        <%= number_field 'question[answer]' , maxlength: 20 ,class:"input" %>
+    <% if @question.structure == "Subquestion Horizontal" %>
+        <div style="margin-top:10px;padding:10px;">
+            <table class="table table-responsive" id="arrays">
+                <tr>
+                    <th></th>
+                    <% @question.subquestions.order(position: :asc).each_with_index do |subquestion|%>
+                    <th><%= subquestion.code %>. <%=subquestion.exact_value%></th>
+                    <% end %>
+                </tr>
+                <% @question.question_answers.order(position: :asc).each do |answer|%>
+                <tr>
+                    <td><%= answer.exact_value%></td>
+                    <% @question.question_answers.order(position: :asc).each do |answer|%>
+                    <td><%= check_box_tag 'question[answer]' %>
+                    </td>
+                    <% end %>
+                </tr>
+                <% end %>
+            </table>
+        </div>
+    <% else %>
+        <div style="margin-top:10px;padding:10px;">
+            <table class="table table-responsive" id="arrays">
+                <tr>
+                    <th></th>
+                    <% @question.question_answers.order(position: :asc).each do |answer|%>
+                    <th><%= answer.exact_value%></th>
+                    <% end %>
+                </tr>
+                <% @question.subquestions.order(position: :asc).each_with_index do |subquestion, index|%>
+                <tr>
+                    <td><%= subquestion.code %>. <%=subquestion.exact_value%></td>
+                    <% @question.question_answers.order(position: :asc).each do |answer|%>
+                    <td><%= check_box_tag 'question[answer]' %>
+                    </td>
+                    <% end %>
+                </tr>
+                <% end %>
+            </table>
+        </div>
+    <% end %>
+        
+<% elsif @question.q_type == 'Array Dropdown' %>
+
+    <% if @question.structure == "Subquestion Horizontal" %>
+        <div style="margin-top:10px;padding:10px;">
+            <table class="table table-responsive" id="arrays">
+                <tr>
+                    <th></th>
+                    <% @question.subquestions.order(position: :asc).each_with_index do |subquestion|%>
+                    <th><%= subquestion.code %>. <%=subquestion.exact_value%></th>
+                    <% end %>
+                </tr>
+                <% @question.question_answers.order(position: :asc).each do |answer|%>
+                <tr>
+                    <td><<%= answer.exact_value%></td>
+                    <% @question.question_answers.order(position: :asc).each do |answer|%>
+                    <td><%= select_tag 'question[answer]',  options, :include_blank => 'Please select an answer' %>
+                    </td>
+                    <% end %>
+                </tr>
+                <% end %>
+            </table>
+        </div>
+    <% else %>
+        <div style="margin-top:10px;padding:10px;">
+            <table class="table table-responsive" id="arrays">
+                <tr>
+                    <th></th>
+                    <% @question.question_answers.order(position: :asc).each do |answer|%>
+                    <th><%= answer.exact_value%></th>
+                    <% end %>
+                </tr>
+                <% @question.subquestions.order(position: :asc).each_with_index do |subquestion, index|%>
+                <tr>
+                    <td><%= subquestion.code %>. <%=subquestion.exact_value%></td>
+                    <% @question.question_answers.order(position: :asc).each do |answer|%>
+                    <td><%= select_tag 'question[answer]',  options, :include_blank => 'Please select an answer' %>
+                    </td>
+                    <% end %>
+                </tr>
+                <% end %>
+            </table>
+        </div>
+    <% end %>
+        
 <% end %>
