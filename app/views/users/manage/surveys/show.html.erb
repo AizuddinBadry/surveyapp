@@ -1,6 +1,5 @@
-    <main class="column">
+<main class="column panel" id="main">
     <%= form_for(@survey, url: users_manage_survey_path(@survey.id), method: :put, class: 'column') do |f|%>
-
         <div class="level">
             <div class="level-left">
             <div class="level-item">
@@ -15,20 +14,20 @@
             </div>
             </div>
         </div>
-            <section class="columns">
-                <div class="column is-12">
-                    <%= link_to 'Back', users_manage_surveys_path, class: 'button is-black'%>
-                    <%= f.submit 'Update', class: 'button is-primary'%>
-                    <a class="button is-primary open-modal" data-target="modal-ter"><i class='fa fa-plus'> </i> Add Group</a>
-                    <% if @survey.show_intro_screen ==  true %>
-                        <%= link_to "<i class='fa fa-eye'></i>  Preview".html_safe, preview_users_manage_surveys_path(@survey.id, intro: true), class: 'button is-primary'%>
-                    <% else %>
-                        <%= link_to 'Preview', preview_users_manage_surveys_path(@survey.id), class: 'button is-primary'%>
-                    <% end %>
-                    <%= link_to 'General Settings', preview_users_manage_surveys_path(@survey.id), class: 'button is-info'%>
-                </div>
-            </section>
-            <%= render '/users/manage/surveys/shared/form', f: f%>
+        <section class="columns">
+            <div class="column is-12">
+                <%= link_to 'Back', users_manage_surveys_path, class: 'button is-black'%>
+                <%= f.submit 'Update', class: 'button is-primary'%>
+                <a class="button is-primary open-modal" data-target="modal-ter"><i class='fa fa-plus'> </i> Add Group</a>
+                <% if @survey.show_intro_screen ==  true %>
+                    <%= link_to "<i class='fa fa-eye'></i>  Preview".html_safe, preview_users_manage_surveys_path(@survey.id, intro: true), class: 'button is-primary'%>
+                <% else %>
+                    <%= link_to 'Preview', preview_users_manage_surveys_path(@survey.id), class: 'button is-primary'%>
+                <% end %>
+                 <button type="button" class="button is-info toggle-button">General Settings</button>
+            </div>
+        </section>
+        <%= render '/users/manage/surveys/shared/form', f: f%>
         <div id="groups-list" class="list-group" data-url="<%= group_sorting_users_manage_question_groups_path %>">
         <% @survey.question_groups.each do |group|%>
             <section class="columns list-group-item" id='<%= dom_id(group)%>'>
@@ -92,10 +91,23 @@
                 </div>
             </div>
         </section>
-        <% end %>
-    </main>
+    <% end %>
+</main>
 
 <%= render '/users/manage/surveys/shared/modals/create_group'%>
 <script>
-    <%= render '/users/manage/surveys/shared/page.js'%>
+<%= render '/users/manage/surveys/shared/page.js'%>
+</script>
+<script>
+    var slideout = new Slideout({
+    'panel': document.getElementById('panel'),
+    'menu': document.getElementById('menu'),
+    'padding': 256,
+    'tolerance': 70
+    });
+
+    // Toggle button
+    document.querySelector('.toggle-button').addEventListener('click', function() {
+    slideout.toggle();
+    });
 </script>
