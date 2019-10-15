@@ -48,6 +48,7 @@ input[type="checkbox"]#switch {
   height: 0;
   width: 0;
   visibility: hidden;
+  display: inline-block;
 }
 
 input[type="checkbox"]#show-final-button {
@@ -62,7 +63,7 @@ label.toggle {
   width: 40px;
   height: 20px;
   background: grey;
-  display: block;
+  display: inline-block;
   border-radius: 100px;
   position: relative;
 }
@@ -252,4 +253,22 @@ label:active:after {
 .progress.is-large + .progress-value {
   font-size: calc(1.5rem / 1.5);
   line-height: 1.5rem;
+}
+
+//Hide tab-pane
+.tabs {
+  margin-bottom: -1px !important;
+}
+
+.tab-content {
+  border: 1px solid #dbdbdb;
+  padding: 30px;
+}
+
+.tab-pane {
+  display: none;
+}
+
+.is-active {
+  display: initial;
 }

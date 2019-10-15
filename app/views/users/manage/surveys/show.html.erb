@@ -1,4 +1,4 @@
-<main class="column panel" id="main">
+<main class="column" id="main" class="panel">
     <%= form_for(@survey, url: users_manage_survey_path(@survey.id), method: :put, class: 'column') do |f|%>
         <div class="level">
             <div class="level-left">
@@ -24,7 +24,7 @@
                 <% else %>
                     <%= link_to 'Preview', preview_users_manage_surveys_path(@survey.id), class: 'button is-primary'%>
                 <% end %>
-                 <button type="button" class="button is-info toggle-button">General Settings</button>
+                <%= link_to 'General Settings', users_manage_survey_setting_path(@survey.id), class: 'button is-info'%>
             </div>
         </section>
         <%= render '/users/manage/surveys/shared/form', f: f%>
@@ -97,17 +97,4 @@
 <%= render '/users/manage/surveys/shared/modals/create_group'%>
 <script>
 <%= render '/users/manage/surveys/shared/page.js'%>
-</script>
-<script>
-    var slideout = new Slideout({
-    'panel': document.getElementById('panel'),
-    'menu': document.getElementById('menu'),
-    'padding': 256,
-    'tolerance': 70
-    });
-
-    // Toggle button
-    document.querySelector('.toggle-button').addEventListener('click', function() {
-    slideout.toggle();
-    });
 </script>

@@ -2,11 +2,14 @@
     <div class="progress-wrapper">
         <% if cookies[:question_position].present? %>
             <progress class="progress is-success is-small" value="<%= cookies[:question_position].to_f/@survey.questions.size.to_f * 100 %>" max="100"></progress>
-            <p class="progress-value has-text-black"><%= cookies[:question_position].to_f/@survey.questions.size.to_f * 100 %>%</p>
+            <p class="progress-value has-text-black"><%= (cookies[:question_position].to_f/@survey.questions.size.to_f * 100).to_i %>%</p>
         <% end %>
     </div>
     <div class="card" style="min-height: 600px;position: relative; ">
         <div class="card-content">
+        <% if session[:pdpa] == false && @survey.survey_setting.enable_pdpa == true %>
+            <%= render '/users/manage/surveys/shared/pdpa_screen'%>
+        <% else %>
             <% if params[:intro].present? %>
                 <%= render '/users/manage/surveys/shared/start_screen'%>
             <% elsif params[:final].present? %>
@@ -14,6 +17,7 @@
             <% else %>
                 <%= render '/users/manage/surveys/shared/questionaire_new'%>
             <% end %>
+        <% end %>
         </div>
     </div>
 </div>

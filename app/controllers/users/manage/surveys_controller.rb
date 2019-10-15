@@ -6,6 +6,7 @@ class Users::Manage::SurveysController < Users::BaseController
     end
 
     def show
+        session.delete(:pdpa)
     end
 
     def new
@@ -44,6 +45,7 @@ class Users::Manage::SurveysController < Users::BaseController
     end
 
     def preview
+        clear_session
         if !params[:intro].present?
             set_preview_cookies
             @verify_question = Question.where(survey_id: @survey.id, survey_position: cookies[:question_position]).first
@@ -97,6 +99,16 @@ class Users::Manage::SurveysController < Users::BaseController
             cookies[:question_position] = question_params[:position]
         else
             cookies[:question_position] = 1
+        end
+    end
+
+    def clear_session
+        if params[:clear_session].present?
+            session.delete(:pdpa)
+        elsif params[:set_session].present?
+           session[:pdpa] = params[:set_session]
+        else
+            session[:pdpa] ||= false
         end
     end
 end

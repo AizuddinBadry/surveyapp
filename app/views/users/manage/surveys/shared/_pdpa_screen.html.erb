@@ -1,0 +1,30 @@
+<%= form_for(:question, url: request.fullpath) do |f|%>
+<%= hidden_field_tag 'set_session', true%>
+<div class="columns is-multiline">
+    <div class="column is-12">
+        <small>There are <%= @survey.questions.size %> questions in this survey.</small>
+        <h3 class="pt-20">PERSONAL DATA PROTECTION ACT (PDPA) CONSENT FORM</h3>
+    </div>
+    <div class="column is-12">
+        <%= @survey.survey_setting.pdpa_message.html_safe %>
+    </div>
+    <div class="column is-12">
+        <label class="checkbox">
+        <input type="checkbox" id="accept-pdpa">
+            I agree to the PDPA concern above
+        </label>
+    </div>
+    <div class="column is-12 has-text-centered" style="bottom:20px;position:absolute">
+        <%= f.submit 'Start Survey', class: 'button is-primary-gradient', id: 'start-survey', disabled: true%>
+    </div>
+</div>
+<% end %>
+<script>
+ $('#accept-pdpa').click(function () {
+    if ($(this).is(':checked')) {
+        $('#start-survey').removeAttr('disabled'); //enable input
+    } else {
+        $('#start-survey').attr('disabled', true); //disable input
+    }
+});
+</script>

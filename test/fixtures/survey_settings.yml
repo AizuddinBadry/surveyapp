@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  enable_pdpa: false
+  pdpa_message: MyText
+  pdpa_error_message: MyText
+
+two:
+  enable_pdpa: false
+  pdpa_message: MyText
+  pdpa_error_message: MyText

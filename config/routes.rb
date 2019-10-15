@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :survey_settings
   mount Shrine.presign_endpoint(:cache) => "/upload"
   
   mount Ckeditor::Engine => '/ckeditor'
@@ -16,6 +17,7 @@ Rails.application.routes.draw do
           match '/preview/:id', to: 'surveys#preview', as: 'preview', via: [:get, :post]
         end
       end
+      resources :survey_settings
       resources :question_groups do
         collection do
           post :check_logic

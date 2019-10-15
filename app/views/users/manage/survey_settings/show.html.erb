@@ -1,0 +1,36 @@
+<meta name="turbolinks-visit-control" content="reload">
+<main class="column" id="main" class="panel">
+    <div class="level">
+        <div class="level-left">
+        <div class="level-item">
+            <div class="title">General Survey Settings</div>
+        </div>
+        </div>
+        <div class="level-right">
+        <div class="level-item">
+            <button type="button" class="button is-small">
+            March 8, 2017
+            </button>
+        </div>
+        </div>
+    </div>
+    <section class="columns">
+        <div class="column">
+            <%= link_to 'Back to survey', users_manage_survey_path(params[:id]), data: {turbolinks: false}, class: 'button is-black'%>
+        </div>
+    </section>
+    <section class="columns">
+        <div class="column is-12">
+            <div class="tabs is-toggle is-fullwidth">
+                <%= render '/users/manage/survey_settings/shared/tabs_header'%>
+            </div>
+
+            <div class="tab-content">
+                <div class="tab-pane is-active" id="general-setting">Settng</div>
+                <div class="tab-pane" id="data-policy"><%= render '/users/manage/survey_settings/shared/data_policy'%></div>
+                <div class="tab-pane" id="presentation">Videos content</div>
+                <div class="tab-pane" id="theme">Documents content</div>
+            </div>
+        </div>
+    </section>
+</main>

@@ -9,17 +9,16 @@
         <%= render '/users/manage/surveys/shared/survey_questionaire/label_question_type', f:f%>
     </div>
     <div class="column is-4">
-       <div class="card-image has-text-centered pb-10">
-        <figure class="image is-128x128 is-inline-block">
-            <% @image = Survey.find(@question.question_group.survey_id) %>
-            <% if @image.image_data? %>
-                <%= image_tag @image.image_url %>
-            <% else %>
-                 <%= image_tag Company.find(@image.user_id).image_url.present? ? Company.find(@image.user_id).image_url : "" %>
-            <% end %>
-            
-        </figure>
-    </div>
+       <div class="card-image has-text-centered">
+            <figure class="image is-128x128 is-inline-block" style="position: absolute">
+                <% @image = Survey.find(@question.question_group.survey_id) %>
+                <% if @image.image_data? %>
+                    <%= image_tag @image.image_url %>
+                <% else %>
+                    
+                <% end %>  
+            </figure>
+        </div>
     </div>
     <div class="column is-12">
         <%= render '/users/manage/surveys/shared/survey_questionaire/answer_types', f:f%>

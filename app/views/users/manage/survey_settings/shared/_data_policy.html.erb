@@ -1,0 +1,30 @@
+<%= form_for(@survey_setting, url: users_manage_survey_setting_path(params[:id]), method: :put) do |f|%>
+    <%= hidden_field_tag 'survey_setting[id]', @survey.id%>
+    <div class="columns is-multiline">
+        <div class="column is-12">
+            <div class="field">
+                <label class="label">Enable PDPA Concern?</label>
+                <%= f.check_box :enable_pdpa, :id => 'switch' %><label class="toggle" for="switch">Toggle</label>
+            </div>
+        </div>
+        <div class="column is-6">
+            <div class="field">
+                <label class="label">PDPA Message</label>
+                <div class="control">
+                    <%= f.text_area :pdpa_message, class: 'editor'%>
+                </div>
+            </div>
+        </div>
+        <div class="column is-6">
+            <div class="field">
+                <label class="label">PDPA Error Message</label>
+                <div class="control">
+                    <%= f.text_area :pdpa_error_message, class: 'editor'%>
+                </div>
+            </div>
+        </div>
+        <div class="column is-12">
+            <%= f.submit 'Save', class: 'button is-primary is-fullwidth'%>
+        </div>
+    </div>
+<% end %>
