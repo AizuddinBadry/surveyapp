@@ -10,7 +10,16 @@
             <div class="content">
               <label class="label">Question Type : 
         <div class="control">
-          <div class="select"><%= f.select :structure, [['Radio Button', 'Radio Button'], ['Select Dropdown', 'Select Dropdown'], ['Radio Button With Comment', 'Radio Button With Comment'], ['Radio Button Level', 'Radio Button Level'], ['Checkbox', 'Checkbox'], ['Checkbox With Comment', 'Checkbox With Comment'],['Checkbox With Limit', 'Checkbox With Limit'],['Checkbox With Text', 'Checkbox With Text'], ['Textarea', 'Textarea'],['Ranking', 'Ranking'], ['Numeric', 'Numeric'], ['Array', 'Array'], ['Array Numerical', 'Array Numerical'], ['Array Multiple answer', 'Array Multiple answer'], ['Array Dropdown', 'Array Dropdown']] %></div>
+          <div class="select">
+          <%= f.select :structure, options_for_select([['Radio Button', 'Radio Button'], ['Select Dropdown', 'Select Dropdown'], ['Radio Button With Comment', 'Radio Button With Comment'], 
+                          ['Radio Button Level', 'Radio Button Level'], ['Checkbox', 'Checkbox'], 
+                          ['Checkbox With Comment', 'Checkbox With Comment'],
+                          ['Checkbox With Limit', 'Checkbox With Limit'],
+                          ['Checkbox With Text', 'Checkbox With Text'], 
+                          ['Textarea', 'Textarea'],['Ranking', 'Ranking'], 
+                          ['Numeric', 'Numeric'], ['Array', 'Array'], 
+                          ['Array Numerical', 'Array Numerical'], ['Array Multiple answer', 'Array Multiple answer'], 
+                          ['Array Dropdown', 'Array Dropdown']], selected: @question.q_type) %></div>
         </div>
         </label>
         <% if @question.q_type == "Array" %>
