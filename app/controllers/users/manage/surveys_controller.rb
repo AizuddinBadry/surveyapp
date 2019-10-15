@@ -52,11 +52,16 @@ class Users::Manage::SurveysController < Users::BaseController
             if @verify_question.present?
             @question = Question.where(survey_id: @survey.id, survey_position: cookies[:question_position]).first
             else
-                redirect_to preview_users_manage_surveys_path(@survey.id, final: true)
+                if request.xhr?
+                respond_to do |format|
+                    format.js { render :json => @survey }
+                end
+                else
+                    redirect_to preview_users_manage_surveys_path(@survey.id, final: true)
+                end
             end
-        else
-            cookies[:question_position] = 0
         end
+
     end
 
     def preview_old
@@ -98,13 +103,14 @@ class Users::Manage::SurveysController < Users::BaseController
         if params[:question].present?
             cookies[:question_position] = question_params[:position]
         else
-            cookies[:question_position] = 1
+            cookies[:question_position] ||= 1
         end
     end
 
     def clear_session
         if params[:clear_session].present?
             session.delete(:pdpa)
+            cookies.delete(:question_position)
         elsif params[:set_session].present?
            session[:pdpa] = params[:set_session]
         else

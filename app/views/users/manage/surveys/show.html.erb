@@ -29,7 +29,7 @@
         </section>
         <%= render '/users/manage/surveys/shared/form', f: f%>
         <div id="groups-list" class="list-group" data-url="<%= group_sorting_users_manage_question_groups_path %>">
-        <% @survey.question_groups.each do |group|%>
+        <% @survey.question_groups.order(position: :asc).each do |group|%>
             <section class="columns list-group-item" id='<%= dom_id(group)%>'>
                 <%= render '/users/manage/surveys/shared/groups', group: group%>
             </section>
