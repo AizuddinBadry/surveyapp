@@ -44,7 +44,9 @@ input {
 }
 
 /* Custom toggle */
-input[type="checkbox"]#switch {
+input[type="checkbox"]#switch,
+#input-box-1,
+#input-box-2 {
   height: 0;
   width: 0;
   visibility: hidden;

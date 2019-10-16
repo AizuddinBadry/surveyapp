@@ -20,6 +20,42 @@
                                 <%= ff.hidden_field :id%>
                                 </p>
                             </div>
+                            <div class="columns  pt-20">
+                                <div class="column is-4">
+                                    <div class="field">
+                                        <label class="checkbox">
+                                        <%= ff.check_box :display_input_box_1%>
+                                        Display input box 1?
+                                        </label>
+                                    </div>
+                                     <div class="field">
+                                        <label class="checkbox">
+                                        <%= ff.check_box :display_input_box_2%>
+                                        Display input box 2?
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="column is-4">
+                                    <div class="field">
+                                        <%= ff.text_field :input_box_1_label, class: 'input is-small'%>
+                                    </div>
+                                     <div class="field">
+                                         <%= ff.text_field :input_box_2_label, class: 'input is-small'%>
+                                    </div>
+                                </div>
+                                <div class="column is-4">
+                                    <div class="field">
+                                        <div class="select">
+                                            <%= ff.select :input_box_1_type, options_for_select(['Text', 'Textarea', 'Number', 'Integer', 'Currency', 'Percentage'], selected: ff.object.input_box_1_type), include_blank: 'Please select type' %>
+                                        </div>
+                                    </div>
+                                     <div class="field">
+                                         <div class="select">
+                                            <%= ff.select :input_box_2_type, options_for_select(['Text', 'Textarea', 'Number', 'Integer', 'Currency', 'Percentage'], selected: ff.object.input_box_2_type), include_blank: 'Please select type' %>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="column is-1">
                             <p class="buttons pt-5">

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_15_110936) do
+ActiveRecord::Schema.define(version: 2019_10_16_053435) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,12 @@ ActiveRecord::Schema.define(version: 2019_10_15_110936) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "position"
+    t.boolean "display_input_box_1"
+    t.boolean "display_input_box_2"
+    t.text "input_box_1_label"
+    t.text "input_box_2_label"
+    t.text "input_box_1_type"
+    t.text "input_box_2_type"
     t.index ["question_id"], name: "index_question_answers_on_question_id"
   end
 
