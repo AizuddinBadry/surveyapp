@@ -14,8 +14,6 @@
                 <% @image = Survey.find(@question.question_group.survey_id) %>
                 <% if @image.image_data? %>
                     <%= image_tag @image.image_url %>
-                <% else %>
-                    
                 <% end %>  
             </figure>
         </div>
@@ -28,7 +26,7 @@
             <%= link_to 'Back', :back , class: 'button is-dark'%>
         <% end %>
         
-        <% if @preview_mode != 'Question' %>
+        <% if @preview_mode != 'Question' %>   
             <%= link_to 'Back', preview_users_manage_surveys_path(@survey.id, question: {position: @question.survey_position - 1}) , class:'button is-dark', id: 'back-question', remote: true, method: :post%>
             <%= f.submit 'Next', class: 'button is-primary-gradient next-question'%>
         <% end %>

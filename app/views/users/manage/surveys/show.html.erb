@@ -22,7 +22,7 @@
                 <% if @survey.show_intro_screen ==  true %>
                     <%= link_to "<i class='fa fa-eye'></i>  Preview".html_safe, preview_users_manage_surveys_path(@survey.id, intro: true), class: 'button is-primary'%>
                 <% else %>
-                    <%= link_to 'Preview', preview_users_manage_surveys_path(@survey.id), class: 'button is-primary'%>
+                    <%= link_to 'Preview', preview_users_manage_surveys_path(@survey.id), target: '_blank', class: 'button is-primary'%>
                 <% end %>
                 <%= link_to 'General Settings', users_manage_survey_setting_path(@survey.id), class: 'button is-info'%>
             </div>
