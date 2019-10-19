@@ -7,19 +7,11 @@
                 <%= f.check_box :enable_pdpa, :id => 'switch' %><label class="toggle" for="switch">Toggle</label>
             </div>
         </div>
-        <div class="column is-6">
+        <div class="column is-12">
             <div class="field">
                 <label class="label">PDPA Message</label>
                 <div class="control">
                     <%= f.text_area :pdpa_message, class: 'editor'%>
-                </div>
-            </div>
-        </div>
-        <div class="column is-6">
-            <div class="field">
-                <label class="label">PDPA Error Message</label>
-                <div class="control">
-                    <%= f.text_area :pdpa_error_message, class: 'editor'%>
                 </div>
             </div>
         </div>
