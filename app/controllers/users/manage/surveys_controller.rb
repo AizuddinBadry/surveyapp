@@ -64,26 +64,6 @@ class Users::Manage::SurveysController < Users::BaseController
 
     end
 
-    def preview_old
-        if !params[:intro].present?
-            set_preview_cookies
-            @group = QuestionGroup.where(survey_id: @survey.id, position: cookies[:group_position]).first
-            if !@group.present?
-                cookies[:group_position] = cookies[:group_position].to_i + 1
-                @group = QuestionGroup.where(survey_id: @survey.id, position: cookies[:group_position] + 1).first
-            end
-            if @group.present?
-                @question = Question.where(position: cookies[:question_position], question_group_id: @group.id).first
-                if !@question.present?
-                    cookies[:question_position] = 1
-                    @question = Question.where(position: cookies[:question_position], question_group_id: @group.id).first
-                end
-            else
-                redirect_to preview_users_manage_surveys_path(@survey.id, final: true)
-            end
-        end
-    end
-
     private
 
     def get_survey
