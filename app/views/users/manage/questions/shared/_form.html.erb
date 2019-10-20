@@ -14,7 +14,7 @@
       <% @languages.each_with_index do |l, index| %>
         <% if index != 0%>
           <div class="list-language">
-            <%= f.text_area "other_language[#{l.name}]", value: Question.query_language(@question, l.name), class: 'editor', disabled: params[:edit].present? ? false : true%>
+            <%= text_area_tag "question[other_language][#{l.name}]", Question.query_language(@question, l.name), class: 'editor', disabled: params[:edit].present? ? false : true%>
           </div>
         <% end %>
       <% end %>

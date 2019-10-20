@@ -1,5 +1,4 @@
 class Question < ApplicationRecord
-  serialize :other_language, HashSerializer
   include ImageUploader::Attachment.new(:image)
   before_save :default_values
   after_destroy :reorder_question_position

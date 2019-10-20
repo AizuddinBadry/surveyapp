@@ -107,7 +107,7 @@ ActiveRecord::Schema.define(version: 2019_10_20_144309) do
     t.text "structure"
     t.boolean "enable_other_1", default: false
     t.boolean "enable_other_2", default: false
-    t.jsonb "other_language"
+    t.jsonb "other_language", default: "{}"
     t.index ["question_group_id"], name: "index_questions_on_question_group_id"
   end
 
