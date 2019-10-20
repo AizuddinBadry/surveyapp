@@ -12,6 +12,8 @@ class Users::Manage::SurveySettingsController < Users::BaseController
   def show
     @survey_setting = SurveySetting.new unless @survey.survey_setting.present?
     @survey_setting ||= @survey.survey_setting
+    @language = SurveyLanguage.new
+    @languages = SurveyLanguage.where(survey_id: @survey.id)
   end
 
   # GET /survey_settings/new

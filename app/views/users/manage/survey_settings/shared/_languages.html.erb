@@ -1,0 +1,39 @@
+<%= form_for(@language, url: users_manage_survey_languages_path) do |f|%>
+    <%= f.hidden_field :survey_id, value: @survey.id%>
+    <div class="columns is-multiline">
+        <div class="column is-12">
+            <h1>Language</h1>
+        </div>
+        <div class="column is-2">
+            <label class="label">Add new language</label>
+        </div>
+        <div class="column is-4">
+            <%= f.text_field :name, class: 'input'%>
+        </div>
+        <div class="column is-2">
+            <%= f.submit 'Add new', class: 'button is-primary'%>
+        </div>
+    </div>
+<% end %>
+<div class="columns pt-20">
+    <div class="column">
+        <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Language Name</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @languages.each_with_index do |language, index|%>
+                    <tr>
+                        <td><%= index + 1%>.</td>
+                        <td><label class="label"><%= language.name%> <%= index == 0 ? '(Default)' : ''%></label></td>
+                        <td><%= link_to 'Delete', users_manage_survey_language_path(language.id), method: :delete, data: {confirm: 'Are you sure want delete this language?'}, class: 'button is-danger is-small'%></td>
+                    </tr>
+                <% end %>
+            </tbody>
+        </table>
+    </div>
+</div>
