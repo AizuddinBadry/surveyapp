@@ -8,12 +8,14 @@
       <label class="label">Question</label>
       <span>Language : </span>
       <% @languages.each do |l| %>
-        <span><a href="#<%= l.name %>"><%=l.name %></a></span>
+        <span><%= link_to l.name, request.params.merge(lang: l.name) %></span>
       <% end %>
-      <%= f.text_area :description, class: 'editor', disabled: params[:edit].present? ? false : true%>
+      <% if !params[:lang].present? || params[:lang] == 'English'%>
+        <%= f.text_area :description, class: 'editor', disabled: params[:edit].present? ? false : true%>
+      <% end %>
       <% @languages.each_with_index do |l, index| %>
         <% if index != 0%>
-          <div class="list-language">
+          <div class="list-language <%= params[:lang] == l.name ? 'active' : nil%>">
             <%= text_area_tag "question[other_language][#{l.name}]", Question.query_language(@question, l.name), class: 'editor', disabled: params[:edit].present? ? false : true%>
           </div>
         <% end %>

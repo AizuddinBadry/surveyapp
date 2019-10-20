@@ -274,3 +274,12 @@ label:active:after {
 .is-active {
   display: initial;
 }
+
+//Language
+.list-language {
+  display: none;
+}
+
+.list-language.active {
+  display: block;
+}
