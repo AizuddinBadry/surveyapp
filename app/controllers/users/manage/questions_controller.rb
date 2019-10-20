@@ -8,6 +8,7 @@ class Users::Manage::QuestionsController < ApplicationController
   end
 
   def show
+    @languages = SurveyLanguage.where(survey_id: @question.survey_id).order(created_at: :asc)
   end
 
   def new

@@ -1,4 +1,5 @@
 class Question < ApplicationRecord
+  serialize :other_language, HashSerializer
   include ImageUploader::Attachment.new(:image)
   before_save :default_values
   after_destroy :reorder_question_position
@@ -24,12 +25,22 @@ class Question < ApplicationRecord
       question.update!(survey_position: index.to_i + 1)
     end
   end
+
+  def self.query_language(question, lang)
+    @question = question.other_language["#{lang}"]
+    if @question == false
+      return nil
+    else
+      return @question
+    end
+  end
   
   def name_dropdown
     "#{code} : [ #{q_type} ]  #{description}"
   end
 
   belongs_to :question_group, optional: true
+  has_many :question_other_languages, dependent: :destroy
   belongs_to :survey, class_name: 'Survey', foreign_key: 'survey_id', optional: true
   has_many :question_answers, :dependent => :destroy 
   has_many :subquestions, :dependent => :destroy

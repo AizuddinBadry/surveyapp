@@ -1,15 +1,23 @@
 <section class="columns">
   <div class="column">
     <div class="field">
-       
-    </div>
-    <div class="field">
       <label class="label">Code</label>
       <%= f.text_field :code, class: 'input', disabled: params[:edit].present? ? false : true%>
     </div>
     <div class="field">
       <label class="label">Question</label>
+      <span>Language : </span>
+      <% @languages.each do |l| %>
+        <span><a href="#<%= l.name %>"><%=l.name %></a></span>
+      <% end %>
       <%= f.text_area :description, class: 'editor', disabled: params[:edit].present? ? false : true%>
+      <% @languages.each_with_index do |l, index| %>
+        <% if index != 0%>
+          <div class="list-language">
+            <%= f.text_area "other_language[#{l.name}]", value: Question.query_language(@question, l.name), class: 'editor', disabled: params[:edit].present? ? false : true%>
+          </div>
+        <% end %>
+      <% end %>
     </div>
   <% if @question.limit.present? %>
     <div class="field">
@@ -17,7 +25,5 @@
       <%= f.number_field :limit, class: 'input', disabled: params[:edit].present? ? false : true%>
     </div>
   <% end %>
-
-  
   </div>
 </section>
