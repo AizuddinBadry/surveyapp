@@ -16,9 +16,11 @@ class Users::Manage::SurveyLanguagesController < Users::BaseController
     def destroy
         if @language.destroy
             flash[:success] = 'Successful deleted language'
+        else
+            flash[:danger] = @language.errors.full_messages.first
         end
         respond_to do |format|
-            format.html
+            format.html {redirect_to request.referrer}
         end
     end
     

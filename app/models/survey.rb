@@ -11,5 +11,5 @@ class Survey < ApplicationRecord
   has_one :survey_setting, dependent: :destroy
   has_many :question_groups, dependent: :destroy
   has_many :questions, class_name: 'Question', foreign_key: 'survey_id'
-  has_many :survey_languages
+  has_many :survey_languages, dependent: :destroy
 end
