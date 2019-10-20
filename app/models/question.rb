@@ -30,7 +30,6 @@ class Question < ApplicationRecord
   end
 
   belongs_to :question_group, optional: true
-  belongs_to :survey_language, optional: true
   belongs_to :survey, class_name: 'Survey', foreign_key: 'survey_id', optional: true
   has_many :question_answers, :dependent => :destroy 
   has_many :subquestions, :dependent => :destroy

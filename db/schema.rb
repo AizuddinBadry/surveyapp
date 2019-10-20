@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_19_164444) do
+ActiveRecord::Schema.define(version: 2019_10_20_073446) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,6 +77,16 @@ ActiveRecord::Schema.define(version: 2019_10_19_164444) do
     t.boolean "any_error", default: false
     t.boolean "verify_error", default: false
     t.index ["survey_id"], name: "index_question_groups_on_survey_id"
+  end
+
+  create_table "question_other_languages", force: :cascade do |t|
+    t.text "description"
+    t.bigint "survey_language_id", null: false
+    t.bigint "question_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["question_id"], name: "index_question_other_languages_on_question_id"
+    t.index ["survey_language_id"], name: "index_question_other_languages_on_survey_language_id"
   end
 
   create_table "questions", force: :cascade do |t|
@@ -166,6 +176,8 @@ ActiveRecord::Schema.define(version: 2019_10_19_164444) do
   add_foreign_key "group_error_logics", "question_groups"
   add_foreign_key "question_answers", "questions"
   add_foreign_key "question_groups", "surveys"
+  add_foreign_key "question_other_languages", "questions"
+  add_foreign_key "question_other_languages", "survey_languages"
   add_foreign_key "questions", "question_groups"
   add_foreign_key "subquestions", "questions"
   add_foreign_key "survey_languages", "surveys"
