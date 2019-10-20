@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_20_144309) do
+ActiveRecord::Schema.define(version: 2019_10_20_155022) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 2019_10_20_144309) do
     t.text "input_box_2_label"
     t.text "input_box_1_type"
     t.text "input_box_2_type"
+    t.jsonb "other_language", default: {}
     t.index ["question_id"], name: "index_question_answers_on_question_id"
   end
 
