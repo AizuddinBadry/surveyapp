@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_20_070446) do
+ActiveRecord::Schema.define(version: 2019_10_19_164444) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -97,9 +97,7 @@ ActiveRecord::Schema.define(version: 2019_10_20_070446) do
     t.text "structure"
     t.boolean "enable_other_1", default: false
     t.boolean "enable_other_2", default: false
-    t.bigint "survey_language_id"
     t.index ["question_group_id"], name: "index_questions_on_question_group_id"
-    t.index ["survey_language_id"], name: "index_questions_on_survey_language_id"
   end
 
   create_table "subquestions", force: :cascade do |t|
@@ -169,7 +167,6 @@ ActiveRecord::Schema.define(version: 2019_10_20_070446) do
   add_foreign_key "question_answers", "questions"
   add_foreign_key "question_groups", "surveys"
   add_foreign_key "questions", "question_groups"
-  add_foreign_key "questions", "survey_languages"
   add_foreign_key "subquestions", "questions"
   add_foreign_key "survey_languages", "surveys"
   add_foreign_key "survey_settings", "surveys"
