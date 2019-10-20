@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_20_155022) do
+ActiveRecord::Schema.define(version: 2019_10_20_233824) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -120,6 +120,7 @@ ActiveRecord::Schema.define(version: 2019_10_20_155022) do
     t.bigint "position"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.jsonb "other_language", default: {}
     t.index ["question_id"], name: "index_subquestions_on_question_id"
   end
 
