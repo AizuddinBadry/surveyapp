@@ -85,6 +85,12 @@ class Main extends React.Component {
             >
               Textarea
             </a>
+            <a
+              className="button is-primary is-rounded"
+              onClick={() => this.props.handler(2, "Textbox")}
+            >
+              Textbox
+            </a>
           </div>
         </div>
         <div className="field">

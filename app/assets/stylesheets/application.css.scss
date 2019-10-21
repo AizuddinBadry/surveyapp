@@ -15,3 +15,23 @@
  *= require_self
  */
 @import "bulma-extensions/bulma-switch/dist/css/bulma-switch.min.css";
+
+    input:invalid {
+            border-color: #DD2C00;
+    }
+
+    #notify {
+        margin-top: 5px;
+        padding: 10px;
+        font-size: 12px;
+        width: 100%;
+        color: #fff;
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+    }
+    #notify.error {
+        background-color: #DD2C00;
+    }
