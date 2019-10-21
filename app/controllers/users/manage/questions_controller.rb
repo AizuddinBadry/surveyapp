@@ -67,6 +67,7 @@ class Users::Manage::QuestionsController < ApplicationController
   def preview
     @question_group = @question.question_group
     @preview_mode = 'Question'
+    @survey = Survey.find_by_id(@question.survey_id)
   end
 
   def change_type

@@ -4,10 +4,21 @@
         <label><%= @question_group.name%> : <%= @question_group.description%></label>
     </div>
     <div class="column is-12">
-        <h3 class="title"><%= @question.code %>. <%= @question&.description&.present? ? @question.description.html_safe : "" %> <%= @question&.limit&.present? ? @question.limit : "" %></h3>
+        
+        <h3 class="title"><%= @question.code %>. 
+        <% if !params[:lang].present? || params[:lang] == 'English' %>
+            <%= @question&.description&.present? ? @question.description.html_safe : "" %>
+        <% else %>
+            <%= Question.query_language(@question, params[:lang])%>
+        <% end %>
+         <%= @question&.limit&.present? ? @question.limit : "" %></h3>
     </div>
     <div class="column is-12">
-        <%= render '/users/manage/surveys/shared/survey_questionaire/answer_types', f:f%>
+        <% if !params[:lang].present? || params[:lang] == 'English' %>
+            <%= render '/users/manage/surveys/shared/survey_questionaire/answer_types', f:f%>
+        <% else %>
+            <%= render '/users/manage/surveys/shared/survey_questionaire/answer_types_language', f:f%>
+        <% end %>
     </div>
     <div class="column is-12 has-text-right pl-20" style="bottom:20px;position:absolute">
         <% if @preview_mode == 'Question'%>

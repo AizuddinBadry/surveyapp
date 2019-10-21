@@ -1,11 +1,22 @@
-<%= form_for(:question, url: preview_users_manage_surveys_path, method: :post) do |f|%>
+<%if params[:lang].present? %>
+     <% @url = preview_users_manage_surveys_path(lang: params[:lang]) %>
+<% else %>
+    <% @url = preview_users_manage_surveys_path %>
+<% end %>
+<%= form_for(:question, url: @url, method: :post) do |f|%>
 <%= f.hidden_field :position, value: @question.survey_position + 1 %>
 <div class="columns is-multiline">
     <div class="column is-12 has-text-centered">
         <h2 class="title"><%= @question.question_group.name%> : <%= @question.question_group.description%></h2>
     </div>
     <div class="column is-8">
-        <h3 class="is-size-5" style="margin-bottom: 0.80em"><%= @question.code %> <%= @question&.description&.present? ? @question.description.html_safe : "" %> <%= @question&.limit&.present? ? @question.limit : "" %></h3>
+        <h3 class="is-size-5" style="margin-bottom: 0.80em"><%= @question.code %> 
+        <% if !params[:lang].present? || params[:lang] == 'English' %>
+            <%= @question&.description&.present? ? @question.description.html_safe : "" %>
+        <% else %>
+            <%= Question.query_language(@question, params[:lang])%>
+        <% end %>
+        <%= @question&.limit&.present? ? @question.limit : "" %></h3>
         <%= render '/users/manage/surveys/shared/survey_questionaire/label_question_type', f:f%>
     </div>
     <div class="column is-4">
@@ -19,7 +30,11 @@
         </div>
     </div>
     <div class="column is-12">
-        <%= render '/users/manage/surveys/shared/survey_questionaire/answer_types', f:f%>
+        <% if !params[:lang].present? || params[:lang] == 'English' %>
+            <%= render '/users/manage/surveys/shared/survey_questionaire/answer_types', f:f%>
+        <% else %>
+            <%= render '/users/manage/surveys/shared/survey_questionaire/answer_types_language', f:f%>
+        <% end %>
     </div>
     <div class="column is-12 has-text-right pl-20" style="bottom:20px;position:absolute">
         <% if @preview_mode == 'Question'%>

@@ -35,6 +35,12 @@
     <div class="section">
       <div class="columns is-multiline">
         <% if controller.action_name == 'preview' %>
+          <div class="column is-12 has-text-right">
+           <div class="field">
+            <label class="label" style="color: white">Change language</label>
+             <%= select_tag :change_language, options_for_select(@survey.survey_languages.map{|l| [l.name]}, selected: params[:lang].present? ? params[:lang] : nil), include_blank: 'Please select' %>
+          </div>
+          </div>
           <div class="column is-4 is-offset-4">
             <div class="card bg-warning">
                 <div class="card-content has-text-centered">
@@ -48,4 +54,7 @@
       </div>
     </div>
   </body>
+  <script>
+    <%= render '/layouts/shared/js/change_language.js'%>
+  </script>
 </html>
