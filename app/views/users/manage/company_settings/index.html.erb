@@ -15,9 +15,18 @@
         </div>
     </div>
 
-    <%= form_for(@company, url: users_manage_company_setting_path(@company.id)) do |f|%>
+     <% if current_user.company_id.present? %>
+     <%= form_for(@company, url: users_manage_company_setting_path(@company.id)) do |f|%>
         <%= render '/users/manage/company_settings/shared/form', f: f%>
     <% end %>
+    
+    <% else %>
+   <%= form_for(@company, url: users_manage_company_settings_path , method: "post") do |f|%>
+        <%= render '/users/manage/company_settings/shared/form', f: f%>
+    <% end %>
+    <% end %>
+
+    
 </main>
 <script>
     <%= render '/users/manage/company_settings/shared/form.js'%>

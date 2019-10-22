@@ -214,6 +214,12 @@
     
 <% elsif @question.q_type == 'Textarea' %>
 <%= text_area_tag 'question[answer]', nil, cols: "30", rows: "5", class: 'textarea' %>
+<% elsif @question.q_type == 'Textbox' %>
+    <% if @question.logic.present? %>
+     <%= text_field_tag 'question[answer]',nil, class: 'input', pattern:@question.logic , required: true %>
+    <% else %>
+        <%= text_field_tag 'question[answer]',nil, class: 'input'%>
+    <% end %>
 <% elsif @question.q_type == 'Ranking'%>
 <% @question.question_answers.each do |answer|%>
 <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
@@ -237,8 +243,8 @@
                 <% @question.question_answers.order(position: :asc).each do |answer|%>
                 <tr>
                     <td><%= answer.exact_value%></td>
-                    <% @question.question_answers.order(position: :asc).order(position: :asc).each do |answer, index|%>
-                    <td><%= radio_button_tag "questionaire[#{index}][answer]", answer.value %></td>
+                    <% @question.subquestions.order(position: :asc).each_with_index do |subquestion, index|%>
+                    <td><%= radio_button_tag "questionaire[#{index}][answer]", subquestion.value %></td>
                     <% end %>
                 </tr>
                 <% end %>
@@ -278,8 +284,8 @@
                 </tr>
                 <% @question.question_answers.order(position: :asc).each do |answer|%>
                 <tr>
-                    <td><%= answer.exact_value%></td>
-                    <% @question.question_answers.order(position: :asc).order(position: :asc).each do |answer, index|%>
+                     <td><%= answer.exact_value%></td>
+                    <% @question.subquestions.order(position: :asc).each_with_index do |subquestion, index|%>
                     <td><%= number_field_tag "questionaire[#{index}][answer]",class: "input"%></td>
                     <% end %>
                 </tr>
@@ -320,9 +326,8 @@
                 <% @question.question_answers.order(position: :asc).each do |answer|%>
                 <tr>
                     <td><%= answer.exact_value%></td>
-                    <% @question.question_answers.order(position: :asc).each do |answer|%>
-                    <td><%= check_box_tag 'question[answer]' %>
-                    </td>
+                    <% @question.subquestions.order(position: :asc).each_with_index do |subquestion, index|%>
+                    <td><%= check_box_tag 'question[answer]' %></td>
                     <% end %>
                 </tr>
                 <% end %>
@@ -362,11 +367,10 @@
                     <% end %>
                 </tr>
                 <% @question.question_answers.order(position: :asc).each do |answer|%>
-                <tr>
-                    <td><<%= answer.exact_value%></td>
-                    <% @question.question_answers.order(position: :asc).each do |answer|%>
-                    <td><%= select_tag 'question[answer]',  options, :include_blank => 'Please select an answer' %>
-                    </td>
+                 <tr>
+                    <td><%= answer.exact_value%></td>
+                    <% @question.subquestions.order(position: :asc).each_with_index do |subquestion, index|%>
+                    <td><%= select_tag 'question[answer]',  options, :include_blank => 'Please select an answer' %></td>
                     <% end %>
                 </tr>
                 <% end %>
