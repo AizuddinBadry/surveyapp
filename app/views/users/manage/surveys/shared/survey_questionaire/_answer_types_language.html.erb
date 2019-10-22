@@ -214,6 +214,12 @@
     
 <% elsif @question.q_type == 'Textarea' %>
 <%= text_area_tag 'question[answer]', nil, cols: "30", rows: "5", class: 'textarea' %>
+<% elsif @question.q_type == 'Textbox' %>
+    <% if @question.logic.present? %>
+     <%= text_field_tag 'question[answer]',nil, class: 'input', pattern:@question.logic , required: true %>
+    <% else %>
+        <%= text_field_tag 'question[answer]',nil, class: 'input'%>
+    <% end %>
 <% elsif @question.q_type == 'Ranking'%>
 <% @question.question_answers.each do |answer|%>
 <div style="border: 1px solid grey;margin-top:10px;padding:10px;">

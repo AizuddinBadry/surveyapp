@@ -9,6 +9,7 @@ class Users::Manage::QuestionsController < ApplicationController
 
   def show
     @languages = SurveyLanguage.where(survey_id: @question.survey_id).order(created_at: :asc)
+    @question.conditions.build if @question.conditions.nil?
   end
 
   def new
