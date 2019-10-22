@@ -70,7 +70,6 @@ document.addEventListener("turbolinks:load", function() {
 });
 $(document).ready(function() {
   $(".datatable").DataTable();
-  $(".select2").select2();
 
   var table = $(".questions-datatable").DataTable({
     rowReorder: true,
