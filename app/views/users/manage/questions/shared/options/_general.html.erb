@@ -16,7 +16,7 @@
                           ['Checkbox With Comment', 'Checkbox With Comment'],
                           ['Checkbox With Limit', 'Checkbox With Limit'],
                           ['Checkbox With Text', 'Checkbox With Text'], 
-                          ['Textarea', 'Textarea'],['Textbox', 'Textbox'],['Ranking', 'Ranking'], 
+                          ['Textarea', 'Textarea'],['Textbox', 'Textbox'],['Multiple Textbox', 'Multiple Textbox'],['Ranking', 'Ranking'], 
                           ['Numeric', 'Numeric'], ['Array', 'Array'], 
                           ['Array Numerical', 'Array Numerical'], ['Array Multiple answer', 'Array Multiple answer'], 
                           ['Array Dropdown', 'Array Dropdown']], selected: @question.q_type) %></div>
@@ -74,9 +74,13 @@
               <label class="label">This question is mandatory?</label>
                 <%= f.check_box :mandatory, id: 'switch', disabled: params[:edit].present? ? false : true%>
               <label class="toggle" for="switch"></label>
+              
+              <label class="label">Enable Question Code?</label>
+                <%= f.check_box :d_qcode, id: 'qcode', disabled: params[:edit].present? ? false : true%>
+              <label class="toggle" for="qcode"></label>
               <% if @question.q_type == "Textbox" %>
               <label class="label">Validation</label>
-                <%= f.text_field :logic , class:"input"%>
+                <%= f.text_field :logic , class:"input", disabled: params[:edit].present? ? false : true%>
               <% end %>
               <% if @question.q_type.include?('Radio')%>
               <label class="label">Enable Input Box 1?</label>

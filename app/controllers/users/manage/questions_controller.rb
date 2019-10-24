@@ -88,7 +88,7 @@ class Users::Manage::QuestionsController < ApplicationController
     def question_params
       meta_keys_question = params.require(:question).fetch(:other_language, {}).keys
       params.require(:question).permit(:question_group_id, :q_type, :code, :description, :help, 
-                                        :mandatory, :logic, :position, :limit, :structure,
+                                        :mandatory, :logic, :position,:q_desc ,:d_qcode , :limit, :structure,
                                         :enable_other_1, :enable_other_2, :other_language => meta_keys_question,
                                         question_answers_attributes: [:exact_value, :id, :code, :display_input_box_1, :display_input_box_2,
                                                                       :input_box_1_label, :input_box_2_label, :input_box_1_type, :input_box_2_type,

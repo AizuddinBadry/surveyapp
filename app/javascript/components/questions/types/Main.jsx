@@ -91,6 +91,12 @@ class Main extends React.Component {
             >
               Textbox
             </a>
+            <a
+              className="button is-primary is-rounded"
+              onClick={() => this.props.handler(1, "Multiple Textbox")}
+            >
+              Multiple Textbox
+            </a>
           </div>
         </div>
         <div className="field">
