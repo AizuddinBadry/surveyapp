@@ -80,7 +80,7 @@ input[type="radio"] {
 } // End Custom radio buttons
 
 /* Custom checkbox */
-input[type="checkbox"] + label {
+.bw-checkbox + label {
   display: inline-block;
   cursor: pointer;
   position: relative;
@@ -103,7 +103,7 @@ input[type="checkbox"] + label {
   }
 }
 
-input[type="checkbox"] {
+.bw-checkbox {
   display: none !important;
   *display: inline;
 

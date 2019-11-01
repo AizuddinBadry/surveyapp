@@ -47,8 +47,12 @@ class Users::Manage::SurveysController < Users::BaseController
     def preview
         clear_session
         if !params[:intro].present?
-            set_preview_cookies
-            @question = Question.where(survey_id: @survey.id, survey_position: cookies[:question_position]).first
+            set_preview_cookies       
+            @question = Questions::Submission.submit({survey_id: @survey.id, 
+                                                        q1: request.post? ? params[:current_question_position] : nil, 
+                                                        q2: cookies[:question_position], 
+                                                        answer: request.post? ? params[:question][:answer] : nil})
+            flash[:info] = Questions::Submission.message
             if !@question.present?
                 if request.xhr?
                     respond_to do |format|

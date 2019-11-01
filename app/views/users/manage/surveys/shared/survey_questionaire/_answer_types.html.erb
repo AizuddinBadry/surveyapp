@@ -69,7 +69,7 @@
             <div class="column is-6">
                 <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
                     <label class="checkbox">
-                        <%= check_box_tag 'question[answer]' %>
+                        <%= check_box_tag 'question[answer]', class: 'bw-checkbox' %>
                         <%= answer.exact_value%>
                     </label>
                 </div>
@@ -79,7 +79,7 @@
                 <div class="column is-6">
                     <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
                         <div class="checkbox">
-                            <%= check_box_tag 'question[answer][]', answer.value, nil, id: "question_answer_#{answer.value}" %>
+                            <%= check_box_tag 'question[answer][]', answer.value, nil, id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
                             <%= label_tag "question_answer_#{answer.value}"%>
                         </div>
                     </div>
@@ -90,7 +90,7 @@
         <% @question.question_answers.order(position: :asc).each do |answer|%>
             <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
                 <div class="checkbox">
-                    <%= check_box_tag 'question[answer][]', answer.value, nil, id: "question_answer_#{answer.value}" %>
+                    <%= check_box_tag 'question[answer][]', answer.value, nil, id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
                     <%= label_tag "question_answer_#{answer.value}"%>
                 </div>
             </div>
@@ -104,10 +104,10 @@
             <% @question.question_answers.first(@question.question_answers.length/2).each do |answer| %>
             <div class="column is-6">
                 <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
-                    <label class="checkbox">
-                        <%= check_box_tag 'question[answer]' %>
-                        <%= answer.exact_value%>
-                    </label>
+                    <div class="checkbox">
+                        <%= check_box_tag 'question[answer][]', answer.value, nil, id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
+                        <%= label_tag "question_answer_#{answer.value}"%>
+                    </div>
                          <%= text_area_tag 'question[comment]', cols: "30", rows: "2", class: 'textarea' %>
                 </div>
             </div>
@@ -115,10 +115,10 @@
             <% @question.question_answers.last(@question.question_answers.length/2).each do |answer| %>
                 <div class="column is-6">
                     <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
-                        <label class="checkbox">
-                            <%= check_box_tag 'question[answer]' %>
-                            <%= answer.exact_value%>
-                        </label>
+                        <div class="checkbox">
+                            <%= check_box_tag 'question[answer][]', answer.value, nil, id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
+                            <%= label_tag "question_answer_#{answer.value}"%>
+                        </div>
                              <%= text_area_tag 'question[comment]', cols: "30", rows: "2", class: 'textarea' %>
                     </div>
                 </div>
@@ -127,10 +127,10 @@
     <% else %>
         <% @question.question_answers.order(position: :asc).each do |answer|%>
             <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
-                    <label class="checkbox">
-                        <%= check_box_tag 'question[answer]' %>
-                        <%= answer.exact_value%>
-                    </label>
+                    <div class="checkbox">
+                    <%= check_box_tag 'question[answer][]', answer.value, nil, id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
+                    <%= label_tag "question_answer_#{answer.value}"%>
+                </div>
                          <%= text_area_tag 'question[comment]', cols: "30", rows: "2", class: 'textarea' %>
             </div>
         <% end %>
@@ -144,22 +144,22 @@
             <% @question.question_answers.first(@question.question_answers.length/2).each do |answer| %>
             <div class="column is-6">
                 <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
-                <label class="checkbox">
-                    <%= check_box_tag 'question[answer]', 'question[answer]', false , :class => 'limitcheck' %>
-                    <%= answer.exact_value%>
-                </label>
-            </div>
+                    <div class="checkbox">
+                        <%= check_box_tag 'question[answer][]', answer.value, nil, id: "question_answer_#{answer.value}", class: 'bw-checkbox limitcheck' %>
+                        <%= label_tag "question_answer_#{answer.value}"%>
+                    </div>
+                </div>
             </div>
             <% end %>
             <%= f.hidden_field :limit , value: @question.limit , id:"limit_answers" %>
             <% @question.question_answers.last(@question.question_answers.length/2).each do |answer| %>
                 <div class="column is-6">
                     <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
-                <label class="checkbox">
-                    <%= check_box_tag 'question[answer]', 'question[answer]', false , :class => 'limitcheck' %>
-                    <%= answer.exact_value%>
-                </label>
-            </div>
+                       <div class="checkbox">
+                            <%= check_box_tag 'question[answer][]', answer.value, nil, id: "question_answer_#{answer.value}", class: 'bw-checkbox limitcheck' %>
+                            <%= label_tag "question_answer_#{answer.value}"%>
+                        </div>
+                    </div>
                 </div>
             <% end %>
         </div>
@@ -167,10 +167,10 @@
         <%= f.hidden_field :limit , value: @question.limit , id:"limit_answers" %>
             <% @question.question_answers.order(position: :asc).each do |answer|%>
             <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
-                <label class="checkbox">
-                    <%= check_box_tag 'question[answer]', 'question[answer]', false , :class => 'limitcheck' %>
-                    <%= answer.exact_value%>
-                </label>
+                <div class="checkbox">
+                    <%= check_box_tag 'question[answer][]', answer.value, nil, id: "question_answer_#{answer.value}", class: 'bw-checkbox limitcheck' %>
+                    <%= label_tag "question_answer_#{answer.value}"%>
+                </div>
             </div>
         <% end %>
     <% end %>
@@ -182,9 +182,9 @@
             <% @question.question_answers.first(@question.question_answers.length/2).each do |answer| %>
             <div class="column is-6">
                 <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
-                    <label class="checkbox">
-                        <%= answer.exact_value%>
-                    </label>
+                    <div class="checkbox">
+                        <%= check_box_tag 'question[answer][]', answer.value, nil, id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
+                    </div>
                     <%= text_field 'question[answer]', class: 'input' %>
                 </div>
             </div>
@@ -192,9 +192,9 @@
             <% @question.question_answers.last(@question.question_answers.length/2).each do |answer| %>
                 <div class="column is-6">
                     <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
-                        <label class="checkbox">
-                            <%= answer.exact_value%>
-                        </label>
+                        <div class="checkbox">
+                            <%= check_box_tag 'question[answer][]', answer.value, nil, id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
+                        </div>
                         <%= text_field 'question[answer]', class: 'input' %>
                     </div>
                 </div>
@@ -203,9 +203,9 @@
     <% else %>
         <% @question.question_answers.order(position: :asc).each do |answer|%>
             <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
-                <label class="checkbox">
-                    <%= answer.exact_value%>
-                </label>
+                <div class="checkbox">
+                    <%= check_box_tag 'question[answer][]', answer.value, nil, id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
+                </div>
                 <%= text_field 'question[answer]', class: 'input' %>
             </div>
         <% end %>
