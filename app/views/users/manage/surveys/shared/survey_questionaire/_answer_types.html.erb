@@ -4,7 +4,7 @@
         <div class="columns">
             <div class="column is-4">
                 <%= radio_button_tag 'question[answer]', answer.value, :value => answer.value %>
-                <%= label_tag 'question[answer]', answer.exact_value, class: 'radio' %>
+                <%= label_tag "question_answer_#{answer.value}", answer.exact_value, class: 'radio' %>
             </div>
             <% if @question.enable_other_1 == true%>
                 <div class="column is-3">
