@@ -7,6 +7,7 @@ class Users::Manage::SurveysController < Users::BaseController
 
     def show
         session.delete(:pdpa)
+        cookies[:survey_session] = SecureRandom.hex(12)
     end
 
     def new
@@ -53,7 +54,8 @@ class Users::Manage::SurveysController < Users::BaseController
                                                             q1: request.post? ? params[:current_question_position] : nil, 
                                                             q2: cookies[:question_position], 
                                                             answer: request.post? && params[:question].present? ? params[:question][:answer] : nil,
-                                                            back_request: params[:back_request]})
+                                                            back_request: params[:back_request],
+                                                            survey_session: cookies[:survey_session]})
                 cookies[:question_position] = Questions::Submission.result_position 
                 @warning = Questions::Submission.message unless @question.nil?
                 if !@question.present?
@@ -101,7 +103,10 @@ class Users::Manage::SurveysController < Users::BaseController
            session[:pdpa] = params[:set_session]
         else
             session[:pdpa] ||= false
-            session[:survey_session] ||= SecureRandom.hex(12)
         end
+    end
+
+    def clear_survey_session
+        cookies.delete(:survey_session)
     end
 end

@@ -3,6 +3,7 @@ module Questions
         @message = ''
         @question = ''
         @question_position = ''
+
         def self.submit(args = {})
             @message = ''
             @current_question_pos = args[:q1]
@@ -23,6 +24,8 @@ module Questions
                 @message = ''
                 @question_position = @next_question_pos
             end
+
+            Questions::SaveAnswer.new(@survey_id, @question.id, @answer, args[:survey_session])
             
             return @question
         end
