@@ -48,13 +48,14 @@ class Users::Manage::SurveysController < Users::BaseController
         clear_session
         if !params[:intro].present?
             set_preview_cookies  
-            if !params[:back_request].present?     
+            if !params[:back_request].present? && request.post?   
                 @question = Questions::Submission.submit({survey_id: @survey.id, 
                                                             q1: request.post? ? params[:current_question_position] : nil, 
                                                             q2: cookies[:question_position], 
                                                             answer: request.post? && params[:question][:answer].present? ? params[:question][:answer] : nil,
                                                             back_request: params[:back_request]})
                 cookies[:question_position] = Questions::Submission.result_position 
+                logger.info ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>LOGGER#{@question.description}"
                 flash[:info] = Questions::Submission.message unless @question.nil?
                 if !@question.present?
                     if request.xhr?
@@ -65,9 +66,8 @@ class Users::Manage::SurveysController < Users::BaseController
                     redirect_to preview_users_manage_surveys_path(@survey.id, final: true) unless params[:final].present?
                 end
             else
-                cookies[:question_position] = question_params[:position]
                 @question = Question.where(survey_id: @survey.id, survey_position: cookies[:question_position]).first
-                logger.info ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>LOGGER#{cookies[:question_position]}"
+                
             end
         end
     end
