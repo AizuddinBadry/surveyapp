@@ -68,10 +68,10 @@
             <% @question.question_answers.first(@question.question_answers.length/2).each do |answer| %>
             <div class="column is-6">
                 <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
-                    <label class="checkbox">
-                        <%= check_box_tag 'question[answer]', class: 'bw-checkbox' %>
-                        <%= answer.exact_value%>
-                    </label>
+                     <div class="checkbox">
+                        <%= check_box_tag 'question[answer][]', answer.value, nil, id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
+                        <%= label_tag "question_answer_#{answer.value}"%>
+                    </div>
                 </div>
             </div>
             <% end %>
@@ -128,9 +128,9 @@
         <% @question.question_answers.order(position: :asc).each do |answer|%>
             <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
                     <div class="checkbox">
-                    <%= check_box_tag 'question[answer][]', answer.value, nil, id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
-                    <%= label_tag "question_answer_#{answer.value}"%>
-                </div>
+                        <%= check_box_tag 'question[answer][]', answer.value, nil, id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
+                        <%= label_tag "question_answer_#{answer.value}"%>
+                    </div>
                          <%= text_area_tag 'question[comment]', cols: "30", rows: "2", class: 'textarea' %>
             </div>
         <% end %>
@@ -182,18 +182,20 @@
             <% @question.question_answers.first(@question.question_answers.length/2).each do |answer| %>
             <div class="column is-6">
                 <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
-                    <div class="checkbox">
+                     <div class="checkbox">
                         <%= check_box_tag 'question[answer][]', answer.value, nil, id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
+                        <%= label_tag "question_answer_#{answer.value}"%>
                     </div>
-                    <%= text_field 'question[answer]', class: 'input' %>
+                    <%= text_field 'question[answer_]', class: 'input' %>
                 </div>
             </div>
             <% end %>
             <% @question.question_answers.last(@question.question_answers.length/2).each do |answer| %>
                 <div class="column is-6">
                     <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
-                        <div class="checkbox">
+                         <div class="checkbox">
                             <%= check_box_tag 'question[answer][]', answer.value, nil, id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
+                            <%= label_tag "question_answer_#{answer.value}"%>
                         </div>
                         <%= text_field 'question[answer]', class: 'input' %>
                     </div>
@@ -203,8 +205,9 @@
     <% else %>
         <% @question.question_answers.order(position: :asc).each do |answer|%>
             <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
-                <div class="checkbox">
+                 <div class="checkbox">
                     <%= check_box_tag 'question[answer][]', answer.value, nil, id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
+                    <%= label_tag "question_answer_#{answer.value}"%>
                 </div>
                 <%= text_field 'question[answer]', class: 'input' %>
             </div>
