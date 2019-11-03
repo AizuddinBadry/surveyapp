@@ -4,7 +4,7 @@ module Questions
         @question = ''
         @question_position = ''
         def self.submit(args = {})
-
+            @message = ''
             @current_question_pos = args[:q1]
             @next_question_pos = args[:q2]
             @answer = args[:answer]
@@ -15,8 +15,7 @@ module Questions
             
             @question = @next_question
             @question_position = @next_question_pos
-            @mandatory = Questions::Mandatory.new(@current_question.id) unless @current_question.nil? || @next_question_pos == '1'
-            if @mandatory 
+            if @current_question.mandatory == true
                 @message = 'Please fill in the answer.' unless args[:answer].present?
                 @question =  @current_question unless args[:answer].present?
                 @question_position = @current_question_pos unless args[:answer].present?

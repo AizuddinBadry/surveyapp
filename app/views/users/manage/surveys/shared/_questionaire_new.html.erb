@@ -19,6 +19,7 @@
         <% end %>
         <%= @question&.limit&.present? ? @question.limit : "" %></h3>
         <%= render '/users/manage/surveys/shared/survey_questionaire/label_question_type', f:f%>
+        <%= render '/users/manage/surveys/shared/survey_questionaire/warning'%>
     </div>
     <div class="column is-4">
        <div class="card-image has-text-centered">

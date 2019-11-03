@@ -52,11 +52,10 @@ class Users::Manage::SurveysController < Users::BaseController
                 @question = Questions::Submission.submit({survey_id: @survey.id, 
                                                             q1: request.post? ? params[:current_question_position] : nil, 
                                                             q2: cookies[:question_position], 
-                                                            answer: request.post? && params[:question][:answer].present? ? params[:question][:answer] : nil,
+                                                            answer: request.post? && params[:question].present? ? params[:question][:answer] : nil,
                                                             back_request: params[:back_request]})
                 cookies[:question_position] = Questions::Submission.result_position 
-                logger.info ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>LOGGER#{@question.description}"
-                flash[:info] = Questions::Submission.message unless @question.nil?
+                @warning = Questions::Submission.message unless @question.nil?
                 if !@question.present?
                     if request.xhr?
                         respond_to do |format|
@@ -66,8 +65,7 @@ class Users::Manage::SurveysController < Users::BaseController
                     redirect_to preview_users_manage_surveys_path(@survey.id, final: true) unless params[:final].present?
                 end
             else
-                @question = Question.where(survey_id: @survey.id, survey_position: cookies[:question_position]).first
-                
+                @question = Question.where(survey_id: @survey.id, survey_position: cookies[:question_position]).first 
             end
         end
     end
