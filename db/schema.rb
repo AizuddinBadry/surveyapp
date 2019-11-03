@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_03_082500) do
+ActiveRecord::Schema.define(version: 2019_11_03_082953) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -125,6 +125,17 @@ ActiveRecord::Schema.define(version: 2019_11_03_082500) do
     t.index ["question_id"], name: "index_subquestions_on_question_id"
   end
 
+  create_table "survey_answers", force: :cascade do |t|
+    t.bigint "survey_id", null: false
+    t.bigint "question_id", null: false
+    t.bigint "value"
+    t.text "session"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["question_id"], name: "index_survey_answers_on_question_id"
+    t.index ["survey_id"], name: "index_survey_answers_on_survey_id"
+  end
+
   create_table "survey_languages", force: :cascade do |t|
     t.text "name"
     t.bigint "survey_id", null: false
@@ -196,6 +207,8 @@ ActiveRecord::Schema.define(version: 2019_11_03_082500) do
   add_foreign_key "question_other_languages", "survey_languages"
   add_foreign_key "questions", "question_groups"
   add_foreign_key "subquestions", "questions"
+  add_foreign_key "survey_answers", "questions"
+  add_foreign_key "survey_answers", "surveys"
   add_foreign_key "survey_languages", "surveys"
   add_foreign_key "survey_sessions", "questions"
   add_foreign_key "survey_sessions", "surveys"

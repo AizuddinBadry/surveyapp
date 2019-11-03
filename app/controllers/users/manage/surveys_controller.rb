@@ -101,6 +101,7 @@ class Users::Manage::SurveysController < Users::BaseController
            session[:pdpa] = params[:set_session]
         else
             session[:pdpa] ||= false
+            session[:survey_session] ||= SecureRandom.hex(12)
         end
     end
 end
