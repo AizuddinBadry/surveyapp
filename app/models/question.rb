@@ -43,6 +43,8 @@ class Question < ApplicationRecord
   belongs_to :survey, class_name: 'Survey', foreign_key: 'survey_id', optional: true
   has_many :question_answers, :dependent => :destroy 
   has_many :subquestions, :dependent => :destroy
+  has_many :conditions, :dependent => :destroy
   accepts_nested_attributes_for :question_answers
   accepts_nested_attributes_for :subquestions
+  accepts_nested_attributes_for :conditions, allow_destroy: true
 end

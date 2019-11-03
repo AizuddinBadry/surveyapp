@@ -7,6 +7,7 @@ class Users::Manage::SurveysController < Users::BaseController
 
     def show
         session.delete(:pdpa)
+        cookies[:survey_session] = SecureRandom.hex(12)
     end
 
     def new
@@ -47,18 +48,28 @@ class Users::Manage::SurveysController < Users::BaseController
     def preview
         clear_session
         if !params[:intro].present?
-            set_preview_cookies
-            @question = Question.where(survey_id: @survey.id, survey_position: cookies[:question_position]).first
-            if !@question.present?
-                if request.xhr?
-                    respond_to do |format|
-                        format.js { render :json => @survey }
+            set_preview_cookies  
+            if !params[:back_request].present? && request.post?   
+                @question = Questions::Submission.submit({survey_id: @survey.id, 
+                                                            q1: request.post? ? params[:current_question_position] : nil, 
+                                                            q2: cookies[:question_position], 
+                                                            answer: request.post? && params[:question].present? ? params[:question][:answer] : nil,
+                                                            back_request: params[:back_request],
+                                                            survey_session: cookies[:survey_session]})
+                cookies[:question_position] = Questions::Submission.result_position 
+                @warning = Questions::Submission.message unless @question.nil?
+                if !@question.present?
+                    if request.xhr?
+                        respond_to do |format|
+                            format.js { render :json => @survey }
+                        end
                     end
+                    redirect_to preview_users_manage_surveys_path(@survey.id, final: true) unless params[:final].present?
                 end
-                redirect_to preview_users_manage_surveys_path(@survey.id, final: true) unless params[:final].present?
+            else
+                @question = Question.where(survey_id: @survey.id, survey_position: cookies[:question_position]).first 
             end
         end
-
     end
 
     private
@@ -93,5 +104,9 @@ class Users::Manage::SurveysController < Users::BaseController
         else
             session[:pdpa] ||= false
         end
+    end
+
+    def clear_survey_session
+        cookies.delete(:survey_session)
     end
 end

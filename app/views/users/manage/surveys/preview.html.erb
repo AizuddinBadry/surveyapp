@@ -5,7 +5,7 @@
             <p class="progress-value has-text-black"><%= (cookies[:question_position].to_f/@survey.questions.size.to_f * 100).to_i %>%</p>
         <% end %>
     </div>
-    <div class="card" style="min-height: 600px;position: relative; ">
+    <div class="card" style="min-height: 800px;position: relative; ">
         <div class="card-content">
         <% if session[:pdpa] == false && @survey.survey_setting.enable_pdpa == true %>
             <%= render '/users/manage/surveys/shared/pdpa_screen'%>

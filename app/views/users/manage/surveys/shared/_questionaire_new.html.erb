@@ -5,6 +5,7 @@
 <% end %>
 <%= form_for(:question, url: @url, method: :post) do |f|%>
 <%= f.hidden_field :position, value: @question.survey_position + 1 %>
+<%= hidden_field_tag 'current_question_position',@question.survey_position %>
 <div class="columns is-multiline">
     <div class="column is-12 has-text-centered">
         <h2 class="title"><%= @question.question_group.name%> : <%= @question.question_group.description%></h2>
@@ -18,6 +19,8 @@
         <% end %>
         <%= @question&.limit&.present? ? @question.limit : "" %></h3>
         <%= @question.q_desc.present? ? @question.q_desc : ""%>
+        <%= render '/users/manage/surveys/shared/survey_questionaire/label_question_type', f:f%>
+        <%= render '/users/manage/surveys/shared/survey_questionaire/warning'%>
     </div>
     <div class="column is-4">
        <div class="card-image has-text-centered">
@@ -38,13 +41,13 @@
             <%= @question.help.present? ? @question.help : ""%>
         <% end %>
     </div>
-    <div class="column is-12 has-text-right pl-20" style="bottom:20px;position:absolute">
+    <div class="column is-12 has-text-right pl-20 pt-40" style="bottom:20px;position:relative">
         <% if @preview_mode == 'Question'%>
-            <%= link_to 'Back', :back , class: 'button is-dark'%>
+            <%= link_to 'Back', :back, method: :get , class: 'button is-dark'%>
         <% end %>
         
         <% if @preview_mode != 'Question' %>   
-            <%= link_to 'Back', preview_users_manage_surveys_path(@survey.id, question: {position: @question.survey_position - 1}) , class:'button is-dark', id: 'back-question', remote: true, method: :post%>
+            <%= link_to 'Back', preview_users_manage_surveys_path(@survey.id, question: {position: @question.survey_position - 1}, current_question_position: @question.survey_position, back_request: true, lang: params[:lang].present? ? params[:lang] : 'English') , class:'button is-dark', id: 'back-question', method: :post%>
             <%= f.submit 'Next', class: 'button is-primary-gradient next-question'%>
         <% end %>
     </div>

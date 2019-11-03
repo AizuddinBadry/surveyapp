@@ -41,6 +41,14 @@
                         <%= f.text_area :q_type, class: "input" %>
                     </div>
                 </div>
+                <div class="field">
+                    <label class="label">Terminate if answer : </label>
+                            <select class="select2" name="terminate_condition[]" multiple="multiple">
+                                <% @question.question_answers.each do |answer|%>
+                                    <option value="<%=answer.id%>"><%= answer.code%>. <%= answer.exact_value%></option>
+                                <% end %>
+                            </select>
+                </div>
             </div>
         </div>
     </div>

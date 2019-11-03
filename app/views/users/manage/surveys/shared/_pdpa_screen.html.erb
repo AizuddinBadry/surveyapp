@@ -10,10 +10,10 @@
         <%= @survey.survey_setting.pdpa_message.html_safe %>
     </div>
     <div class="column is-12">
-        <label class="checkbox">
-        <input type="checkbox" id="accept-pdpa">
-            I agree to the PDPA concern above
-        </label>
+    <div class="checkbox">  
+        <input type="checkbox" name="check" value="check"  id="accept-pdpa" class="bw-checkbox">  
+        <label for="accept-pdpa"> I agree to the PDPA concern above</label>      
+    </div>
     </div>
     <div class="column is-12 has-text-centered" style="bottom:20px;position:absolute">
         <%= f.submit 'Start Survey', class: 'button is-primary-gradient', id: 'start-survey', disabled: true%>

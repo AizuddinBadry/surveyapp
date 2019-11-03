@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  survey: one
+  question: one
+  value: 
+  session: MyText
+
+two:
+  survey: two
+  question: two
+  value: 
+  session: MyText
