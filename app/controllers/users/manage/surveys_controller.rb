@@ -47,22 +47,29 @@ class Users::Manage::SurveysController < Users::BaseController
     def preview
         clear_session
         if !params[:intro].present?
-            set_preview_cookies       
-            @question = Questions::Submission.submit({survey_id: @survey.id, 
-                                                        q1: request.post? ? params[:current_question_position] : nil, 
-                                                        q2: cookies[:question_position], 
-                                                        answer: request.post? ? params[:question][:answer] : nil})
-            flash[:info] = Questions::Submission.message
-            if !@question.present?
-                if request.xhr?
-                    respond_to do |format|
-                        format.js { render :json => @survey }
+            set_preview_cookies  
+            if !params[:back_request].present?     
+                @question = Questions::Submission.submit({survey_id: @survey.id, 
+                                                            q1: request.post? ? params[:current_question_position] : nil, 
+                                                            q2: cookies[:question_position], 
+                                                            answer: request.post? && params[:question][:answer].present? ? params[:question][:answer] : nil,
+                                                            back_request: params[:back_request]})
+                cookies[:question_position] = Questions::Submission.result_position 
+                flash[:info] = Questions::Submission.message unless @question.nil?
+                if !@question.present?
+                    if request.xhr?
+                        respond_to do |format|
+                            format.js { render :json => @survey }
+                        end
                     end
+                    redirect_to preview_users_manage_surveys_path(@survey.id, final: true) unless params[:final].present?
                 end
-                redirect_to preview_users_manage_surveys_path(@survey.id, final: true) unless params[:final].present?
+            else
+                cookies[:question_position] = question_params[:position]
+                @question = Question.where(survey_id: @survey.id, survey_position: cookies[:question_position]).first
+                logger.info ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>LOGGER#{cookies[:question_position]}"
             end
         end
-
     end
 
     private
