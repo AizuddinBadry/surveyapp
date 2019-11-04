@@ -1,5 +1,13 @@
 <meta name="turbolinks-visit-control" content="reload">
 <main class="column" id="main" class="panel">
+<nav class="breadcrumb is-medium" aria-label="breadcrumbs">
+  <ul>
+    <li><%= link_to "Dashboard", root_path %></li>
+    <li><%= link_to "Survey Listings", users_manage_surveys_path %></li>
+    <li><%= link_to Survey.find(params[:id]).title , users_manage_survey_path(params[:id]) %></li>
+    <li class="is-active"><%= link_to "Survey Setting" , users_manage_survey_setting_path(params[:id]), 'aria-current': "page" %></li>
+  </ul>
+</nav>
     <div class="level">
         <div class="level-left">
         <div class="level-item">
