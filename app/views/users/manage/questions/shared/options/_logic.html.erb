@@ -8,39 +8,7 @@
         </div>
         <div class="card-content toggle-content">
             <div class="content">
-                <label class="label">Array filter style</label>
-                <%= f.check_box :mandatory, id: 'switch', disabled: params[:edit].present? ? false : true%>
-                <label class="toggle" for="switch"></label>
-                <div class="field">
-                    <label class="label">Array filter : </label>
-                    <div class="control">
-                        <%= f.text_field :q_type, class: "input" %>
-                    </div>
-                </div>
-                <div class="field">
-                    <label class="label">Array filter exclusion : </label>
-                    <div class="control">
-                        <%= f.text_field :q_type, class: "input" %>
-                    </div>
-                </div>
-                <label class="label">Numbers only for 'Other' : </label>
-                <%= f.check_box :mandatory, id: 'switch', disabled: params[:edit].present? ? false : true%>
-                <label class="toggle" for="switch"></label>
-                <label class="label">'Other:' comment mandatory : </label>
-                <%= f.check_box :mandatory, id: 'switch', disabled: params[:edit].present? ? false : true%>
-                <label class="toggle" for="switch"></label>
-                <div class="field">
-                    <label class="label">Randomization group name : </label>
-                    <div class="control">
-                        <%= f.text_field :q_type, class: "input" %>
-                    </div>
-                </div>
-                <div class="field">
-                    <label class="label">Relevance help for printable survey (en) : </label>
-                    <div class="control">
-                        <%= f.text_area :q_type, class: "input" %>
-                    </div>
-                </div>
+               
                 <div class="field">
                     <label class="label">Terminate if answer : </label>
                             <select class="select2" name="terminate_condition[]" multiple="multiple">
