@@ -22,55 +22,6 @@
                           ['Array Dropdown', 'Array Dropdown']], selected: @question.q_type) %></div>
         </div>
         </label>
-        <% if @question.q_type == "Array" %>
-        <label class="label">Structure : 
-        <div class="control">
-          <div class="select"><%= f.select :structure, [['Subquestion Horizontal', 'Subquestion Horizontal'], ['Subquestion Vertical', 'Subquestion Vertical']] %></div>
-        </div>
-        </label>
-        <% elsif @question.q_type == "Array Numerical" %>
-        <label class="label">Structure : 
-        <div class="control">
-          <div class="select"><%= f.select :structure, [['Subquestion Horizontal', 'Subquestion Horizontal'], ['Subquestion Vertical', 'Subquestion Vertical']] %></div>
-        </div>
-        </label>
-        <% elsif @question.q_type == "Array Multiple Answer" %>
-        <label class="label">Structure : 
-        <div class="control">
-          <div class="select"><%= f.select :structure, [['Subquestion Horizontal', 'Subquestion Horizontal'], ['Subquestion Vertical', 'Subquestion Vertical']] %></div>
-        </div>
-        </label>
-        <% elsif @question.q_type == "Array Dropdown" %>
-        <label class="label">Structure : 
-        <div class="control">
-          <div class="select"><%= f.select :structure, [['Subquestion Horizontal', 'Subquestion Horizontal'], ['Subquestion Vertical', 'Subquestion Vertical']] %></div>
-        </div>
-        </label>
-        <% elsif @question.q_type == "Checkbox" %>
-        <label class="label">Structure : 
-        <div class="control">
-          <div class="select"><%= f.select :structure, [['One Column', 'One Column'], ['Two Column', 'Two Column']] %></div>
-        </div>
-        </label>
-        <% elsif @question.q_type == "Checkbox With Comment" %>
-        <label class="label">Structure : 
-        <div class="control">
-          <div class="select"><%= f.select :structure, [['One Column', 'One Column'], ['Two Column', 'Two Column']] %></div>
-        </div>
-        </label>
-        <% elsif @question.q_type == "Checkbox With Limit" %>
-        <label class="label">Structure : 
-        <div class="control">
-          <div class="select"><%= f.select :structure, [['One Column', 'One Column'], ['Two Column', 'Two Column']] %></div>
-        </div>
-        </label>
-        <% elsif @question.q_type == "Checkbox With Text" %>
-        <label class="label">Structure : 
-        <div class="control">
-          <div class="select"><%= f.select :structure, [['One Column', 'One Column'], ['Two Column', 'Two Column']] %></div>
-        </div>
-        </label>
-        <% end %>
               <label class="label">This question is mandatory?</label>
                 <%= f.check_box :mandatory, id: 'switch', disabled: params[:edit].present? ? false : true%>
               <label class="toggle" for="switch"></label>

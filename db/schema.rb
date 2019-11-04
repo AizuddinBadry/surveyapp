@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_03_085411) do
+ActiveRecord::Schema.define(version: 2019_11_04_150660) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -113,6 +113,8 @@ ActiveRecord::Schema.define(version: 2019_11_03_085411) do
     t.text "q_desc"
     t.text "helper"
     t.text "d_qcode"
+    t.boolean "randomize"
+    t.bigint "column"
     t.index ["question_group_id"], name: "index_questions_on_question_group_id"
   end
 
@@ -183,6 +185,7 @@ ActiveRecord::Schema.define(version: 2019_11_03_085411) do
     t.text "start_button_text"
     t.boolean "final_button_to_start", default: false
     t.text "image_data"
+    t.text "status"
     t.index ["user_id"], name: "index_surveys_on_user_id"
   end
 
