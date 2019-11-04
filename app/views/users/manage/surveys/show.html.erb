@@ -1,4 +1,11 @@
 <main class="column" id="main" class="panel">
+<nav class="breadcrumb is-medium" aria-label="breadcrumbs">
+  <ul>
+    <li><%= link_to "Dashboard", root_path %></li>
+    <li><%= link_to "Survey Listings", users_manage_surveys_path %></li>
+    <li class="is-active"><%= link_to @survey.title , users_manage_surveys_path, 'aria-current': "page" %></li>
+  </ul>
+</nav>
     <%= form_for(@survey, url: users_manage_survey_path(@survey.id), method: :put, class: 'column') do |f|%>
         <div class="level">
             <div class="level-left">

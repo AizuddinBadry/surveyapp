@@ -38,7 +38,7 @@ class Api::V1::QuestionsController < Api::BaseController
 
     def question_params
         params.require(:question).permit(:question_group_id, :q_type, :code, :description, 
-                                            :help, :mandatory, :limit ,:position, :survey_id)
+                                            :help,:q_desc,:d_qcode, :mandatory, :limit ,:position, :survey_id)
     end
 
     

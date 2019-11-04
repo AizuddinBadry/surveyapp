@@ -21,6 +21,18 @@
         <% end %>
       <% end %>
     </div>
+    <div class="field">
+      <label class="label">Helper</label>
+      <% if !params[:lang].present? || params[:lang] == 'English'%>
+        <%= f.text_area :help, class: 'editor', disabled: params[:edit].present? ? false : true%>
+      <% end %>
+    </div>
+    <div class="field">
+      <label class="label">Question tooltip</label>
+      <% if !params[:lang].present? || params[:lang] == 'English'%>
+        <%= f.text_field :q_desc, class: 'input', disabled: params[:edit].present? ? false : true%>
+      <% end %>
+    </div>
   <% if @question.limit.present? %>
     <div class="field">
       <label class="label">Limit Answers</label>

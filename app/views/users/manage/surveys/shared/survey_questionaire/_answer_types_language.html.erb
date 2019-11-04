@@ -3,20 +3,36 @@
     <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
         <div class="columns">
             <div class="column is-4">
+             <% if @question.d_qcode == "1"%>
+            <%= "#{answer.code}." %>
+             <% end %>
+                <%= @question.d_qcode == true ? @question.d_qcode : "" %>
                 <%= radio_button_tag 'question[answer]', answer.value, :value => answer.value %>
-                <%= label_tag 'question[answer]', QuestionAnswer.query_language(answer, params[:lang]), class: 'radio' %>
+                <%= label_tag 'question[answer]', answer.exact_value, class: 'radio' %>
             </div>
             <% if @question.enable_other_1 == true%>
                 <div class="column is-3">
                     <% if answer.display_input_box_1 == true%>
                         <%= answer.input_box_1_label%><br/>
                         <% if answer.input_box_1_type == 'Text'%>
+                         <% if @question.d_qcode == "1"%>
+                            <%= "#{answer.code}." %>
+                         <% end %>
                             <%= text_field_tag 'question[input_box_1]', nil, class: ''%>
                         <% elsif answer.input_box_1_type == 'Textarea' %>
+                         <% if @question.d_qcode == "1"%>
+                            <%= "#{"#{answer.code}."}." %>
+                         <% end %>
                             <%= text_area_tag  'question[input_box_1]', nil, class: '', rows: '5', cols:'50'%>
                         <% elsif answer.input_box_1_type == 'Number'%>
+                         <% if @question.d_qcode == "1"%>
+                            <%= "#{answer.code}." %>
+                         <% end %>
                             <%= number_field_tag  'question[input_box_1]', nil, class: ''%>
                         <% elsif  answer.input_box_1_type == 'Percentage' %>
+                            <% if @question.d_qcode == "1"%>
+                                <%= "#{answer.code}." %>
+                            <% end %>
                             <%= number_field_tag  'question[input_box_1]', nil, class: ''%>%
                         <% end %>
                     <% end %>
@@ -27,12 +43,24 @@
                     <% if answer.display_input_box_2 == true%>
                         <%= answer.input_box_2_label%><br/>
                         <% if answer.input_box_2_type == 'Text'%>
+                             <% if @question.d_qcode == "1"%>
+                                <%= "#{answer.code}." %>
+                            <% end %>
                             <%= text_field_tag 'question[input_box_2]', nil, class: ''%>
                         <% elsif answer.input_box_2_type == 'Textarea' %>
+                             <% if @question.d_qcode == "1"%>
+                                <%= "#{answer.code}." %>
+                            <% end %>
                             <%= text_area_tag  'question[input_box_2]', nil, class: '', rows: '5', cols:'5'%>
                         <% elsif answer.input_box_2_type == 'Number'%>
+                             <% if @question.d_qcode == "1"%>
+                                <%= "#{answer.code}." %>
+                            <% end %>
                             <%= number_field_tag  'question[input_box_2]', nil, class: ''%>
                         <% elsif  answer.input_box_2_type == 'Percentage' %>
+                             <% if @question.d_qcode == "1"%>
+                                <%= "#{answer.code}." %>
+                            <% end %>
                             <%= number_field_tag  'question[input_box_2]', nil, class: ''%>%
                         <% end %>
                     <% end %>
@@ -43,22 +71,31 @@
 <% end %>
 <% elsif @question.q_type == 'Select Dropdown'%>
     <div class="select">
+         <% if @question.d_qcode == "1"%>
+                                <%= "#{answer.code}." %>
+                            <% end %>
         <% options = options_from_collection_for_select(@question.question_answers, 'value', 'exact_value') %>
         <%= select_tag 'question[answer]',  options, :include_blank => 'Please select an answer' %>
     </div>
 <% elsif @question.q_type == 'Radio Button With Comment' %>
     <% @question.question_answers.order(position: :asc).each do |answer|%>
     <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
+        <% if @question.d_qcode == "1"%>
+            <%= "#{answer.code}." %>
+        <% end %>
         <%= radio_button_tag 'question[answer]', answer.value, :value => answer.value %>
-        <%= label_tag 'question[answer]', QuestionAnswer.query_language(answer, params[:lang]), class: 'radio' %>
+        <%= label_tag 'question[answer]', answer.exact_value, class: 'radio' %>
         <%= text_field 'question[comment]', class: 'input' %>
     </div>
 <% end %>
 <% elsif @question.q_type == 'Radio Button Level'%>
     <% @question.question_answers.order(position: :asc).each do |answer|%>
     <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
+        <% if @question.d_qcode == "1"%>
+            <%= "#{answer.code}." %>
+        <% end %>
         <%= radio_button_tag 'question[answer]', answer.value %>
-        <%= label_tag 'question[answer]', QuestionAnswer.query_language(answer, params[:lang]), :value => answer.value, class: 'radio' %>
+        <%= label_tag 'question[answer]', answer.exact_value, :value => answer.value, class: 'radio' %>
     </div>
 <% end %>
 <% elsif @question.q_type == 'Checkbox'%>
@@ -69,8 +106,11 @@
             <div class="column is-6">
                 <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
                     <label class="checkbox">
+                        <% if @question.d_qcode == "1"%>
+                            <%= "#{answer.code}." %>
+                        <% end %>
                         <%= check_box_tag 'question[answer]' %>
-                        <%= QuestionAnswer.query_language(answer, params[:lang])%>
+                        <%= answer.exact_value%>
                     </label>
                 </div>
             </div>
@@ -79,8 +119,11 @@
                 <div class="column is-6">
                     <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
                         <label class="checkbox">
+                            <% if @question.d_qcode == "1"%>
+                                <%= "#{answer.code}." %>
+                            <% end %>
                             <%= check_box_tag 'question[answer]' %>
-                            <%= QuestionAnswer.query_language(answer, params[:lang])%>
+                            <%= answer.exact_value%>
                         </label>
                     </div>
                 </div>
@@ -90,8 +133,11 @@
         <% @question.question_answers.order(position: :asc).each do |answer|%>
             <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
                     <label class="checkbox">
+                        <% if @question.d_qcode == "1"%>
+                            <%= "#{answer.code}." %>
+                        <% end %>
                         <%= check_box_tag 'question[answer]' %>
-                        <%= QuestionAnswer.query_language(answer, params[:lang])%>
+                        <%= answer.exact_value%>
                     </label>
             </div>
         <% end %>
@@ -105,8 +151,11 @@
             <div class="column is-6">
                 <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
                     <label class="checkbox">
+                        <% if @question.d_qcode == "1"%>
+                            <%= "#{answer.code}." %>
+                        <% end %>
                         <%= check_box_tag 'question[answer]' %>
-                        <%= QuestionAnswer.query_language(answer, params[:lang])%>
+                        <%= answer.exact_value%>
                     </label>
                          <%= text_area_tag 'question[comment]', cols: "30", rows: "2", class: 'textarea' %>
                 </div>
@@ -116,9 +165,13 @@
                 <div class="column is-6">
                     <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
                         <label class="checkbox">
+                            <% if @question.d_qcode == "1"%>
+                            <%= "#{answer.code}." %>
+                        <% end %>
                             <%= check_box_tag 'question[answer]' %>
-                            <%= QuestionAnswer.query_language(answer, params[:lang])%>
+                            <%= answer.exact_value%>
                         </label>
+                            
                              <%= text_area_tag 'question[comment]', cols: "30", rows: "2", class: 'textarea' %>
                     </div>
                 </div>
@@ -129,7 +182,7 @@
             <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
                     <label class="checkbox">
                         <%= check_box_tag 'question[answer]' %>
-                        <%= QuestionAnswer.query_language(answer, params[:lang])%>
+                        <%= answer.exact_value%>
                     </label>
                          <%= text_area_tag 'question[comment]', cols: "30", rows: "2", class: 'textarea' %>
             </div>
@@ -145,8 +198,11 @@
             <div class="column is-6">
                 <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
                 <label class="checkbox">
+                    <% if @question.d_qcode == "1"%>
+                            <%= "#{answer.code}." %>
+                        <% end %>
                     <%= check_box_tag 'question[answer]', 'question[answer]', false , :class => 'limitcheck' %>
-                    <%= QuestionAnswer.query_language(answer, params[:lang])%>
+                    <%= answer.exact_value%>
                 </label>
             </div>
             </div>
@@ -156,8 +212,11 @@
                 <div class="column is-6">
                     <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
                 <label class="checkbox">
+                    <% if @question.d_qcode == "1"%>
+                            <%= "#{answer.code}." %>
+                        <% end %>
                     <%= check_box_tag 'question[answer]', 'question[answer]', false , :class => 'limitcheck' %>
-                    <%= QuestionAnswer.query_language(answer, params[:lang])%>
+                    <%= answer.exact_value%>
                 </label>
             </div>
                 </div>
@@ -168,8 +227,11 @@
             <% @question.question_answers.order(position: :asc).each do |answer|%>
             <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
                 <label class="checkbox">
+                    <% if @question.d_qcode == "1"%>
+                            <%= "#{answer.code}." %>
+                        <% end %>
                     <%= check_box_tag 'question[answer]', 'question[answer]', false , :class => 'limitcheck' %>
-                    <%= QuestionAnswer.query_language(answer, params[:lang])%>
+                    <%= answer.exact_value%>
                 </label>
             </div>
         <% end %>
@@ -183,7 +245,10 @@
             <div class="column is-6">
                 <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
                     <label class="checkbox">
-                        <%= QuestionAnswer.query_language(answer, params[:lang])%>
+                        <% if @question.d_qcode == "1"%>
+                            <%= "#{answer.code}." %>
+                        <% end %>
+                        <%= answer.exact_value%>
                     </label>
                     <%= text_field 'question[answer]', class: 'input' %>
                 </div>
@@ -193,7 +258,10 @@
                 <div class="column is-6">
                     <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
                         <label class="checkbox">
-                            <%= QuestionAnswer.query_language(answer, params[:lang])%>
+                            <% if @question.d_qcode == "1"%>
+                            <%= "#{answer.code}." %>
+                        <% end %>
+                            <%= answer.exact_value%>
                         </label>
                         <%= text_field 'question[answer]', class: 'input' %>
                     </div>
@@ -204,7 +272,10 @@
         <% @question.question_answers.order(position: :asc).each do |answer|%>
             <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
                 <label class="checkbox">
-                    <%= QuestionAnswer.query_language(answer, params[:lang])%>
+                    <% if @question.d_qcode == "1"%>
+                            <%= "#{answer.code}." %>
+                        <% end %>
+                    <%= answer.exact_value%>
                 </label>
                 <%= text_field 'question[answer]', class: 'input' %>
             </div>
@@ -213,6 +284,7 @@
 
     
 <% elsif @question.q_type == 'Textarea' %>
+
 <%= text_area_tag 'question[answer]', nil, cols: "30", rows: "5", class: 'textarea' %>
 <% elsif @question.q_type == 'Textbox' %>
     <% if @question.logic.present? %>
@@ -220,11 +292,31 @@
     <% else %>
         <%= text_field_tag 'question[answer]',nil, class: 'input'%>
     <% end %>
+<% elsif @question.q_type == 'Multiple Textbox' %>
+    <% if @question.logic.present? %>
+    <% @question.question_answers.order(position: :asc).each do |answer|%>
+          <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
+    <%= answer.exact_value %>
+    <%= text_field_tag 'question[answer]',nil, class: 'input', pattern:@question.logic , required: true %>
+</div>          
+        <% end %>
+    <% else %>
+    <% @question.question_answers.order(position: :asc).each do |answer|%>
+            <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
+    <%= answer.exact_value %>
+    <%= text_field_tag 'question[answer]',nil%>
+</div>
+        <% end %>
+        
+<% end %>
 <% elsif @question.q_type == 'Ranking'%>
 <% @question.question_answers.each do |answer|%>
 <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
+    <% if @question.d_qcode == "1"%>
+                            <%= "#{answer.code}." %>
+                        <% end %>
     <%= number_field_tag 'question[answer]' , min: 1 , max: @question.question_answers.size %>
-    <%= QuestionAnswer.query_language(answer, params[:lang]) %>
+    <%= answer.exact_value %>
 </div>
 <% end %>
 <% elsif @question.q_type == 'Numerical'%>
@@ -242,9 +334,14 @@
                 </tr>
                 <% @question.question_answers.order(position: :asc).each do |answer|%>
                 <tr>
-                    <td><%= QuestionAnswer.query_language(answer, params[:lang])%></td>
-                    <% @question.question_answers.order(position: :asc).order(position: :asc).each do |answer, index|%>
-                    <td><%= radio_button_tag "questionaire[#{index}][answer]", answer.value %></td>
+                    <td>
+                    <% if @question.d_qcode == "1"%>
+                            <%= "#{answer.code}." %>
+                        <% end %>
+                    <%= answer.exact_value %>
+                    </td>
+                    <% @question.subquestions.order(position: :asc).each_with_index do |subquestion, index|%>
+                    <td><%= radio_button_tag "questionaire[#{index}][answer]", subquestion.value %></td>
                     <% end %>
                 </tr>
                 <% end %>
@@ -256,7 +353,10 @@
                 <tr>
                     <th></th>
                     <% @question.question_answers.order(position: :asc).each do |answer|%>
-                    <th><%= QuestionAnswer.query_language(answer, params[:lang])%></th>
+                    <th><% if @question.d_qcode == "1"%>
+                            <%= "#{answer.code}." %>
+                        <% end %>
+                    <%= answer.exact_value %></th>
                     <% end %>
                 </tr>
                 <% @question.subquestions.order(position: :asc).each_with_index do |subquestion, index|%>
@@ -284,8 +384,11 @@
                 </tr>
                 <% @question.question_answers.order(position: :asc).each do |answer|%>
                 <tr>
-                    <td><%= QuestionAnswer.query_language(answer, params[:lang])%></td>
-                    <% @question.question_answers.order(position: :asc).order(position: :asc).each do |answer, index|%>
+                     <td><% if @question.d_qcode == "1"%>
+                            <%= "#{answer.code}." %>
+                        <% end %>
+                    <%= answer.exact_value %></td>
+                    <% @question.subquestions.order(position: :asc).each_with_index do |subquestion, index|%>
                     <td><%= number_field_tag "questionaire[#{index}][answer]",class: "input"%></td>
                     <% end %>
                 </tr>
@@ -298,7 +401,10 @@
                 <tr>
                     <th></th>
                     <% @question.question_answers.order(position: :asc).each do |answer|%>
-                    <th><%= QuestionAnswer.query_language(answer, params[:lang])%></th>
+                    <th><% if @question.d_qcode == "1"%>
+                            <%= "#{answer.code}." %>
+                        <% end %>
+                    <%= answer.exact_value %></th>
                     <% end %>
                 </tr>
                 <% @question.subquestions.order(position: :asc).each_with_index do |subquestion, index|%>
@@ -325,10 +431,12 @@
                 </tr>
                 <% @question.question_answers.order(position: :asc).each do |answer|%>
                 <tr>
-                    <td><%= QuestionAnswer.query_language(answer, params[:lang])%></td>
-                    <% @question.question_answers.order(position: :asc).each do |answer|%>
-                    <td><%= check_box_tag 'question[answer]' %>
-                    </td>
+                    <td><% if @question.d_qcode == "1"%>
+                            <%= "#{answer.code}." %>
+                        <% end %>
+                    <%= answer.exact_value %></td>
+                    <% @question.subquestions.order(position: :asc).each_with_index do |subquestion, index|%>
+                    <td><%= check_box_tag 'question[answer]' %></td>
                     <% end %>
                 </tr>
                 <% end %>
@@ -340,7 +448,10 @@
                 <tr>
                     <th></th>
                     <% @question.question_answers.order(position: :asc).each do |answer|%>
-                    <th><%= QuestionAnswer.query_language(answer, params[:lang])%></th>
+                    <th><% if @question.d_qcode == "1"%>
+                            <%= "#{answer.code}." %>
+                        <% end %>
+                    <%= answer.exact_value %></th>
                     <% end %>
                 </tr>
                 <% @question.subquestions.order(position: :asc).each_with_index do |subquestion, index|%>
@@ -368,11 +479,13 @@
                     <% end %>
                 </tr>
                 <% @question.question_answers.order(position: :asc).each do |answer|%>
-                <tr>
-                    <td><<%= QuestionAnswer.query_language(answer, params[:lang])%></td>
-                    <% @question.question_answers.order(position: :asc).each do |answer|%>
-                    <td><%= select_tag 'question[answer]',  options, :include_blank => 'Please select an answer' %>
-                    </td>
+                 <tr>
+                    <td><% if @question.d_qcode == "1"%>
+                            <%= "#{answer.code}." %>
+                        <% end %>
+                    <%= answer.exact_value %></td>
+                    <% @question.subquestions.order(position: :asc).each_with_index do |subquestion, index|%>
+                    <td><%= select_tag 'question[answer]',  options, :include_blank => 'Please select an answer' %></td>
                     <% end %>
                 </tr>
                 <% end %>
@@ -384,7 +497,10 @@
                 <tr>
                     <th></th>
                     <% @question.question_answers.order(position: :asc).each do |answer|%>
-                    <th><%= QuestionAnswer.query_language(answer, params[:lang])%></th>
+                    <th><% if @question.d_qcode == "1"%>
+                            <%= "#{answer.code}." %>
+                        <% end %>
+                    <%= answer.exact_value %></th>
                     <% end %>
                 </tr>
                 <% @question.subquestions.order(position: :asc).each_with_index do |subquestion, index|%>

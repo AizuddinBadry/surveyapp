@@ -1,5 +1,11 @@
 
 <main class="column">
+<nav class="breadcrumb is-medium" aria-label="breadcrumbs">
+  <ul>
+    <li><%= link_to "Dashboard", root_path %></li>
+    <li class="is-active"><%= link_to"Company Information", users_manage_company_settings_path, 'aria-current': "page" %></li>
+  </ul>
+</nav>
     <div class="level">
         <div class="level-left">
         <div class="level-item">
