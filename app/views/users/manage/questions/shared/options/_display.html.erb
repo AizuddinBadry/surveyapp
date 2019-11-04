@@ -8,46 +8,125 @@
         </div>
         <div class="card-content toggle-content">
             <div class="content">
-                <label class="label">Sort answers alphabetically</label>
-                <%= f.check_box :mandatory, id: 'switch', disabled: params[:edit].present? ? false : true%>
-                <label class="toggle" for="switch"></label>
-                <div class="field">
-                    <label class="label">Random Order : </label>
+                <% if @question.q_type == "Array" %>
+                <label class="label">Structure : 
                     <div class="control">
-                        <div class="select is-fullwidth"><%= f.select :q_type, [['Yes', 'Yes'], ['No', 'No']] %></div>
-                    
+                    <div class="select"><%= f.select :structure, [['Subquestion Horizontal', 'Subquestion Horizontal'], ['Subquestion Vertical', 'Subquestion Vertical']] %></div>
                     </div>
-                </div>
-                <div class="field">
-                    <label class="label">Label for 'Other:' option (en) : </label>
+                    </label>
+                <label class="label">Random Order :</label>
+                <%= f.check_box :randomize, id: 'randomize', disabled: params[:edit].present? ? false : true%>
+                <label class="toggle" for="randomize"></label>
+                <% elsif @question.q_type == "Array Numerical"  %>
+                <label class="label">Structure : 
                     <div class="control">
-                        <%= f.text_field :q_type, class: "input" %>
+                    <div class="select"><%= f.select :structure, [['Subquestion Horizontal', 'Subquestion Horizontal'], ['Subquestion Vertical', 'Subquestion Vertical']] %></div>
                     </div>
-                </div>
-                <div class="field">
-                    <label class="label">Display columns : </label>
+                    </label>
+                <label class="label">Random Order :</label>
+                <%= f.check_box :randomize, id: 'randomize', disabled: params[:edit].present? ? false : true%>
+                <label class="toggle" for="randomize"></label>
+                <% elsif @question.q_type == "Array Multiple Answer"  %>
+                <label class="label">Structure : 
                     <div class="control">
-                        <%= f.text_field :q_type, class: "input" %>
+                    <div class="select"><%= f.select :structure, [['Subquestion Horizontal', 'Subquestion Horizontal'], ['Subquestion Vertical', 'Subquestion Vertical']] %></div>
                     </div>
-                </div>
-                <label class="label">Hide tip : </label>
-                <%= f.check_box :mandatory, id: 'switch', disabled: params[:edit].present? ? false : true%>
-                <label class="toggle" for="switch"></label>
-                <label class="label">Always hide this question : </label>
-                <%= f.check_box :mandatory, id: 'switch', disabled: params[:edit].present? ? false : true%>
-                <label class="toggle" for="switch"></label>
-                <div class="field">
-                    <label class="label">CSS class(es) : </label>
+                    </label>
+                <label class="label">Random Order :</label>
+                <%= f.check_box :randomize, id: 'randomize', disabled: params[:edit].present? ? false : true%>
+                <label class="toggle" for="randomize"></label>
+                <% elsif @question.q_type == "Array Dropdown"  %>
+                <label class="label">Structure : 
                     <div class="control">
-                        <%= f.text_field :q_type, class: "input" %>
+                    <div class="select"><%= f.select :structure, [['Subquestion Horizontal', 'Subquestion Horizontal'], ['Subquestion Vertical', 'Subquestion Vertical']] %></div>
                     </div>
-                </div>
-                <div class="field">
-                    <label class="label">Relevance help for printable survey (en) : </label>
+                    </label>
+                <label class="label">Random Order :</label>
+                <%= f.check_box :randomize, id: 'randomize', disabled: params[:edit].present? ? false : true%>
+                <label class="toggle" for="randomize"></label>
+                <% elsif @question.q_type == "Radio Button"  %>
+                <label class="label">Display Columns : 
                     <div class="control">
-                        <%= f.text_field :q_type, class: "input" %>
+                       <%= f.number_field :column, class: "input" %>
                     </div>
-                </div>
+                </label>
+                <label class="label">Random Order :</label>
+                <%= f.check_box :randomize, id: 'randomize', disabled: params[:edit].present? ? false : true%>
+                <label class="toggle" for="randomize"></label>
+                <% elsif @question.q_type == "Radio Button With Comment"  %>
+                <label class="label">Display Columns : 
+                    <div class="control">
+                       <%= f.number_field :column, class: "input" %>
+                    </div>
+                </label>
+                <label class="label">Random Order :</label>
+                <%= f.check_box :randomize, id: 'randomize', disabled: params[:edit].present? ? false : true%>
+                <label class="toggle" for="randomize"></label>
+                <% elsif @question.q_type == "Radio Button Level"  %>
+                <label class="label">Display Columns : 
+                    <div class="control">
+                       <%= f.number_field :column, class: "input" %>
+                    </div>
+                </label>
+                <label class="label">Random Order :</label>
+                <%= f.check_box :randomize, id: 'randomize', disabled: params[:edit].present? ? false : true%>
+                <label class="toggle" for="randomize"></label>
+                <% elsif @question.q_type == "Radio Button"  %>
+                <label class="label">Display Columns : 
+                    <div class="control">
+                       <%= f.number_field :column, class: "input" %>
+                    </div>
+                </label>
+                <label class="label">Random Order :</label>
+                <%= f.check_box :randomize, id: 'randomize', disabled: params[:edit].present? ? false : true%>
+                <label class="toggle" for="randomize"></label>
+                <% elsif @question.q_type == "Radio Button"  %>
+                <label class="label">Display Columns : 
+                    <div class="control">
+                       <%= f.number_field :column, class: "input" %>
+                    </div>
+                </label>
+                <label class="label">Random Order :</label>
+                <%= f.check_box :randomize, id: 'randomize', disabled: params[:edit].present? ? false : true%>
+                <label class="toggle" for="randomize"></label>
+                <% elsif @question.q_type == "Checkbox"  %>
+                <label class="label">Display Columns : 
+                    <div class="control">
+                       <%= f.number_field :column, class: "input" %>
+                    </div>
+                </label>
+                <label class="label">Random Order :</label>
+                <%= f.check_box :randomize, id: 'randomize', disabled: params[:edit].present? ? false : true%>
+                <label class="toggle" for="randomize"></label>
+                <% elsif @question.q_type == "Checkbox With Comment"  %>
+                <label class="label">Display Columns : 
+                    <div class="control">
+                       <%= f.number_field :column, class: "input" %>
+                    </div>
+                </label>
+                <label class="label">Random Order :</label>
+                <%= f.check_box :randomize, id: 'randomize', disabled: params[:edit].present? ? false : true%>
+                <label class="toggle" for="randomize"></label>
+                <% elsif @question.q_type == "Checkbox With Limit"  %>
+                <label class="label">Display Columns : 
+                    <div class="control">
+                       <%= f.number_field :column, class: "input" %>
+                    </div>
+                </label>
+                <label class="label">Random Order :</label>
+                <%= f.check_box :randomize, id: 'randomize', disabled: params[:edit].present? ? false : true%>
+                <label class="toggle" for="randomize"></label>
+                <% elsif @question.q_type == "Checkbox With Text"  %>
+                <label class="label">Display Columns : 
+                    <div class="control">
+                       <%= f.number_field :column, class: "input" %>
+                    </div>
+                </label>
+                <label class="label">Random Order :</label>
+                <%= f.check_box :randomize, id: 'randomize', disabled: params[:edit].present? ? false : true%>
+                <label class="toggle" for="randomize"></label>
+                <% end %>
+                
             </div>
         </div>
     </div>

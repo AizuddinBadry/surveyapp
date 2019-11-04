@@ -8,6 +8,8 @@ class Question < ApplicationRecord
     survey_question_size = Question.where(survey_id: self.survey_id).size
     self.position ||= size + 1
     self.survey_position ||= survey_question_size + 1
+    self.column ||= 1
+    self.randomize ||= false
   end
   
   def reorder_question_position
