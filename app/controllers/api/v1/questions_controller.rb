@@ -1,5 +1,10 @@
 class Api::V1::QuestionsController < Api::BaseController
 
+    def index
+        @questions = Question.where survey_id: params[:survey_id]
+        render json: {object: @questions}
+    end
+
     def create
         @question = Question.new(question_params.merge(:description => params[:questionDescription]))
         noEmptyAnswer = params[:answer].reject { |c| c.empty? } unless !params[:answer].present?
