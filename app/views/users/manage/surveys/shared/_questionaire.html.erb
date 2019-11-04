@@ -12,12 +12,17 @@
             <%= Question.query_language(@question, params[:lang])%>
         <% end %>
          <%= @question&.limit&.present? ? @question.limit : "" %></h3>
+         <%= @question.q_desc.present? ? @question.q_desc : ""%>
     </div>
     <div class="column is-12">
         <% if !params[:lang].present? || params[:lang] == 'English' %>
             <%= render '/users/manage/surveys/shared/survey_questionaire/answer_types', f:f%>
+            <br/>
+            <%= @question.help.present? ? @question.help : ""%>
         <% else %>
             <%= render '/users/manage/surveys/shared/survey_questionaire/answer_types_language', f:f%>
+            <br/>
+            <%= @question.help.present? ? @question.help : ""%>
         <% end %>
     </div>
     <div class="column is-12 has-text-right pl-20" style="bottom:20px;position:absolute">

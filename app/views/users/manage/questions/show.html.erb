@@ -1,4 +1,13 @@
 <main class="column">
+<nav class="breadcrumb is-medium" aria-label="breadcrumbs">
+  <ul>
+    <li><%= link_to "Dashboard", root_path %></li>
+    <li><%= link_to "Survey Listings", users_manage_surveys_path %></li>
+    <li><%= link_to @question.question_group.survey.title , users_manage_survey_path(@question.question_group.survey.id) %></li>
+    <li><%= link_to "Question Group #{@question.question_group.id}" , users_manage_question_group_path(@question.question_group.id) %></li>
+    <li class="is-active"><%= link_to "Edit" , users_manage_question_path(@question.id), 'aria-current': "page" %></li>
+  </ul>
+</nav>
     <%= form_for @question, url: users_manage_question_path(params[:id]), method: :put do |f|%>
         <div class="level">
             <div class="level-left">

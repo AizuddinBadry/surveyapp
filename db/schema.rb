@@ -110,6 +110,9 @@ ActiveRecord::Schema.define(version: 2019_11_03_085411) do
     t.boolean "enable_other_2", default: false
     t.jsonb "other_language", default: "{}"
     t.text "logic"
+    t.text "q_desc"
+    t.text "helper"
+    t.text "d_qcode"
     t.index ["question_group_id"], name: "index_questions_on_question_group_id"
   end
 
