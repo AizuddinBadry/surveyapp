@@ -64,6 +64,7 @@ Rails.application.routes.draw do
         end
       end
       resources :surveys, only: [:show]
+      resources :conditions, only: [:create]
     end
   end
 

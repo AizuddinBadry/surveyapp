@@ -1,5 +1,6 @@
 var React = require("react");
 import ConditionQuestionsList from "./ConditionQuestionsList";
+import ConditionThenQuestionsList from "./ConditionThenQuestionList";
 import axios from "axios";
 
 export default class Conditions extends React.Component {
@@ -7,7 +8,12 @@ export default class Conditions extends React.Component {
     super();
     this.state = {
       questions: [],
-      methodType: ""
+      methodType: "",
+      question_id: "",
+      condition_question_id: 0,
+      method: "",
+      scenario: "",
+      value: ""
     };
   }
 
@@ -29,8 +35,51 @@ export default class Conditions extends React.Component {
       });
   };
 
+  saveCondition = () => {
+    var self = this.state;
+    axios
+      .post("/api/v1/conditions", {
+        question_id: self.question_id,
+        condition_question_id: self.condition_question_id,
+        method: self.method,
+        scenario: self.scenario,
+        value: self.value
+      })
+      .then(function(response) {
+        console.log(response);
+        window.location.reload();
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  };
+
   handleChanges = e => {
-    this.setState({ methodType: e.target.value });
+    this.setState({ methodType: e.target.value, scenario: e.target.value });
+  };
+
+  questionIdHandler = val => {
+    this.setState({
+      question_id: val
+    });
+  };
+
+  methodHandler = val => {
+    this.setState({
+      method: val
+    });
+  };
+
+  valueHandler = val => {
+    this.setState({
+      value: val
+    });
+  };
+
+  conditionIdHandler = val => {
+    this.setState({
+      condition_question_id: val
+    });
   };
 
   render() {
@@ -55,12 +104,18 @@ export default class Conditions extends React.Component {
         <section className="modal-card-body">
           <div className="content">
             <div className="form-group">
-              <label className="label">if</label>
-              <ConditionQuestionsList state={this.state} />{" "}
-              <label className="label">then </label>
+              <label className="label">if answer on question:</label>
+              <ConditionQuestionsList
+                state={this.state}
+                question_id_handler={this.questionIdHandler}
+                method_handler={this.methodHandler}
+                value_handler={this.valueHandler}
+              />{" "}
+              <label className="label pt-10">then </label>
               <div className="control">
                 <div className="select">
                   <select onChange={this.handleChanges}>
+                    <option>Please select</option>
                     {thenMethodList}
                   </select>
                 </div>
@@ -69,14 +124,27 @@ export default class Conditions extends React.Component {
                 {self.methodType == "skip to end" ? (
                   ""
                 ) : (
-                  <ConditionQuestionsList state={this.state} />
+                  <ConditionThenQuestionsList
+                    state={this.state}
+                    handler={this.conditionIdHandler}
+                  />
                 )}
+              </div>
+              <div className="pt-20">
+                <i>
+                  If answer on question ID {self.question_id} {self.method}{" "}
+                  {self.value} then {self.scenario} {self.condition_question_id}
+                </i>
               </div>
             </div>
           </div>
         </section>
         <footer className="modal-card-foot">
-          <button type="submit" className="button is-primary">
+          <button
+            type="submit"
+            className="button is-primary"
+            onClick={this.saveCondition}
+          >
             Save
           </button>
           <button type="button" className="button modal--close">
