@@ -26,11 +26,25 @@
       <% if !params[:lang].present? || params[:lang] == 'English'%>
         <%= f.text_area :help, class: 'editor', disabled: params[:edit].present? ? false : true%>
       <% end %>
+      <% @languages.each_with_index do |l, index| %>
+        <% if index != 0%>
+          <div class="list-language <%= params[:lang] == l.name ? 'active' : nil%>">
+            <%= text_area_tag "question[help_other_language][#{l.name}]", Question.help_query_language(@question, l.name), class: 'editor', disabled: params[:edit].present? ? false : true%>
+          </div>
+        <% end %>
+      <% end %>
     </div>
     <div class="field">
       <label class="label">Question tooltip</label>
       <% if !params[:lang].present? || params[:lang] == 'English'%>
-        <%= f.text_field :q_desc, class: 'input', disabled: params[:edit].present? ? false : true%>
+        <%= f.text_field :question_desc, class: 'input', disabled: params[:edit].present? ? false : true%>
+      <% end %>
+      <% @languages.each_with_index do |l, index| %>
+        <% if index != 0%>
+          <div class="list-language <%= params[:lang] == l.name ? 'active' : nil%>">
+            <%= text_field_tag "question[question_desc_other_language][#{l.name}]", Question.question_desc_query_language(@question, l.name), class: 'input', disabled: params[:edit].present? ? false : true%>
+          </div>
+        <% end %>
       <% end %>
     </div>
   <% if @question.limit.present? %>

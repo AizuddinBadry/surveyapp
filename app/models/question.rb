@@ -35,6 +35,24 @@ class Question < ApplicationRecord
       return @question
     end
   end
+
+  def self.help_query_language(question, lang)
+    @question = question.help_other_language["#{lang}"]
+    if @question == false
+      return nil
+    else
+      return @question
+    end
+  end
+
+  def self.question_desc_query_language(question, lang)
+    @question = question.question_desc_other_language["#{lang}"]
+    if @question == false
+      return nil
+    else
+      return @question
+    end
+  end
   
   def name_dropdown
     "#{code} : [ #{q_type} ]  #{description}"

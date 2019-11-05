@@ -8,7 +8,7 @@
                     <div class="columns">
                         <div class="column is-4">
                             <%= radio_button_tag 'question[answer]', answer.value, :value => answer.value %>
-                            <% if @question.d_qcode == "1"%>
+                            <% if @question.desc_question_code == "1"%>
                             <%= "#{answer.code}." %>
                             <% end %>
                             <%= label_tag "question_answer_#{answer.value}", answer.exact_value, class: 'radio' %>
@@ -54,7 +54,7 @@
                     <div class="columns">
                         <div class="column is-4">
                             <%= radio_button_tag 'question[answer]', answer.value, :value => answer.value %>
-                            <% if @question.d_qcode == "1"%>
+                            <% if @question.desc_question_code == "1"%>
                             <%= "#{answer.code}." %>
                             <% end %>
                             <%= label_tag "question_answer_#{answer.value}", answer.exact_value, class: 'radio' %>
@@ -99,7 +99,7 @@
 <% elsif @question.q_type == 'Select Dropdown'%>
     <%= content_tag :div, class: "test", style: "column-count: #{@question.column};-moz-column-count: #{@question.column};-webkit-column-count: #{@question.column};" do -%>
     <div class="select">
-        <% if @question.d_qcode == "1"%>
+        <% if @question.desc_question_code == "1"%>
         <%= "#{answer.code}." %>
         <% end %>
         <% options = options_from_collection_for_select(@question.question_answers, 'value', 'exact_value') %>
@@ -112,7 +112,7 @@
             <% @question.question_answers.shuffle.each do |answer|%>
                 <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
                     <%= radio_button_tag 'question[answer]', answer.value, :value => answer.value %>
-                    <% if @question.d_qcode == "1"%>
+                    <% if @question.desc_question_code == "1"%>
                     <%= "#{answer.code}." %>
                     <% end %>
                     <%= label_tag 'question[answer]', answer.exact_value, class: 'radio' %>
@@ -123,7 +123,7 @@
             <% @question.question_answers.order(position: :asc).each do |answer|%>
             <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
                 <%= radio_button_tag 'question[answer]', answer.value, :value => answer.value %>
-                <% if @question.d_qcode == "1"%>
+                <% if @question.desc_question_code == "1"%>
                 <%= "#{answer.code}." %>
                 <% end %>
                 <%= label_tag 'question[answer]', answer.exact_value, class: 'radio' %>
@@ -139,7 +139,7 @@
             <% @question.question_answers.shuffle.each do |answer|%>
             <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
                     <%= radio_button_tag 'question[answer]', answer.value %>
-                    <% if @question.d_qcode == "1"%>
+                    <% if @question.desc_question_code == "1"%>
                     <%= "#{answer.code}." %>
                     <% end %>
                     <%= label_tag 'question[answer]', answer.exact_value, :value => answer.value, class: 'radio' %>
@@ -149,7 +149,7 @@
             <% @question.question_answers.order(position: :asc).each do |answer|%>
                 <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
                     <%= radio_button_tag 'question[answer]', answer.value %>
-                    <% if @question.d_qcode == "1"%>
+                    <% if @question.desc_question_code == "1"%>
                     <%= "#{answer.code}." %>
                     <% end %>
                     <%= label_tag 'question[answer]', answer.exact_value, :value => answer.value, class: 'radio' %>
@@ -165,7 +165,7 @@
                 <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;">
                     <div class="checkbox">
                         <%= check_box_tag 'question[answer][]', answer.value, nil, id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
-                        <% if @question.d_qcode == "1"%>
+                        <% if @question.desc_question_code == "1"%>
                         <%= "#{answer.code}." %>
                         <% end %>
                         <%= label_tag "question_answer_#{answer.value}"%>
@@ -177,7 +177,7 @@
                 <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;">
                     <div class="checkbox">
                         <%= check_box_tag 'question[answer][]', answer.value, nil, id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
-                        <% if @question.d_qcode == "1"%>
+                        <% if @question.desc_question_code == "1"%>
                         <%= "#{answer.code}." %>
                         <% end %>
                         <%= label_tag "question_answer_#{answer.value}"%>
@@ -194,7 +194,7 @@
                 <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;">
                     <div class="checkbox">
                         <%= check_box_tag 'question[answer][]', answer.value, nil, id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
-                        <% if @question.d_qcode == "1"%>
+                        <% if @question.desc_question_code == "1"%>
                         <%= "#{answer.code}." %>
                         <% end %>
                         <%= label_tag "question_answer_#{answer.value}"%>
@@ -207,7 +207,7 @@
                 <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;">
                     <div class="checkbox">
                         <%= check_box_tag 'question[answer][]', answer.value, nil, id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
-                        <% if @question.d_qcode == "1"%>
+                        <% if @question.desc_question_code == "1"%>
                         <%= "#{answer.code}." %>
                         <% end %>
                         <%= label_tag "question_answer_#{answer.value}"%>
@@ -236,7 +236,7 @@
                     <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;">
                         <div class="checkbox">
                             <%= check_box_tag 'question[answer][]', answer.value, nil, id: "question_answer_#{answer.value}", class: 'bw-checkbox limitcheck' %>
-                            <% if @question.d_qcode == "1"%>
+                            <% if @question.desc_question_code == "1"%>
                             <%= "#{answer.code}." %>
                             <% end %>
                             <%= label_tag "question_answer_#{answer.value}"%>
@@ -252,7 +252,7 @@
                 <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;">
                     <div class="checkbox">
                         <%= check_box_tag 'question[answer][]', answer.value, nil, id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
-                        <% if @question.d_qcode == "1"%>
+                        <% if @question.desc_question_code == "1"%>
                         <%= "#{answer.code}." %>
                         <% end %>
                     </div>
@@ -264,7 +264,7 @@
                 <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;">
                     <div class="checkbox">
                         <%= check_box_tag 'question[answer][]', answer.value, nil, id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
-                        <% if @question.d_qcode == "1"%>
+                        <% if @question.desc_question_code == "1"%>
                         <%= "#{answer.code}." %>
                         <% end %>
                     </div>
@@ -304,7 +304,7 @@
 <% @question.question_answers.each do |answer|%>
 <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
     <%= number_field_tag 'question[answer]' , min: 1 , max: @question.question_answers.size %>
-    <% if @question.d_qcode == "1"%>
+    <% if @question.desc_question_code == "1"%>
     <%= "#{answer.code}." %>
     <% end %>
     <%= answer.exact_value %>
@@ -326,7 +326,7 @@
         <% @question.question_answers.order(position: :asc).each do |answer|%>
         <tr>
             <td>
-                <% if @question.d_qcode == "1"%>
+                <% if @question.desc_question_code == "1"%>
                 <%= "#{answer.code}." %>
                 <% end %>
                 <%= answer.exact_value %>
@@ -344,7 +344,7 @@
         <tr>
             <th></th>
             <% @question.question_answers.order(position: :asc).each do |answer|%>
-            <th><% if @question.d_qcode == "1"%>
+            <th><% if @question.desc_question_code == "1"%>
                 <%= "#{answer.code}." %>
                 <% end %>
                 <%= answer.exact_value %></th>
@@ -375,7 +375,7 @@
         </tr>
         <% @question.question_answers.order(position: :asc).each do |answer|%>
         <tr>
-            <td><% if @question.d_qcode == "1"%>
+            <td><% if @question.desc_question_code == "1"%>
                 <%= "#{answer.code}." %>
                 <% end %>
                 <%= answer.exact_value %></td>
@@ -392,7 +392,7 @@
         <tr>
             <th></th>
             <% @question.question_answers.order(position: :asc).each do |answer|%>
-            <th><% if @question.d_qcode == "1"%>
+            <th><% if @question.desc_question_code == "1"%>
                 <%= "#{answer.code}." %>
                 <% end %>
                 <%= answer.exact_value %></th>
@@ -422,7 +422,7 @@
         </tr>
         <% @question.question_answers.order(position: :asc).each do |answer|%>
         <tr>
-            <td><% if @question.d_qcode == "1"%>
+            <td><% if @question.desc_question_code == "1"%>
                 <%= "#{answer.code}." %>
                 <% end %>
                 <%= answer.exact_value %></td>
@@ -439,7 +439,7 @@
         <tr>
             <th></th>
             <% @question.question_answers.order(position: :asc).each do |answer|%>
-            <th><% if @question.d_qcode == "1"%>
+            <th><% if @question.desc_question_code == "1"%>
                 <%= "#{answer.code}." %>
                 <% end %>
                 <%= answer.exact_value %></th>
@@ -471,7 +471,7 @@
         </tr>
         <% @question.question_answers.order(position: :asc).each do |answer|%>
         <tr>
-            <td><% if @question.d_qcode == "1"%>
+            <td><% if @question.desc_question_code == "1"%>
                 <%= "#{answer.code}." %>
                 <% end %>
                 <%= answer.exact_value %></td>
@@ -488,7 +488,7 @@
         <tr>
             <th></th>
             <% @question.question_answers.order(position: :asc).each do |answer|%>
-            <th><% if @question.d_qcode == "1"%>
+            <th><% if @question.desc_question_code == "1"%>
                 <%= "#{answer.code}." %>
                 <% end %>
                 <%= answer.exact_value %></th>

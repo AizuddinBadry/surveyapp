@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_04_150660) do
+ActiveRecord::Schema.define(version: 2019_11_05_133343) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -110,11 +110,12 @@ ActiveRecord::Schema.define(version: 2019_11_04_150660) do
     t.boolean "enable_other_2", default: false
     t.jsonb "other_language", default: "{}"
     t.text "logic"
-    t.text "q_desc"
-    t.text "helper"
-    t.text "d_qcode"
+    t.text "question_desc"
+    t.text "desc_question_code"
     t.boolean "randomize"
     t.bigint "column"
+    t.jsonb "help_other_language", default: {}
+    t.jsonb "question_desc_other_language", default: {}
     t.index ["question_group_id"], name: "index_questions_on_question_group_id"
   end
 
