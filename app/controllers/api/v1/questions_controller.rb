@@ -1,8 +1,13 @@
 class Api::V1::QuestionsController < Api::BaseController
 
     def index
-        @questions = Question.where survey_id: params[:survey_id]
+        @questions = Question.where(survey_id: params[:survey_id]).order(survey_position: :asc)
         render json: {object: @questions}
+    end
+
+    def show
+        @question = Question.find_by_id(params[:id])
+        render json: @question.to_json( :include => :question_answers )
     end
 
     def create
