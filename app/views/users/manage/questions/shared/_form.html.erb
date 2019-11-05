@@ -33,6 +33,16 @@
         <%= f.text_field :q_desc, class: 'input', disabled: params[:edit].present? ? false : true%>
       <% end %>
     </div>
+    <% if @question.conditions.present? %>
+      <div class="field">
+        <label class="label">Conditions :</label>
+        <% @question.conditions.each do |condition|%>
+        <% @question_condition = Question.find_by_id(condition.condition_question_id)%>
+          <div><i> If answer on question <%=condition.question.code%> <%= condition.method%>
+                  <%= condition.value %> then <%= condition.scenario%> <%= @question_condition.code%></i></div>
+        <% end %>
+      </div>
+    <% end %>
   <% if @question.limit.present? %>
     <div class="field">
       <label class="label">Limit Answers</label>
