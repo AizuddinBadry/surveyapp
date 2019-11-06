@@ -74,6 +74,6 @@ class Users::Manage::SurveySettingsController < Users::BaseController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def survey_setting_params
-      params.require(:survey_setting).permit(:enable_pdpa, :pdpa_message, :pdpa_error_message)
+      params.require(:survey_setting).permit(:enable_pdpa, :pdpa_message, :pdpa_error_message, :end_time, :start_time)
     end
 end

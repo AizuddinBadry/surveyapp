@@ -1,0 +1,20 @@
+<div id="modal-active_survey" class="modal">
+  <div class="modal-background"></div>
+  <%= form_for(@survey, url: users_manage_survey_path(params[:id]), method: :put) do |f|%>
+    <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Start This Survey</p>
+      <button type="button" class="delete modal--close" aria-label="close"></button>
+    </header>
+    <section class="modal-card-body">
+      <div class="content">
+        <%= f.hidden_field :status, value: "active" %>
+      </div>
+    </section>
+    <footer class="modal-card-foot is-centered">
+      <%= f.submit 'Active', class: 'button is-primary'%>
+      <button type="button" class="button modal--close">Cancel</button>
+    </footer>
+    <% end %>
+  </div>
+</div>

@@ -27,7 +27,7 @@
               <label class="toggle" for="switch"></label>
               
               <label class="label">Enable Question Code?</label>
-                <%= f.check_box :d_qcode, id: 'qcode', disabled: params[:edit].present? ? false : true%>
+                <%= f.check_box :desc_question_code, id: 'qcode', disabled: params[:edit].present? ? false : true%>
               <label class="toggle" for="qcode"></label>
               <% if @question.q_type.include?('Radio')%>
               <label class="label">Enable Input Box 1?</label>

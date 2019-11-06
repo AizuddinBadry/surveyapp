@@ -1,0 +1,18 @@
+<%= form_for(@survey_setting, url: users_manage_survey_setting_path(params[:id]), method: :put) do |f|%>
+    <%= hidden_field_tag 'survey_setting[id]', @survey.id%>
+
+    <div class="columns is-multiline  is-mobile is-centered">
+        <div class="column is-half">
+            <div class="field">
+                <label class="label">Start Date/Time</label>
+                <%= f.datetime_field :start_time, class: "input"%>
+            </div>
+            <div class="field">
+                <label class="label">End Date/Time</label>
+                <%= f.datetime_field :end_time, class: "input"%>
+            </div>
+               <%= f.submit 'Save', class: 'button is-primary is-fullwidth'%>
+        </div>
+
+    </div>
+<% end %>

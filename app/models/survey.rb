@@ -1,10 +1,15 @@
 class Survey < ApplicationRecord
   include ImageUploader.attachment(:image)
+  before_save :default_values
   before_create :create_association
   validates_presence_of :title
 
   def create_association
     self.survey_languages.build name: 'English', survey_id: self.id
+  end
+
+  def default_values
+    self.status ||= "inactive"
   end
 
   belongs_to :user

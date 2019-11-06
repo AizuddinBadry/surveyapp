@@ -11,6 +11,15 @@ class Api::V1::ConditionsController < Api::BaseController
         end
     end
 
+    def destroy
+        @condition = Condition.find(params[:id])
+        @condition.destroy
+        respond_to do |format|
+          format.html { redirect_to request.referrer , flash: {success: 'Conditions was successfully destroyed.'} }
+          format.json { head :no_content }
+        end
+      end
+
     private
 
     def condition_params

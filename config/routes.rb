@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       resources :surveys do
         collection do 
           match '/preview/:id', to: 'surveys#preview', as: 'preview', via: [:get, :post]
+          get '/expire/:id', to: 'surveys#expire', as: 'expire'
         end
       end
       resources :survey_languages
@@ -64,7 +65,7 @@ Rails.application.routes.draw do
         end
       end
       resources :surveys, only: [:show]
-      resources :conditions, only: [:create]
+      resources :conditions, only: [:create,:destroy]
     end
   end
 
