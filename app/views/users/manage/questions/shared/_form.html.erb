@@ -39,7 +39,7 @@
         <% @question.conditions.each do |condition|%>
         <% @question_condition = Question.find_by_id(condition.condition_question_id)%>
           <div><i> If answer on question <%=condition.question.code%> <%= condition.method%>
-                  <%= condition.value %> then <%= condition.scenario%> <%= @question_condition.code%></i></div>
+                  <%= condition.value %> then <%= condition.scenario%> <%= @question_condition.code unless condition.condition_question_id == 0%></i></div>
         <% end %>
       </div>
     <% end %>

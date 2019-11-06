@@ -1,7 +1,6 @@
 <% if @question.q_type == 'Radio Button' %>
     <%= content_tag :div, class: "test", style: "column-count: #{@question.column};-moz-column-count: #{@question.column};-webkit-column-count: #{@question.column};" do -%>
 
-
         <% if @question.randomize == true %>
             <% @question.question_answers.shuffle.each do |answer|%>
                 <div style="border: 1px solid grey;margin-top:10px;padding:10px;">

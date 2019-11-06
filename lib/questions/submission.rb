@@ -25,7 +25,18 @@ module Questions
                 @question_position = @next_question_pos
             end
 
-            Questions::SaveAnswer.new(@survey_id, @question.id, @answer, args[:survey_session])
+            Questions::SaveAnswer.new(@survey_id, @current_question.id, @answer, args[:survey_session])
+            if @current_question.conditions.present?
+                @condition_pos = Questions::Submission.condition_check(@current_question.id, @answer, @survey_id)
+                @question = Questions::Submission.query_question(@condition_pos, @survey_id) unless @condition_pos == false || @condition_pos == 'end'
+                Rails.logger.info ">>>>>>>>CONDITION CHECK #{@condition_pos}"
+                if @condition_pos == 'end'
+                    Rails.logger.info ">>>>>>>>CONDITION TO END SURVEY"
+                    @question = Questions::Submission.query_question(0, @survey_id)
+                elsif @condition_pos == false
+                    Rails.logger.info ">>>>>>>>CONDITION TO NEXT"
+                end
+            end
             
             return @question
         end
@@ -42,6 +53,30 @@ module Questions
 
         def self.result_position
             return @question_position
+        end
+
+        def self.condition_check(question_id, answer, survey_id)
+            @response = ''
+            @question = Question.find_by_id(question_id)
+            @condition_status = false
+            @condition = Condition.where(question_id: question_id, value: answer).first
+            if !@condition.nil?
+                @next_question = Question.find_by_id(@condition.condition_question_id)
+                @condition_status = true
+            end
+            @question = Question.where(survey_id: survey_id, survey_position: @next_question.survey_position).first unless @next_question.nil?
+
+            if @condition.nil?
+                @response = false
+            elsif @condition.condition_question_id == 0
+                @response = 'end'
+            else
+                @response = @question.survey_position
+            end
+
+            Rails.logger.info "RESPONSE #{@response}"
+
+            return @response
         end
     end
 end
