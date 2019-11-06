@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       resources :surveys do
         collection do 
           match '/preview/:id', to: 'surveys#preview', as: 'preview', via: [:get, :post]
+          get '/expire/:id', to: 'surveys#expire', as: 'expire'
         end
       end
       resources :survey_languages
