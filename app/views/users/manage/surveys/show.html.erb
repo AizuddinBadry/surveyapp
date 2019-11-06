@@ -23,15 +23,45 @@
         </div>
         <section class="columns">
             <div class="column is-12">
+            <% @survey_end_time = SurveySetting.find_by_survey_id(@survey.id).end_time.present? ?  SurveySetting.find_by_survey_id(@survey.id).end_time : DateTime.current - 1 %>
                 <%= link_to 'Back', users_manage_surveys_path, class: 'button is-black'%>
                 <%= f.submit 'Update', class: 'button is-primary'%>
                 <a class="button is-primary open-modal" data-target="modal-ter"><i class='fa fa-plus'> </i> Add Group</a>
                 <% if @survey.show_intro_screen ==  true %>
-                    <%= link_to "<i class='fa fa-eye'></i>  Preview".html_safe, preview_users_manage_surveys_path(@survey.id, intro: true), class: 'button is-primary'%>
+                    <% if @survey.status == "active" %>
+                        <% if @survey_end_time <= DateTime.current %>
+                            <%= link_to "<i class='fa fa-eye'></i>  Expired Execute".html_safe, expire_users_manage_surveys_path(@survey.id, intro: true), class: 'button is-primary'%>
+                        <% else %>
+                            <%= link_to "<i class='fa fa-eye'></i>  Execute".html_safe, preview_users_manage_surveys_path(@survey.id, intro: true), class: 'button is-primary'%>
+                        <% end %>
+                    <% else %>
+                         <%= link_to "<i class='fa fa-eye'></i>  Preview".html_safe, preview_users_manage_surveys_path(@survey.id, intro: true), class: 'button is-primary'%>
+                    <% end %>
                 <% else %>
-                    <%= link_to 'Preview', preview_users_manage_surveys_path(@survey.id), target: '_blank', class: 'button is-primary'%>
+                    <% if @survey.status == "active" %>
+                        <% if @survey_end_time <= DateTime.current %>
+                        <%= link_to 'Expired Execute', expire_users_manage_surveys_path(@survey.id), target: '_blank', class: 'button is-primary'%>
+                    
+                        <% else %>
+                        <%= link_to 'Execute', preview_users_manage_surveys_path(@survey.id), target: '_blank', class: 'button is-primary'%>
+                    
+                        <% end %>
+                            <% else %>
+                        <%= link_to 'Preview', preview_users_manage_surveys_path(@survey.id), target: '_blank', class: 'button is-primary'%>
+                    <% end %>
                 <% end %>
                 <%= link_to 'General Settings', users_manage_survey_setting_path(@survey.id), class: 'button is-info'%>
+                <% if @survey.status == "active" %>
+                    <% if @survey_end_time <= DateTime.current %>
+                        <a class="button is-warning open-modal" data-target="modal-stop_survey">Stop This Survey</a>
+                        <label class="button is-danger">Expired Survey</label>
+                    <% else %>
+                        <a class="button is-warning open-modal" data-target="modal-stop_survey">Stop This Survey</a>
+                    <% end %>
+                <% else %>
+                <a class="button is-success open-modal" data-target="modal-active_survey">Active This Survey</a>
+                <% end %>
+                
             </div>
         </section>
         <%= render '/users/manage/surveys/shared/form', f: f%>
@@ -102,6 +132,8 @@
 </main>
 
 <%= render '/users/manage/surveys/shared/modals/create_group'%>
+<%= render '/users/manage/surveys/shared/modals/active_survey'%>
+<%= render '/users/manage/surveys/shared/modals/stop_survey'%>
 <script>
 <%= render '/users/manage/surveys/shared/page.js'%>
 </script>

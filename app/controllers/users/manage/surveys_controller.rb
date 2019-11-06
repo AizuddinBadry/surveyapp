@@ -1,8 +1,13 @@
 class Users::Manage::SurveysController < Users::BaseController
-    before_action :get_survey, only: [:show, :update, :destroy, :preview]
+    before_action :get_survey, only: [:show, :update, :destroy, :preview, :expire]
     layout 'survey', only: [:preview]
     def index
         @surveys = Survey.all.order(:created_at => :desc)
+    end
+
+    def expire
+        render layout: "expired"
+        
     end
 
     def show
@@ -79,7 +84,7 @@ class Users::Manage::SurveysController < Users::BaseController
     end
 
     def survey_params
-        params.require(:survey).permit(:title, :welcome_message, :show_intro_screen, :end_message, :start_button_text, 
+        params.require(:survey).permit(:title,:status, :welcome_message, :show_intro_screen, :end_message, :start_button_text, 
                                         :show_final_button, :final_button_text, :final_button_url, :final_button_to_start, :image)
     end
 
