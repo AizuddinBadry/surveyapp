@@ -59,10 +59,21 @@ module Questions
             @response = ''
             @question = Question.find_by_id(question_id)
             @condition_status = false
-            @condition = Condition.where(question_id: question_id, value: answer).first
+            @condition = Condition.where(question_id: question_id).first
             if !@condition.nil?
-                @next_question = Question.find_by_id(@condition.condition_question_id)
-                @condition_status = true
+                if @condition.method = 'is equal to'
+                    if answer.include? @condition.value 
+                        @next_question = Question.find_by_id(@condition.condition_question_id)
+                        @condition_status = true
+                    end
+                end
+                if @condition.method = 'is not equal to'
+                    Rails.logger.info "WE HERE"
+                    if answer.exclude? @condition.value 
+                        @next_question = Question.find_by_id(@condition.condition_question_id)
+                        @condition_status = true
+                    end
+                end
             end
             @question = Question.where(survey_id: survey_id, survey_position: @next_question.survey_position).first unless @next_question.nil?
 

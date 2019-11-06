@@ -167,7 +167,7 @@
                         <% if @question.desc_question_code == "1"%>
                         <%= "#{answer.code}." %>
                         <% end %>
-                        <%= label_tag "question_answer_#{answer.value}"%>
+                        <%= label_tag "question_answer_#{answer.value}", answer.exact_value%>
                     </div>
                 </div>
             <% end %>
@@ -179,7 +179,7 @@
                         <% if @question.desc_question_code == "1"%>
                         <%= "#{answer.code}." %>
                         <% end %>
-                        <%= label_tag "question_answer_#{answer.value}"%>
+                        <%= label_tag "question_answer_#{answer.value}", answer.exact_value%>
                     </div>
                 </div>
             <% end %>
@@ -196,7 +196,7 @@
                         <% if @question.desc_question_code == "1"%>
                         <%= "#{answer.code}." %>
                         <% end %>
-                        <%= label_tag "question_answer_#{answer.value}"%>
+                        <%= label_tag "question_answer_#{answer.value}", answer.exact_value%>
                     </div>
                     <%= text_area_tag 'question[comment]', cols: "30", rows: "2", class: 'textarea' %>
                 </div>
@@ -209,7 +209,7 @@
                         <% if @question.desc_question_code == "1"%>
                         <%= "#{answer.code}." %>
                         <% end %>
-                        <%= label_tag "question_answer_#{answer.value}"%>
+                        <%= label_tag "question_answer_#{answer.value}", answer.exact_value%>
                     </div>
                     <%= text_area_tag 'question[comment]', cols: "30", rows: "2", class: 'textarea' %>
                 </div>
@@ -226,7 +226,7 @@
                         <div class="checkbox">
                             <%= check_box_tag 'question[answer][]', answer.value, nil, id: "question_answer_#{answer.value}", class: 'bw-checkbox limitcheck' %>
                             
-                            <%= label_tag "question_answer_#{answer.value}"%>
+                            <%= label_tag "question_answer_#{answer.value}", answer.exact_value%>
                         </div>
                     </div>
                 <% end %>
@@ -238,7 +238,7 @@
                             <% if @question.desc_question_code == "1"%>
                             <%= "#{answer.code}." %>
                             <% end %>
-                            <%= label_tag "question_answer_#{answer.value}"%>
+                            <%= label_tag "question_answer_#{answer.value}", answer.exact_value%>
                         </div>
                     </div>
                 <% end %>
