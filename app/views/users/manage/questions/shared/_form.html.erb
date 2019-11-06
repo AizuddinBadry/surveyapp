@@ -50,11 +50,22 @@
     <% if @question.conditions.present? %>
       <div class="field">
         <label class="label">Conditions :</label>
+        <table>
+        <tbody>
         <% @question.conditions.each do |condition|%>
         <% @question_condition = Question.find_by_id(condition.condition_question_id)%>
-          <div><i> If answer on question <%=condition.question.code%> <%= condition.method%>
-                  <%= condition.value %> then <%= condition.scenario%> <%= @question_condition.code%></i></div>
-        <% end %>
+        <tr>
+          <td><i> If answer on question <%=condition.question.code%> <%= condition.method%>
+                  <%= condition.value %> then <%= condition.scenario%> <%= @question_condition.present? ? @question_condition.code : "" %></i>
+          </td>
+          <td>
+          <%= link_to '<span class="icon is-small"><i class="fa fa-times"></i></span>'.html_safe, api_v1_condition_path(condition), :method => :delete, class: 'button is-small is-danger action'%>                       
+          </td>
+          </tr>
+           <% end %>
+        </tbody>
+        </table>
+       
       </div>
     <% end %>
   <% if @question.limit.present? %>

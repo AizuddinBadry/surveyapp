@@ -65,7 +65,7 @@ Rails.application.routes.draw do
         end
       end
       resources :surveys, only: [:show]
-      resources :conditions, only: [:create]
+      resources :conditions, only: [:create,:destroy]
     end
   end
 

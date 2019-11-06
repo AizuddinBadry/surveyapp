@@ -53,7 +53,7 @@
                                         <td>
                                         <% if survey.status == "active" %>
                                         <% @survey_end_time = SurveySetting.find_by_survey_id(survey.id).end_time.present? ?  SurveySetting.find_by_survey_id(survey.id).end_time : DateTime.now - 1%>
-                                            <% if @survey_end_time >= DateTime.now %>
+                                            <% if @survey_end_time <= DateTime.current %>
                                                 <i class="fa fa fa-step-forward text-warning"></i>
                                             <% else %>
                                                 <i class="fa  fa-play text-success"></i>
