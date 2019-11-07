@@ -63,15 +63,16 @@ module Questions
             @condition_status = false
             @condition = Condition.where(question_id: question_id).first
             if !@condition.nil?
-                if @condition.method = 'is equal to'
+                if @condition.method == 'is equal to'
                     if answer.include? @condition.value 
+                        Rails.logger.info "WE HERE at IS EQUAL TO"
                         @next_question = Question.find_by_id(@condition.condition_question_id)
                         @condition_status = true
                     end
                 end
-                if @condition.method = 'is not equal to'
-                    Rails.logger.info "WE HERE"
+                if @condition.method == 'is not equal to'
                     if answer.exclude? @condition.value 
+                        Rails.logger.info "WE HERE at IS NOT EQUAL"
                         @next_question = Question.find_by_id(@condition.condition_question_id)
                         @condition_status = true
                     end
