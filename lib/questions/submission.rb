@@ -26,15 +26,17 @@ module Questions
             end
 
             Questions::SaveAnswer.new(@survey_id, @current_question.id, @answer, args[:survey_session])
-            if @current_question.conditions.present?
-                @condition_pos = Questions::Submission.condition_check(@current_question.id, @answer, @survey_id)
-                @question = Questions::Submission.query_question(@condition_pos, @survey_id) unless @condition_pos == false || @condition_pos == 'end'
-                Rails.logger.info ">>>>>>>>CONDITION CHECK #{@condition_pos}"
-                if @condition_pos == 'end'
-                    Rails.logger.info ">>>>>>>>CONDITION TO END SURVEY"
-                    @question = Questions::Submission.query_question(0, @survey_id)
-                elsif @condition_pos == false
-                    Rails.logger.info ">>>>>>>>CONDITION TO NEXT"
+            if args[:answer].present?
+                if @current_question.conditions.present?
+                    @condition_pos = Questions::Submission.condition_check(@current_question.id, @answer, @survey_id)
+                    @question = Questions::Submission.query_question(@condition_pos, @survey_id) unless @condition_pos == false || @condition_pos == 'end'
+                    Rails.logger.info ">>>>>>>>CONDITION CHECK #{@condition_pos}"
+                    if @condition_pos == 'end'
+                        Rails.logger.info ">>>>>>>>CONDITION TO END SURVEY"
+                        @question = Questions::Submission.query_question(0, @survey_id)
+                    elsif @condition_pos == false
+                        Rails.logger.info ">>>>>>>>CONDITION TO NEXT"
+                    end
                 end
             end
             
