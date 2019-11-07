@@ -52,7 +52,7 @@
                 <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
                     <div class="columns">
                         <div class="column is-4">
-                            <%= radio_button_tag 'question[answer]', answer.value, :value => answer.value %>
+                            <%= radio_button_tag 'question[answer]', answer.value, SurveyAnswer.check_mc(@question.survey_position,@survey.id, cookies[:survey_session], answer.value), :value => answer.value %>
                             <% if @question.desc_question_code == "1"%>
                             <%= "#{answer.code}." %>
                             <% end %>
@@ -163,7 +163,7 @@
             <% @question.question_answers.shuffle.each do |answer|%>
                 <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;">
                     <div class="checkbox">
-                        <%= check_box_tag 'question[answer][]', answer.value, nil, id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
+                        <%= check_box_tag 'question[answer][]', answer.value, SurveyAnswer.check_mc(@question.survey_position,@survey.id, cookies[:survey_session], answer.value), id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
                         <% if @question.desc_question_code == "1"%>
                         <%= "#{answer.code}." %>
                         <% end %>
@@ -175,7 +175,7 @@
             <% @question.question_answers.order(position: :asc).each do |answer|%>
                 <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;">
                     <div class="checkbox">
-                        <%= check_box_tag 'question[answer][]', answer.value, nil, id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
+                        <%= check_box_tag 'question[answer][]', answer.value, SurveyAnswer.check_mc(@question.survey_position,@survey.id, cookies[:survey_session], answer.value), id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
                         <% if @question.desc_question_code == "1"%>
                         <%= "#{answer.code}." %>
                         <% end %>
@@ -192,7 +192,7 @@
             <% @question.question_answers.shuffle.each do |answer|%>
                 <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;">
                     <div class="checkbox">
-                        <%= check_box_tag 'question[answer][]', answer.value, nil, id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
+                        <%= check_box_tag 'question[answer][]', answer.value, SurveyAnswer.check_mc(@question.survey_position,@survey.id, cookies[:survey_session], answer.value), id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
                         <% if @question.desc_question_code == "1"%>
                         <%= "#{answer.code}." %>
                         <% end %>
@@ -205,7 +205,7 @@
             <% @question.question_answers.order(position: :asc).each do |answer|%>
                 <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;">
                     <div class="checkbox">
-                        <%= check_box_tag 'question[answer][]', answer.value, nil, id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
+                        <%= check_box_tag 'question[answer][]', answer.value, SurveyAnswer.check_mc(@question.survey_position,@survey.id, cookies[:survey_session], answer.value), id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
                         <% if @question.desc_question_code == "1"%>
                         <%= "#{answer.code}." %>
                         <% end %>
@@ -224,7 +224,7 @@
                 <% @question.question_answers.shuffle.each do |answer|%>
                     <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;">
                         <div class="checkbox">
-                            <%= check_box_tag 'question[answer][]', answer.value, nil, id: "question_answer_#{answer.value}", class: 'bw-checkbox limitcheck' %>
+                            <%= check_box_tag 'question[answer][]', answer.value, SurveyAnswer.check_mc(@question.survey_position,@survey.id, cookies[:survey_session], answer.value), id: "question_answer_#{answer.value}", class: 'bw-checkbox limitcheck' %>
                             
                             <%= label_tag "question_answer_#{answer.value}", answer.exact_value%>
                         </div>
@@ -234,7 +234,7 @@
                 <% @question.question_answers.order(position: :asc).each do |answer|%>
                     <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;">
                         <div class="checkbox">
-                            <%= check_box_tag 'question[answer][]', answer.value, nil, id: "question_answer_#{answer.value}", class: 'bw-checkbox limitcheck' %>
+                            <%= check_box_tag 'question[answer][]', answer.value, SurveyAnswer.check_mc(@question.survey_position,@survey.id, cookies[:survey_session], answer.value), id: "question_answer_#{answer.value}", class: 'bw-checkbox limitcheck' %>
                             <% if @question.desc_question_code == "1"%>
                             <%= "#{answer.code}." %>
                             <% end %>
@@ -250,10 +250,11 @@
             <% @question.question_answers.shuffle.each do |answer|%>
                 <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;">
                     <div class="checkbox">
-                        <%= check_box_tag 'question[answer][]', answer.value, nil, id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
+                        <%= check_box_tag 'question[answer][]', answer.value, SurveyAnswer.check_mc(@question.survey_position,@survey.id, cookies[:survey_session], answer.value), id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
                         <% if @question.desc_question_code == "1"%>
                         <%= "#{answer.code}." %>
                         <% end %>
+                         <%= label_tag "question_answer_#{answer.value}", answer.exact_value%>
                     </div>
                     <%= text_field 'question[answer]', class: 'input' %>
                 </div>
@@ -262,10 +263,11 @@
             <% @question.question_answers.order(position: :asc).each do |answer|%>
                 <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;">
                     <div class="checkbox">
-                        <%= check_box_tag 'question[answer][]', answer.value, nil, id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
+                        <%= check_box_tag 'question[answer][]', answer.value, SurveyAnswer.check_mc(@question.survey_position,@survey.id, cookies[:survey_session], answer.value), id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
                         <% if @question.desc_question_code == "1"%>
                         <%= "#{answer.code}." %>
                         <% end %>
+                         <%= label_tag "question_answer_#{answer.value}", answer.exact_value%>
                     </div>
                     <%= text_field 'question[answer]', class: 'input' %>
                 </div>
