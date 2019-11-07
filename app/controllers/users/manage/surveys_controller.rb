@@ -51,6 +51,8 @@ class Users::Manage::SurveysController < Users::BaseController
     end
 
     def preview
+        #user = {name: 'Anna', job: {title: 'Programmer'}}.to_dot
+        #@struct_hash = SurveyAnswer.where(survey_id: @survey.id, session: cookies[:survey_session])
         clear_session
         if !params[:intro].present?
             set_preview_cookies  

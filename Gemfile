@@ -53,6 +53,7 @@ group :development, :production do
   gem 'mini_racer', :platforms => :ruby
   gem "shrine", "~> 2.11"
   gem 'acts_as_list', :require => 'acts_as_list'
+  gem 'hash_dot', require: 'hash_dot'
 end
 
 group :test do

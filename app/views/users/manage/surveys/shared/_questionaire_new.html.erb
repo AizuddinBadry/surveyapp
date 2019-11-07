@@ -13,7 +13,7 @@
     <div class="column is-8">
         <h3 class="is-size-5" style="margin-bottom: 0.80em"><%= @question.code %> 
         <% if !params[:lang].present? || params[:lang] == 'English' %>
-            <%= @question&.description&.present? ? @question.description.html_safe : "" %>
+            <%= @question&.description&.present? ? @question.description.html_safe % { subject: 'world' } : "" %>
         <% else %>
             <%= Question.query_language(@question, params[:lang])%>
         <% end %>

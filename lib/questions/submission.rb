@@ -64,29 +64,37 @@ module Questions
             @condition = Condition.where(question_id: question_id).first
             if !@condition.nil?
                 if @condition.method == 'is equal to'
-                    if answer.include? @condition.value 
+                    if answer.include? @condition.value  || answer == @condition.value
                         Rails.logger.info "WE HERE at IS EQUAL TO"
                         @next_question = Question.find_by_id(@condition.condition_question_id)
                         @condition_status = true
+                        if @condition.nil?
+                            @response = false
+                        elsif @condition.condition_question_id == 0
+                            @condition_status = 'end'
+                        end
                     end
                 end
                 if @condition.method == 'is not equal to'
-                    if answer.exclude? @condition.value 
+                    if answer.exclude? @condition.value || answer != @condition.value
                         Rails.logger.info "WE HERE at IS NOT EQUAL"
                         @next_question = Question.find_by_id(@condition.condition_question_id)
                         @condition_status = true
+                        if @condition.nil?
+                            @response = false
+                        elsif @condition.condition_question_id == 0
+                            @condition_status = 'end'
+                        end
                     end
                 end
             end
             @question = Question.where(survey_id: survey_id, survey_position: @next_question.survey_position).first unless @next_question.nil?
-
-            if @condition.nil?
-                @response = false
-            elsif @condition.condition_question_id == 0
+            if @condition_status == 'end'
                 @response = 'end'
             else
                 @response = @question.survey_position
             end
+
 
             Rails.logger.info "RESPONSE #{@response}"
 
