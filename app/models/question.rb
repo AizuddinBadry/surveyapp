@@ -64,6 +64,7 @@ class Question < ApplicationRecord
   has_many :question_answers, :dependent => :destroy 
   has_many :subquestions, :dependent => :destroy
   has_many :conditions, :dependent => :destroy
+  has_many :survey_answers, :dependent => :destroy
   accepts_nested_attributes_for :question_answers
   accepts_nested_attributes_for :subquestions
   accepts_nested_attributes_for :conditions, allow_destroy: true

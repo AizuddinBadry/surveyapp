@@ -51,8 +51,6 @@ class Users::Manage::SurveysController < Users::BaseController
     end
 
     def preview
-        #user = {name: 'Anna', job: {title: 'Programmer'}}.to_dot
-        #@struct_hash = SurveyAnswer.where(survey_id: @survey.id, session: cookies[:survey_session])
         clear_session
         if !params[:intro].present?
             set_preview_cookies  
@@ -64,6 +62,7 @@ class Users::Manage::SurveysController < Users::BaseController
                                                             back_request: params[:back_request],
                                                             survey_session: cookies[:survey_session]})
                 cookies[:question_position] = Questions::Submission.result_position 
+                generate_interpolation(@survey.id)
                 @warning = Questions::Submission.message unless @question.nil?
                 if !@question.present?
                     if request.xhr?
@@ -115,5 +114,29 @@ class Users::Manage::SurveysController < Users::BaseController
 
     def clear_survey_session
         cookies.delete(:survey_session)
+    end
+
+    def generate_interpolation(survey_id)
+        @interpolation = Hash.new
+        Question.joins(:survey_answers).where("survey_answers.session ilike ?", cookies[:survey_session]).where(survey_id: survey_id).each do |i|
+            string = "#{i.code}"+"_"+"value"
+            survey_answer = SurveyAnswer.where(question_id: i.id, session: cookies[:survey_session]).first
+            exact_value = ''
+            array = JSON.parse(survey_answer.value) unless survey_answer.value == nil || !survey_answer.value.is_a?(Integer)
+            if array.kind_of?(Array)
+                array.each_with_index do |v, index|
+                    answer = QuestionAnswer.where(question_id: i.id, value: v.to_i).first
+                    if index == 0
+                        exact_value += "#{answer.exact_value}"
+                    else
+                        exact_value += ",#{answer.exact_value}"
+                    end
+                end
+            else
+                answer = QuestionAnswer.where(question_id: i.id, value: survey_answer.value).first
+                exact_value += answer.exact_value unless answer.nil?
+            end unless survey_answer.nil?
+            @interpolation[string.to_sym] = exact_value
+        end
     end
 end

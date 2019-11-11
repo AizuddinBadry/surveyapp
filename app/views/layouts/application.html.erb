@@ -10,6 +10,7 @@
     <%= stylesheet_link_tag 'https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.19.1/ui/trumbowyg.min.css', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag 'https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.19.1/plugins/table/ui/trumbowyg.table.min.css', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag 'https://use.fontawesome.com/releases/v5.10.2/css/all.css', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.19.1/plugins/mention/ui/trumbowyg.mention.min.css', media: 'all', 'data-turbolinks-track': 'reload' %>
     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
     <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
@@ -29,6 +30,7 @@
 </html>
     <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.19.1/trumbowyg.min.js', 'data-turbolinks-track': 'reload' %> 
     <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.19.1/plugins/table/trumbowyg.table.min.js', 'data-turbolinks-track': 'reload' %> 
+    <%= javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.19.1/plugins/mention/trumbowyg.mention.min.js', 'data-turbolinks-track': 'reload' %> 
 <script>
 $( document ).ready(function() {
   $('.select2').select2({
@@ -60,5 +62,40 @@ $( document ).ready(function() {
 
 </script>
 <script>
-$('.editor').trumbowyg();
+$('.editor').trumbowyg({
+    btns: [
+        ['viewHTML'],
+        <% if @question.present? %>
+        ['mention'],
+        <% end %>
+        ['undo', 'redo'], // Only supported in Blink browsers
+        ['formatting'],
+        ['strong', 'em', 'del'],
+        ['superscript', 'subscript'],
+        ['link'],
+        ['insertImage'],
+        ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+        ['unorderedList', 'orderedList'],
+        ['horizontalRule'],
+        ['removeformat'],
+        ['fullscreen']
+    ],
+    <% if @question.present? %>
+    plugins: {
+        mention: {
+            source: [
+                <% Question.where(survey_id: @question.survey_id).order(survey_position: :asc).each do |t|%>
+                  {code: "<%=t.code%>", description: "<%= t.description%>"},
+                <% end %>
+            ],
+            formatDropdownItem: function (item) {
+                return item.code + ' (' + item.description + ')';
+            },
+            formatResult: function (item) {
+                return '%{' + item.code + "_value" + '}';
+            }
+        }
+    }
+    <% end %>
+});
 </script>
