@@ -31,7 +31,7 @@
         <% if !params[:lang].present? || params[:lang] == 'English' %>
             <%= render '/users/manage/surveys/shared/survey_questionaire/answer_types', f:f%>
             <br/>
-            <%= @question.help.present? ? @question.help : ""%>
+            <%= @question.help.present? ? @question.help.html_safe : ""%>
         <% else %>
             <%= render '/users/manage/surveys/shared/survey_questionaire/answer_types_language', f:f%>
             <br/>

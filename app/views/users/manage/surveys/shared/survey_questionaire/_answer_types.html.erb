@@ -200,7 +200,7 @@
                         <% end %>
                         <%= label_tag "question_answer_#{answer.value}", answer.exact_value%>
                     </div>
-                    <%= text_area_tag 'question[comment]', cols: "30", rows: "2", class: 'textarea' %>
+                    <%= text_field 'question[comment]', class: 'input' %>
                 </div>
             <% end %>
         <% else %>
@@ -213,7 +213,7 @@
                         <% end %>
                         <%= label_tag "question_answer_#{answer.value}", answer.exact_value%>
                     </div>
-                    <%= text_area_tag 'question[comment]', cols: "30", rows: "2", class: 'textarea' %>
+                    <%= text_field 'question[comment]', class: 'input' %>
                 </div>
             <% end %>
         <% end %>

@@ -12,7 +12,7 @@
                             <% end %>
                             <%= @question.desc_question_code == true ? @question.desc_question_code : "" %>
                             <%= radio_button_tag 'question[answer]', answer.value, :value => answer.value %>
-                            <%= label_tag "question_answer_#{answer.value}", answer.exact_value, class: 'radio' %>
+                            <%= label_tag 'question[answer]', QuestionAnswer.query_language(answer, params[:lang]), class: 'radio' %>
                         </div>
                         <% if @question.enable_other_1 == true%>
                         <div class="column is-3">
@@ -83,7 +83,7 @@
                             <% end %>
                             <%= @question.desc_question_code == true ? @question.desc_question_code : "" %>
                             <%= radio_button_tag 'question[answer]', answer.value, :value => answer.value %>
-                            <%= label_tag "question_answer_#{answer.value}", answer.exact_value, class: 'radio' %>
+                            <%= label_tag 'question[answer]', QuestionAnswer.query_language(answer, params[:lang]), class: 'radio' %>
                         </div>
                         <% if @question.enable_other_1 == true%>
                         <div class="column is-3">
@@ -165,7 +165,7 @@
                     <%= "#{answer.code}." %>
                     <% end %>
                     <%= radio_button_tag 'question[answer]', answer.value, :value => answer.value %>
-                    <%= label_tag 'question[answer]', answer.exact_value, class: 'radio' %>
+                    <%= label_tag 'question[answer]', QuestionAnswer.query_language(answer, params[:lang]), class: 'radio' %>
                     <%= text_field 'question[comment]', class: 'input' %>
                 </div>
             <% end %>
@@ -176,7 +176,7 @@
                 <%= "#{answer.code}." %>
                 <% end %>
                 <%= radio_button_tag 'question[answer]', answer.value, :value => answer.value %>
-                <%= label_tag 'question[answer]', answer.exact_value, class: 'radio' %>
+                <%= label_tag 'question[answer]', QuestionAnswer.query_language(answer, params[:lang]), class: 'radio' %>
                 <%= text_field 'question[comment]', class: 'input' %>
             </div>
             <% end %>
@@ -192,7 +192,7 @@
                     <%= "#{answer.code}." %>
                     <% end %>
                     <%= radio_button_tag 'question[answer]', answer.value %>
-                    <%= label_tag 'question[answer]', answer.exact_value, :value => answer.value, class: 'radio' %>
+                    <%= label_tag 'question[answer]', QuestionAnswer.query_language(answer, params[:lang]), :value => answer.value, class: 'radio' %>
                 </div>
             <% end %>
         <% else %>
@@ -202,7 +202,7 @@
                     <%= "#{answer.code}." %>
                     <% end %>
                     <%= radio_button_tag 'question[answer]', answer.value %>
-                    <%= label_tag 'question[answer]', answer.exact_value, :value => answer.value, class: 'radio' %>
+                    <%= label_tag 'question[answer]', QuestionAnswer.query_language(answer, params[:lang]), :value => answer.value, class: 'radio'%>
                 </div>
             <% end %>
         <% end %>
@@ -218,7 +218,7 @@
                         <%= "#{answer.code}." %>
                         <% end %>
                         <%= check_box_tag 'question[answer][]', answer.value, nil, id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
-                        <%= label_tag "question_answer_#{answer.value}"%>
+                        <%= label_tag "question_answer_#{answer.value}", QuestionAnswer.query_language(answer, params[:lang])%>
                     </div>
                 </div>
             <% end %>
@@ -230,7 +230,7 @@
                         <%= "#{answer.code}." %>
                         <% end %>
                         <%= check_box_tag 'question[answer][]', answer.value, nil, id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
-                        <%= label_tag "question_answer_#{answer.value}"%>
+                        <%= label_tag "question_answer_#{answer.value}", QuestionAnswer.query_language(answer, params[:lang])%>
                     </div>
                 </div>
             <% end %>
@@ -244,7 +244,7 @@
                 <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;-webkit-column-break-inside: avoid;page-break-inside: avoid;break-inside: avoid;">
                     <div class="checkbox">
                         <%= check_box_tag 'question[answer][]', answer.value, nil, id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
-                        <%= label_tag "question_answer_#{answer.value}"%>
+                        <%= label_tag "question_answer_#{answer.value}", QuestionAnswer.query_language(answer, params[:lang])%>
                     </div>
                     <%= text_area_tag 'question[comment]', cols: "30", rows: "2", class: 'textarea' %>
                 </div>
@@ -254,7 +254,7 @@
                 <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;-webkit-column-break-inside: avoid;page-break-inside: avoid;break-inside: avoid;">
                     <div class="checkbox">
                         <%= check_box_tag 'question[answer][]', answer.value, nil, id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
-                        <%= label_tag "question_answer_#{answer.value}"%>
+                        <%= label_tag "question_answer_#{answer.value}", QuestionAnswer.query_language(answer, params[:lang])%>
                     </div>
                     <%= text_area_tag 'question[comment]', cols: "30", rows: "2", class: 'textarea' %>
                 </div>
@@ -273,7 +273,7 @@
                             <%= "#{answer.code}." %>
                             <% end %>
                             <%= check_box_tag 'question[answer][]', answer.value, nil, id: "question_answer_#{answer.value}", class: 'bw-checkbox limitcheck' %>
-                            <%= label_tag "question_answer_#{answer.value}"%>
+                            <%= label_tag "question_answer_#{answer.value}", QuestionAnswer.query_language(answer, params[:lang])%>
                         </div>
                     </div>
                 <% end %>
@@ -285,7 +285,7 @@
                             <%= "#{answer.code}." %>
                             <% end %>
                             <%= check_box_tag 'question[answer][]', answer.value, nil, id: "question_answer_#{answer.value}", class: 'bw-checkbox limitcheck' %>
-                            <%= label_tag "question_answer_#{answer.value}"%>
+                            <%= label_tag "question_answer_#{answer.value}", QuestionAnswer.query_language(answer, params[:lang])%>
                         </div>
                     </div>
                 <% end %>
@@ -301,6 +301,7 @@
                         <%= "#{answer.code}." %>
                         <% end %>
                         <%= check_box_tag 'question[answer][]', answer.value, nil, id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
+                        <%= label_tag "question_answer_#{answer.value}", QuestionAnswer.query_language(answer, params[:lang])%>
                     </div>
                     <%= text_field 'question[answer]', class: 'input' %>
                 </div>
@@ -313,6 +314,7 @@
                         <%= "#{answer.code}." %>
                         <% end %>
                         <%= check_box_tag 'question[answer][]', answer.value, nil, id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
+                        <%= label_tag "question_answer_#{answer.value}", QuestionAnswer.query_language(answer, params[:lang])%>
                     </div>
                     <%= text_field 'question[answer]', class: 'input' %>
                 </div>
@@ -321,7 +323,6 @@
             
     <% end %>
 <% elsif @question.q_type == 'Textarea' %>
-
 <%= text_area_tag 'question[answer]', nil, cols: "30", rows: "5", class: 'textarea' %>
 <% elsif @question.q_type == 'Textbox' %>
 <% if @question.logic.present? %>
@@ -353,7 +354,7 @@
     <%= "#{answer.code}." %>
     <% end %>
     <%= number_field_tag 'question[answer]' , min: 1 , max: @question.question_answers.size %>
-    <%= answer.exact_value %>
+    <%= QuestionAnswer.query_language(answer, params[:lang]) %>
 </div>
 <% end %>
 <% elsif @question.q_type == 'Numerical'%>
@@ -375,7 +376,7 @@
                 <% if @question.desc_question_code == "1"%>
                 <%= "#{answer.code}." %>
                 <% end %>
-                <%= answer.exact_value %>
+                <%= QuestionAnswer.query_language(answer, params[:lang]) %>
             </td>
             <% @question.subquestions.order(position: :asc).each_with_index do |subquestion, index|%>
             <td style="min-width: 200px;"><%= radio_button_tag "questionaire[#{index}][answer]", subquestion.value %></td>
@@ -393,12 +394,12 @@
             <th><% if @question.desc_question_code == "1"%>
                 <%= "#{answer.code}." %>
                 <% end %>
-                <%= answer.exact_value %></th>
+                <%= QuestionAnswer.query_language(answer, params[:lang]) %></th>
             <% end %>
         </tr>
         <% @question.subquestions.order(position: :asc).each_with_index do |subquestion, index|%>
         <tr>
-            <td><%= subquestion.code %>. <%=subquestion.exact_value%></td>
+            <td><%= subquestion.code %>. <%= Subquestion.query_language(subquestion, params[:lang]) %></td>
             <% @question.question_answers.order(position: :asc).order(position: :asc).each do |answer|%>
             <td><%= radio_button_tag "questionaire[#{index}][answer]", answer.value %></td>
             <% end %>
