@@ -1,8 +1,17 @@
 <%= form_for(:questionaire, url: '') do |f|%>
+<div class="columns is-mobile is-centered">
+  <div class="column is-half">
+     <h1 class="timer has-text-centered">Duration : <span><time>00:00:00</time></span></h1>
+    </div>
+</div>
+
 <div class="columns is-multiline">
+    
+
     <div class="column is-12">
         <label><%= @question_group.name%> : <%= @question_group.description%></label>
     </div>
+    
     <div class="column is-12">
         
         <h3 class="title"><%= @question.code %>. 
@@ -22,7 +31,7 @@
         <% if !params[:lang].present? || params[:lang] == 'English' %>
             <%= render '/users/manage/surveys/shared/survey_questionaire/answer_types', f:f%>
             <br/>
-            <%= @question.help.present? ? @question.help : ""%>
+            <%= @question.help.present? ? @question.help.html_safe : ""%>
         <% else %>
             <%= render '/users/manage/surveys/shared/survey_questionaire/answer_types_language', f:f%>
             <br/>
@@ -56,4 +65,5 @@
 <% end %>
 <script>
 <%= render '/users/manage/surveys/shared/survey_questionaire/answer_types.js'%>
+
 </script>

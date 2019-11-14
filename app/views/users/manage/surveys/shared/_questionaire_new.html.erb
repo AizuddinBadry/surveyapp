@@ -6,6 +6,11 @@
 <%= form_for(:question, url: @url, method: :post) do |f|%>
 <%= f.hidden_field :position, value: @question.survey_position + 1 %>
 <%= hidden_field_tag 'current_question_position',@question.survey_position %>
+<div class="columns is-mobile is-centered">
+  <div class="column is-half">
+     <h1 class="timer has-text-centered">Duration : <span><time>00:00:00</time></span></h1>
+    </div>
+</div>
 <div class="columns is-multiline">
     <div class="column is-12 has-text-centered">
         <h2 class="title"><%= @question.question_group.name%> : <%= @question.question_group.description%></h2>
@@ -21,7 +26,7 @@
         <% if !params[:lang].present? || params[:lang] == 'English' %>
            <%= @question.question_desc.present? ? @question.question_desc : ""%>
         <% else %>
-            <%= Question.question_desc_query_language(@question, params[:lang])%>
+            <%= Question.question_desc_query_language(@question.html_safe, params[:lang])%>
         <% end %>
         
         <%= render '/users/manage/surveys/shared/survey_questionaire/warning'%>
@@ -36,13 +41,16 @@
             </figure>
         </div>
     </div>
+        <div id="timer"></div>
     <div class="column is-12">
         <% if !params[:lang].present? || params[:lang] == 'English' %>
             <%= render '/users/manage/surveys/shared/survey_questionaire/answer_types', f:f%>
+            <br/>
             <%= @question.help.present? ? @question.help : ""%>
         <% else %>
             <%= render '/users/manage/surveys/shared/survey_questionaire/answer_types_language', f:f%>
-            <%= @question.help.present? ? @question.help : ""%>
+            <br/>
+            <%= Question.help_query_language(@question, params[:lang]).html_safe%>
         <% end %>
     </div>
     <div class="column is-12 has-text-right pl-20 pt-40" style="bottom:20px;position:relative">
@@ -59,4 +67,6 @@
 <% end %>
 <script>
 <%= render '/users/manage/surveys/shared/survey_questionaire/answer_types.js'%>
+
+
 </script>

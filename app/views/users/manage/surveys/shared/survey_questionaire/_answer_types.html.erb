@@ -3,7 +3,7 @@
 
         <% if @question.randomize == true %>
             <% @question.question_answers.shuffle.each do |answer|%>
-                <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
+                <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;-webkit-column-break-inside: avoid;page-break-inside: avoid;break-inside: avoid;">
                     <div class="columns">
                         <div class="column is-4">
                             <%= radio_button_tag 'question[answer]', answer.value, :value => answer.value %>
@@ -49,7 +49,7 @@
             <% end %>
         <% else %>
             <% @question.question_answers.order(position: :asc).each do |answer|%>
-                <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
+                <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;-webkit-column-break-inside: avoid;page-break-inside: avoid;break-inside: avoid;">
                     <div class="columns">
                         <div class="column is-4">
                             <%= radio_button_tag 'question[answer]', answer.value, SurveyAnswer.check_mc(@question.survey_position,@survey.id, cookies[:survey_session], answer.value), :value => answer.value %>
@@ -109,7 +109,7 @@
     <%= content_tag :div, class: "test", style: "column-count: #{@question.column};-moz-column-count: #{@question.column};-webkit-column-count: #{@question.column};" do -%>
         <% if @question.randomize == true %>
             <% @question.question_answers.shuffle.each do |answer|%>
-                <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
+                <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;-webkit-column-break-inside: avoid;page-break-inside: avoid;break-inside: avoid;">
                     <%= radio_button_tag 'question[answer]', answer.value, :value => answer.value %>
                     <% if @question.desc_question_code == "1"%>
                     <%= "#{answer.code}." %>
@@ -120,7 +120,7 @@
             <% end %>
         <% else %>
             <% @question.question_answers.order(position: :asc).each do |answer|%>
-            <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
+            <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;-webkit-column-break-inside: avoid;page-break-inside: avoid;break-inside: avoid;">
                 <%= radio_button_tag 'question[answer]', answer.value, :value => answer.value %>
                 <% if @question.desc_question_code == "1"%>
                 <%= "#{answer.code}." %>
@@ -136,7 +136,7 @@
     <%= content_tag :div, class: "test", style: "column-count: #{@question.column};-moz-column-count: #{@question.column};-webkit-column-count: #{@question.column};" do -%>
         <% if @question.randomize == true %>
             <% @question.question_answers.shuffle.each do |answer|%>
-            <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
+            <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;-webkit-column-break-inside: avoid;page-break-inside: avoid;break-inside: avoid;">
                     <%= radio_button_tag 'question[answer]', answer.value %>
                     <% if @question.desc_question_code == "1"%>
                     <%= "#{answer.code}." %>
@@ -146,7 +146,7 @@
             <% end %>
         <% else %>
             <% @question.question_answers.order(position: :asc).each do |answer|%>
-                <div style="border: 1px solid grey;margin-top:10px;padding:10px;">
+                <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;-webkit-column-break-inside: avoid;page-break-inside: avoid;break-inside: avoid;">
                     <%= radio_button_tag 'question[answer]', answer.value %>
                     <% if @question.desc_question_code == "1"%>
                     <%= "#{answer.code}." %>
@@ -158,11 +158,13 @@
             
     <% end %>
 <% elsif @question.q_type == 'Checkbox'%>
-    <%= content_tag :div, class: "test", style: "column-count: #{@question.column};-moz-column-count: #{@question.column};-webkit-column-count: #{@question.column};" do -%>
+
+
+    <%= content_tag :div, class: "test", style: "column-count: #{@question.column};-moz-column-count: #{@question.column};-webkit-column-count: #{@question.column};-webkit-column-span: all;column-span: all;" do -%>
          <% if @question.randomize == true %>
             <% @question.question_answers.shuffle.each do |answer|%>
-                <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;">
-                    <div class="checkbox">
+                <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;-webkit-column-break-inside: avoid;page-break-inside: avoid;break-inside: avoid;">
+                    <div class="checkbox" style="-webkit-column-break-inside: avoid;page-break-inside: avoid;break-inside: avoid;">
                         <%= check_box_tag 'question[answer][]', answer.value, SurveyAnswer.check_mc(@question.survey_position,@survey.id, cookies[:survey_session], answer.value), id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
                         <% if @question.desc_question_code == "1"%>
                         <%= "#{answer.code}." %>
@@ -173,7 +175,7 @@
             <% end %>
         <% else %>
             <% @question.question_answers.order(position: :asc).each do |answer|%>
-                <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;">
+                <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;-webkit-column-break-inside: avoid;page-break-inside: avoid;break-inside: avoid;">
                     <div class="checkbox">
                         <%= check_box_tag 'question[answer][]', answer.value, SurveyAnswer.check_mc(@question.survey_position,@survey.id, cookies[:survey_session], answer.value), id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
                         <% if @question.desc_question_code == "1"%>
@@ -190,7 +192,7 @@
     <%= content_tag :div, class: "test", style: "column-count: #{@question.column};-moz-column-count: #{@question.column};-webkit-column-count: #{@question.column};" do -%>
         <% if @question.randomize == true %>
             <% @question.question_answers.shuffle.each do |answer|%>
-                <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;">
+                <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;-webkit-column-break-inside: avoid;page-break-inside: avoid;break-inside: avoid;">
                     <div class="checkbox">
                         <%= check_box_tag 'question[answer][]', answer.value, SurveyAnswer.check_mc(@question.survey_position,@survey.id, cookies[:survey_session], answer.value), id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
                         <% if @question.desc_question_code == "1"%>
@@ -198,12 +200,12 @@
                         <% end %>
                         <%= label_tag "question_answer_#{answer.value}", answer.exact_value%>
                     </div>
-                    <%= text_area_tag 'question[comment]', cols: "30", rows: "2", class: 'textarea' %>
+                    <%= text_field 'question[comment]', class: 'input' %>
                 </div>
             <% end %>
         <% else %>
             <% @question.question_answers.order(position: :asc).each do |answer|%>
-                <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;">
+                <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;-webkit-column-break-inside: avoid;page-break-inside: avoid;break-inside: avoid;">
                     <div class="checkbox">
                         <%= check_box_tag 'question[answer][]', answer.value, SurveyAnswer.check_mc(@question.survey_position,@survey.id, cookies[:survey_session], answer.value), id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
                         <% if @question.desc_question_code == "1"%>
@@ -211,7 +213,7 @@
                         <% end %>
                         <%= label_tag "question_answer_#{answer.value}", answer.exact_value%>
                     </div>
-                    <%= text_area_tag 'question[comment]', cols: "30", rows: "2", class: 'textarea' %>
+                    <%= text_field 'question[comment]', class: 'input' %>
                 </div>
             <% end %>
         <% end %>
@@ -222,7 +224,7 @@
         <%= content_tag :div, class: "test", style: "column-count: #{@question.column};-moz-column-count: #{@question.column};-webkit-column-count: #{@question.column};" do -%>
             <% if @question.randomize == true %>
                 <% @question.question_answers.shuffle.each do |answer|%>
-                    <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;">
+                    <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;-webkit-column-break-inside: avoid;page-break-inside: avoid;break-inside: avoid;">
                         <div class="checkbox">
                             <%= check_box_tag 'question[answer][]', answer.value, SurveyAnswer.check_mc(@question.survey_position,@survey.id, cookies[:survey_session], answer.value), id: "question_answer_#{answer.value}", class: 'bw-checkbox limitcheck' %>
                             
@@ -232,7 +234,7 @@
                 <% end %>
             <% else %>
                 <% @question.question_answers.order(position: :asc).each do |answer|%>
-                    <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;">
+                    <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;-webkit-column-break-inside: avoid;page-break-inside: avoid;break-inside: avoid;">
                         <div class="checkbox">
                             <%= check_box_tag 'question[answer][]', answer.value, SurveyAnswer.check_mc(@question.survey_position,@survey.id, cookies[:survey_session], answer.value), id: "question_answer_#{answer.value}", class: 'bw-checkbox limitcheck' %>
                             <% if @question.desc_question_code == "1"%>
@@ -248,7 +250,7 @@
     <%= content_tag :div, class: "test", style: "column-count: #{@question.column};-moz-column-count: #{@question.column};-webkit-column-count: #{@question.column};" do -%>
         <% if @question.randomize == true %>
             <% @question.question_answers.shuffle.each do |answer|%>
-                <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;">
+                <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;-webkit-column-break-inside: avoid;page-break-inside: avoid;break-inside: avoid;">
                     <div class="checkbox">
                         <%= check_box_tag 'question[answer][]', answer.value, SurveyAnswer.check_mc(@question.survey_position,@survey.id, cookies[:survey_session], answer.value), id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
                         <% if @question.desc_question_code == "1"%>
@@ -261,7 +263,7 @@
             <% end %>
         <% else %>
             <% @question.question_answers.order(position: :asc).each do |answer|%>
-                <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;">
+                <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;-webkit-column-break-inside: avoid;page-break-inside: avoid;break-inside: avoid;">
                     <div class="checkbox">
                         <%= check_box_tag 'question[answer][]', answer.value, SurveyAnswer.check_mc(@question.survey_position,@survey.id, cookies[:survey_session], answer.value), id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
                         <% if @question.desc_question_code == "1"%>
@@ -287,14 +289,14 @@
 <% elsif @question.q_type == 'Multiple Textbox' %>
 <% if @question.logic.present? %>
 <% @question.question_answers.order(position: :asc).each do |answer|%>
-<div style="border: 1px solid grey;margin-top:10px;padding:10px;">
+<div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;-webkit-column-break-inside: avoid;page-break-inside: avoid;break-inside: avoid;">
     <%= answer.exact_value %>
     <%= text_field_tag 'question[answer]',nil, class: 'input', pattern:@question.logic , required: true %>
 </div>
 <% end %>
 <% else %>
 <% @question.question_answers.order(position: :asc).each do |answer|%>
-<div style="border: 1px solid grey;margin-top:10px;padding:10px;">
+<div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;-webkit-column-break-inside: avoid;page-break-inside: avoid;break-inside: avoid;">
     <%= answer.exact_value %>
     <%= text_field_tag 'question[answer]',nil%>
 </div>
@@ -303,7 +305,7 @@
 <% end %>
 <% elsif @question.q_type == 'Ranking'%>
 <% @question.question_answers.each do |answer|%>
-<div style="border: 1px solid grey;margin-top:10px;padding:10px;">
+<div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;-webkit-column-break-inside: avoid;page-break-inside: avoid;break-inside: avoid;">
     <%= number_field_tag 'question[answer]' , min: 1 , max: @question.question_answers.size %>
     <% if @question.desc_question_code == "1"%>
     <%= "#{answer.code}." %>
@@ -316,24 +318,27 @@
 <% elsif @question.q_type == 'Array' %>
 
 <% if @question.structure == "Subquestion Horizontal" %>
-<div style="margin-top:10px;padding:10px;">
+<div style="margin-top:10px;padding:10px;overflow-x: scroll;">
     <table class="table table-responsive" id="arrays">
-        <tr>
-            <th></th>
+        <tr style="min-width: 200px;">
+            <th style="min-width: 200px;"></th>
             <% @question.subquestions.order(position: :asc).each_with_index do |subquestion|%>
-            <th><%= subquestion.code %>. <%=subquestion.exact_value%></th>
+            <th style="min-width: 200px;"><%= subquestion.code %>. <%=subquestion.exact_value%></th>
             <% end %>
         </tr>
         <% @question.question_answers.order(position: :asc).each do |answer|%>
-        <tr>
-            <td>
+        <tr style="min-width: 200px;">
+            <td style="min-width: 200px;">
                 <% if @question.desc_question_code == "1"%>
                 <%= "#{answer.code}." %>
                 <% end %>
                 <%= answer.exact_value %>
             </td>
             <% @question.subquestions.order(position: :asc).each_with_index do |subquestion, index|%>
-            <td><%= radio_button_tag "questionaire[#{index}][answer]", subquestion.value %></td>
+            <td style="min-width: 200px;">
+            <%= radio_button_tag "questionaire[#{index}][answer]", subquestion.value, :value => subquestion.value  %>
+            </td>
+            
             <% end %>
         </tr>
         <% end %>
@@ -355,7 +360,8 @@
         <tr>
             <td><%= subquestion.code %>. <%=subquestion.exact_value%></td>
             <% @question.question_answers.order(position: :asc).order(position: :asc).each do |answer|%>
-            <td><%= radio_button_tag "questionaire[#{index}][answer]", answer.value %></td>
+            <td><%= radio_button_tag "questionaire[#{index}][answer]", answer.value %>
+            </td>
             <% end %>
         </tr>
         <% end %>
@@ -366,22 +372,22 @@
 <% elsif @question.q_type == 'Array Numerical' %>
 
 <% if @question.structure == "Subquestion Horizontal" %>
-<div style="margin-top:10px;padding:10px;">
+<div style="margin-top:10px;padding:10px;overflow-x: scroll;">
     <table class="table table-responsive" id="arrays">
-        <tr>
-            <th></th>
+        <tr style="min-width: 200px;">
+            <th style="min-width: 200px;"></th>
             <% @question.subquestions.order(position: :asc).each_with_index do |subquestion|%>
-            <th><%= subquestion.code %>. <%=subquestion.exact_value%></th>
+            <th style="min-width: 200px;"><%= subquestion.code %>. <%=subquestion.exact_value%></th>
             <% end %>
         </tr>
         <% @question.question_answers.order(position: :asc).each do |answer|%>
-        <tr>
-            <td><% if @question.desc_question_code == "1"%>
+        <tr style="min-width: 200px;">
+            <td style="min-width: 200px;"><% if @question.desc_question_code == "1"%>
                 <%= "#{answer.code}." %>
                 <% end %>
                 <%= answer.exact_value %></td>
             <% @question.subquestions.order(position: :asc).each_with_index do |subquestion, index|%>
-            <td><%= number_field_tag "questionaire[#{index}][answer]",class: "input"%></td>
+            <td style="min-width: 200px;"><%= number_field_tag "questionaire[#{index}][answer]",class: "input"%></td>
             <% end %>
         </tr>
         <% end %>
@@ -413,22 +419,22 @@
 <% elsif @question.q_type == 'Array Multiple Answer' %>
 
 <% if @question.structure == "Subquestion Horizontal" %>
-<div style="margin-top:10px;padding:10px;">
+<div style="margin-top:10px;padding:10px;overflow-x: scroll;">
     <table class="table table-responsive" id="arrays">
-        <tr>
-            <th></th>
+        <tr style="min-width: 200px;">
+            <th style="min-width: 200px;"></th>
             <% @question.subquestions.order(position: :asc).each_with_index do |subquestion|%>
-            <th><%= subquestion.code %>. <%=subquestion.exact_value%></th>
+            <th style="min-width: 200px;"><%= subquestion.code %>. <%=subquestion.exact_value%></th>
             <% end %>
         </tr>
         <% @question.question_answers.order(position: :asc).each do |answer|%>
-        <tr>
-            <td><% if @question.desc_question_code == "1"%>
+        <tr style="min-width: 200px;">
+            <td style="min-width: 200px;"><% if @question.desc_question_code == "1"%>
                 <%= "#{answer.code}." %>
                 <% end %>
                 <%= answer.exact_value %></td>
             <% @question.subquestions.order(position: :asc).each_with_index do |subquestion, index|%>
-            <td><%= check_box_tag 'question[answer]' %></td>
+            <td style="min-width: 200px;"><%= check_box_tag 'question[answer]' %></td>
             <% end %>
         </tr>
         <% end %>
@@ -462,22 +468,22 @@
 <% elsif @question.q_type == 'Array Dropdown' %>
 
 <% if @question.structure == "Subquestion Horizontal" %>
-<div style="margin-top:10px;padding:10px;">
+<div style="margin-top:10px;padding:10px;overflow-x: scroll;">
     <table class="table table-responsive" id="arrays">
-        <tr>
-            <th></th>
+        <tr style="min-width: 200px;">
+            <th style="min-width: 200px;"></th>
             <% @question.subquestions.order(position: :asc).each_with_index do |subquestion|%>
-            <th><%= subquestion.code %>. <%=subquestion.exact_value%></th>
+            <th style="min-width: 200px;"><%= subquestion.code %>. <%=subquestion.exact_value%></th>
             <% end %>
         </tr>
         <% @question.question_answers.order(position: :asc).each do |answer|%>
-        <tr>
-            <td><% if @question.desc_question_code == "1"%>
+        <tr style="min-width: 200px;">
+            <td style="min-width: 200px;"><% if @question.desc_question_code == "1"%>
                 <%= "#{answer.code}." %>
                 <% end %>
                 <%= answer.exact_value %></td>
             <% @question.subquestions.order(position: :asc).each_with_index do |subquestion, index|%>
-            <td><%= select_tag 'question[answer]',  options, :include_blank => 'Please select an answer' %></td>
+            <td style="min-width: 200px;"><%= select_tag 'question[answer]',  options, :include_blank => 'Please select an answer' %></td>
             <% end %>
         </tr>
         <% end %>

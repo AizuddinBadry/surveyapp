@@ -16,7 +16,14 @@
                                 <i class='fa fa-bars pr-5'></i> 
                                 <div class="pr-3">
                                 <%= ff.text_field :code, class: 'input'%></div>
-                                <%= ff.text_field :exact_value, class: 'input'%>
+                                <% if !params[:lang].present? || params[:lang] == 'English'%>
+                                    <%= ff.text_field :exact_value, class: 'input'%>
+                                <% end %>
+                                 <% @languages.each_with_index do |l, index| %>
+                                    <% if index != 0%>
+                                        <%= text_field_tag "subquestions[question_answers_attributes][#{ff.index}][other_language][#{l.name}]", Subquestion.query_language(ff.object, l.name), class: "input list-answer #{params[:lang] == l.name ? 'active' : nil}", disabled: params[:edit].present? ? false : true%>
+                                    <% end %>
+                                <% end %>
                                 <%= ff.hidden_field :id%>
                                 </p>
                             </div>

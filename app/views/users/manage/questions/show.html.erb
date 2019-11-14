@@ -47,7 +47,11 @@
                             </div>
                         </div>
                     </div>
-                   <% if @question.q_type != 'Textarea'%>
+                   <% if @question.q_type == 'Textarea'%>
+                    
+                    <% elsif @question.q_type == 'Textbox' %>
+                        
+                    <% else %>
                         <%= render '/users/manage/questions/tables/answers', f:f%>
                    <% end %>
                    <% if @question.q_type == 'Array'%>
