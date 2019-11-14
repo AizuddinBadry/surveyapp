@@ -86,7 +86,7 @@ export default class ConditionQuestionsList extends React.Component {
     ));
 
     return (
-      <div>
+      <div className="pt-10">
         <div className="control">
           <div className="select">
             <select onChange={this.handleSelectedQuestion}>

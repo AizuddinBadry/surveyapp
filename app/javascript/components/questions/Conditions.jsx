@@ -3,6 +3,19 @@ import ConditionQuestionsList from "./ConditionQuestionsList";
 import ConditionThenQuestionsList from "./ConditionThenQuestionList";
 import axios from "axios";
 
+function Link(props) {
+  return (
+    <div className="control">
+      <div className="select">
+        <select>
+          <option>AND</option>
+          <option>OR</option>
+        </select>
+      </div>
+    </div>
+  );
+}
+
 export default class Conditions extends React.Component {
   constructor(props) {
     super();
@@ -13,7 +26,8 @@ export default class Conditions extends React.Component {
       condition_question_id: 0,
       method: "",
       scenario: "",
-      value: ""
+      value: "",
+      multipleCondition: [0]
     };
   }
 
@@ -82,6 +96,13 @@ export default class Conditions extends React.Component {
     });
   };
 
+  increaseOption = val => {
+    var initial = this.state.multipleCondition.length;
+    var newItem = parseInt(initial) + 1;
+    var joinNewItem = this.state.multipleCondition.concat(newItem);
+    this.setState({ multipleCondition: joinNewItem });
+  };
+
   render() {
     var self = this.state;
     let thenMethod = ["skip to question", "skip to end", "hide question"];
@@ -105,12 +126,30 @@ export default class Conditions extends React.Component {
           <div className="content">
             <div className="form-group">
               <label className="label">if answer on question:</label>
-              <ConditionQuestionsList
-                state={this.state}
-                question_id_handler={this.questionIdHandler}
-                method_handler={this.methodHandler}
-                value_handler={this.valueHandler}
-              />{" "}
+              {self.multipleCondition.map(i => {
+                return (
+                  <div key={i} className="pt-5">
+                    {i > 0 ? <Link /> : null}
+                    <ConditionQuestionsList
+                      state={this.state}
+                      question_id_handler={this.questionIdHandler}
+                      method_handler={this.methodHandler}
+                      value_handler={this.valueHandler}
+                    />
+                    <hr />
+                  </div>
+                );
+              })}
+              <div className="pt-5">
+                <button
+                  className="button is-primary is-rounded"
+                  onClick={this.increaseOption}
+                >
+                  <span className="icon">
+                    <i className="fas fa-plus"></i>
+                  </span>
+                </button>
+              </div>
               <label className="label pt-10">then </label>
               <div className="control">
                 <div className="select">
