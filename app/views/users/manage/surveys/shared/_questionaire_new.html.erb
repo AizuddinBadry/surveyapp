@@ -8,8 +8,9 @@
 <%= hidden_field_tag 'current_question_position',@question.survey_position %>
 <div class="columns is-mobile is-centered">
   <div class="column is-half">
-     <h1 class="timer has-text-centered">Duration : <span><time>00:00:00</time></span></h1>
+     <h1 class="timer has-text-centered">Duration :<span id="time">00:00:00</span></h1>
     </div>
+    <%= f.hidden_field :time_per_question, value: "" %>
 </div>
 <div class="columns is-multiline">
     <div class="column is-12 has-text-centered">

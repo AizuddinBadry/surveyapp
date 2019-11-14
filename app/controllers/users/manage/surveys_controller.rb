@@ -57,7 +57,7 @@ class Users::Manage::SurveysController < Users::BaseController
             if !params[:back_request].present? && request.post?   
                 @question = Questions::Submission.submit({survey_id: @survey.id, 
                                                             q1: request.post? ? params[:current_question_position] : nil, 
-                                                            q2: cookies[:question_position], 
+                                                            q2: cookies[:question_position], time_per_question: params[:question][:time_per_question],
                                                             answer: request.post? && params[:question].present? ? params[:question][:answer] : nil,
                                                             back_request: params[:back_request],
                                                             survey_session: cookies[:survey_session]})
@@ -90,7 +90,7 @@ class Users::Manage::SurveysController < Users::BaseController
     end
 
     def question_params
-        params.require(:question).permit(:position, :question_group_id, :group_position)
+        params.require(:question).permit(:position, :question_group_id, :group_position, :time_per_question, :answer)
     end
 
     def set_preview_cookies
