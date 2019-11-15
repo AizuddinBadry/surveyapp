@@ -7,9 +7,13 @@ function Link(props) {
   return (
     <div className="control">
       <div className="select">
-        <select>
-          <option>AND</option>
-          <option>OR</option>
+        <select
+          name="condition_link"
+          onChange={props.handle_changes.bind(this, props.index)}
+        >
+          <option>Please select</option>
+          <option value="and">AND</option>
+          <option value="or">OR</option>
         </select>
       </div>
     </div>
@@ -22,12 +26,13 @@ export default class Conditions extends React.Component {
     this.state = {
       questions: [],
       methodType: "",
-      question_id: "",
+      question_id: [],
       condition_question_id: 0,
-      method: "",
-      scenario: "",
-      value: "",
-      multipleCondition: [0]
+      method: [],
+      scenario: [],
+      value: [],
+      multipleCondition: [0],
+      condition_link: [""]
     };
   }
 
@@ -53,11 +58,14 @@ export default class Conditions extends React.Component {
     var self = this.state;
     axios
       .post("/api/v1/conditions", {
-        question_id: self.question_id,
-        condition_question_id: self.condition_question_id,
-        method: self.method,
-        scenario: self.scenario,
-        value: self.value
+        data: {
+          question_id: self.question_id,
+          condition_question_id: self.condition_question_id,
+          method: self.method,
+          scenario: self.scenario,
+          value: self.value,
+          relation: self.condition_link
+        }
       })
       .then(function(response) {
         console.log(response);
@@ -68,25 +76,38 @@ export default class Conditions extends React.Component {
       });
   };
 
+  handleAllChanges = (index, e) => {
+    assigned = e.target.name;
+    var assigned = this.state.condition_link.slice();
+    assigned[index] = e.target.value;
+    this.setState({ [e.target.name]: assigned });
+  };
+
   handleChanges = e => {
     this.setState({ methodType: e.target.value, scenario: e.target.value });
   };
 
-  questionIdHandler = val => {
+  questionIdHandler = (index, val) => {
+    var question_id = this.state.question_id.slice();
+    question_id[index] = val;
     this.setState({
-      question_id: val
+      question_id: question_id
     });
   };
 
-  methodHandler = val => {
+  methodHandler = (index, val) => {
+    var method = this.state.method.slice();
+    method[index] = val;
     this.setState({
-      method: val
+      method: method
     });
   };
 
-  valueHandler = val => {
+  valueHandler = (index, val) => {
+    var value = this.state.value.slice();
+    value[index] = val;
     this.setState({
-      value: val
+      value: value
     });
   };
 
@@ -126,11 +147,17 @@ export default class Conditions extends React.Component {
           <div className="content">
             <div className="form-group">
               <label className="label">if answer on question:</label>
-              {self.multipleCondition.map(i => {
+              {self.multipleCondition.map((v, index) => {
                 return (
-                  <div key={i} className="pt-5">
-                    {i > 0 ? <Link /> : null}
+                  <div key={index} className="pt-5">
+                    {index > 0 ? (
+                      <Link
+                        handle_changes={this.handleAllChanges}
+                        index={index}
+                      />
+                    ) : null}
                     <ConditionQuestionsList
+                      index={index}
                       state={this.state}
                       question_id_handler={this.questionIdHandler}
                       method_handler={this.methodHandler}
@@ -170,10 +197,20 @@ export default class Conditions extends React.Component {
                 )}
               </div>
               <div className="pt-20">
-                <i>
-                  If answer on question ID {self.question_id} {self.method}{" "}
-                  {self.value} then {self.scenario} {self.condition_question_id}
-                </i>
+                {self.question_id.map((val, i) => {
+                  return (
+                    <div>
+                      {self.condition_link[i]}
+                      <p style={{ fontStyle: "italic" }}>
+                        If answer on question ID {self.question_id[i]}{" "}
+                        {self.method[i]} {self.value[i]}
+                      </p>
+                    </div>
+                  );
+                })}
+                <p style={{ fontStyle: "italic" }}>
+                  then {self.scenario} {self.condition_question_id}
+                </p>
               </div>
             </div>
           </div>

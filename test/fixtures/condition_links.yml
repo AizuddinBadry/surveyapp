@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  question: one
+  condition: one
+  relation: MyText
+  other_condition: 
+
+two:
+  question: two
+  condition: two
+  relation: MyText
+  other_condition: 
