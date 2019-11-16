@@ -17,7 +17,7 @@ class Question < ApplicationRecord
     group.questions.order(position: :asc).each_with_index do |question, index|
       question.update position: index.to_i + 1
     end
-    self.reorder_survey_position(group.survey_id)
+    Question.reorder_survey_position(group.survey_id)
   end
 
   def self.reorder_survey_position(survey_id)
