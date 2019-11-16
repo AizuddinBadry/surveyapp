@@ -10,7 +10,7 @@
   <div class="column is-half">
      <h1 class="timer has-text-centered">Duration :<span id="time">00:00:00</span></h1>
     </div>
-    <%= f.hidden_field :time_per_question, value: "" %>
+    <%= f.hidden_field :time_per_question, value: "" ,class: "question_time_per_question"%>
 </div>
 <div class="columns is-multiline">
     <div class="column is-12 has-text-centered">
@@ -23,7 +23,7 @@
         <% else %>
             <%= Question.query_language(@question, params[:lang])%>
         <% end %>
-        <%= @question&.limit&.present? ? @question.limit : "" %></h3>
+        
         <% if !params[:lang].present? || params[:lang] == 'English' %>
            <%= @question.question_desc.present? ? @question.question_desc : ""%>
         <% else %>

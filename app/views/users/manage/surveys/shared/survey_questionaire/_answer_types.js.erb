@@ -31,7 +31,7 @@ function add() {
 function timer() {
     t = setTimeout(add, 1000);
     var bla = $('#time').text();
-    document.getElementById("question_time_per_question").value = bla;
+    $('.question_time_per_question').val( bla );
 }
 timer();
 

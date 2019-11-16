@@ -326,22 +326,22 @@
 <% if @question.structure == "Subquestion Horizontal" %>
 <div style="margin-top:10px;padding:10px;overflow-x: scroll;">
     <table class="table table-responsive" id="arrays">
-        <tr style="min-width: 200px;">
-            <th style="min-width: 200px;"></th>
+        <tr style="min-width: 50px;">
+            <th style="min-width: 50px;"></th>
             <% @question.subquestions.order(position: :asc).each_with_index do |subquestion|%>
-            <th style="min-width: 200px;"><%= subquestion.code %>. <%=subquestion.exact_value%></th>
+            <th style="min-width: 50px;"><%= subquestion.code %>. <%=subquestion.exact_value%></th>
             <% end %>
         </tr>
         <% @question.question_answers.order(position: :asc).each do |answer|%>
-        <tr style="min-width: 200px;">
-            <td style="min-width: 200px;">
+        <tr style="min-width: 50px;">
+            <td style="min-width: 50px;">
                 <% if @question.desc_question_code == "1"%>
                 <%= "#{answer.code}." %>
                 <% end %>
                 <%= answer.exact_value %>
             </td>
             <% @question.subquestions.order(position: :asc).each_with_index do |subquestion, index|%>
-            <td style="min-width: 200px;">
+            <td style="min-width: 50px;">
             <%= radio_button_tag "questionaire[#{index}][answer]", subquestion.value, :value => subquestion.value  %>
             <%= label_tag "question_answer_#{subquestion.value}", subquestion.exact_value, class: 'radio' %>
 
@@ -383,20 +383,20 @@
 <% if @question.structure == "Subquestion Horizontal" %>
 <div style="margin-top:10px;padding:10px;overflow-x: scroll;">
     <table class="table table-responsive" id="arrays">
-        <tr style="min-width: 200px;">
-            <th style="min-width: 200px;"></th>
+        <tr style="min-width: 50px;;">
+            <th style="min-width: 50px;;"></th>
             <% @question.subquestions.order(position: :asc).each_with_index do |subquestion|%>
-            <th style="min-width: 200px;"><%= subquestion.code %>. <%=subquestion.exact_value%></th>
+            <th style="min-width: 50px;;"><%= subquestion.code %>. <%=subquestion.exact_value%></th>
             <% end %>
         </tr>
         <% @question.question_answers.order(position: :asc).each do |answer|%>
-        <tr style="min-width: 200px;">
-            <td style="min-width: 200px;"><% if @question.desc_question_code == "1"%>
+        <tr style="min-width: 50px;">
+            <td style="min-width: 50px;"><% if @question.desc_question_code == "1"%>
                 <%= "#{answer.code}." %>
                 <% end %>
                 <%= answer.exact_value %></td>
             <% @question.subquestions.order(position: :asc).each_with_index do |subquestion, index|%>
-            <td style="min-width: 200px;"><%= number_field_tag "questionaire[#{index}][answer]",class: "input"%></td>
+            <td style="min-width: 50px;"><%= number_field_tag "questionaire[#{index}][answer]",class: "input"%></td>
             <% end %>
         </tr>
         <% end %>
@@ -430,15 +430,15 @@
 <% if @question.structure == "Subquestion Horizontal" %>
 <div style="margin-top:10px;padding:10px;overflow-x: scroll;">
     <table class="table table-responsive" id="arrays">
-        <tr style="min-width: 200px;">
-            <th style="min-width: 200px;"></th>
+        <tr style="min-width: 50px;">
+            <th style="min-width: 50px;"></th>
             <% @question.subquestions.order(position: :asc).each_with_index do |subquestion|%>
-            <th style="min-width: 200px;"><%= subquestion.code %>. <%=subquestion.exact_value%></th>
+            <th style="min-width: 50px;"><%= subquestion.code %>. <%=subquestion.exact_value%></th>
             <% end %>
         </tr>
         <% @question.question_answers.order(position: :asc).each do |answer|%>
-        <tr style="min-width: 200px;">
-            <td style="min-width: 200px;"><% if @question.desc_question_code == "1"%>
+        <tr style="min-width: 50px;">
+            <td style="min-width: 50px;"><% if @question.desc_question_code == "1"%>
                 <%= "#{answer.code}." %>
                 <% end %>
                 <%= answer.exact_value %></td>
@@ -479,20 +479,20 @@
 <% if @question.structure == "Subquestion Horizontal" %>
 <div style="margin-top:10px;padding:10px;overflow-x: scroll;">
     <table class="table table-responsive" id="arrays">
-        <tr style="min-width: 200px;">
-            <th style="min-width: 200px;"></th>
+        <tr style="min-width: 50px;">
+            <th style="min-width: 50px;"></th>
             <% @question.subquestions.order(position: :asc).each_with_index do |subquestion|%>
-            <th style="min-width: 200px;"><%= subquestion.code %>. <%=subquestion.exact_value%></th>
+            <th style="min-width: 50px;"><%= subquestion.code %>. <%=subquestion.exact_value%></th>
             <% end %>
         </tr>
         <% @question.question_answers.order(position: :asc).each do |answer|%>
-        <tr style="min-width: 200px;">
-            <td style="min-width: 200px;"><% if @question.desc_question_code == "1"%>
+        <tr style="min-width: 50px;">
+            <td style="min-width: 50px;"><% if @question.desc_question_code == "1"%>
                 <%= "#{answer.code}." %>
                 <% end %>
                 <%= answer.exact_value %></td>
             <% @question.subquestions.order(position: :asc).each_with_index do |subquestion, index|%>
-            <td style="min-width: 200px;"><%= select_tag 'question[answer]',  options, :include_blank => 'Please select an answer' %></td>
+            <td style="min-width: 50px;"><%= select_tag 'question[answer]',  options, :include_blank => 'Please select an answer' %></td>
             <% end %>
         </tr>
         <% end %>

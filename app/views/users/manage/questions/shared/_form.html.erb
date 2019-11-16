@@ -34,6 +34,7 @@
         <% end %>
       <% end %>
     </div>
+    
     <div class="field">
       <label class="label">Question tooltip</label>
       <% if !params[:lang].present? || params[:lang] == 'English'%>
@@ -47,6 +48,12 @@
         <% end %>
       <% end %>
     </div>
+    <% if @question.q_type == "Checkbox With Limit" %>
+    <div class="field">
+      <label class="label">Limit Answers</label>
+      <%= f.number_field :limit, class: 'input', disabled: params[:edit].present? ? false : true%>
+    </div>
+    <% end %>
     <% if @question.conditions.present? %>
       <div class="field">
         <label class="label">Conditions :</label>
@@ -68,11 +75,5 @@
        
       </div>
     <% end %>
-  <% if @question.limit.present? %>
-    <div class="field">
-      <label class="label">Limit Answers</label>
-      <%= f.number_field :limit, class: 'input', disabled: params[:edit].present? ? false : true%>
-    </div>
-  <% end %>
   </div>
 </section>
