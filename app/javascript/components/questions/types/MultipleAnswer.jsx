@@ -7,6 +7,7 @@ export default class MultipleAnswer extends React.Component {
     super(props);
     this.state = {
       values: [{ value: null }],
+      codes: [],
       status:
         '<span class="tag is-warning" id="status">This code is exists. Please use unique code for each question.</span>',
       error: false
@@ -17,6 +18,14 @@ export default class MultipleAnswer extends React.Component {
     let values = [...this.state.values];
     values[i].value = event.target.value;
     this.setState({ values });
+  };
+
+  handleCodeChanges = (val, index) => {
+    var value = this.state.codes.slice();
+    value[index] = val;
+    this.setState({
+      codes: value
+    });
   };
 
   addClick = () => {
@@ -110,7 +119,6 @@ export default class MultipleAnswer extends React.Component {
               />
             </div>
             {answer_limit}
-
             <div className="field">
               <label className="label">This question is mandatory?</label>
               <input
@@ -137,11 +145,11 @@ export default class MultipleAnswer extends React.Component {
                 <div className="column is-3">
                   <input
                     type="text"
-                    value={"A" + i}
+                    value={this.state.codes[i]}
                     className="input is-small"
                     name="code[]"
                     placeholder="Code"
-                    onChange={e => this.handleChange(i, e)}
+                    onChange={this.handleCodeChanges.bind(this, i)}
                   />
                 </div>
                 <div className="column is-6">
