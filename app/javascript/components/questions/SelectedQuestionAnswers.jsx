@@ -6,8 +6,9 @@ export default class SelectedQuestionAnswers extends React.Component {
   }
 
   handleChanges = e => {
-    this.props.value_handler(e.target.value);
+    this.props.value_handler(this.props.index, e.target.value);
   };
+
   render() {
     const question_type = this.props.question_type;
     const answers = this.props.answers;

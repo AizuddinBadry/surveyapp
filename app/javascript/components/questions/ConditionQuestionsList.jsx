@@ -42,12 +42,12 @@ export default class ConditionQuestionsList extends React.Component {
         console.log(error);
       });
     this.setState({ selectedQuestion: e.target.value, selected: true });
-    this.props.question_id_handler(e.target.value);
+    this.props.question_id_handler(this.props.index, e.target.value);
   };
 
   handleSelectedMethod = e => {
     this.setState({ selectedMethod: e.target.value });
-    this.props.method_handler(e.target.value);
+    this.props.method_handler(this.props.index, e.target.value);
   };
 
   render() {
@@ -90,6 +90,7 @@ export default class ConditionQuestionsList extends React.Component {
         <div className="control">
           <div className="select">
             <select onChange={this.handleSelectedQuestion}>
+              <option>Please select</option>
               {optionItems}
             </select>
           </div>
@@ -107,6 +108,7 @@ export default class ConditionQuestionsList extends React.Component {
               </div>
             </div>
             <SelectedQuestionAnswers
+              index={this.props.index}
               answers={self.answers}
               question_type={self.questionType}
               selected_method={self.selectedMethod}
