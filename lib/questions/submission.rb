@@ -25,7 +25,7 @@ module Questions
                 @question_position = @next_question_pos
             end unless @current_question.nil?
 
-            Questions::SaveAnswer.new(@survey_id, @current_question.id, @answer, args[:survey_session]) unless @current_question.nil?
+            Questions::SaveAnswer.new(@survey_id, @current_question.id, @answer, args[:survey_session], args[:time_per_question]) unless @current_question.nil?
             if args[:answer].present?
                 if @current_question.conditions.present?
                     @condition_pos = Questions::Submission.condition_check_new(@current_question.id, @answer, @survey_id)
