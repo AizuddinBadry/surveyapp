@@ -1,7 +1,7 @@
 <div class="column is-12">
     <div class="progress-wrapper">
         <% if cookies[:question_position].present? %>
-            <progress class="progress is-success is-small" value="<%= cookies[:question_position].to_f/@survey.questions.size.to_f * 100 %>" max="100"></progress>
+            <progress class="progress is-success is-large" value="<%= cookies[:question_position].to_f/@survey.questions.size.to_f * 100 %>" max="100"></progress>
             <p class="progress-value has-text-black"><%= (cookies[:question_position].to_f/@survey.questions.size.to_f * 100).to_i %>%</p>
         <% end %>
     </div>

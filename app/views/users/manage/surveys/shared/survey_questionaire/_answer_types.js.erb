@@ -5,9 +5,13 @@ var bol = $(".limitcheck:checked").length >= nameValue;
 $(".limitcheck").not(":checked").attr("disabled",bol);
 });
 
+
+
 var h1 = document.getElementsByTagName('span')[0],
     seconds = 0, minutes = 0, hours = 0,
     t;
+
+
 
 function add() {
     seconds++;
@@ -26,6 +30,8 @@ function add() {
 }
 function timer() {
     t = setTimeout(add, 1000);
+    var bla = $('#time').text();
+    $('.question_time_per_question').val( bla );
 }
 timer();
 

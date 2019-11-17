@@ -149,6 +149,7 @@ ActiveRecord::Schema.define(version: 2019_11_15_034116) do
     t.text "session"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.time "time_per_question"
     t.index ["question_id"], name: "index_survey_answers_on_question_id"
     t.index ["survey_id"], name: "index_survey_answers_on_survey_id"
   end
