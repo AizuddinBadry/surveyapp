@@ -328,11 +328,11 @@
     <table class="table table-responsive" id="arrays">
         <tr style="min-width: 50px;">
             <th style="min-width: 50px;"></th>
-            <% @question.subquestions.order(position: :asc).each_with_index do |subquestion|%>
-            <th style="min-width: 50px;"><%= subquestion.code %>. <%=subquestion.exact_value%></th>
+            <% @question.subquestions.order(position: :asc).each do |subquestion|%>
+            <th style="min-width: 50px;"><%=subquestion.exact_value%></th>
             <% end %>
         </tr>
-        <% @question.question_answers.order(position: :asc).each do |answer|%>
+        <% @question.question_answers.order(position: :asc).each_with_index do |answer, index|%>
         <tr style="min-width: 50px;">
             <td style="min-width: 50px;">
                 <% if @question.desc_question_code == "1"%>
@@ -340,10 +340,10 @@
                 <% end %>
                 <%= answer.exact_value %>
             </td>
-            <% @question.subquestions.order(position: :asc).each_with_index do |subquestion, index|%>
+            <% @question.subquestions.order(position: :asc).each do |subquestion|%>
             <td style="min-width: 50px;">
-            <%= radio_button_tag "questionaire[#{index}][answer]", subquestion.value, :value => subquestion.value  %>
-            <%= label_tag "question_answer_#{subquestion.value}", subquestion.exact_value, class: 'radio' %>
+            <%= radio_button_tag "questionaire[#{index}][answer]", subquestion.value, :value => answer.value %>
+            <%= label_tag "questionaire[#{index}][answer][#{subquestion.value}]", "", class: 'radio' %>
 
             </td>
             
@@ -353,6 +353,8 @@
     </table>
 </div>
 <% else %>
+<div style="margin-top:10px;padding:10px;overflow-x: scroll;">
+
 <div style="margin-top:10px;padding:10px;">
     <table class="table table-responsive" id="arrays">
         <tr>
@@ -368,13 +370,15 @@
         <tr>
             <td><%= subquestion.code %>. <%=subquestion.exact_value%></td>
             <% @question.question_answers.order(position: :asc).order(position: :asc).each do |answer|%>
-            <td><%= radio_button_tag "questionaire[#{index}][answer]", subquestion.value %>
-            <%= label_tag "", nil, class: 'radio' %>
+            <td>
+            <%= radio_button_tag "questionaire[#{index}][answer]", answer.value, :value => answer.value %>
+            <%= label_tag "questionaire[#{index}][answer][#{answer.value}]", "", class: 'radio' %>
             </td>
             <% end %>
         </tr>
         <% end %>
     </table>
+</div>
 </div>
 <% end %>
 

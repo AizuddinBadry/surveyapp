@@ -24,6 +24,7 @@ default: &default
 development:
   <<: *default
   database: surveyapp_development
+ 
 
 test:
   <<: *default

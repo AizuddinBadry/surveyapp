@@ -379,13 +379,15 @@
                 <%= QuestionAnswer.query_language(answer, params[:lang]) %>
             </td>
             <% @question.subquestions.order(position: :asc).each_with_index do |subquestion, index|%>
-            <td style="min-width: 50px;"><%= radio_button_tag "questionaire[#{index}][answer]", subquestion.value %></td>
+            <td style="min-width: 50px;"><%= radio_button_tag "questionaire[#{index}][answer]", subquestion.value, :value => answer.value %>
+            <%= label_tag "questionaire[#{index}][answer][#{subquestion.value}]", "", class: 'radio' %></td>
             <% end %>
         </tr>
         <% end %>
     </table>
 </div>
 <% else %>
+<div style="margin-top:10px;padding:10px;overflow-x: scroll;">
 <div style="margin-top:10px;padding:10px;">
     <table class="table table-responsive" id="arrays">
         <tr>
@@ -401,11 +403,13 @@
         <tr>
             <td><%= subquestion.code %>. <%= Subquestion.query_language(subquestion, params[:lang]) %></td>
             <% @question.question_answers.order(position: :asc).order(position: :asc).each do |answer|%>
-            <td><%= radio_button_tag "questionaire[#{index}][answer]", answer.value %></td>
+            <td><%= radio_button_tag "questionaire[#{index}][answer]", answer.value, :value => answer.value %>
+            <%= label_tag "questionaire[#{index}][answer][#{answer.value}]", "", class: 'radio' %></td>
             <% end %>
         </tr>
         <% end %>
     </table>
+</div>
 </div>
 <% end %>
 
