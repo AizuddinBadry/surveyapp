@@ -23,7 +23,7 @@
         </div>
         <section class="columns">
             <div class="column is-12">
-            <% @survey_end_time = SurveySetting.find_by_survey_id(@survey.id).end_time.present? ?  SurveySetting.find_by_survey_id(@survey.id).end_time : DateTime.current - 1 %>
+            <% @survey_end_time = SurveySetting.find_by_survey_id(@survey.id).present? ?  SurveySetting.find_by_survey_id(@survey.id)&.end_time : DateTime.current - 1 %>
                 <%= link_to 'Back', users_manage_surveys_path, class: 'button is-black'%>
                 <%= f.submit 'Update', class: 'button is-primary'%>
                 <a class="button is-primary open-modal" data-target="modal-ter"><i class='fa fa-plus'> </i> Add Group</a>

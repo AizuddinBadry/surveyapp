@@ -70,7 +70,7 @@ module Questions
                     if c.condition_link.present?
                         if c.method == 'is equal to'
                             if c.condition_link.relation == 'and'
-                                if answer.include?(c.value) == true && answer.include?(c.condition_link.other_condition.value) == true
+                                if answer.include? c.value && answer.include?(c.condition_link.other_condition.value) == true
                                     @condition_meet += 1
                                     @condition_meet == @condition.size ? @next_question_id = c.condition_question_id : 0
                                 end
@@ -115,8 +115,12 @@ module Questions
                 end
             end
 
+            Rails.logger.info "#{@condition.size} MASUK SINI #{@condition_meet}"
+
             if @condition.size == @condition_meet
                 @next_question = Question.find_by_id(@condition.last.condition_question_id)
+            else
+                
             end
 
             if @next_question_id == 0
