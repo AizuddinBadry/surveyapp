@@ -60,7 +60,7 @@
         <% end %>
         
         <% if @preview_mode != 'Question' %>   
-            <%= link_to 'Back', preview_users_manage_surveys_path(@survey.id, question: {position: @question.survey_position - 1}, current_question_position: @question.survey_position, back_request: true, lang: params[:lang].present? ? params[:lang] : 'English') , class:'button is-dark', id: 'back-question', method: :post%>
+            <%= link_to 'Back', preview_users_manage_surveys_path(@survey.id, question: {position: cookies[:previous_question_position].present? ? cookies[:previous_question_position] : @question.survey_position - 1}, current_question_position: @question.survey_position, back_request: true, lang: params[:lang].present? ? params[:lang] : 'English') , class:'button is-dark', id: 'back-question', method: :post%>
             <%= f.submit 'Next', class: 'button is-primary-gradient next-question'%>
         <% end %>
     </div>

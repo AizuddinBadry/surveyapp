@@ -65,6 +65,12 @@ class Users::Manage::SurveysController < Users::BaseController
                                                             session: cookies[:survey_session],
                                                             survey_session: cookies[:survey_session]})
                 cookies[:question_position] = Questions::Submission.result_position 
+                @after_condition = Questions::Submission.check_condition 
+                if @after_condition == true
+                    cookies[:previous_question_position] = Questions::Submission.previous_position 
+                else
+                    cookies.delete(:previous_question_position)
+                end
                 generate_interpolation(@survey.id)
                 @warning = Questions::Submission.message unless @question.nil?
                 if !@question.present?
@@ -76,6 +82,7 @@ class Users::Manage::SurveysController < Users::BaseController
                     redirect_to preview_users_manage_surveys_path(@survey.id, final: true) unless params[:final].present?
                 end
             else
+                cookies.delete(:previous_question_position)
                 @question = Question.where(survey_id: @survey.id, survey_position: cookies[:question_position]).first 
             end
         end
