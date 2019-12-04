@@ -11,8 +11,10 @@ class Users::Manage::SurveysController < Users::BaseController
     end
 
     def show
-        session.delete(:pdpa)
-        cookies[:survey_session] = SecureRandom.hex(12)
+        if cookies[:question_position].to_i > 1
+            session.delete(:pdpa)
+            cookies[:survey_session] = SecureRandom.hex(12)
+        end
     end
 
     def new
@@ -57,9 +59,10 @@ class Users::Manage::SurveysController < Users::BaseController
             if !params[:back_request].present? && request.post?   
                 @question = Questions::Submission.submit({survey_id: @survey.id, 
                                                             q1: request.post? ? params[:current_question_position] : nil, 
-                                                            q2: cookies[:question_position], time_per_question: params[:question][:time_per_question],
+                                                            q2: cookies[:question_position], time_per_question: params[:question].present? ? params[:question][:time_per_question] : nil,
                                                             answer: request.post? && params[:question].present? ? params[:question][:answer] : nil,
                                                             back_request: params[:back_request],
+                                                            session: cookies[:survey_session],
                                                             survey_session: cookies[:survey_session]})
                 cookies[:question_position] = Questions::Submission.result_position 
                 generate_interpolation(@survey.id)

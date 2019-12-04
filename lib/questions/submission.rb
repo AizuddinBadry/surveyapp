@@ -28,7 +28,7 @@ module Questions
             Questions::SaveAnswer.new(@survey_id, @current_question.id, @answer, args[:survey_session], args[:time_per_question]) unless @current_question.nil?
             if args[:answer].present?
                 if @current_question.conditions.present?
-                    @condition_pos = Questions::Submission.condition_check_new(@current_question.id, @answer, @survey_id)
+                    @condition_pos = Questions::Submission.condition_check(@current_question.id, args[:session], @answer, @survey_id)
                     @question = Questions::Submission.query_question(@condition_pos, @survey_id) unless @condition_pos == false || @condition_pos == 'end'
                     Rails.logger.info ">>>>>>>>CONDITION CHECK #{@condition_pos}"
                     if @condition_pos == 'end'
@@ -115,8 +115,6 @@ module Questions
                 end
             end
 
-            Rails.logger.info "#{@condition.size} MASUK SINI #{@condition_meet}"
-
             if @condition.size == @condition_meet
                 @next_question = Question.find_by_id(@condition.last.condition_question_id)
             else
@@ -137,47 +135,37 @@ module Questions
             return @response
         end
 
-        def self.condition_check(question_id, answer, survey_id)
+        def self.condition_check(question_id, session, answer, survey_id)
             @response = ''
             @question = Question.find_by_id(question_id)
-            @condition_status = false
-            @condition = Condition.where(question_id: question_id).first
-            if !@condition.nil?
-                if @condition.method == 'is equal to'
-                    if answer.include? @condition.value  || answer == @condition.value
-                        Rails.logger.info "WE HERE at IS EQUAL TO"
-                        @next_question = Question.find_by_id(@condition.condition_question_id)
-                        @condition_status = true
-                        if @condition.nil?
-                            @response = false
-                        elsif @condition.condition_question_id == 0
-                            @condition_status = 'end'
-                        end
-                    end
+            @conditions = []
+            @tables = ["conditions", 'survey_answers']
+            if answer.is_a? String
+                @question.conditions.each do |c|
+                    @conditions << "conditions.value #{c.method} '#{answer}' #{c.relation}"
                 end
-                if @condition.method == 'is not equal to'
-                    if answer.exclude? @condition.value || answer != @condition.value
-                        Rails.logger.info "WE HERE at IS NOT EQUAL"
-                        @next_question = Question.find_by_id(@condition.condition_question_id)
-                        @condition_status = true
-                        if @condition.nil?
-                            @response = false
-                        elsif @condition.condition_question_id == 0
-                            @condition_status = 'end'
-                        end
-                    end
-                end
-            end
-            @question = Question.where(survey_id: survey_id, survey_position: @next_question.survey_position).first unless @next_question.nil?
-            if @condition_status == 'end'
-                @response = 'end'
             else
-                @response = @question.survey_position
+                @question.conditions.each_with_index do |c, index|
+                    if c.relation == 'or'
+                        @conditions << "conditions.value #{c.method} '#{answer[index]}' #{c.relation}"
+                    elsif c.relation == 'and'
+                        @conditions << "conditions.value::bigint IN (#{answer.join(', ')}) and"
+                    else
+                        @conditions << "conditions.value::bigint NOT IN (#{answer.join(', ')})"
+                    end
+                end
             end
+            @query = Question.joins(*@tables.map(&:to_sym)).where(id: question_id, survey_answers: {session: session}).where(@conditions.join(" ")).first
+            Rails.logger.info ">>>>>>SITU#{@query.to_json}"
 
-            Rails.logger.info "RESPONSE #{@response}"
-
-            return @response
+            if @query
+                @condition = Condition.where(question_id: question_id).first
+                @question_pos = Question.where(id: @condition.condition_question_id).first
+                @response = @question_pos.survey_position
+                return @response
+            else
+                return @question.survey_position + 1
+            end
         end
     end
 end

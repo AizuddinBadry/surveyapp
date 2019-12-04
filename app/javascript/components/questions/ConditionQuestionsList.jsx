@@ -57,14 +57,12 @@ export default class ConditionQuestionsList extends React.Component {
       "contains",
       "does not contains",
       "is empty",
-      "is not empty",
-      "is anything"
+      "is not empty"
     ];
     var multipleChoice = [
-      "Please select",
-      "is equal to",
-      "is not equal to",
-      "is anything"
+      ["Please select", ""],
+      ["is equal to", "="],
+      ["is not equal to", "!="]
     ];
     let questions = this.props.state.questions;
     let optionItems = questions.map(question => (
@@ -80,8 +78,8 @@ export default class ConditionQuestionsList extends React.Component {
     ));
 
     let multipleChoiceList = multipleChoice.map(method => (
-      <option key={method} value={method}>
-        {method}
+      <option key={method} value={method[1]}>
+        {method[0]}
       </option>
     ));
 
