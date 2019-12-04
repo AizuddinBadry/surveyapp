@@ -25,10 +25,6 @@
               <label class="label">This question is mandatory?</label>
                 <%= f.check_box :mandatory, id: 'switch', disabled: params[:edit].present? ? false : true%>
               <label class="toggle" for="switch"></label>
-              
-              <label class="label">Enable Question Code?</label>
-                <%= f.check_box :desc_question_code, id: 'qcode', disabled: params[:edit].present? ? false : true%>
-              <label class="toggle" for="qcode"></label>
               <% if @question.q_type.include?('Radio')%>
               <label class="label">Enable Input Box 1?</label>
                   <%= f.check_box :enable_other_1, id: 'input-box-1', disabled: params[:edit].present? ? false : true%>

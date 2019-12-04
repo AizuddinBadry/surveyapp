@@ -1,0 +1,24 @@
+<%= form_for(@survey_setting, url: users_manage_survey_setting_path(params[:id]), method: :put) do |f|%>
+    <div class="columns is-multiline">
+        <div class="column is-12">
+            <div class="columns">
+            <div class="column field">
+                <label class="label">Enable Question Code?</label>
+                <%= f.check_box :enable_pdpa, :id => 'switch' %><label class="toggle" for="switch">Toggle</label>
+            </div>
+            <div class="column field">
+                <label class="label">Enable Answer Code?</label>
+                <%= f.check_box :enable_pdpa, :id => 'switch' %><label class="toggle" for="switch">Toggle</label>
+            </div>
+             <div class="column field">
+                <label class="label">Enable Group Code?</label>
+                <%= f.check_box :enable_pdpa, :id => 'switch' %><label class="toggle" for="switch">Toggle</label>
+            </div>
+            </div>
+        </div>
+
+        <div class="column is-12">
+            <%= f.submit 'Save', class: 'button is-primary is-fullwidth'%>
+        </div>
+    </div>
+<% end %>
