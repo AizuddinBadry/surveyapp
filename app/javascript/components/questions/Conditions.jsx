@@ -56,24 +56,28 @@ export default class Conditions extends React.Component {
 
   saveCondition = () => {
     var self = this.state;
-    axios
-      .post("/api/v1/conditions", {
-        data: {
-          question_id: self.question_id,
-          condition_question_id: self.condition_question_id,
-          method: self.method,
-          scenario: self.scenario,
-          value: self.value,
-          relation: self.condition_link
-        }
-      })
-      .then(function(response) {
-        console.log(response);
-        window.location.reload();
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
+    if (this.state.methodType != "") {
+      axios
+        .post("/api/v1/conditions", {
+          data: {
+            question_id: self.question_id,
+            condition_question_id: self.condition_question_id,
+            method: self.method,
+            scenario: self.scenario,
+            value: self.value,
+            relation: self.condition_link
+          }
+        })
+        .then(function(response) {
+          console.log(response);
+          window.location.reload();
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+    } else {
+      alert("Please select after condition question !");
+    }
   };
 
   handleAllChanges = (index, e) => {
