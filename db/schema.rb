@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_04_085647) do
+ActiveRecord::Schema.define(version: 2019_12_05_013121) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -185,6 +185,9 @@ ActiveRecord::Schema.define(version: 2019_12_04_085647) do
     t.bigint "survey_id", null: false
     t.datetime "start_time"
     t.datetime "end_time"
+    t.boolean "enable_question_code", default: false
+    t.boolean "enable_group_code", default: false
+    t.boolean "enable_answer_code", default: false
     t.index ["survey_id"], name: "index_survey_settings_on_survey_id"
   end
 

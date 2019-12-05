@@ -14,35 +14,26 @@
 </div>
 <div class="columns is-multiline">
     <div class="column is-12 has-text-centered">
-        <h2 class="title"><%= @question.question_group.name%> : <%= @question.question_group.description%></h2>
+        <h2 class="title"><%= @question.survey.survey_setting.enable_group_code == true ? "#{@question.question_group.name} :" : nil%> <%= @question.question_group.description%></h2>
     </div>
-    <div class="column is-8">
-        <h3 class="is-size-5" style="margin-bottom: 0.80em"><%= @question.code %> 
-        <% if !params[:lang].present? || params[:lang] == 'English' %>
-            <%= @question&.description&.present? ? @question.description.html_safe % @interpolation : "" %>
+    <div class="column is-12">
+        <h2><%= @question.survey.survey_setting.enable_question_code == true ? "#{@question.code}" : nil %>. </h2>
+         <% if !params[:lang].present? || params[:lang] == 'English' %>
+        <%= @question&.description&.present? ? @question.description.html_safe % @interpolation : "" %>
         <% else %>
             <%= Question.query_language(@question, params[:lang])%>
         <% end %>
         
         <% if !params[:lang].present? || params[:lang] == 'English' %>
-           <%= @question.question_desc.present? ? @question.question_desc : ""%>
+        <%= @question.question_desc.present? ? @question.question_desc : ""%>
         <% else %>
             <%= Question.question_desc_query_language(@question.html_safe, params[:lang])%>
         <% end %>
-        
+            
         <%= render '/users/manage/surveys/shared/survey_questionaire/warning'%>
     </div>
-    <div class="column is-4">
-       <div class="card-image has-text-centered">
-            <figure class="image is-128x128 is-inline-block" style="position: absolute">
-                <% @image = Survey.find(@question.question_group.survey_id) %>
-                <% if @image.image_data? %>
-                    <%= image_tag @image.image_url %>
-                <% end %>  
-            </figure>
-        </div>
-    </div>
-        <div id="timer"></div>
+
+    <div id="timer"></div>
     <div class="column is-12">
         <% if !params[:lang].present? || params[:lang] == 'English' %>
             <%= render '/users/manage/surveys/shared/survey_questionaire/answer_types', f:f%>

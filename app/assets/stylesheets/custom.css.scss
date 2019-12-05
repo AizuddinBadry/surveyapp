@@ -54,20 +54,20 @@ input[type="checkbox"]#switch,
   display: inline-block;
 }
 
-.timer
-{
-  font-size: 20px; 
+.timer {
+  font-size: 20px;
 }
 
 input[type="checkbox"]#switch,
-#qcode {
+#qcode,
+#acode,
+#qcode,
+#gcode {
   height: 0;
   width: 0;
   visibility: hidden;
   display: inline-block;
 }
-
-
 
 input[type="checkbox"]#show-final-button {
   height: 0;
