@@ -1,0 +1,87 @@
+<main class="column" id="main" class="panel">
+<nav class="breadcrumb is-medium" aria-label="breadcrumbs">
+  <ul>
+    <li><%= link_to "Dashboard", root_path %></li>
+    <li><%= link_to "Survey Listings", users_manage_surveys_path %></li>
+    <li><%= link_to Survey.find(params[:id]).title , users_manage_survey_path(params[:id]) %></li>
+    <li><%= link_to "Survey Setting" , users_manage_survey_setting_path(params[:id]), 'aria-current': "page" %></li>
+    <li class="is-active"><%= link_to "Quota" , nil, 'aria-current': "page" %></li>
+  </ul>
+</nav>
+    <div class="level">
+        <div class="level-left">
+        <div class="level-item">
+            <div class="title">Survey Quotas</div>
+        </div>
+        </div>
+        <div class="level-right">
+        <div class="level-item">
+            <button type="button" class="button is-small">
+            March 8, 2017
+            </button>
+        </div>
+        </div>
+    </div>
+    <section class="columns">
+        <div class="column ">
+            <%= link_to 'Back to settings', users_manage_survey_setting_path(params[:id]), data: {turbolinks: false}, class: 'button is-black'%>
+            <%= link_to 'Create new quota', users_manage_settings_quota_path(params[:id]), class: 'button is-success'%>
+        </div>
+    </section>
+    <section class="columns is-multiline">
+        <div class="column is-12">
+            <div class="card">
+                <div class="card-content">
+                    <div class="container">
+                        <div class="columns is-multiline">
+                            <div class="column is-12">
+                                <table class="table datatable" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Quota Members</th>
+                                            <th>Limit</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td></td>
+                                            <td>
+                                                <div class="card">
+                                                    <header class="card-header">
+                                                        <p class="card-header-title">
+                                                        Component
+                                                        </p>
+                                                        <div class="card-header-icon">
+                                                            <div class="control">
+                                                                <div class="tags has-addons">
+                                                                <span class="tag is-dark">!</span>
+                                                                <span class="tag is-primary">Terminated survey</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </header>
+                                                    <div class="card-content">
+                                                        <div class="content">
+                                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
+                                                        <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
+                                                        <br>
+                                                        <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </section>
+</main>

@@ -54,6 +54,10 @@ Rails.application.routes.draw do
           patch :update_password
         end
       end
+      
+      namespace :settings do
+        resources :quotas, only: [:show]
+      end
     end
   end
 
