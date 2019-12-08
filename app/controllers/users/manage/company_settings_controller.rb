@@ -14,16 +14,16 @@ class Users::Manage::CompanySettingsController < Users::BaseController
 
     def create
        @company = Company.new(company_params)
-    respond_to do |format|
-      if @company.save
-        current_user.update_attributes(company_id: @company.id)
-        format.html { redirect_to request.referrer, notice: 'Company was successfully created.' }
-        format.json { render :show, status: :created, location: @question }
-      else
-        format.html { render :new }
-        format.json { render json: @company.errors, status: :unprocessable_entity }
-      end
-    end
+        respond_to do |format|
+        if @company.save
+            current_user.update_attributes(company_id: @company.id)
+            format.html { redirect_to request.referrer, notice: 'Company was successfully created.' }
+            format.json { render :show, status: :created, location: @question }
+        else
+            format.html { render :new }
+            format.json { render json: @company.errors, status: :unprocessable_entity }
+        end
+        end
     end
 
     def update
