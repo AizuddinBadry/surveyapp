@@ -1,0 +1,60 @@
+<main class="column" id="main" class="panel">
+<nav class="breadcrumb is-medium" aria-label="breadcrumbs">
+  <ul>
+    <li><%= link_to "Dashboard", root_path %></li>
+    <li><%= link_to "Survey Listings", users_manage_surveys_path %></li>
+    <li><%= link_to Survey.find(@quota.survey_id).title , users_manage_survey_path(@quota.survey_id) %></li>
+    <li><%= link_to "Survey Setting" , users_manage_survey_setting_path(@quota.survey_id), 'aria-current': "page" %></li>
+    <li><%= link_to 'Quota' , users_manage_settings_quota_path(@quota.survey_id) %></li>
+    <li class="is-active"><%= link_to "Quota Members" , nil, 'aria-current': "page" %></li>
+  </ul>
+</nav>
+    <div class="level">
+        <div class="level-left">
+        <div class="level-item">
+            <div class="title">Edit Quota</div>
+        </div>
+        </div>
+        <div class="level-right">
+        <div class="level-item">
+            <button type="button" class="button is-small">
+            March 8, 2017
+            </button>
+        </div>
+        </div>
+    </div>
+    <%= form_for(@quota, url: users_manage_settings_quota_path(@quota.id), method: :put) do |f|%>
+        <section class="columns">
+            <div class="column ">
+                <%= link_to 'Back to quota', users_manage_settings_quota_path(@quota.survey_id), data: {turbolinks: false}, class: 'button is-black'%>
+                <%= button_tag 'Save' , class: 'button is-success open-modal', data: {target: 'modal-ter'}%>
+            </div>
+        </section>
+        <section class="columns is-multiline">
+            <div class="column is-12">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="container">
+                            <div class="columns is-multiline">
+                                <div class="column is-12">
+                                    <div class="field ">
+                                        <div class="control columns">
+                                            <label class="column is-2">Name</label>
+                                            <%= f.text_field :name, class: 'input column is-3'%>
+                                        </div>
+                                    </div>
+                                     <div class="field ">
+                                        <div class="control columns">
+                                            <label class="column is-2">Limit</label>
+                                            <%= f.number_field :limit, class: 'input column is-3'%>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    <% end %>
+</main>

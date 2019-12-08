@@ -1,5 +1,4 @@
 class Users::Manage::Settings::QuotaMembersController < Users::BaseController
-
     before_action :get_quota, only: [:show]
 
     def show

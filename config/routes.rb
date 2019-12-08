@@ -56,7 +56,7 @@ Rails.application.routes.draw do
       end
       
       namespace :settings do
-        resources :quotas, only: [:show, :create, :destroy]
+        resources :quotas, only: [:show, :create, :update, :destroy]
         resources :quota_members, only: [:show, :create, :destroy]
       end
     end

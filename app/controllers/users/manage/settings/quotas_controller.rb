@@ -1,6 +1,6 @@
 class Users::Manage::Settings::QuotasController < Users::BaseController
   before_action :get_survey, only: [:show]
-  before_action :get_quota, only: [:destroy]
+  before_action :get_quota, only: [:update, :destroy]
 
   def show
     @quota = Quota.new
@@ -14,6 +14,16 @@ class Users::Manage::Settings::QuotasController < Users::BaseController
     else
       flash[:danger] = @quota.errors.full_messages.first
       render :show
+    end
+  end
+
+  def update
+    if @quota.update(quota_params)
+      flash[:success] = 'Successful update quota'
+      redirect_to request.referrer
+    else
+      flash[:danger] = @quota.errors.full_messages.first
+      redirect_to request.referrer
     end
   end
 
