@@ -15,8 +15,6 @@ class Users::Manage::ConditionsController < ApplicationController
      @questions.each do |question|
        @answer =  QuestionAnswer.joins(:question).where(questions: {question_group_id: question.question_group.id}) 
      end
-    
-
   end
 
   # GET /conditions/new

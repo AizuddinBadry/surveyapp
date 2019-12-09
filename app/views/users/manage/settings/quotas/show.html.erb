@@ -1,0 +1,126 @@
+<main class="column" id="main" class="panel">
+<nav class="breadcrumb is-medium" aria-label="breadcrumbs">
+  <ul>
+    <li><%= link_to "Dashboard", root_path %></li>
+    <li><%= link_to "Survey Listings", users_manage_surveys_path %></li>
+    <li><%= link_to Survey.find(params[:id]).title , users_manage_survey_path(params[:id]) %></li>
+    <li><%= link_to "Survey Setting" , users_manage_survey_setting_path(params[:id]), 'aria-current': "page" %></li>
+    <li class="is-active"><%= link_to "Quota" , nil, 'aria-current': "page" %></li>
+  </ul>
+</nav>
+    <div class="level">
+        <div class="level-left">
+        <div class="level-item">
+            <div class="title">Survey Quotas</div>
+        </div>
+        </div>
+        <div class="level-right">
+        <div class="level-item">
+            <button type="button" class="button is-small">
+            March 8, 2017
+            </button>
+        </div>
+        </div>
+    </div>
+    <section class="columns">
+        <div class="column ">
+            <%= link_to 'Back to settings', users_manage_survey_setting_path(params[:id]), data: {turbolinks: false}, class: 'button is-black'%>
+            <%= button_tag 'Create new quota' , class: 'button is-success open-modal', data: {target: 'modal-ter'}%>
+        </div>
+    </section>
+    <section class="columns is-multiline">
+        <div class="column is-12">
+            <div class="card">
+                <div class="card-content">
+                    <div class="container">
+                        <div class="columns is-multiline">
+                            <div class="column is-12">
+                                <table class="table datatable" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Quota Members</th>
+                                            <th>Complete Count</th>
+                                            <th>Limit</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% @survey.quotas.each_with_index do |q, i|%>
+                                        <tr>
+                                            <td><%= i + 1%>.</td>
+                                            <td>
+                                                <div class="card">
+                                                    <header class="card-header">
+                                                        <p class="card-header-title">
+                                                            <%= q.name%>
+                                                        </p>
+                                                        <div class="card-header-icon">
+                                                            <div class="control">
+                                                                <div class="tags has-addons">
+                                                                <span class="tag is-dark">!</span>
+                                                                <span class="tag is-primary">Terminated survey</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </header>
+                                                    <div class="card-content">
+                                                        <div class="content">
+                                                            <!-- Quota items -->
+                                                            <%= 'No quota items available.' unless q.quota_members.size > 0%>
+                                                            <%= render '/users/manage/settings/quota_members/shared/tables', q: q%>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td><%= q.complete_count%></td>
+                                            <td><%= q.limit %></td>
+                                            <td>
+                                                <p class="buttons">
+                                                    <%= link_to '<span class="icon is-small"><i class="fa fa-check"></i></span>'.html_safe, nil, data: {turbolinks: false}, class: 'button is-small is-success action'%>
+                                                    <%= link_to '<span class="icon is-small"><i class="fa fa-cog"></i></span>'.html_safe, users_manage_settings_quota_member_path(q.id), data: {turbolinks: false}, class: 'button is-small is-primary action'%>
+                                                    <%= link_to '<span class="icon is-small"><i class="fa fa-times"></i></span>'.html_safe, users_manage_settings_quota_path(q.id), :method => :delete, :data => {confirm: 'Are you sure want delete this quota member?'}, class: 'button is-small is-danger action'%>
+                                                </p>
+                                            </td>
+                                        </tr>
+                                        <% end %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </section>
+</main>
+<div id="modal-ter" class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Add new quota</p>
+      <button class="delete modal--close" aria-label="close"></button>
+    </header>
+    <%= form_for(@quota, url: users_manage_settings_quotas_path) do |f| %>
+    <%= f.hidden_field :survey_id, value: @survey.id %>
+    <section class="modal-card-body">
+        <div class="field">
+            <div class="control">
+                <label>Name</label>
+                <%= f.text_field :name, class: 'input'%>
+            </div>
+        </div>
+        <div class="field">
+            <div class="control">
+                <label>Limit</label>
+                <%= f.number_field :limit, class: 'input'%>
+            </div>
+        </div>
+    </section>
+    <footer class="modal-card-foot">
+        <%= f.submit 'Save', class: 'button is-success'%>
+        <button type="button" class="button modal--close">Cancel</button>
+    </footer>
+    <% end %>
+  </div>
+</div>

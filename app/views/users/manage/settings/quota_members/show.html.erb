@@ -1,0 +1,139 @@
+<main class="column" id="main" class="panel">
+<nav class="breadcrumb is-medium" aria-label="breadcrumbs">
+  <ul>
+    <li><%= link_to "Dashboard", root_path %></li>
+    <li><%= link_to "Survey Listings", users_manage_surveys_path %></li>
+    <li><%= link_to Survey.find(@quota.survey_id).title , users_manage_survey_path(@quota.survey_id) %></li>
+    <li><%= link_to "Survey Setting" , users_manage_survey_setting_path(@quota.survey_id), 'aria-current': "page" %></li>
+    <li><%= link_to 'Quota' , users_manage_settings_quota_path(@quota.survey_id) %></li>
+    <li class="is-active"><%= link_to "Quota Members" , nil, 'aria-current': "page" %></li>
+  </ul>
+</nav>
+    <div class="level">
+        <div class="level-left">
+        <div class="level-item">
+            <div class="title">Edit Quota</div>
+        </div>
+        </div>
+        <div class="level-right">
+        <div class="level-item">
+            <button type="button" class="button is-small">
+            March 8, 2017
+            </button>
+        </div>
+        </div>
+    </div>
+    <%= form_for(@quota, url: users_manage_settings_quota_path(@quota.id), method: :put) do |f|%>
+        <section class="columns">
+            <div class="column ">
+                <%= link_to 'Back to quota', users_manage_settings_quota_path(@quota.survey_id), data: {turbolinks: false}, class: 'button is-black'%>
+                <%= button_tag 'Save' , class: 'button is-primary'%>
+            </div>
+        </section>
+        <section class="columns is-multiline">
+            <div class="column is-12">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="container">
+                            <div class="columns is-multiline">
+                                <div class="column is-12">
+                                    <div class="field ">
+                                        <div class="control columns">
+                                            <label class="column is-2">Name</label>
+                                            <%= f.text_field :name, class: 'input column is-3'%>
+                                        </div>
+                                    </div>
+                                     <div class="field ">
+                                        <div class="control columns">
+                                            <label class="column is-2">Limit</label>
+                                            <%= f.number_field :limit, class: 'input column is-3'%>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="column is-12">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="container">
+                            <div class="columns is-multiline">
+                                <div class="column is-12">
+                                    <div class="has-text-right">
+                                        <div class="buttons">
+                                            <%= button_tag 'Add quota item', class: 'button is-info open-modal', type: 'button', data: {target: 'modal-ter'}%>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="column is-12">
+                                    <div class="card">
+                                        <div class="card-content">
+                                            <div class="content">
+                                                <!-- Quota items -->
+                                                <%= 'No quota items available.' unless @quota.quota_members.size > 0%>
+                                                <%= render '/users/manage/settings/quota_members/shared/tables', q: @quota%>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    <% end %>
+</main>
+
+<div id="modal-ter" class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Add quota items</p>
+      <button class="delete modal--close" aria-label="close"></button>
+    </header>
+    <%= form_for(@quota_member, url: users_manage_settings_quota_members_path) do |f| %>
+    <%= f.hidden_field :quota_id, value: @quota.id%>
+    <section class="modal-card-body">
+        <div class="field">
+            <div class="control">
+                <label>Question</label>
+                <%= f.select(:question_id, @items.collect {|p| [ "#{p.code} - #{p.description[0..70]}..", p.id ] }, {:include_blank => 'Please select a item'}, class: 'select2', id: 'quota-items-question') %>
+            </div>
+        </div>
+        <div class="field">
+            <div class="control">
+                <label>Answer</label>
+                <select class="select2" id="quota-items-answer" name="quota_member[answer_value]">
+                    <option>Please select</option>
+                </select>
+            </div>
+        </div>
+    </section>
+    <footer class="modal-card-foot">
+        <%= f.submit 'Save', class: 'button is-success'%>
+        <button type="button" class="button modal--close">Cancel</button>
+    </footer>
+    <% end %>
+  </div>
+</div>
+
+<script>
+$(document).ready(function(){
+    $('#quota-items-question').on("select2:select", function(e) { 
+        $.get("/api/v1/questions/" + $(this).val(), function(data, status){
+            console.log(data.question_answers)
+                var mySelect = $("#quota-items-answer")
+                mySelect.val(null).trigger('change')
+                mySelect.empty()
+            $.each(data.question_answers, function(k, v) {
+                console.log(v)
+                mySelect.append('<option value="'+ v.value +'">' + v.code + ' - ' + v.exact_value+'</option>'); 
+                mySelect.trigger("change");
+            });
+        });
+    });
+});
+</script>
