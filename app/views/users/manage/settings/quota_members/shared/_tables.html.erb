@@ -1,0 +1,22 @@
+<% if q.quota_members.size > 0%>
+    <table class="table datatable" style="width:100%">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Question</th>
+                <th>Answer</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% q.quota_members.each_with_index do |member, i|%>
+            <tr>
+                <td><%= i + 1%></td>
+                <td><%= member.question.code%></td>
+                <td><%= member.answer_value%></td>
+                <td><%= link_to '<span class="icon is-small"><i class="fa fa-times"></i></span>'.html_safe, users_manage_settings_quota_member_path(member.id), :method => :delete, :data => {confirm: 'Are you sure want delete this quota member?'}, class: 'button is-small is-danger action'%></td>
+            </tr>
+            <% end %>
+        </tbody>
+    </table>
+<% end %>

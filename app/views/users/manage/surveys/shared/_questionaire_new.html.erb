@@ -3,7 +3,7 @@
 <% else %>
     <% @url = preview_users_manage_surveys_path %>
 <% end %>
-<%= form_for(:question, url: @url, method: :post) do |f|%>
+<%= form_for(:question, url: @url, method: :post, html: {id: 'form'}) do |f|%>
 <%= f.hidden_field :position, value: @question.survey_position + 1 %>
 <%= hidden_field_tag 'current_question_position',@question.survey_position %>
 <div class="columns is-mobile is-centered">
@@ -52,13 +52,35 @@
         
         <% if @preview_mode != 'Question' %>   
             <%= link_to 'Back', preview_users_manage_surveys_path(@survey.id, question: {position: cookies[:previous_question_position].present? ? cookies[:previous_question_position] : @question.survey_position - 1}, current_question_position: @question.survey_position, back_request: true, lang: params[:lang].present? ? params[:lang] : 'English') , class:'button is-dark', id: 'back-question', method: :post%>
-            <%= f.submit 'Next', class: 'button is-primary-gradient next-question'%>
+            <%= button_tag 'Next', class: 'button is-primary-gradient next-question'%>
         <% end %>
     </div>
 </div>
 <% end %>
 <script>
 <%= render '/users/manage/surveys/shared/survey_questionaire/answer_types.js'%>
+</script>
+<script>
+var self = $('#form');
 
-
+$('.next-question').on('click', function(event){
+    event.preventDefault();
+    <% if @question.q_type == 'Checkbox' || @question.q_type == 'Checkbox With Comment' || @question.q_type == 'Checkbox With Limit' || @question.q_type == 'Checkbox Input Text' %>
+    var answer = [];
+    $.each($("input[name='question[answer][]']:checked"), function(){
+        answer.push($(this).val());
+    });
+    <% else %>
+        var answer =  $("input[name='question[answer]'").val()
+    <% end %>
+    $.get("/users/manage/settings/quotas/<%= @survey.id %>/check_quota", { question_id: <%=@question.id%> , answer: JSON.stringify(answer)} , function(data, status){
+        console.log(data)
+        if(data.status == 200){
+            self.submit()
+        } else {
+            alert(data.message)
+            window.location.href =  $(location).attr("pathname") + "?final=true"
+        }
+    });
+});
 </script>

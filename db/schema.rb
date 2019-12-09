@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_05_013121) do
+ActiveRecord::Schema.define(version: 2019_12_09_024743) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -132,6 +132,25 @@ ActiveRecord::Schema.define(version: 2019_12_05_013121) do
     t.index ["question_group_id"], name: "index_questions_on_question_group_id"
   end
 
+  create_table "quota", force: :cascade do |t|
+    t.text "name"
+    t.bigint "survey_id", null: false
+    t.bigint "limit"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "complete_count", default: 0
+    t.index ["survey_id"], name: "index_quota_on_survey_id"
+  end
+
+  create_table "quota_members", force: :cascade do |t|
+    t.bigint "question_id"
+    t.bigint "answer_value"
+    t.bigint "quota_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["quota_id"], name: "index_quota_members_on_quota_id"
+  end
+
   create_table "subquestions", force: :cascade do |t|
     t.bigint "question_id", null: false
     t.text "code"
@@ -234,6 +253,8 @@ ActiveRecord::Schema.define(version: 2019_12_05_013121) do
   add_foreign_key "question_other_languages", "questions"
   add_foreign_key "question_other_languages", "survey_languages"
   add_foreign_key "questions", "question_groups"
+  add_foreign_key "quota", "surveys"
+  add_foreign_key "quota_members", "quota", column: "quota_id"
   add_foreign_key "subquestions", "questions"
   add_foreign_key "survey_answers", "questions"
   add_foreign_key "survey_answers", "surveys"

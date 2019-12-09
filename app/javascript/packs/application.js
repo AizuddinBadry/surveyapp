@@ -52,9 +52,6 @@ document.addEventListener("turbolinks:load", function() {
     }
   });
 
-  //Select2 init
-  $(".select2").select2({ width: "100%" });
-
   //Tab
   document.querySelectorAll(".tabs").forEach(tab => {
     tab.querySelectorAll("li").forEach(li => {
