@@ -25,9 +25,9 @@
         <% end %>
         
         <% if !params[:lang].present? || params[:lang] == 'English' %>
-        <%= @question.question_desc.present? ? @question.question_desc : ""%>
+            <%= @question.question_desc.present? ? @question.question_desc : ""%>
         <% else %>
-            <%= Question.question_desc_query_language(@question.html_safe, params[:lang])%>
+            <%= Question.question_desc_query_language(@question, params[:lang])%>
         <% end %>
             
         <%= render '/users/manage/surveys/shared/survey_questionaire/warning'%>

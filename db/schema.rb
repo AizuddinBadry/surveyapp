@@ -10,10 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_09_024743) do
+ActiveRecord::Schema.define(version: 2019_12_09_161549) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "answer_conditions", force: :cascade do |t|
+    t.text "method"
+    t.text "value"
+    t.text "scenario"
+    t.bigint "question_id", null: false
+    t.bigint "condition_question_id"
+    t.bigint "row"
+    t.text "relation"
+    t.bigint "question_answer_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["question_answer_id"], name: "index_answer_conditions_on_question_answer_id"
+    t.index ["question_id"], name: "index_answer_conditions_on_question_id"
+  end
 
   create_table "ckeditor_assets", force: :cascade do |t|
     t.string "data_file_name", null: false
@@ -245,6 +260,8 @@ ActiveRecord::Schema.define(version: 2019_12_09_024743) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "answer_conditions", "question_answers"
+  add_foreign_key "answer_conditions", "questions"
   add_foreign_key "condition_links", "conditions"
   add_foreign_key "condition_links", "questions"
   add_foreign_key "group_error_logics", "question_groups"

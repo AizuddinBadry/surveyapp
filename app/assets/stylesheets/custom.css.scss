@@ -346,3 +346,8 @@ label:active:after {
     }
   }
 }
+
+.trumbowyg-box,
+.trumbowyg-editor {
+  max-height: 50px !important;
+}
