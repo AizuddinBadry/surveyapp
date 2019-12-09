@@ -27,7 +27,7 @@
         <section class="columns">
             <div class="column ">
                 <%= link_to 'Back to quota', users_manage_settings_quota_path(@quota.survey_id), data: {turbolinks: false}, class: 'button is-black'%>
-                <%= button_tag 'Save' , class: 'button is-success open-modal', data: {target: 'modal-ter'}%>
+                <%= button_tag 'Save' , class: 'button is-primary'%>
             </div>
         </section>
         <section class="columns is-multiline">
@@ -55,6 +55,106 @@
                     </div>
                 </div>
             </div>
+            <div class="column is-12">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="container">
+                            <div class="columns is-multiline">
+                                <div class="column is-12">
+                                    <div class="has-text-right">
+                                        <div class="buttons">
+                                            <%= button_tag 'Add quota item', class: 'button is-info open-modal', type: 'button', data: {target: 'modal-ter'}%>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="column is-12">
+                                    <div class="card">
+                                        <div class="card-content">
+                                            <div class="content">
+                                                <!-- Quota items -->
+                                                <%= 'No quota items available.' unless @quota.quota_members.size > 0%>
+                                                <% if @quota.quota_members.size > 0%>
+                                                    <table class="table datatable" style="width:100%">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>#</th>
+                                                                <th>Question</th>
+                                                                <th>Answer</th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <% @quota.quota_members.each_with_index do |member, i|%>
+                                                            <tr>
+                                                                <td><%= i + 1%></td>
+                                                                <td><%= member.question.code%></td>
+                                                                <td><%= member.answer_value%></td>
+                                                                <td><%= link_to '<span class="icon is-small"><i class="fa fa-times"></i></span>'.html_safe, users_manage_settings_quota_member_path(member.id), :method => :delete, :data => {confirm: 'Are you sure want delete this quota member?'}, class: 'button is-small is-danger action'%></td>
+                                                            </tr>
+                                                            <% end %>
+                                                        </tbody>
+                                                    </table>
+                                                <% end %>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
     <% end %>
 </main>
+
+<div id="modal-ter" class="modal">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Add quota items</p>
+      <button class="delete modal--close" aria-label="close"></button>
+    </header>
+    <%= form_for(@quota_member, url: users_manage_settings_quota_members_path) do |f| %>
+    <%= f.hidden_field :quota_id, value: @quota.id%>
+    <section class="modal-card-body">
+        <div class="field">
+            <div class="control">
+                <label>Question</label>
+                <%= f.select(:question_id, @items.collect {|p| [ "#{p.code} - #{p.description[0..70]}..", p.id ] }, {:include_blank => 'Please select a item'}, class: 'select2', id: 'quota-items-question') %>
+            </div>
+        </div>
+        <div class="field">
+            <div class="control">
+                <label>Answer</label>
+                <select class="select2" id="quota-items-answer" name="quota_member[answer_value]">
+                    <option>Please select</option>
+                </select>
+            </div>
+        </div>
+    </section>
+    <footer class="modal-card-foot">
+        <%= f.submit 'Save', class: 'button is-success'%>
+        <button type="button" class="button modal--close">Cancel</button>
+    </footer>
+    <% end %>
+  </div>
+</div>
+
+<script>
+$(document).ready(function(){
+    $('#quota-items-question').on("select2:select", function(e) { 
+        $.get("/api/v1/questions/" + $(this).val(), function(data, status){
+            console.log(data.question_answers)
+                var mySelect = $("#quota-items-answer")
+                mySelect.val(null).trigger('change')
+                mySelect.empty()
+            $.each(data.question_answers, function(k, v) {
+                console.log(v)
+                mySelect.append('<option value="'+ v.value +'">' + v.code + ' - ' + v.exact_value+'</option>'); 
+                mySelect.trigger("change");
+            });
+        });
+    });
+});
+</script>

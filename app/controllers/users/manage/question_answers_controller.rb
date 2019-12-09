@@ -24,8 +24,6 @@ class Users::Manage::QuestionAnswersController < ApplicationController
     @question_answer = QuestionAnswer.new
   end
 
-  # POST /question_answers
-  # POST /question_answers.json
   def create
     @question_answer = QuestionAnswer.new(question_answer_params)
     respond_to do |format|
