@@ -65,18 +65,23 @@ var self = $('#form');
 
 $('.next-question').on('click', function(event){
     event.preventDefault();
-    <% if @question.q_type == 'Checkbox' || @question.q_type == 'Checkbox With Comment' || @question.q_type == 'Checkbox With Limit' || @question.q_type == 'Checkbox Input Text' %>
+    <% if @question.q_type.include? 'Checkbox'%>
     var answer = [];
     $.each($("input[name='question[answer][]']:checked"), function(){
+        answer.push($(this).val());
+    });
+    <% elsif @question.q_type.include? 'Radio' %>
+        var answer = [];
+    $.each($("input[name='question[answer]']:checked"), function(){
         answer.push($(this).val());
     });
     <% else %>
         var answer =  $("input[name='question[answer]'").val()
     <% end %>
-    $.get("/users/manage/settings/quotas/<%= @survey.id %>/check_quota", { question_id: <%=@question.id%> , answer: JSON.stringify(answer)} , function(data, status){
-        console.log(data)
+    $.get("/users/manage/settings/quotas/<%= @survey.id %>/check_quota", { question_id: <%=@question.id%> , answer: JSON.stringify(answer), session: '<%= cookies[:survey_session]%>'} , function(data, status){
         if(data.status == 200){
-            self.submit()
+            //self.submit()
+            console.log(data)
         } else {
             alert(data.message)
             window.location.href =  $(location).attr("pathname") + "?final=true"

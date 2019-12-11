@@ -42,28 +42,30 @@ class Users::Manage::Settings::QuotasController < Users::BaseController
     if @quota.present?
       @quota.each do |q|
         @member = q.quota_members.where(question_id: params[:question_id]).first
-
         if @member.nil?
           render json: {status: 200}
         else
-          if @member.question.q_type == 'Checkbox' || @member.question.q_type == 'Checkbox With Comment' || @member.question.q_type == 'Checkbox With Limit' || @member.question.q_type == 'Checkbox Input Text'
+          
+          if @member.question.q_type.include? 'Checkbox'
+
             if params[:answer].include? @member.answer_value.to_s
-              if @member.quota.limit > @member.quota.complete_count
+              if @member.quota.complete_count == @member.quota.limit
+                render json: {status: 404, message: 'Thank you for your response !'}
+              elsif @member.quota.complete_count < @member.quota.limit
                 @member.quota.update complete_count: @member.quota.complete_count + 1
                 render json: {status: 200}
-              else
-                render json: {status: 404, message: 'Thank you for your response !'}
               end
             else
               render json: {status: 200}
             end if @member.present?
           else
-            if params[:answer] == @member.answer_value
-              if @member.quota.limit > @member.quota.complete_count
+            logger.info "WOI #{params[:answer]} = #{@member.answer_value}"
+            if params[:answer] == @member.answer_value || params[:answer].include?(@member.answer_value.to_s)
+              if @member.quota.complete_count == @member.quota.limit
+                render json: {status: 404, message: 'Thank you for your response !'}
+              elsif @member.quota.complete_count < @member.quota.limit
                 @member.quota.update complete_count: @member.quota.complete_count + 1
                 render json: {status: 200}
-              else
-                render json: {status: 404, message: 'Thank you for your response !'}
               end
             else
               render json: {status: 200}
