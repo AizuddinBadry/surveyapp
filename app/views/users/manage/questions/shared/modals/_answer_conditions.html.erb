@@ -1,4 +1,4 @@
 <div id="modal-ter-<%= a.id %>" class="modal">
     <div class="modal-background"></div>
-    <%= react_component("questions/Conditions", {survey_id: @question.survey_id}) %>
+    <%= react_component("questions/Conditions", {survey_id: @question.survey_id, condition_types: 'answer', question_answer_id: a.id}) %>
 </div>

@@ -1,0 +1,7 @@
+ <div class="select">
+    <% if @question.survey.survey_setting.enable_answer_code == true%>
+    <%= "#{answer.code}." %>
+    <% end %>
+    <% options = options_from_collection_for_select(@question.question_answers, 'value', 'exact_value') %>
+    <%= select_tag 'question[answer]',  options, :include_blank => 'Please select an answer' %>
+</div>

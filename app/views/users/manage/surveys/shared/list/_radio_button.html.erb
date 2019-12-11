@@ -1,0 +1,5 @@
+<%= radio_button_tag 'question[answer]', answer.value, SurveyAnswer.check_mc(@question.survey_position,@survey.id, cookies[:survey_session], answer.value, Time.now), :value => answer.value %>
+<% if @question.survey.survey_setting.enable_answer_code == true%>
+<%= "#{answer.code}." %>
+<% end %>
+<%= label_tag "question_answer_#{answer.value}", answer.exact_value, class: 'radio' %>

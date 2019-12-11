@@ -81,7 +81,7 @@
                                         <div class="control columns">
                                             <label class="column is-3">Display Condition</label>
                                             <div class="column is-8">
-                                            <%= text_field_tag :conditions, nil, class: 'input is-small', readonly: true%>
+                                            <%= text_field_tag :conditions, AnswerCondition.sql_format(ff.object.id) == '' ? '1' : AnswerCondition.sql_format(ff.object.id), class: 'input is-small', readonly: true%>
                                             </div>
                                             <div class="column is-1">
                                                 <%= button_tag '<span class="icon is-small"><span class="icon is-small"><i class="fa fa-plus"></i></span>'.html_safe, type: 'button', class: ' button is-small is-primary open-modal', data: {target: "modal-ter-#{ff.object.id}"}%>

@@ -1,131 +1,112 @@
 <% if @question.q_type == 'Radio Button' %>
     <%= content_tag :div, class: "test", style: "column-count: #{@question.column};-moz-column-count: #{@question.column};-webkit-column-count: #{@question.column};" do -%>
-
         <% if @question.randomize == true %>
             <% @question.question_answers.shuffle.each do |answer|%>
-                <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;-webkit-column-break-inside: avoid;page-break-inside: avoid;break-inside: avoid;">
-                    <div class="columns">
-                        <div class="column is-4">
-                            <%= radio_button_tag 'question[answer]', answer.value, :value => answer.value %>
-                            <% if @question.survey.survey_setting.enable_answer_code == true%>
-                            <%= "#{answer.code}." %>
+                <% if AnswerCondition.query_condition(answer.id, cookies[:survey_session])%>
+                    <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;-webkit-column-break-inside: avoid;page-break-inside: avoid;break-inside: avoid;">        
+                        <div class="columns">
+                            <div class="column is-4">
+                                <%= render '/users/manage/surveys/shared/list/radio_button', answer: answer%>
+                            </div>
+                            <% if @question.enable_other_1 == true%>
+                            <div class="column is-3">
+                                <% if answer.display_input_box_1 == true%>
+                                <%= answer.input_box_1_label%><br />
+                                <% if answer.input_box_1_type == 'Text'%>
+                                <%= text_field_tag 'question[input_box_1]', nil, class: ''%>
+                                <% elsif answer.input_box_1_type == 'Textarea' %>
+                                <%= text_area_tag  'question[input_box_1]', nil, class: '', rows: '5', cols:'50'%>
+                                <% elsif answer.input_box_1_type == 'Number'%>
+                                <%= number_field_tag  'question[input_box_1]', nil, class: ''%>
+                                <% elsif  answer.input_box_1_type == 'Percentage' %>
+                                <%= number_field_tag  'question[input_box_1]', nil, class: ''%>%
+                                <% end %>
+                                <% end %>
+                            </div>
                             <% end %>
-                            <%= label_tag "question_answer_#{answer.value}", answer.exact_value, class: 'radio' %>
+                            <% if @question.enable_other_2 == true %>
+                            <div class="column is-3">
+                                <% if answer.display_input_box_2 == true%>
+                                <%= answer.input_box_2_label%><br />
+                                <% if answer.input_box_2_type == 'Text'%>
+                                <%= text_field_tag 'question[input_box_2]', nil, class: ''%>
+                                <% elsif answer.input_box_2_type == 'Textarea' %>
+                                <%= text_area_tag  'question[input_box_2]', nil, class: '', rows: '5', cols:'5'%>
+                                <% elsif answer.input_box_2_type == 'Number'%>
+                                <%= number_field_tag  'question[input_box_2]', nil, class: ''%>
+                                <% elsif  answer.input_box_2_type == 'Percentage' %>
+                                <%= number_field_tag  'question[input_box_2]', nil, class: ''%>%
+                                <% end %>
+                                <% end %>
+                            </div>
+                            <% end %>
                         </div>
-                        <% if @question.enable_other_1 == true%>
-                        <div class="column is-3">
-                            <% if answer.display_input_box_1 == true%>
-                            <%= answer.input_box_1_label%><br />
-                            <% if answer.input_box_1_type == 'Text'%>
-                            <%= text_field_tag 'question[input_box_1]', nil, class: ''%>
-                            <% elsif answer.input_box_1_type == 'Textarea' %>
-                            <%= text_area_tag  'question[input_box_1]', nil, class: '', rows: '5', cols:'50'%>
-                            <% elsif answer.input_box_1_type == 'Number'%>
-                            <%= number_field_tag  'question[input_box_1]', nil, class: ''%>
-                            <% elsif  answer.input_box_1_type == 'Percentage' %>
-                            <%= number_field_tag  'question[input_box_1]', nil, class: ''%>%
-                            <% end %>
-                            <% end %>
-                        </div>
-                        <% end %>
-                        <% if @question.enable_other_2 == true %>
-                        <div class="column is-3">
-                            <% if answer.display_input_box_2 == true%>
-                            <%= answer.input_box_2_label%><br />
-                            <% if answer.input_box_2_type == 'Text'%>
-                            <%= text_field_tag 'question[input_box_2]', nil, class: ''%>
-                            <% elsif answer.input_box_2_type == 'Textarea' %>
-                            <%= text_area_tag  'question[input_box_2]', nil, class: '', rows: '5', cols:'5'%>
-                            <% elsif answer.input_box_2_type == 'Number'%>
-                            <%= number_field_tag  'question[input_box_2]', nil, class: ''%>
-                            <% elsif  answer.input_box_2_type == 'Percentage' %>
-                            <%= number_field_tag  'question[input_box_2]', nil, class: ''%>%
-                            <% end %>
-                            <% end %>
-                        </div>
-                        <% end %>
                     </div>
-                </div>
+                <% end %>
             <% end %>
         <% else %>
             <% @question.question_answers.order(position: :asc).each do |answer|%>
-                <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;-webkit-column-break-inside: avoid;page-break-inside: avoid;break-inside: avoid;">
-                    <div class="columns">
-                        <div class="column is-4">
-                            <%= radio_button_tag 'question[answer]', answer.value, SurveyAnswer.check_mc(@question.survey_position,@survey.id, cookies[:survey_session], answer.value, Time.now), :value => answer.value %>
-                            <% if @question.survey.survey_setting.enable_answer_code == true%>
-                            <%= "#{answer.code}." %>
+                <% if AnswerCondition.query_condition(answer.id, cookies[:survey_session])%>
+                    <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;-webkit-column-break-inside: avoid;page-break-inside: avoid;break-inside: avoid;">
+                        <div class="columns">
+                            <div class="column is-4">
+                               <%= render '/users/manage/surveys/shared/list/radio_button', answer: answer%>
+                            </div>
+                            <% if @question.enable_other_1 == true%>
+                            <div class="column is-3">
+                                <% if answer.display_input_box_1 == true%>
+                                <%= answer.input_box_1_label%><br />
+                                <% if answer.input_box_1_type == 'Text'%>
+                                <%= text_field_tag 'question[input_box_1]', nil, class: ''%>
+                                <% elsif answer.input_box_1_type == 'Textarea' %>
+                                <%= text_area_tag  'question[input_box_1]', nil, class: '', rows: '5', cols:'50'%>
+                                <% elsif answer.input_box_1_type == 'Number'%>
+                                <%= number_field_tag  'question[input_box_1]', nil, class: ''%>
+                                <% elsif  answer.input_box_1_type == 'Percentage' %>
+                                <%= number_field_tag  'question[input_box_1]', nil, class: ''%>%
+                                <% end %>
+                                <% end %>
+                            </div>
                             <% end %>
-                            <%= label_tag "question_answer_#{answer.value}", answer.exact_value, class: 'radio' %>
+                            <% if @question.enable_other_2 == true %>
+                            <div class="column is-3">
+                                <% if answer.display_input_box_2 == true%>
+                                <%= answer.input_box_2_label%><br />
+                                <% if answer.input_box_2_type == 'Text'%>
+                                <%= text_field_tag 'question[input_box_2]', nil, class: ''%>
+                                <% elsif answer.input_box_2_type == 'Textarea' %>
+                                <%= text_area_tag  'question[input_box_2]', nil, class: '', rows: '5', cols:'5'%>
+                                <% elsif answer.input_box_2_type == 'Number'%>
+                                <%= number_field_tag  'question[input_box_2]', nil, class: ''%>
+                                <% elsif  answer.input_box_2_type == 'Percentage' %>
+                                <%= number_field_tag  'question[input_box_2]', nil, class: ''%>%
+                                <% end %>
+                                <% end %>
+                            </div>
+                            <% end %>
                         </div>
-                        <% if @question.enable_other_1 == true%>
-                        <div class="column is-3">
-                            <% if answer.display_input_box_1 == true%>
-                            <%= answer.input_box_1_label%><br />
-                            <% if answer.input_box_1_type == 'Text'%>
-                            <%= text_field_tag 'question[input_box_1]', nil, class: ''%>
-                            <% elsif answer.input_box_1_type == 'Textarea' %>
-                            <%= text_area_tag  'question[input_box_1]', nil, class: '', rows: '5', cols:'50'%>
-                            <% elsif answer.input_box_1_type == 'Number'%>
-                            <%= number_field_tag  'question[input_box_1]', nil, class: ''%>
-                            <% elsif  answer.input_box_1_type == 'Percentage' %>
-                            <%= number_field_tag  'question[input_box_1]', nil, class: ''%>%
-                            <% end %>
-                            <% end %>
-                        </div>
-                        <% end %>
-                        <% if @question.enable_other_2 == true %>
-                        <div class="column is-3">
-                            <% if answer.display_input_box_2 == true%>
-                            <%= answer.input_box_2_label%><br />
-                            <% if answer.input_box_2_type == 'Text'%>
-                            <%= text_field_tag 'question[input_box_2]', nil, class: ''%>
-                            <% elsif answer.input_box_2_type == 'Textarea' %>
-                            <%= text_area_tag  'question[input_box_2]', nil, class: '', rows: '5', cols:'5'%>
-                            <% elsif answer.input_box_2_type == 'Number'%>
-                            <%= number_field_tag  'question[input_box_2]', nil, class: ''%>
-                            <% elsif  answer.input_box_2_type == 'Percentage' %>
-                            <%= number_field_tag  'question[input_box_2]', nil, class: ''%>%
-                            <% end %>
-                            <% end %>
-                        </div>
-                        <% end %>
                     </div>
-                </div>
+                <% end %>
             <% end %>
         <% end %>
     <% end %>
 <% elsif @question.q_type == 'Select Dropdown'%>
     <%= content_tag :div, class: "test", style: "column-count: #{@question.column};-moz-column-count: #{@question.column};-webkit-column-count: #{@question.column};" do -%>
-    <div class="select">
-        <% if @question.survey.survey_setting.enable_answer_code == true%>
-        <%= "#{answer.code}." %>
-        <% end %>
-        <% options = options_from_collection_for_select(@question.question_answers, 'value', 'exact_value') %>
-        <%= select_tag 'question[answer]',  options, :include_blank => 'Please select an answer' %>
-    </div>
+        <%= render '/users/manage/surveys/shared/list/select'%>
     <% end %>
 <% elsif @question.q_type == 'Radio Button With Comment' %>
     <%= content_tag :div, class: "test", style: "column-count: #{@question.column};-moz-column-count: #{@question.column};-webkit-column-count: #{@question.column};" do -%>
         <% if @question.randomize == true %>
             <% @question.question_answers.shuffle.each do |answer|%>
                 <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;-webkit-column-break-inside: avoid;page-break-inside: avoid;break-inside: avoid;">
-                    <%= radio_button_tag 'question[answer]', answer.value, :value => answer.value %>
-                    <% if @question.survey.survey_setting.enable_answer_code == true%>
-                    <%= "#{answer.code}." %>
-                    <% end %>
-                    <%= label_tag 'question[answer]', answer.exact_value, class: 'radio' %>
+                    <%= render '/users/manage/surveys/shared/list/radio_button', answer: answer%>
                     <%= text_field 'question[comment]', class: 'input' %>
                 </div>
             <% end %>
         <% else %>
             <% @question.question_answers.order(position: :asc).each do |answer|%>
             <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;-webkit-column-break-inside: avoid;page-break-inside: avoid;break-inside: avoid;">
-                <%= radio_button_tag 'question[answer]', answer.value, :value => answer.value %>
-                <% if @question.survey.survey_setting.enable_answer_code == true%>
-                <%= "#{answer.code}." %>
-                <% end %>
-                <%= label_tag 'question[answer]', answer.exact_value, class: 'radio' %>
+                <%= render '/users/manage/surveys/shared/list/radio_button', answer: answer%>
                 <%= text_field 'question[comment]', class: 'input' %>
             </div>
             <% end %>
@@ -136,28 +117,19 @@
     <%= content_tag :div, class: "test", style: "column-count: #{@question.column};-moz-column-count: #{@question.column};-webkit-column-count: #{@question.column};" do -%>
         <% if @question.randomize == true %>
             <% @question.question_answers.shuffle.each do |answer|%>
-            <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;">
-                    <%= radio_button_tag 'question[answer]', answer.value %>
-                    <% if @question.survey.survey_setting.enable_answer_code == true%>
-                    <%= "#{answer.code}." %>
-                    <% end %>
-                    <%= label_tag 'question[answer]', answer.exact_value, :value => answer.value, class: 'radio' %>
+                <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;">
+                    <%= render '/users/manage/surveys/shared/list/radio_button', answer: answer%>
                 </div>
             <% end %>
         <% else %>
         <table style="margin-left:auto;margin-right:auto;">
         <tr>
-
             <% @question.question_answers.order(position: :desc).each do |answer|%>
             <td style='padding:0px;'>
                 <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;">
-                    <%= radio_button_tag 'question[answer]', answer.value %>
-                    <% if @question.survey.survey_setting.enable_answer_code == true%>
-                    <%= "#{answer.code}." %>
-                    <% end %>
-                    <%= label_tag 'question[answer]', answer.exact_value, :value => answer.value, class: 'radio' %>
+                    <%= render '/users/manage/surveys/shared/list/radio_button', answer: answer%>
                 </div>
-                </td>
+            </td>
             <% end %>
              </tr>
         <% end %>
@@ -165,15 +137,11 @@
     <% end %>
 <% elsif @question.q_type == 'Checkbox'%>
     <%= content_tag :div, class: "test", style: "column-count: #{@question.column};-moz-column-count: #{@question.column};-webkit-column-count: #{@question.column};-webkit-column-span: all;column-span: all;" do -%>
-         <% if @question.randomize == true %>
+        <% if @question.randomize == true %>
             <% @question.question_answers.shuffle.each do |answer|%>
                 <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;-webkit-column-break-inside: avoid;page-break-inside: avoid;break-inside: avoid;">
                     <div class="checkbox" style="-webkit-column-break-inside: avoid;page-break-inside: avoid;break-inside: avoid;">
-                        <%= check_box_tag 'question[answer][]', answer.value, SurveyAnswer.check_mc(@question.survey_position,@survey.id, cookies[:survey_session], answer.value, Time.now), id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
-                        <% if @question.survey.survey_setting.enable_answer_code == true%>
-                        <%= "#{answer.code}." %>
-                        <% end %>
-                        <%= label_tag "question_answer_#{answer.value}", answer.exact_value%>
+                        <%= render '/users/manage/surveys/shared/list/checkbox', answer: answer%>
                     </div>
                 </div>
             <% end %>
@@ -181,11 +149,7 @@
             <% @question.question_answers.order(position: :asc).each do |answer|%>
                 <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;-webkit-column-break-inside: avoid;page-break-inside: avoid;break-inside: avoid;">
                     <div class="checkbox">
-                        <%= check_box_tag 'question[answer][]', answer.value, SurveyAnswer.check_mc(@question.survey_position,@survey.id, cookies[:survey_session], answer.value, Time.now), id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
-                        <% if @question.survey.survey_setting.enable_answer_code == true%>
-                        <%= "#{answer.code}." %>
-                        <% end %>
-                        <%= label_tag "question_answer_#{answer.value}", answer.exact_value%>
+                        <%= render '/users/manage/surveys/shared/list/checkbox', answer: answer%>
                     </div>
                 </div>
             <% end %>
@@ -198,11 +162,7 @@
             <% @question.question_answers.shuffle.each do |answer|%>
                 <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;-webkit-column-break-inside: avoid;page-break-inside: avoid;break-inside: avoid;">
                     <div class="checkbox">
-                        <%= check_box_tag 'question[answer][]', answer.value, SurveyAnswer.check_mc(@question.survey_position,@survey.id, cookies[:survey_session], answer.value, Time.now), id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
-                        <% if @question.survey.survey_setting.enable_answer_code == true%>
-                        <%= "#{answer.code}." %>
-                        <% end %>
-                        <%= label_tag "question_answer_#{answer.value}", answer.exact_value%>
+                        <%= render '/users/manage/surveys/shared/list/checkbox', answer: answer%>
                     </div>
                     <%= text_field 'question[comment]', class: 'input' %>
                 </div>
@@ -211,11 +171,7 @@
             <% @question.question_answers.order(position: :asc).each do |answer|%>
                 <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;-webkit-column-break-inside: avoid;page-break-inside: avoid;break-inside: avoid;">
                     <div class="checkbox">
-                        <%= check_box_tag 'question[answer][]', answer.value, SurveyAnswer.check_mc(@question.survey_position,@survey.id, cookies[:survey_session], answer.value, Time.now), id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
-                        <% if @question.survey.survey_setting.enable_answer_code == true%>
-                        <%= "#{answer.code}." %>
-                        <% end %>
-                        <%= label_tag "question_answer_#{answer.value}", answer.exact_value%>
+                        <%= render '/users/manage/surveys/shared/list/checkbox', answer: answer%>
                     </div>
                     <%= text_field 'question[comment]', class: 'input' %>
                 </div>
@@ -230,11 +186,7 @@
                 <% @question.question_answers.shuffle.each do |answer|%>
                     <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;-webkit-column-break-inside: avoid;page-break-inside: avoid;break-inside: avoid;">
                         <div class="checkbox">
-                            <%= check_box_tag 'question[answer][]', answer.value, SurveyAnswer.check_mc(@question.survey_position,@survey.id, cookies[:survey_session], answer.value, Time.now), id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
-                            <% if @question.survey.survey_setting.enable_answer_code == true%>
-                            <%= "#{answer.code}." %>
-                            <% end %>
-                            <%= label_tag "question_answer_#{answer.value}", answer.exact_value%>
+                            <%= render '/users/manage/surveys/shared/list/checkbox', answer: answer%>
                         </div>
                     </div>
                 <% end %>
@@ -258,11 +210,7 @@
             <% @question.question_answers.shuffle.each do |answer|%>
                 <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;-webkit-column-break-inside: avoid;page-break-inside: avoid;break-inside: avoid;">
                     <div class="checkbox">
-                        <%= check_box_tag 'question[answer][]', answer.value, SurveyAnswer.check_mc(@question.survey_position,@survey.id, cookies[:survey_session], answer.value, Time.now), id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
-                        <% if @question.survey.survey_setting.enable_answer_code == true%>
-                        <%= "#{answer.code}." %>
-                        <% end %>
-                         <%= label_tag "question_answer_#{answer.value}", answer.exact_value%>
+                        <%= render '/users/manage/surveys/shared/list/checkbox', answer: answer%>
                     </div>
                     <%= text_field 'question[answer]', class: 'input' %>
                 </div>
@@ -271,11 +219,7 @@
             <% @question.question_answers.order(position: :asc).each do |answer|%>
                 <div style="border: 1px solid grey;margin-bottom: 10px;padding:10px;-webkit-column-break-inside: avoid;page-break-inside: avoid;break-inside: avoid;">
                     <div class="checkbox">
-                        <%= check_box_tag 'question[answer][]', answer.value, SurveyAnswer.check_mc(@question.survey_position,@survey.id, cookies[:survey_session], answer.value, Time.now), id: "question_answer_#{answer.value}", class: 'bw-checkbox' %>
-                        <% if @question.survey.survey_setting.enable_answer_code == true%>
-                        <%= "#{answer.code}." %>
-                        <% end %>
-                         <%= label_tag "question_answer_#{answer.value}", answer.exact_value%>
+                        <%= render '/users/manage/surveys/shared/list/checkbox', answer: answer%>
                     </div>
                     <%= text_field 'question[answer]', class: 'input' %>
                 </div>
@@ -284,7 +228,6 @@
             
     <% end %>
 <% elsif @question.q_type == 'Textarea' %>
-
 <%= text_area_tag 'question[answer]', nil, cols: "30", rows: "5", class: 'textarea' %>
 <% elsif @question.q_type == 'Textbox' %>
 <% if @question.logic.present? %>
@@ -344,7 +287,6 @@
             <td style="min-width: 50px;">
             <%= radio_button_tag "questionaire[#{index}][answer]", subquestion.value, :value => answer.value %>
             <%= label_tag "questionaire[#{index}][answer][#{subquestion.value}]", "", class: 'radio' %>
-
             </td>
             
             <% end %>
