@@ -80,11 +80,22 @@ $('.next-question').on('click', function(event){
     <% end %>
     $.get("/users/manage/settings/quotas/<%= @survey.id %>/check_quota", { question_id: <%=@question.id%> , answer: JSON.stringify(answer), session: '<%= cookies[:survey_session]%>'} , function(data, status){
         if(data.status == 200){
-            //self.submit()
+            self.submit()
             console.log(data)
         } else {
-            alert(data.message)
-            window.location.href =  $(location).attr("pathname") + "?final=true"
+            Swal.fire({
+                    title: 'Warning!',
+                    text: data.message,
+                    icon: 'error',
+                    confirmButtonText: 'Confirm'
+                }).then(function() {
+                    if(data.url == ''){
+                        window.location.href =  $(location).attr("pathname") + "?final=true"
+                    } else{
+                        window.location.href =  data.url
+                    }
+                });
+           
         }
     });
 });

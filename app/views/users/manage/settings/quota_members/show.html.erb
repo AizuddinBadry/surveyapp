@@ -12,7 +12,7 @@
     <div class="level">
         <div class="level-left">
         <div class="level-item">
-            <div class="title">Edit Quota</div>
+            <div class="title">Manage Quota</div>
         </div>
         </div>
         <div class="level-right">
@@ -30,50 +30,96 @@
                 <%= button_tag 'Save' , class: 'button is-primary'%>
             </div>
         </section>
-        <section class="columns is-multiline">
-            <div class="column is-12">
-                <div class="card">
-                    <div class="card-content">
-                        <div class="container">
-                            <div class="columns is-multiline">
-                                <div class="column is-12">
-                                    <div class="field ">
-                                        <div class="control columns">
-                                            <label class="column is-2">Name</label>
-                                            <%= f.text_field :name, class: 'input column is-3'%>
-                                        </div>
-                                    </div>
-                                     <div class="field ">
-                                        <div class="control columns">
-                                            <label class="column is-2">Limit</label>
-                                            <%= f.number_field :limit, class: 'input column is-3'%>
+        <div class="columns is-multiline">
+            <div class="column is-7">
+                <section class="columns is-multiline">
+                    <div class="column is-12">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="container">
+                                    <h5 class="title">General</h5>
+                                    <div class="columns is-multiline">
+                                        <div class="column is-12">
+                                            <div class="field ">
+                                                <div class="control columns">
+                                                    <label class="column is-3">Name</label>
+                                                    <%= f.text_field :name, class: 'input column is-9'%>
+                                                </div>
+                                            </div>
+                                            <div class="field ">
+                                                <div class="control columns">
+                                                    <label class="column is-3">Limit</label>
+                                                    <%= f.number_field :limit, class: 'input column is-9'%>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="column is-12">
-                <div class="card">
-                    <div class="card-content">
-                        <div class="container">
-                            <div class="columns is-multiline">
-                                <div class="column is-12">
-                                    <div class="has-text-right">
-                                        <div class="buttons">
-                                            <%= button_tag 'Add quota item', class: 'button is-info open-modal', type: 'button', data: {target: 'modal-ter'}%>
+                    <div class="column is-12">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="container">
+                                    <div class="columns is-multiline">
+                                        <div class="column is-12">
+                                            <div class="has-text-right">
+                                                <div class="buttons">
+                                                    <%= button_tag 'Add quota item', class: 'button is-info open-modal', type: 'button', data: {target: 'modal-ter'}%>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="column is-12">
+                                            <div class="card">
+                                                <div class="card-content">
+                                                    <div class="content">
+                                                        <!-- Quota items -->
+                                                        <%= 'No quota items available.' unless @quota.quota_members.size > 0%>
+                                                        <%= render '/users/manage/settings/quota_members/shared/tables', q: @quota%>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="column is-12">
-                                    <div class="card">
-                                        <div class="card-content">
-                                            <div class="content">
-                                                <!-- Quota items -->
-                                                <%= 'No quota items available.' unless @quota.quota_members.size > 0%>
-                                                <%= render '/users/manage/settings/quota_members/shared/tables', q: @quota%>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <div class="column is-5">
+                <div class="columns">
+                    <div class="column is-12">
+                        <div class="card">
+                            <div class="card-content">
+                                <div class="container">
+                                    <div class="columns is-multiline">
+                                        <div class="column is-12">
+                                            <div class="field ">
+                                                <h5 class="title">Others</h5>
+                                                <span>Language : </span>
+                                                <% @quota.survey.survey_languages.each do |l| %>
+                                                    <span><%= link_to l.name, request.params.merge(lang: l.name) %></span>
+                                                <% end %>
+                                            </div>
+                                            <div class="field pt-10">
+                                                <label class="label">Quota Message</label>
+                                                <% if !params[:lang].present? || params[:lang] == 'English'%>
+                                                    <%= f.text_area :message, class: 'textarea'%>
+                                                <% end %>
+                                                <% @quota.survey.survey_languages.each_with_index do |l, index| %>
+                                                    <% if index != 0%>
+                                                    <div class="list-language <%= params[:lang] == l.name ? 'active' : nil%>">
+
+                                                    </div>
+                                                    <% end %>
+                                                <% end %>
+                                            </div>
+                                            <div class="field">
+                                                <label class="label">URL Redirection</label>
+                                                <%= f.text_field :url_redirection, class: 'input'%>
+                                                <p class="help">Leave blank if redirect to final screen.</p>
                                             </div>
                                         </div>
                                     </div>
@@ -83,7 +129,7 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
     <% end %>
 </main>
 

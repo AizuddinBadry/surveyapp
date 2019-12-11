@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_10_152119) do
+ActiveRecord::Schema.define(version: 2019_12_11_155339) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -155,6 +155,8 @@ ActiveRecord::Schema.define(version: 2019_12_10_152119) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "complete_count", default: 0
+    t.text "message"
+    t.text "url_redirection"
     t.index ["survey_id"], name: "index_quota_on_survey_id"
   end
 
