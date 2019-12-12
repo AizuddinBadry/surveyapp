@@ -25,9 +25,9 @@
         <% end %>
         
         <% if !params[:lang].present? || params[:lang] == 'English' %>
-        <%= @question.question_desc.present? ? @question.question_desc : ""%>
+            <%= @question.question_desc.present? ? @question.question_desc : ""%>
         <% else %>
-            <%= Question.question_desc_query_language(@question.html_safe, params[:lang])%>
+            <%= Question.question_desc_query_language(@question, params[:lang])%>
         <% end %>
             
         <%= render '/users/manage/surveys/shared/survey_questionaire/warning'%>
@@ -65,21 +65,37 @@ var self = $('#form');
 
 $('.next-question').on('click', function(event){
     event.preventDefault();
-    <% if @question.q_type == 'Checkbox' || @question.q_type == 'Checkbox With Comment' || @question.q_type == 'Checkbox With Limit' || @question.q_type == 'Checkbox Input Text' %>
+    <% if @question.q_type.include? 'Checkbox'%>
     var answer = [];
     $.each($("input[name='question[answer][]']:checked"), function(){
+        answer.push($(this).val());
+    });
+    <% elsif @question.q_type.include? 'Radio' %>
+        var answer = [];
+    $.each($("input[name='question[answer]']:checked"), function(){
         answer.push($(this).val());
     });
     <% else %>
         var answer =  $("input[name='question[answer]'").val()
     <% end %>
-    $.get("/users/manage/settings/quotas/<%= @survey.id %>/check_quota", { question_id: <%=@question.id%> , answer: JSON.stringify(answer)} , function(data, status){
-        console.log(data)
+    $.get("/users/manage/settings/quotas/<%= @survey.id %>/check_quota", { question_id: <%=@question.id%> , answer: JSON.stringify(answer), session: '<%= cookies[:survey_session]%>'} , function(data, status){
         if(data.status == 200){
             self.submit()
+            console.log(data)
         } else {
-            alert(data.message)
-            window.location.href =  $(location).attr("pathname") + "?final=true"
+            Swal.fire({
+                    title: 'Warning!',
+                    text: data.message,
+                    icon: 'error',
+                    confirmButtonText: 'Confirm'
+                }).then(function() {
+                    if(data.url == ''){
+                        window.location.href =  $(location).attr("pathname") + "?final=true"
+                    } else{
+                        window.location.href =  data.url
+                    }
+                });
+           
         }
     });
 });

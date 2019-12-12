@@ -29,7 +29,7 @@
                                 <%= ff.hidden_field :id%>
                                 </p>
                             </div>
-                            <div class="columns  pt-20">
+                            <div class="columns pt-20 is-multiline">
                                 <div class="column is-4">
                                     <% if @enable_other_1 %>
                                         <div class="field">
@@ -69,18 +69,34 @@
                                     </div>
                                 <% end %>
                                 <% if @enable_other_2 %>
-                                     <div class="field">
+                                    <div class="field">
                                          <div class="select">
                                             <%= ff.select :input_box_2_type, options_for_select(['Text', 'Textarea', 'Number', 'Integer', 'Currency', 'Percentage'], selected: ff.object.input_box_2_type), include_blank: 'Please select type' %>
                                         </div>
                                     </div>
                                 <% end %>
                                 </div>
+                                <% if @question.q_type.include?('Checkbox') || @question.q_type.include?("Radio") %>
+                                <div class="column is-12">
+                                    <div class="fields">
+                                        <div class="control columns">
+                                            <label class="column is-3">Display Condition</label>
+                                            <div class="column is-8">
+                                            <%= text_field_tag :conditions, AnswerCondition.sql_format(ff.object.id) == '' ? '1' : AnswerCondition.sql_format(ff.object.id), class: 'input is-small', readonly: true%>
+                                            </div>
+                                            <div class="column is-1">
+                                                <%= button_tag '<span class="icon is-small"><span class="icon is-small"><i class="fa fa-plus"></i></span>'.html_safe, type: 'button', class: ' button is-small is-primary open-modal', data: {target: "modal-ter-#{ff.object.id}"}%>
+                                                <%= render '/users/manage/questions/shared/modals/answer_conditions', a:ff.object%>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% end %>
                             </div>
                         </div>
                         <div class="column is-1">
                             <p class="buttons pt-5">
-                                <%= link_to '<span class="icon is-small"><span class="icon is-small"><i class="fa fa-times"></i></span></a>'.html_safe, users_manage_question_answer_path(ff.object),
+                                <%= link_to '<span class="icon is-small"><span class="icon is-small"><i class="fa fa-times"></i></span>'.html_safe, users_manage_question_answer_path(ff.object),
                                 :method => :delete, remote: true, class: 'delete_answer button is-small is-danger', data: { confirm: 'Are you sure?' }%>
                             </p>
                         </div>

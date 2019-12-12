@@ -22,6 +22,7 @@
     "react-trumbowyg": "^1.1.0",
     "react_ujs": "^2.6.0",
     "slideout": "^1.0.1",
+    "sweetalert2": "^9.5.3",
     "turbolinks": "^5.2.0"
   },
   "version": "0.1.0",

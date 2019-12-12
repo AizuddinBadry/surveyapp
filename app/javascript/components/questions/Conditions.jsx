@@ -56,7 +56,7 @@ export default class Conditions extends React.Component {
 
   saveCondition = () => {
     var self = this.state;
-    if (this.state.methodType != "") {
+    if (this.state.methodType != "" || this.props.condition_types == "answer") {
       axios
         .post("/api/v1/conditions", {
           data: {
@@ -65,7 +65,9 @@ export default class Conditions extends React.Component {
             method: self.method,
             scenario: self.scenario,
             value: self.value,
-            relation: self.condition_link
+            relation: self.condition_link,
+            condition_types: this.props.condition_types,
+            question_answer_id: this.props.question_answer_id
           }
         })
         .then(function(response) {
@@ -150,7 +152,11 @@ export default class Conditions extends React.Component {
         <section className="modal-card-body">
           <div className="content">
             <div className="form-group">
-              <label className="label">if answer on question:</label>
+              {this.props.condition_types == "answer" ? (
+                <label className="label">Display answer if:</label>
+              ) : (
+                <label className="label">if answer on question:</label>
+              )}
               {self.multipleCondition.map((v, index) => {
                 return (
                   <div key={index} className="pt-5">
@@ -173,6 +179,7 @@ export default class Conditions extends React.Component {
               })}
               <div className="pt-5">
                 <button
+                  type="button"
                   className="button is-primary is-rounded"
                   onClick={this.increaseOption}
                 >
@@ -181,41 +188,47 @@ export default class Conditions extends React.Component {
                   </span>
                 </button>
               </div>
-              <label className="label pt-10">then </label>
-              <div className="control">
-                <div className="select">
-                  <select onChange={this.handleChanges}>
-                    <option>Please select</option>
-                    {thenMethodList}
-                  </select>
-                </div>
-              </div>
-              <div className="pt-10">
-                {self.methodType == "skip to end" ? (
-                  ""
-                ) : (
-                  <ConditionThenQuestionsList
-                    state={this.state}
-                    handler={this.conditionIdHandler}
-                  />
-                )}
-              </div>
-              <div className="pt-20">
-                {self.question_id.map((val, i) => {
-                  return (
-                    <div>
-                      {self.condition_link[i]}
-                      <p style={{ fontStyle: "italic" }}>
-                        If answer on question ID {self.question_id[i]}{" "}
-                        {self.method[i]} {self.value[i]}
-                      </p>
+              {this.props.condition_types == "answer" ? (
+                ""
+              ) : (
+                <div>
+                  <label className="label pt-10">then </label>
+                  <div className="control">
+                    <div className="select">
+                      <select onChange={this.handleChanges}>
+                        <option>Please select</option>
+                        {thenMethodList}
+                      </select>
                     </div>
-                  );
-                })}
-                <p style={{ fontStyle: "italic" }}>
-                  then {self.scenario} {self.condition_question_id}
-                </p>
-              </div>
+                  </div>
+                  <div className="pt-10">
+                    {self.methodType == "skip to end" ? (
+                      ""
+                    ) : (
+                      <ConditionThenQuestionsList
+                        state={this.state}
+                        handler={this.conditionIdHandler}
+                      />
+                    )}
+                  </div>
+                  <div className="pt-20">
+                    {self.question_id.map((val, i) => {
+                      return (
+                        <div>
+                          {self.condition_link[i]}
+                          <p style={{ fontStyle: "italic" }}>
+                            If answer on question ID {self.question_id[i]}{" "}
+                            {self.method[i]} {self.value[i]}
+                          </p>
+                        </div>
+                      );
+                    })}
+                    <p style={{ fontStyle: "italic" }}>
+                      then {self.scenario} {self.condition_question_id}
+                    </p>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </section>

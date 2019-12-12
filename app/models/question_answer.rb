@@ -17,5 +17,6 @@ class QuestionAnswer < ApplicationRecord
   end
 
   belongs_to :question, optional: true
+  has_one :answer_condition
   #acts_as_list scope: :question
 end

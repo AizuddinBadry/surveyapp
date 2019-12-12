@@ -14,6 +14,7 @@ require("datatables.net-dt");
 require("datatables.net-rowreorder-dt");
 require("datatables-bulma");
 require("bulma-extensions");
+const Swal = require("sweetalert2");
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
@@ -116,3 +117,4 @@ $(document).ready(function() {
 // Support component names relative to this directory:
 var componentRequireContext = require.context("components", true);
 ReactRailsUJS.useContext(componentRequireContext);
+window.Swal = Swal;

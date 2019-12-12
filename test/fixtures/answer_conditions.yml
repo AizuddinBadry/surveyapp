@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  method: MyText
+  value: MyText
+  scenario: MyText
+  question: one
+  condition_question_id: 
+  row: 
+  relation: MyText
+  question_answer: one
+
+two:
+  method: MyText
+  value: MyText
+  scenario: MyText
+  question: two
+  condition_question_id: 
+  row: 
+  relation: MyText
+  question_answer: two
