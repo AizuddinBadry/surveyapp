@@ -7,7 +7,7 @@
         <ul class="menu-list">
             <li><%= link_to '<i class="fa fa-edit"></i> Edit question group'.html_safe, users_manage_question_group_path(params[:id], survey_id: @question_group.survey_id, edit: true), data: {turbolinks: false}%></li>
             <li><%= link_to '<i class="fa fa-times-circle"></i> Delete Question Group'.html_safe, users_manage_question_group_path(params[:id]), :method => :delete, data: {confirm: 'Are you sure want delete this question group?'}%>
-            <li><%= link_to '<i class="fa fa-code-branch"></i> Check Error'.html_safe, check_logic_users_manage_question_groups_path(id: params[:id]), method: :post%></li>
+            <li><%= link_to '<i class="fa fa-check-circle"></i> Check Error'.html_safe, check_logic_users_manage_question_groups_path(id: params[:id]), method: :post%></li>
         </ul>
         <p class="menu-label">
             Questionaire
