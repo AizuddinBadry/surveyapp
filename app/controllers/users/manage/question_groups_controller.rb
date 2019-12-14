@@ -87,6 +87,8 @@ class Users::Manage::QuestionGroupsController < ApplicationController
 
   def preview
     @survey = @question_group.survey
+    params[:question_id] ||= @question_group.questions.first.id
+    @question = Question.find_by_id(params[:question_id])
   end
 
   private
