@@ -13,7 +13,7 @@ $font: "Lato", sans-serif;
 
 body {
   font-family: "Montserrat", sans-serif !important;
-  font-size: 12px;
+  font-size: 17px;
   margin: 0 !important;
 }
 
@@ -55,7 +55,7 @@ input[type="checkbox"]#switch,
 }
 
 .timer {
-  font-size: 20px;
+  font-size: 25px;
 }
 
 input[type="checkbox"]#switch,
@@ -220,7 +220,7 @@ label:active:after {
   padding: 8px;
   min-width: 200px;
   width: 100%;
-  font-size: 12px;
+  font-size: 17px;
   text-align: center !important;
 }
 #arrays td:first-child {
@@ -327,7 +327,7 @@ label:active:after {
       .select2-search__field {
         padding: 10px !important;
         border-radius: 3px !important;
-        font-size: 1rem;
+        font-size: 1.3rem;
         height: 2.25em;
         box-shadow: inset 0 1px 2px rgba(10, 10, 10, 0.1);
         max-width: 100%;
@@ -341,7 +341,7 @@ label:active:after {
 
       .select2-results__option {
         padding: 0.37em 0.75em !important;
-        font-size: 1rem;
+        font-size: 1.3rem;
       }
     }
   }

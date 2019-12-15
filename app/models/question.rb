@@ -10,6 +10,8 @@ class Question < ApplicationRecord
     self.survey_position ||= survey_question_size + 1
     self.column ||= 1
     self.randomize ||= false
+    self.desc_question_code ||= 0
+    self.help ||= ""
   end
   
   def reorder_question_position

@@ -43,8 +43,8 @@
                                     <tr>
                                         <td><%= a.session %></td>
                                         <td><%= a.created_at.strftime('%d/%m/%Y')%></td>
-                                        <td><%= a.time_per_question.strftime('%S')%> Second</td>
-                                        <td>Default</td>
+                                        <td><%= SurveyAnswer.where(session: a.session).sum(:time_per_question)%> Second</td>
+                                        <td>Partial</td>
                                         <td> 
                                         <p class="buttons">
                                             <%= link_to '<span class="icon is-small"><i class="fa fa-cog"></i></span>'.html_safe, detail_submissions_users_manage_submissions_path(a.session), data: {turbolinks: false}, class: 'button is-small is-primary action'%>
