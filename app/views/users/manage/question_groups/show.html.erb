@@ -30,6 +30,7 @@
                 <% if params[:edit].present? %>
                     <%= f.submit 'Update', class: 'button is-primary'%>
                 <% end %>
+                <%= link_to '<i class="fa fa-eye pr-2"></i> Preview Group'.html_safe, preview_users_manage_question_group_path(params[:id], @question_group.questions.first.id), data: {turbolinks: false}, class: 'button is-primary'%>
             </div>
         </section>
         <section class="columns">

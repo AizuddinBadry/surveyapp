@@ -1,5 +1,6 @@
 class Users::Manage::QuestionGroupsController < ApplicationController
-  before_action :set_question_group, only: [:show, :edit, :update, :destroy]
+  before_action :set_question_group, only: [:show, :edit, :update, :destroy, :preview]
+  layout 'survey', only: [:preview]
 
   # GET /question_groups
   # GET /question_groups.json
@@ -82,6 +83,12 @@ class Users::Manage::QuestionGroupsController < ApplicationController
       QuestionGroup.where(id: id).update_all position: index + 1
     end
     head :ok
+  end
+
+  def preview
+    @survey = @question_group.survey
+    params[:question_id] ||= @question_group.questions.first.id
+    @question = Question.find_by_id(params[:question_id])
   end
 
   private

@@ -1,0 +1,56 @@
+<%= form_for(:questionaire, url: '') do |f|%>
+<div class="columns is-mobile is-centered">
+  <div class="column is-half">
+     <h1 class="timer has-text-centered">Duration :<span id="time">00:00:00</span></h1>
+    </div>
+    <%= f.hidden_field :time_per_question, value: "" ,class: "question_time_per_question"%>
+</div>
+
+<div class="columns is-multiline">
+    
+
+    <div class="column is-12">
+        <label><%= @question_group.name%> : <%= @question_group.description%></label>
+    </div>
+    
+    <div class="column is-12">
+        
+        <h3 class="title"><%= @question.code %>. 
+        <% if !params[:lang].present? || params[:lang] == 'English' %>
+            <%= @question&.description&.present? ? @question.description.html_safe : "" %>
+        <% else %>
+            <%= Question.query_language(@question, params[:lang])%>
+        <% end %>
+          <% if !params[:lang].present? || params[:lang] == 'English' %>
+           <%= @question.question_desc.present? ? @question.question_desc : ""%>
+        <% else %>
+            <%= Question.question_desc_query_language(@question, params[:lang])%>
+        <% end %>
+    </div>
+    <div class="column is-12">
+        <% if !params[:lang].present? || params[:lang] == 'English' %>
+            <%= render '/users/manage/surveys/shared/survey_questionaire/answer_types', f:f%>
+            <br/>
+            <%= @question.help.present? ? @question.help.html_safe : ""%>
+        <% else %>
+            <%= render '/users/manage/surveys/shared/survey_questionaire/answer_types_language', f:f%>
+            <br/>
+            <%= Question.help_query_language(@question, params[:lang])%>
+        <% end %>
+    </div>
+    <div class="column is-12 has-text-right pl-20 pt-40" style="bottom:20px;position:relative">
+            <% if @question.prev.present? %>
+                <%= link_to 'Back', preview_users_manage_question_group_path(@question_group.id, @question.prev.id), class: 'button is-dark'%>
+            <% end %>
+            <% if @question.next.present? %>
+                <%= link_to 'Next', preview_users_manage_question_group_path(@question_group.id,@question.next.id), class: 'button is-primary-gradient'%>
+            <% else %>
+                <%= link_to 'Back to group', users_manage_question_group_path(@question_group.id), class: 'button is-primary-gradient'%>
+            <% end %>
+    </div>
+</div>
+<% end %>
+<script>
+<%= render '/users/manage/surveys/shared/survey_questionaire/answer_types.js'%>
+
+</script>

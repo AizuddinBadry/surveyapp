@@ -34,12 +34,9 @@ module Questions
                     @previous_position = @current_question_pos
                     @condition_pos = Questions::Submission.condition_check(@current_question.id, args[:session], @answer, @survey_id)
                     @question = Questions::Submission.query_question(@condition_pos, @survey_id) unless @condition_pos == false || @condition_pos == 'end'
-                    Rails.logger.info ">>>>>>>>CONDITION CHECK #{@condition_pos}"
                     if @condition_pos == 'end'
-                        Rails.logger.info ">>>>>>>>CONDITION TO END SURVEY"
                         @question = Questions::Submission.query_question(0, @survey_id)
                     elsif @condition_pos == false
-                        Rails.logger.info ">>>>>>>>CONDITION TO NEXT"
                     end
                 end
             end

@@ -30,6 +30,9 @@ Rails.application.routes.draw do
           post :check_logic
           put '/order/sort', to: 'question_groups#sort', as: 'group_sorting'
         end
+        member do
+          get '/preview/:question_id', action: :preview, as: 'preview'
+        end
       end
       resources :questions do
         collection do

@@ -7,6 +7,7 @@ class QuestionGroup < ApplicationRecord
       group.update position: index.to_i + 1
     end
   end
+  
 
   validates_presence_of :name
   belongs_to :survey

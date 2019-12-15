@@ -53,6 +53,14 @@ class Question < ApplicationRecord
       return @question
     end
   end
+
+  def next
+    Question.where("survey_position > ? AND question_group_id = ?", survey_position, question_group_id).first
+  end
+
+  def prev
+    Question.where("survey_position < ? AND question_group_id = ?", survey_position, question_group_id).last
+  end
   
   def name_dropdown
     "#{code} : [ #{q_type} ]  #{description}"
