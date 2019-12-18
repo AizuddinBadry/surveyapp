@@ -11,7 +11,7 @@ class Users::Manage::SurveysController < Users::BaseController
     end
 
     def show
-        if cookies[:question_position].to_i > 1
+        if cookies[:question_position].to_i > 1 || cookies[:question_position].blank?
             session.delete(:pdpa)
             cookies[:survey_session] = SecureRandom.hex(12)
         end
