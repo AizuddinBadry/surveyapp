@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_11_155339) do
+ActiveRecord::Schema.define(version: 2019_12_18_032029) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,7 @@ ActiveRecord::Schema.define(version: 2019_12_11_155339) do
     t.bigint "condition_question_id"
     t.bigint "row", default: 0
     t.text "relation"
+    t.text "condition_hash"
   end
 
   create_table "group_error_logics", force: :cascade do |t|

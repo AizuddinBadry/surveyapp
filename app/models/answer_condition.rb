@@ -50,7 +50,6 @@ class AnswerCondition < ApplicationRecord
     end
 
    @strip_condition = @meet_condition.uniq
-   Rails.logger.info "TESTTT #{@strip_condition}"
    if @conditions.present?
     if @strip_condition.length == 1 && @strip_condition[0] == true
       return true
