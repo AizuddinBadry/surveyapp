@@ -43,7 +43,7 @@ class Users::Manage::Settings::QuotasController < Users::BaseController
       if @member.nil?
         render json: {status: 200}
       else
-        if @member.question.q_type.include? 'Checkbox'
+        if @member.quota_members.question.q_type.include? 'Checkbox'
           if params[:answer].include? @member.answer_value.to_s
             quota_limit_condition
           else
