@@ -38,7 +38,7 @@ class Users::Manage::Settings::QuotasController < Users::BaseController
   end
 
   def check_quota
-    @member = Quota.joins(:quota_members).where(survey_id: params[:id], quota_members: {question_id: params[:question_id]}).first
+    @member = QuotaMember.joins(:quota).where(quota: {survey_id: params[:id]}, question_id: params[:question_id]).first
     if @member.present?
       if @member.nil?
         render json: {status: 200}
