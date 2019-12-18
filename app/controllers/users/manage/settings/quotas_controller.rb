@@ -38,26 +38,23 @@ class Users::Manage::Settings::QuotasController < Users::BaseController
   end
 
   def check_quota
-    @quota = Quota.where(survey_id: params[:id])
-    if @quota.present?
-      @quota.each do |q|
-        @member = q.quota_members.where(question_id: params[:question_id]).first
-        if @member.nil?
-          render json: {status: 200}
-        else
-          if @member.question.q_type.include? 'Checkbox'
-            if params[:answer].include? @member.answer_value.to_s
-              quota_limit_condition
-            else
-              render json: {status: 200}
-            end if @member.present?
+    @member = Quota.joins(:quota_members).where(survey_id: params[:id], quota_members: {question_id: params[:question_id]}).first
+    if @member.present?
+      if @member.nil?
+        render json: {status: 200}
+      else
+        if @member.question.q_type.include? 'Checkbox'
+          if params[:answer].include? @member.answer_value.to_s
+            quota_limit_condition
           else
-            if params[:answer] == @member.answer_value || params[:answer].include?(@member.answer_value.to_s)
-              quota_limit_condition
-            else
-              render json: {status: 200}
-            end if @member.present?
-          end
+            render json: {status: 200}
+          end if @member.present?
+        else
+          if params[:answer] == @member.answer_value || params[:answer].include?(@member.answer_value.to_s)
+            quota_limit_condition
+          else
+            render json: {status: 200}
+          end if @member.present?
         end
       end
     else
