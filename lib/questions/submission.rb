@@ -141,9 +141,9 @@ module Questions
                         if c.relation == 'or'
                             @conditions << "conditions.value #{c.method} '#{answer[index]}' #{c.relation}"
                         elsif c.relation == 'and'
-                            @conditions << "conditions.value::bigint IN (#{answer.join(', ')}) and"
+                            @conditions << "conditions.value = '#{answer[index]}' #{c.relation}"
                         else
-                            @conditions << "conditions.value::bigint NOT IN (#{answer.join(', ')})"
+                            @conditions << "conditions.value = '#{answer[index]}'"
                         end
                     end
                 end
