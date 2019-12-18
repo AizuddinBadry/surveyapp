@@ -66,8 +66,64 @@ module Questions
             return @question_position
         end
 
-        def self.condition_check_new(question_id, answer, survey_id)
-            
+        def self.condition_check_new(question_id, session, answer, survey_id)
+            @array = []
+            @meet_condition = []
+            @conditions = Condition.where(question_id: question_id)
+            @answer = SurveyAnswer.where(question_id: question_id, session: session).first
+            @conditions.order(row: :asc).group_by(&:condition_hash).each do |condition|
+                @c_arr = []
+                Condition.where(condition_hash: condition.first).each do |c|
+                    if answer.is_a? String
+                        if c.method == '='
+                            @sql = @answer.value == c.value
+                        else
+                            @sql = @answer.value != c.value
+                        end
+                    else
+                        @answer_arr = JSON.parse @answer.value
+                        @answer_arr.each do |a|
+                            if c.method == '='
+                                @sql = answer.include?(c.value)
+                            else
+                                @sql = answer.exclude?(c.value)
+                            end
+                        end
+                    end
+
+                    if @sql.present?
+                    @c_arr << true
+                    else
+                    @c_arr << false
+                    end
+                end
+                @array << @c_arr
+            end
+
+            # Loop again to compare between conditions
+            @conditions.order(row: :asc).group_by(&:condition_hash).each_with_index do |condition, index|
+                Condition.where(condition_hash: condition.first).each_with_index do |c, i|
+                    if c.relation == 'and'
+                        if @array[index][i] && @array[index][i + 1]
+                            @meet_condition << true
+                        else
+                            @meet_condition << false
+                        end
+                    elsif c.relation == 'or'
+                        if @array[index][i] || @array[index][i + 1]
+                            @meet_condition << true 
+                        else
+                            @meet_condition << false
+                        end
+                    else
+                        if @array[0] == true
+                            @meet_condition << true
+                        end
+                    end
+                end
+            end
+
+            Rails.logger.info ">>>>>>>>>>>>>>>#{@meet_condition}"
         end
 
         def self.condition_check(question_id, session, answer, survey_id)

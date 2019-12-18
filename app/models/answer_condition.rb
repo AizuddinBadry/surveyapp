@@ -50,14 +50,14 @@ class AnswerCondition < ApplicationRecord
     end
 
    @strip_condition = @meet_condition.uniq
-   if @conditions.present?
-    if @strip_condition.length == 1 && @strip_condition[0] == true
-      return true
+    if @conditions.present?
+      if @strip_condition.length == 1 && @strip_condition[0] == true
+        return true
+      else
+        return false
+      end
     else
-      return false
+      return true
     end
-  else
-    return true
-  end
   end
 end

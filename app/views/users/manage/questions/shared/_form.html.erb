@@ -59,16 +59,22 @@
         <label class="label">Conditions :</label>
         <table>
         <tbody>
-        <% @question.conditions.order(created_at: :asc).group_by(&:condition_hash).each do |condition|%>
-        <% #@question_condition = Question.find_by_id(condition.condition_question_id)%>
+        <% @question.conditions.order(created_at: :asc).group_by(&:condition_hash).each do |c|%>
         <tr><td><div class="m-2">
-            <%= link_to 'Remove conditions <span class="icon is-small ml-2"><i class="fa fa-times"></i></span>'.html_safe, api_v1_condition_path(@question.id), :method => :delete, class: 'button is-small is-danger action', data: {confirm: 'Are you sure want delete this question condition?'}%>                       
+            <%= link_to 'Remove conditions <span class="icon is-small ml-2"><i class="fa fa-times"></i></span>'.html_safe, api_v1_condition_path(c.first), :method => :delete, class: 'button is-small is-danger action', data: {confirm: 'Are you sure want delete this question condition?'}%>                       
         </div></td></tr>
-        <tr>
-          <td><i> If answer on question <%=c.question.code%> <%= c.method%>
-                  <%= c.value %> then <%= c.scenario%> <%= @question_condition.present? ? @question_condition.code : "" %>, <%= condition.relation%></i>
-          </td>
+          <% Condition.where(condition_hash: c.first).each do |condition|%>
+          <% @question_condition = Question.find_by_id(condition.condition_question_id)%>
+          <tr>
+            <td><i> If answer on question <%=condition.question.code%> <%= condition.method%>
+                    <%= condition.value %> 
+                    <% if condition == Condition.where(condition_hash: c.first).last %>
+                    then <%= condition.scenario%> <%= @question_condition.present? ? @question_condition.code : "" %> 
+                    <% end %>
+                    <%= condition.relation%></i>
+            </td>
           </tr>
+          <% end %>
         <% end %>
         </tbody>
         </table>

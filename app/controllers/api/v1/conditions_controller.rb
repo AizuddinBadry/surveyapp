@@ -25,7 +25,7 @@ class Api::V1::ConditionsController < Api::BaseController
     end
 
     def destroy
-        @condition = Condition.where(question_id: params[:id])
+        @condition = Condition.where(condition_hash: params[:id])
         if @condition.destroy_all
             respond_to do |format|
             format.html { redirect_to request.referrer , flash: {success: 'Conditions was successfully destroyed.'} }
