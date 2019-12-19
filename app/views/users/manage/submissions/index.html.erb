@@ -1,3 +1,5 @@
+
+
 <main class="column">
 <nav class="breadcrumb is-medium" aria-label="breadcrumbs">
   <ul>
@@ -31,23 +33,17 @@
                         <table class="display datatable" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th>Survey ID</th>
+                                    <th>Submission ID</th>
+                                    <th>Created At</th>
+                                    <th>Total Time</th>
                                     <th>Status</th>
-                                    <th>Title</th>
-                                    <th>Error Check</th>
-                                    <th>Group</th>
-                                    <th>Created</th>
-                                    <th>Owner</th>
-                                    <th>Partial</th>
-                                    <th>Full</th>
-                                    <th>Total</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <% @surveys.each do |survey|%>
+                                <% @submission.each do |a|%>
                                     <tr>
-                                        <td><%= survey.id %>.</td>
+                                        <td><%= active.id %>.</td>
                                         <td>
                                         <% if survey.status == "active" %>
                                         <% @survey_end_time = SurveySetting.find_by_survey_id(survey.id).end_time.present? ?  SurveySetting.find_by_survey_id(survey.id).end_time : DateTime.now - 1%>
@@ -61,11 +57,11 @@
                                         <% end %>
                                         
                                         </td>
-                                        <td><%= survey.title%></td>
+                                        <td><%= a.title%></td>
                                         <td></td>
                                         <td>Default</td>
-                                        <td><%= survey.created_at.strftime('%d/%m/%Y')%></td>
-                                        <td><%= survey.user.email%></td>
+                                        <td><%= a.created_at.strftime('%d/%m/%Y')%></td>
+                                        <td><%= a.user.email%></td>
                                         <td>0</td>
                                         <td>0</td>
                                         <td>0</td>

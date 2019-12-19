@@ -1,0 +1,62 @@
+
+
+<main class="column">
+<nav class="breadcrumb is-medium" aria-label="breadcrumbs">
+  <ul>
+    <li><%= link_to "Dashboard", root_path %></li>
+    <li><%= link_to "Survey", users_manage_surveys_path %></li>
+    <li class="is-active"><%= link_to "Submission Listings", users_manage_submissions_path, 'aria-current': "page" %></li>
+  </ul>
+</nav>
+    <div class="level">
+        <div class="level-left">
+        <div class="level-item">
+            <div class="title">Submission Listing</div>
+        </div>
+        </div>
+        <div class="level-right">
+        <div class="level-item">
+            <button type="button" class="button is-small">
+            March 8, 2017
+            </button>
+        </div>
+        </div>
+    </div>
+
+    <section class="columns is-multiline">
+        <div class="column">
+            <div class="card">
+                <div class="card-content">
+                    <div class="container">
+                        <table class="display datatable" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th>Submission ID</th>
+                                    <th>Created At</th>
+                                    <th>Total Time</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% @submission.uniq { |s| s.session }.each do |a|%>
+                                    <tr>
+                                        <td><%= a.session %></td>
+                                        <td><%= a.created_at.strftime('%d/%m/%Y')%></td>
+                                        <td><%= SurveyAnswer.where(session: a.session).sum(:time_per_question)%> Second</td>
+                                        <td>Partial</td>
+                                        <td> 
+                                        <p class="buttons">
+                                            <%= link_to '<span class="icon is-small"><i class="fa fa-cog"></i></span>'.html_safe, detail_submissions_users_manage_submissions_path(a.session), data: {turbolinks: false}, class: 'button is-small is-primary action'%>
+                                        </p>
+                                        </td>
+                                    </tr>
+                                <% end %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
