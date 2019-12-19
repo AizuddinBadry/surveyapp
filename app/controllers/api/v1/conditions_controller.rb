@@ -43,6 +43,7 @@ class Api::V1::ConditionsController < Api::BaseController
     end
 
     def create_answer_condition(q, i)
+        AnswerCondition.where(question_id: q).destroy_all
         @condition = AnswerCondition.create question_id: q, condition_question_id: condition_params[:condition_question_id],
                         value: params[:data][:value][i], method: params[:data][:method][i], scenario: condition_params[:scenario], 
                         row: i.to_i + 1, relation: params[:data][:relation][i.to_i + 1], question_answer_id: params[:data][:question_answer_id]
