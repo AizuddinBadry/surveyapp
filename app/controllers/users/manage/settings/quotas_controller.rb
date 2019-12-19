@@ -40,13 +40,14 @@ class Users::Manage::Settings::QuotasController < Users::BaseController
   def check_quota
     @member = QuotaMember.joins(:quota).where(quota: {survey_id: params[:id]}, question_id: params[:question_id])
     if @member.present?
+      @answer = JSON.parse params[:answer]
       @member.each do |m|
-        if m.question.q_type.include? 'Checkbox'
-          if params[:answer].include? m.answer_value.to_s
+        if m.question.q_type.include?('Checkbox')
+          if @answer.include? m.answer_value.to_s
             quota_limit_condition(m)
           end if m.present?
         else
-          if params[:answer] == m.answer_value || params[:answer].include?(m.answer_value.to_s)
+          if @answer == m.answer_value || @answer.include?(m.answer_value.to_s)
             quota_limit_condition(m)
           end if m.present?
         end

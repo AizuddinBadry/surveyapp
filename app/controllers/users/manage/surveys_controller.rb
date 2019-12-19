@@ -56,6 +56,7 @@ class Users::Manage::SurveysController < Users::BaseController
         clear_session
         if !params[:intro].present?
             set_preview_cookies  
+            generate_interpolation(@survey.id)
             if !params[:back_request].present? && request.post?   
                 @question = Questions::Submission.submit({survey_id: @survey.id, 
                                                             q1: request.post? ? params[:current_question_position] : nil, 
@@ -71,7 +72,6 @@ class Users::Manage::SurveysController < Users::BaseController
                 else
                     cookies.delete(:previous_question_position)
                 end
-                generate_interpolation(@survey.id)
                 @warning = Questions::Submission.message unless @question.nil?
                 if !@question.present?
                     if request.xhr?

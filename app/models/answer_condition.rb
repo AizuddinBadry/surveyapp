@@ -27,6 +27,7 @@ class AnswerCondition < ApplicationRecord
           @array << false
         end
     end
+    Rails.logger.info "baba #{@array}"
 
     # Loop again to compare between conditions
     @conditions.order(row: :asc).each_with_index do |c, i|
