@@ -35,8 +35,19 @@
     <div class="section">
       <div class="columns is-multiline">
         <% if controller.action_name == 'preview' %>
-          <div class="column is-12 has-text-right">
-           <div class="field">
+          <div class="column is-6">
+           <div class="control">
+              <div class="card-image has-text-left" style="margin-left:30px;">
+                <% if @survey.image_data? %>
+                  <%= image_tag @survey.image_url , style:"max-width:150px;" %>
+                <% else %>
+                  <img id="blah" src="http://placehold.it/150" alt="your image" style=" max-width:150px;">
+                <% end %>
+              </div>
+           </div>                 
+          </div>
+          <div class="column is-6">
+           <div class="field  has-text-right">
             <label class="label" style="color: white">Change language</label>
              <%= select_tag :change_language, options_for_select(@survey.survey_languages.map{|l| [l.name]}, selected: params[:lang].present? ? params[:lang] : nil), include_blank: 'Please select' %>
           </div>

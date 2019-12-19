@@ -11,10 +11,16 @@ Rails.application.routes.draw do
 
   namespace :users do
     namespace :manage do
+
       resources :surveys do
         collection do 
           match '/preview/:id', to: 'surveys#preview', as: 'preview', via: [:get, :post]
           get '/expire/:id', to: 'surveys#expire', as: 'expire'
+        end
+      end
+      resources :submissions do
+        collection do
+          get '/detail/:id', to: 'submissions#detail_submissions', as: 'detail_submissions'
         end
       end
       resources :survey_languages

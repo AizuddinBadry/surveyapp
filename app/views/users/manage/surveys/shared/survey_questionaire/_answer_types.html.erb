@@ -290,7 +290,7 @@
     </div>
     <% end %>
 <% end %>
-<% elsif @question.q_type == 'Numerical'%>
+<% elsif @question.q_type == 'Numeric'%>
 <%= number_field 'question[answer]' , maxlength: 20 ,class:"input" %>
 <% elsif @question.q_type == 'Array' %>
 
