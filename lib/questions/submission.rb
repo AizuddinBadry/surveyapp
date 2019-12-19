@@ -66,82 +66,64 @@ module Questions
             return @question_position
         end
 
-        def self.condition_check_new(question_id, answer, survey_id)
-            @response = ''
-            @question = Question.find_by_id(question_id)
-            @condition_status = false
-            @condition = Condition.where(question_id: question_id)
-            if !@condition.nil?
-                @condition_size = @condition.size
-                @condition_meet = 0
-                @next_question_id = 0
-                @condition.each do |c|
-                    if c.condition_link.present?
-                        if c.method == 'is equal to'
-                            if c.condition_link.relation == 'and'
-                                if answer.include? c.value && answer.include?(c.condition_link.other_condition.value) == true
-                                    @condition_meet += 1
-                                    @condition_meet == @condition.size ? @next_question_id = c.condition_question_id : 0
-                                end
-                            elsif c.condition_link.relation == 'or'
-                                if answer.include? c.value || answer.include?(c.condition_link.other_condition.value) == true || answer == c.value
-                                    @condition_meet += 1
-                                    @condition_meet == @condition.size ? @next_question_id = c.condition_question_id : 0
-                                end
-                            end
-                        elsif c.method == 'is not equal to'
-                            if c.condition_link.relation == 'and'
-                                if answer.exclude? c.value == true && answer.exclude?(c.condition_link.other_condition.value) == true
-                                    @condition_meet += 1
-                                    @condition_meet == @condition.size ? @next_question_id = c.condition_question_id : 0
-                                end
-                            elsif c.condition_link.relation == 'or'
-                                if answer.exclude? c.value == true || answer.exclude?(c.condition_link.other_condition.value) == true || answer != c.value
-                                    @condition_meet += 1
-                                    @condition_meet == @condition.size ? @next_question_id = c.condition_question_id : 0
-                                end
+        def self.condition_check_new(question_id, session, answer, survey_id)
+            @array = []
+            @meet_condition = []
+            @conditions = Condition.where(question_id: question_id)
+            @answer = SurveyAnswer.where(question_id: question_id, session: session).first
+            @conditions.order(row: :asc).group_by(&:condition_hash).each do |condition|
+                @c_arr = []
+                Condition.where(condition_hash: condition.first).each do |c|
+                    if answer.is_a? String
+                        if c.method == '='
+                            @sql = @answer.value == c.value
+                        else
+                            @sql = @answer.value != c.value
+                        end
+                    else
+                        @answer_arr = JSON.parse @answer.value
+                        @answer_arr.each do |a|
+                            if c.method == '='
+                                @sql = answer.include?(c.value)
+                            else
+                                @sql = answer.exclude?(c.value)
                             end
                         end
-                    else    
-                        if c.method == 'is equal to'
-                            if answer.include? c.value || answer == c.value
-                                Rails.logger.info ">>>>>>TEST20"
-                                @condition_meet += 1
-                                @condition_meet == @condition.size ? @next_question_id = c.condition_question_id : 0
-                            else
-                                @question = Question.where(survey_id: survey_id, survey_position: @question.survey_position.to_i + 1).first
-                                @next_question_id = @question.id
-                            end
-                        elsif c.method == 'is not equal to'
-                            if answer.exclude? c.value || answer != c.value
-                                @condition_meet += 1
-                                @condition_meet == @condition.size ? @next_question_id = c.condition_question_id : 0
-                                @question = Question.where(survey_id: survey_id, survey_position: @question.survey_position.to_i + 1).first
-                                @next_question_id = @question.id
-                            end
+                    end
+
+                    if @sql.present?
+                    @c_arr << true
+                    else
+                    @c_arr << false
+                    end
+                end
+                @array << @c_arr
+            end
+
+            # Loop again to compare between conditions
+            @conditions.order(row: :asc).group_by(&:condition_hash).each_with_index do |condition, index|
+                Condition.where(condition_hash: condition.first).each_with_index do |c, i|
+                    if c.relation == 'and'
+                        if @array[index][i] && @array[index][i + 1]
+                            @meet_condition << true
+                        else
+                            @meet_condition << false
+                        end
+                    elsif c.relation == 'or'
+                        if @array[index][i] || @array[index][i + 1]
+                            @meet_condition << true 
+                        else
+                            @meet_condition << false
+                        end
+                    else
+                        if @array[0] == true
+                            @meet_condition << true
                         end
                     end
                 end
             end
 
-            if @condition.size == @condition_meet
-                @next_question = Question.find_by_id(@condition.last.condition_question_id)
-            else
-                
-            end
-
-            if @next_question_id == 0
-                @condition_status = 'end'
-            end
-
-            @question = Question.where(survey_id: survey_id, survey_position: @next_question.survey_position).first unless @next_question.nil?
-            if @condition_status == 'end'
-                @response = 'end'
-            else
-                @response = @question.survey_position
-            end
-
-            return @response
+            Rails.logger.info ">>>>>>>>>>>>>>>#{@meet_condition}"
         end
 
         def self.condition_check(question_id, session, answer, survey_id)
@@ -159,9 +141,9 @@ module Questions
                         if c.relation == 'or'
                             @conditions << "conditions.value #{c.method} '#{answer[index]}' #{c.relation}"
                         elsif c.relation == 'and'
-                            @conditions << "conditions.value::bigint IN (#{answer.join(', ')}) and"
+                            @conditions << "conditions.value = '#{answer[index]}' #{c.relation}"
                         else
-                            @conditions << "conditions.value::bigint NOT IN (#{answer.join(', ')})"
+                            @conditions << "conditions.value = '#{answer[index]}'"
                         end
                     end
                 end

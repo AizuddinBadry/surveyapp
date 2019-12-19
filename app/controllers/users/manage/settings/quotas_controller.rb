@@ -38,26 +38,18 @@ class Users::Manage::Settings::QuotasController < Users::BaseController
   end
 
   def check_quota
-    @quota = Quota.where(survey_id: params[:id])
-    if @quota.present?
-      @quota.each do |q|
-        @member = q.quota_members.where(question_id: params[:question_id]).first
-        if @member.nil?
-          render json: {status: 200}
+    @member = QuotaMember.joins(:quota).where(quota: {survey_id: params[:id]}, question_id: params[:question_id])
+    if @member.present?
+      @answer = JSON.parse params[:answer]
+      @member.each do |m|
+        if m.question.q_type.include?('Checkbox')
+          if @answer.include? m.answer_value.to_s
+            quota_limit_condition(m)
+          end if m.present?
         else
-          if @member.question.q_type.include? 'Checkbox'
-            if params[:answer].include? @member.answer_value.to_s
-              quota_limit_condition
-            else
-              render json: {status: 200}
-            end if @member.present?
-          else
-            if params[:answer] == @member.answer_value || params[:answer].include?(@member.answer_value.to_s)
-              quota_limit_condition
-            else
-              render json: {status: 200}
-            end if @member.present?
-          end
+          if @answer == m.answer_value || @answer.include?(m.answer_value.to_s)
+            quota_limit_condition(m)
+          end if m.present?
         end
       end
     else
@@ -75,11 +67,11 @@ class Users::Manage::Settings::QuotasController < Users::BaseController
     @quota = Quota.find(params[:id])
   end
 
-  def quota_limit_condition
-    if @member.quota.complete_count == @member.quota.limit
-      render json: {status: 404, message: @member.quota.message, url: @member.quota.url_redirection}
-    elsif @member.quota.complete_count < @member.quota.limit
-      @member.quota.update complete_count: @member.quota.complete_count + 1
+  def quota_limit_condition(m)
+    if m.quota.complete_count == m.quota.limit
+      render json: {status: 404, message: m.quota.message, url: m.quota.url_redirection}
+    elsif m.quota.complete_count < m.quota.limit
+      m.quota.update complete_count: m.quota.complete_count + 1
       render json: {status: 200}
     end
   end

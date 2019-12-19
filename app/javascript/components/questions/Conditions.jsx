@@ -12,6 +12,7 @@ function Link(props) {
           onChange={props.handle_changes.bind(this, props.index)}
         >
           <option>Please select</option>
+
           <option value="and">AND</option>
           <option value="or">OR</option>
         </select>
@@ -32,7 +33,8 @@ export default class Conditions extends React.Component {
       scenario: [],
       value: [],
       multipleCondition: [0],
-      condition_link: [""]
+      condition_link: [""],
+      condition_options: []
     };
   }
 
@@ -164,6 +166,7 @@ export default class Conditions extends React.Component {
                       <Link
                         handle_changes={this.handleAllChanges}
                         index={index}
+                        condition_options={self.condition_options}
                       />
                     ) : null}
                     <ConditionQuestionsList

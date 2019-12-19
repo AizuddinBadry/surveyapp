@@ -18,8 +18,12 @@
     </div>
     <div class="column is-12">
         <h2><%= @question.survey.survey_setting.enable_question_code == true ? "#{@question.code}" : nil %>. </h2>
-         <% if !params[:lang].present? || params[:lang] == 'English' %>
-        <%= @question&.description&.present? ? @question.description.html_safe % @interpolation : "" %>
+        <% if !params[:lang].present? || params[:lang] == 'English' %>
+            <% if @interpolation.size > 0 %>
+                <%= @question&.description&.present? ? @question.description.html_safe % @interpolation : "" %>
+            <% else %>
+                <%= @question&.description&.present? ? @question.description.html_safe : "" %>
+            <% end %>
         <% else %>
             <%= Question.query_language(@question, params[:lang])%>
         <% end %>
@@ -83,6 +87,7 @@ $('.next-question').on('click', function(event){
             self.submit()
             console.log(data)
         } else {
+            console.log(data)
             Swal.fire({
                     title: 'Warning!',
                     text: data.message,

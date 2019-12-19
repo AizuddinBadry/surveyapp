@@ -27,6 +27,7 @@ class AnswerCondition < ApplicationRecord
           @array << false
         end
     end
+    Rails.logger.info "baba #{@array}"
 
     # Loop again to compare between conditions
     @conditions.order(row: :asc).each_with_index do |c, i|
@@ -50,15 +51,14 @@ class AnswerCondition < ApplicationRecord
     end
 
    @strip_condition = @meet_condition.uniq
-   Rails.logger.info "TESTTT #{@strip_condition}"
-   if @conditions.present?
-    if @strip_condition.length == 1 && @strip_condition[0] == true
-      return true
+    if @conditions.present?
+      if @strip_condition.length == 1 && @strip_condition[0] == true
+        return true
+      else
+        return false
+      end
     else
-      return false
+      return true
     end
-  else
-    return true
-  end
   end
 end
