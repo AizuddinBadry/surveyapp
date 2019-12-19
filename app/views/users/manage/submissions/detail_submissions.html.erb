@@ -34,6 +34,7 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Question</th>
+                                    <th>Answer</th>
                                     <th>Time Answer</th>
                                 </tr>
                             </thead>
@@ -42,7 +43,9 @@
                                     <tr>
                                         <td><%= index + 1 %></td>
                                         <td><%= a.question.description%></td>
-                                        <td><%= a.time_per_question.strftime('%S')%> Second</td>
+                                        <% @answer = a.question.question_answers.where(value: a.value).first %>
+                                        <td><%= @answer.present? ? @answer.exact_value : 'No answer'%></td>
+                                        <td><%= a&.time_per_question&.strftime('%S')%> Second</td>
                                     </tr>
                                 <% end %>
                             </tbody>

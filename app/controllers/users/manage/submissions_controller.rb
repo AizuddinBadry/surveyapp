@@ -10,7 +10,7 @@ class Users::Manage::SubmissionsController < Users::BaseController
 
     def detail_submissions
         @breadcrumb = SurveyAnswer.joins(:survey,:question).where(session: params[:id]).first
-        @submissions = SurveyAnswer.joins(:survey,:question).where(session: params[:id]).order(created_at: :desc)
+        @submissions = SurveyAnswer.joins(:survey,:question).where(session: params[:id]).order(created_at: :asc)
     end
 
     def new

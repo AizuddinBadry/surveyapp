@@ -7,7 +7,6 @@ class QuestionAnswer < ApplicationRecord
   end
 
   def self.query_language(answer, lang)
-    
     @answer = answer.other_language["#{lang}"]
     if @answer == false
       return nil
@@ -15,6 +14,7 @@ class QuestionAnswer < ApplicationRecord
       return @answer
     end
   end
+  
 
   belongs_to :question, optional: true
   has_one :answer_condition
