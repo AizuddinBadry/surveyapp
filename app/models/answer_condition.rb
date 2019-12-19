@@ -19,8 +19,12 @@ class AnswerCondition < ApplicationRecord
     @meet_condition = []
     @conditions = self.where(question_answer_id: id)
     @conditions.order(row: :asc).each do |c|
-      @sql = "survey_answers.question_id = #{c.question_id} AND survey_answers.value #{c.method} '#{c.value}' AND survey_answers.session = '#{session}'"
+      if c.question.q_type.include? 'Checkbox'
+        @answer = SurveyAnswer.where(question_id: c.question_id, session: session).where("value like '%#{c.value}%'").first   
+      else
+        @sql = "survey_answers.question_id = #{c.question_id} AND survey_answers.value #{c.method} '#{c.value}' AND survey_answers.session = '#{session}'"
         @answer = SurveyAnswer.where(@sql).first
+      end
         if @answer.present?
           @array << true
         else
