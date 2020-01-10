@@ -45,11 +45,11 @@ class Users::Manage::Settings::QuotasController < Users::BaseController
         if m.question.q_type.include?('Checkbox')
           if @answer.include? m.answer_value.to_s
             quota_limit_condition(m)
-          end if m.present?
+          end
         else
           if @answer == m.answer_value || @answer.include?(m.answer_value.to_s)
             quota_limit_condition(m)
-          end if m.present?
+          end
         end
       end
     else

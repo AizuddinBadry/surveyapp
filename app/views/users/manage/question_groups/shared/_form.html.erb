@@ -14,5 +14,12 @@
       <%= f.number_field :position, value: @survey.question_groups.size + 1, class: 'input'%>
       <small>Eg: 1</small>
     </div>
+     <div class="field">
+      <label class="label">Behaviour</label>
+      <div class="select">
+        <%= f.select :hidden, [['Normal Group', false], ['Hidden Group', true]] %>
+      </div>
+      <small class="help">Note : Hidden group will not available without condition.</small>
+    </div>
   </div>
 </section>

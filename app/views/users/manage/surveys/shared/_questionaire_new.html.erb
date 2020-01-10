@@ -90,11 +90,10 @@ $('.next-question').on('click', function(event){
         var answer =  $("input[name='question[answer]'").val()
     <% end %>
     $.get("/users/manage/settings/quotas/<%= @survey.id %>/check_quota", { question_id: <%=@question.id%> , answer: JSON.stringify(answer), session: '<%= cookies[:survey_session]%>'} , function(data, status){
+         console.log(data)
         if(data.status == 200){
             self.submit()
-            console.log(data)
         } else {
-            console.log(data)
             Swal.fire({
                     title: 'Warning!',
                     text: data.message,

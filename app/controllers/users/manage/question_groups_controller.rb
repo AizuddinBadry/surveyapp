@@ -31,7 +31,6 @@ class Users::Manage::QuestionGroupsController < ApplicationController
   # POST /question_groups.json
   def create
     @question_group = QuestionGroup.new(question_group_params.to_h.merge :survey_id => question_group_params[:survey_id])
-
     respond_to do |format|
       if @question_group.save
         if params[:external].present?
@@ -81,6 +80,8 @@ class Users::Manage::QuestionGroupsController < ApplicationController
   def sort
     params[:question_group].each_with_index do |id, index|
       QuestionGroup.where(id: id).update_all position: index + 1
+      @group = QuestionGroup.where(id: id).first
+      Question.reorder_survey_position(@group.survey_id)
     end
     head :ok
   end
@@ -98,6 +99,6 @@ class Users::Manage::QuestionGroupsController < ApplicationController
     end
 
     def question_group_params
-      params.require(:question_group).permit(:position, :name, :description, :survey_id)
+      params.require(:question_group).permit(:position, :name, :description, :survey_id, :hidden)
     end
 end
