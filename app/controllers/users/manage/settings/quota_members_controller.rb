@@ -25,6 +25,18 @@ class Users::Manage::Settings::QuotaMembersController < Users::BaseController
         end
         redirect_to request.referrer
     end
+
+    def release
+        @quota = Quota.find(params[:id])
+        if params[:types] == 'release'
+          @quota.update release: true
+          flash[:success] = 'Successful release quota.'
+        else
+          @quota.update release: false
+          flash[:success] = 'Successful enforce quota.'
+        end
+        redirect_to request.referrer
+      end
     
 
     private

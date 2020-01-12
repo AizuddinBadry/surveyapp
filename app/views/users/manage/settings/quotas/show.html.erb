@@ -77,9 +77,20 @@
                                             <td><%= q.limit %></td>
                                             <td>
                                                 <p class="buttons">
-                                                    <%= link_to '<span class="icon is-small"><i class="fa fa-check"></i></span>'.html_safe, nil, data: {turbolinks: false}, class: 'button is-small is-success action'%>
+                                                    <%= form_for(@quota, url: release_users_manage_settings_quota_member_path(types: q.release? ? 'enforce' : 'release', id: q.id)) do |f|%>
+                                                    <% if q.release? %>
+                                                         <%= button_tag( :class => "button is-small is-success") do %>
+                                                            <span class="icon is-small"><i class="fa fa-check"></i></span>
+                                                        <% end %>
+                                                    <% else %>
+                                                        <%= button_tag( :class => "button is-small is-warning") do %>
+                                                            <span class="icon is-small"><i class="fa fa-times-circle"></i></span>
+                                                        <% end %>
+                                                    <% end %>
+                                                    
                                                     <%= link_to '<span class="icon is-small"><i class="fa fa-cog"></i></span>'.html_safe, users_manage_settings_quota_member_path(q.id), data: {turbolinks: false}, class: 'button is-small is-primary action'%>
                                                     <%= link_to '<span class="icon is-small"><i class="fa fa-times"></i></span>'.html_safe, users_manage_settings_quota_path(q.id), :method => :delete, :data => {confirm: 'Are you sure want delete this quota member?'}, class: 'button is-small is-danger action'%>
+                                                    <% end %>
                                                 </p>
                                             </td>
                                         </tr>

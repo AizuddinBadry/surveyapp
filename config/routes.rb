@@ -70,7 +70,11 @@ Rails.application.routes.draw do
             get :check_quota
           end
         end
-        resources :quota_members, only: [:show, :create, :destroy]
+        resources :quota_members, only: [:show, :create, :destroy] do
+          member do
+            post :release
+          end
+        end
       end
     end
   end
