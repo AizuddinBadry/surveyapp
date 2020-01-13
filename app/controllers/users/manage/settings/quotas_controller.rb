@@ -1,6 +1,6 @@
 class Users::Manage::Settings::QuotasController < Users::BaseController
   before_action :get_survey, only: [:show]
-  before_action :get_quota, only: [:update, :destroy]
+  before_action :get_quota, only: [:update, :destroy, :release]
 
   def show
     @quota = Quota.new
@@ -39,21 +39,25 @@ class Users::Manage::Settings::QuotasController < Users::BaseController
 
   def check_quota
     @member = QuotaMember.joins(:quota).where(quota: {survey_id: params[:id]}, question_id: params[:question_id])
-    if @member.present?
-      @answer = JSON.parse params[:answer]
-      @member.each do |m|
-        if m.question.q_type.include?('Checkbox')
-          if @answer.include? m.answer_value.to_s
-            quota_limit_condition(m)
-          end if m.present?
-        else
-          if @answer == m.answer_value || @answer.include?(m.answer_value.to_s)
-            quota_limit_condition(m)
-          end if m.present?
-        end
-      end
-    else
+    if @member.quota.release?
       render json: {status: 200}
+    else
+      if @member.present?
+        @answer = JSON.parse params[:answer]
+        @member.each do |m|
+          if m.question.q_type.include?('Checkbox')
+            if @answer.include? m.answer_value.to_s
+              quota_limit_condition(m)
+            end
+          else
+            if @answer == m.answer_value || @answer.include?(m.answer_value.to_s)
+              quota_limit_condition(m)
+            end
+          end
+        end
+      else
+        render json: {status: 200}
+      end
     end
   end
 

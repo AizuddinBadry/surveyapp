@@ -1,3 +1,9 @@
+<style>
+p{
+    font-size: 18px !important;
+}
+</style>
+
 <%if params[:lang].present? %>
      <% @url = preview_users_manage_surveys_path(lang: params[:lang]) %>
 <% else %>
@@ -14,10 +20,11 @@
 </div>
 <div class="columns is-multiline">
     <div class="column is-12 has-text-centered">
-        <h2 class="title"><%= @question.survey.survey_setting.enable_group_code == true ? "#{@question.question_group.name} :" : nil%> <%= @question.question_group.description%></h2>
+        <h2 class="title" ><%= @question.survey.survey_setting.enable_group_code == true ? "#{@question.question_group.name} :" : nil%> <%= @question.question_group.description%></h2>
     </div>
     <div class="column is-12">
-        <h2><%= @question.survey.survey_setting.enable_question_code == true ? "#{@question.code}" : nil %>. </h2>
+        <h2 style="font-size:21px !important"><%= @question.survey.survey_setting.enable_question_code == true ? "#{@question.code}" : nil %>. </h2>
+        
         <% if !params[:lang].present? || params[:lang] == 'English' %>
             <% if @interpolation.size > 0 %>
                 <%= @question&.description&.present? ? @question.description.html_safe % @interpolation : "" %>
@@ -83,11 +90,10 @@ $('.next-question').on('click', function(event){
         var answer =  $("input[name='question[answer]'").val()
     <% end %>
     $.get("/users/manage/settings/quotas/<%= @survey.id %>/check_quota", { question_id: <%=@question.id%> , answer: JSON.stringify(answer), session: '<%= cookies[:survey_session]%>'} , function(data, status){
+         console.log(data)
         if(data.status == 200){
             self.submit()
-            console.log(data)
         } else {
-            console.log(data)
             Swal.fire({
                     title: 'Warning!',
                     text: data.message,

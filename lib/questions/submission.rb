@@ -40,8 +40,13 @@ module Questions
                     end
                 end
             end
-            
-            return @question
+            @next_question_is_hidden = Question.find_by_survey_position(@question.survey_position)
+            if @next_question_is_hidden.question_group.hidden == true && !@current_question.conditions.present?
+                @next_group = QuestionGroup.where(position: @next_question.question_group.position + 1).first
+                return @next_group.questions.first
+            else
+                return @question
+            end
         end
 
         private
@@ -122,7 +127,6 @@ module Questions
                     end
                 end
             end
-
             Rails.logger.info ">>>>>>>>>>>>>>>#{@meet_condition}"
         end
 
@@ -138,12 +142,15 @@ module Questions
                     end
                 else
                     @question.conditions.each_with_index do |c, index|
+                        @answer_arr = []
+                        @answer_arr << c.value
+                        @compare = answer & @answer_arr
                         if c.relation == 'or'
-                            @conditions << "conditions.value #{c.method} '#{answer[index]}' #{c.relation}"
+                            @conditions << "conditions.value #{c.method} '#{@compare[0].to_s}' #{c.relation}"
                         elsif c.relation == 'and'
-                            @conditions << "conditions.value = '#{answer[index]}' #{c.relation}"
+                            @conditions << "conditions.value = '#{@compare[0].to_s}' #{c.relation}"
                         else
-                            @conditions << "conditions.value = '#{answer[index]}'"
+                            @conditions << "conditions.value = '#{@compare[0].to_s}'"
                         end
                     end
                 end
@@ -155,7 +162,13 @@ module Questions
                     @check_condition = true
                     return @response
                 else
-                    return @question.survey_position + 1
+                    @next_question_is_hidden = Question.find_by_survey_position(@question.survey_position + 1)
+                    if @next_question_is_hidden.question_group.hidden == true
+                        @next_group = QuestionGroup.where(position: @next_question.question_group.position + 1).first
+                        return @next_group.questions.first.survey_position
+                    else
+                        return @question.survey_position + 1
+                    end
                 end
             else
                 return @question.survey_position + 1

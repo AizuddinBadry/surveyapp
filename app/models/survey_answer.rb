@@ -11,4 +11,14 @@ class SurveyAnswer < ApplicationRecord
       return false
     end unless @save_answer.nil? || @save_answer.value.nil?
   end
+
+  def value
+    @value = read_attribute(:value) 
+    if @value == nil
+      'No answer'
+    else
+      @value
+    end
+    
+  end
 end
