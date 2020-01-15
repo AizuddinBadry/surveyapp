@@ -2,6 +2,8 @@ var React = require("react");
 import Main from "./types/Main";
 import MultipleAnswer from "./types/MultipleAnswer";
 import OpenEnded from "./types/OpenEnded";
+import Media from "./types/Media";
+import File from "./types/File";
 import "react-trumbowyg/dist/trumbowyg.min.css";
 
 function Step(props) {
@@ -32,7 +34,16 @@ function Step(props) {
     );
   } else if (step == 3) {
     return (
-      <Mask
+      <Media
+        handler={handler}
+        group_id={group_id}
+        types={types}
+        survey_id={survey_id}
+      />
+    );
+  }else if (step == 4) {
+    return (
+      <File
         handler={handler}
         group_id={group_id}
         types={types}

@@ -145,6 +145,35 @@ class Main extends React.Component {
             </a>
           </div>
         </div>
+        <div className="field">
+          <label className="label">Media</label>
+          <div className="buttons are-small">
+            <a
+              className="button is-primary is-rounded"
+              onClick={() => this.props.handler(4, "File Upload")}
+            >
+              File Upload
+            </a>
+            <a
+              className="button is-primary is-rounded"
+              onClick={() => this.props.handler(3, "File Download")}
+            >
+              File Download
+            </a>
+            <a
+              className="button is-primary is-rounded"
+              onClick={() => this.props.handler(3, "Video")}
+            >
+              Video
+            </a>
+            <a
+              className="button is-primary is-rounded"
+              onClick={() => this.props.handler(3, "Audio")}
+            >
+              Audio
+            </a>
+          </div>
+        </div>
       </div>
     );
   }

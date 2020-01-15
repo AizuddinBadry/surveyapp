@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_12_074520) do
+ActiveRecord::Schema.define(version: 2020_01_15_163218) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -147,6 +147,7 @@ ActiveRecord::Schema.define(version: 2020_01_12_074520) do
     t.bigint "column"
     t.jsonb "help_other_language", default: {}
     t.jsonb "question_desc_other_language", default: {}
+    t.text "media"
     t.index ["question_group_id"], name: "index_questions_on_question_group_id"
   end
 
