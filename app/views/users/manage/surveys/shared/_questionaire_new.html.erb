@@ -64,21 +64,28 @@ p{
             <%= Question.help_query_language(@question, params[:lang]).html_safe%>
         <% end %>
     </div>
-    <div class="column is-12 has-text-right pl-20 pt-40" style="bottom:20px;position:relative">
-        <% if @preview_mode == 'Question'%>
-            <%= link_to 'Back', :back, method: :get , class: 'button is-dark'%>
-        <% end %>
-        
-        <!-- Button for preview next or previous -->
-        <% if @preview_mode != 'Question' %>
-            <% if @question.survey_position != nil %>
-                <%= link_to 'Back', preview_users_manage_surveys_path(@survey.id, question: {position: cookies[:previous_question_position].present? ? cookies[:previous_question_position] : @question.survey_position - 1}, current_question_position: @question.survey_position, back_request: true, lang: params[:lang].present? ? params[:lang] : 'English') , class:'button is-dark', id: 'back-question', method: :post%>
-            <% else %>
-                <%= link_to 'Back', preview_users_manage_surveys_path(@survey.id, question: {position: @question.parent_question.survey_position}, back_request: true, lang: params[:lang].present? ? params[:lang] : 'English') , class:'button is-dark', id: 'back-question', method: :post%>
+    <div class="bottom-bar" >
+        <div class="bar-content">
+            <% if @preview_mode == 'Question'%>
+                <%= link_to 'Back', :back, method: :get , class: 'button is-dark'%>
             <% end %>
-            <%= button_tag 'Next', class: 'button is-primary-gradient next-question'%>
-        <% end %>
-
+            
+            <!-- Button for preview next or previous -->
+            <% if @preview_mode != 'Question' %>
+                <div class="columns is-multiline">
+                    <div class="column is-6 has-text-left">
+                        <% if @question.survey_position != nil %>
+                            <%= link_to '<i class="fas fa-chevron-left"></i>'.html_safe, preview_users_manage_surveys_path(@survey.id, question: {position: cookies[:previous_question_position].present? ? cookies[:previous_question_position] : @question.survey_position - 1}, current_question_position: @question.survey_position, back_request: true, lang: params[:lang].present? ? params[:lang] : 'English') , class:'button is-dark is-rounded is-large', id: 'back-question', method: :post%>
+                        <% else %>
+                            <%= link_to '<i class="fas fa-chevron-left"></i>'.html_safe, preview_users_manage_surveys_path(@survey.id, question: {position: @question.parent_question.survey_position}, back_request: true, lang: params[:lang].present? ? params[:lang] : 'English') , class:'button is-dark is-rounded is-large', id: 'back-question', method: :post%>
+                        <% end %>
+                    </div>
+                    <div class="column is-6 has-text-right">
+                        <%= button_tag '<i class="fas fa-chevron-right"></i>'.html_safe, class: 'button is-dark is-rounded is-large next-question'%>
+                    </div>
+                </div>
+            <% end %>
+        </div>
     </div>
 </div>
 <% end %>

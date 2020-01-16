@@ -1,11 +1,12 @@
 <div class="column is-12">
+    <!-- TEMP Remove 
     <div class="progress-wrapper">
         <% if cookies[:question_position].present? %>
             <progress class="progress is-success is-large" value="<%= cookies[:question_position].to_f/@survey.questions.size.to_f * 100 %>" max="100"></progress>
             <p class="progress-value has-text-black"><%= (cookies[:question_position].to_f/@survey.questions.size.to_f * 100).to_i %>%</p>
         <% end %>
-    </div>
-    <div class="card" style="min-height: 800px;position: relative; ">
+    </div> -->
+    <div class="card" style="min-height: 800px;position: relative; width: 100%;border-radius: 0px;">
         <div class="card-content">
         <% if session[:pdpa] == false && @survey.survey_setting.enable_pdpa == true %>
             <%= render '/users/manage/surveys/shared/pdpa_screen'%>

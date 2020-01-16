@@ -13,7 +13,8 @@
 
   <style>
     body{
-      background: linear-gradient(90deg, #00d2ff 0%, #3a47d5 100%);
+      /*background: linear-gradient(90deg, #00d2ff 0%, #3a47d5 100%);*/
+      background: #63b7af;
     }
     .card{
       border-radius: 20px;
@@ -32,31 +33,77 @@
   </style>
 
   <body>
-    <div class="section">
+    <div class=""  style="padding-top: 40px!important;">
       <div class="columns is-multiline">
         <% if controller.action_name == 'preview' %>
-          <div class="column is-6">
+          <div class="column is-3">
            <div class="control">
               <div class="card-image has-text-left" style="margin-left:30px;">
                 <% if @survey.image_data? %>
-                  <%= image_tag @survey.image_url , style:"max-width:150px;" %>
+                  <%= image_tag @survey.image_url , style:"max-width:80px;" %>
                 <% else %>
-                  <img id="blah" src="http://placehold.it/150" alt="your image" style=" max-width:150px;">
+                  <img id="blah" src="http://placehold.it/150" alt="your image" style=" max-width:80px;">
                 <% end %>
               </div>
            </div>                 
           </div>
-          <div class="column is-6">
-           <div class="field  has-text-right">
-            <label class="label" style="color: white">Change language</label>
-             <%= select_tag :change_language, options_for_select(@survey.survey_languages.map{|l| [l.name]}, selected: params[:lang].present? ? params[:lang] : nil), include_blank: 'Please select' %>
+          <div class="column is-5">
+            <div class="card">
+              <div class="card-content has-text-centered">
+                <h1 style="font-size: 40px;"><%= @survey.title%></h1>
+              </div>
+            </div>                
           </div>
+          <div class="column is-2">
+            <div class="content">
+              <% if @survey.present? %>
+                <h1 style="font-size: 50px;color:white;"><%= cookies[:question_position].present? ? cookies[:question_position] : 1 %>/<%= @survey.questions.size %></h1>   
+              <% end %>
+            </div>        
           </div>
-          <div class="column is-4 is-offset-4">
-            <div class="card bg-warning">
+          <div class="column is-2">
+            <div class="content">
+              <nav role='navigation'>
+                <div id="menuToggle">
+                  <!--
+                  A fake / hidden checkbox is used as click reciever,
+                  so you can use the :checked selector on it.
+                  -->
+                  <input type="checkbox" />
+                  
+                  <!--
+                  Some spans to act as a hamburger.
+                  
+                  They are acting like a real hamburger,
+                  not that McDonalds stuff.
+                  -->
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                  
+                  <!--
+                  Too bad the menu has to be inside of the button
+                  but hey, it's pure CSS magic.
+                  -->
+                  <ul id="menu">
+                    <li> 
+                      <div class="field has-text-centered"  style="margin-right:30px;">
+                        <label class="label" style="color: black">Change language</label>
+                        <%= select_tag :change_language, options_for_select(@survey.survey_languages.map{|l| [l.name]}, selected: params[:lang].present? ? params[:lang] : nil), include_blank: 'Please select' %>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </nav>
+            </div>
+          </div>
+          <div class="">
+            <div class="card bg-warning"  style="width:100%">
+            <!-- TEMP remove 
                 <div class="card-content has-text-centered">
                     This is preview mode, no data will be save.
                 </div>
+            -->
             </div>
           </div>
         <% end %>
@@ -68,4 +115,5 @@
   <script>
     <%= render '/layouts/shared/js/change_language.js'%>
   </script>
+ 
 </html>
