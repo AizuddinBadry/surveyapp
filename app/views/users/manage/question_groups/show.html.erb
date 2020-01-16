@@ -70,7 +70,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <% @question_group.questions.order(position: :asc).each_with_index do |question, index|%>
+                                        <% @question_group.questions.where(attached_to: nil).order(position: :asc).each_with_index do |question, index|%>
                                             <%= render '/users/manage/questions/tables/questions', question: question, index: index%>
                                         <% end %>
                                     </tbody>

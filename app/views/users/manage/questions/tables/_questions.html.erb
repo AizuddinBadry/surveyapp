@@ -3,7 +3,21 @@
     <td><i class='fa fa-bars'></i></td>
     <td><%= question.code %></td>
     <td><%= question.question_group_id %></td>
-    <td><%= question.description %></td>
+    <td><%= question.description %><br/>
+        <%if question.attached_question.size > 0 %>
+            <% question.attached_question.order(:created_at => :asc).each do |q|%>
+                <div class="card" style="margin-top:10px;margin-bottom: 10px;">
+                    <div class='card-body'>
+                        <div class="row">
+                            <div class="col-lg-12" style="padding:10px;">
+                                <%= link_to "#{q.code}. #{q.description}",users_manage_question_path(q.id, group_id: @question_group.id,edit:true), data: {turbolinks: false} %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% end %>
+        <% end %>
+    </td>
     <td><%= question.q_type %></td>
     <td><%= question.question_group.name %></td>
     <td><%= question.mandatory == true ? '<i class="fa fa-check-circle" style="color:green"></i>'.html_safe : '<i class="fa fa-times-circle" style="color:red"></i>'.html_safe %></td>
@@ -11,7 +25,7 @@
     <td>
         <p class="buttons">
             <%= link_to '<span class="icon is-small"><i class="fa fa-eye"></i></span>'.html_safe, users_manage_question_path(question.id, group_id: @question_group.id), data: {turbolinks: false}, class: 'button is-small is-success action'%>
-            <%= link_to '<span class="icon is-small"><i class="fa fa-cog"></i></span>'.html_safe, users_manage_question_path(question.id, group_id: @question_group.id,edit:true), data: {turbolinks: false}, class: 'button is-small is-primary action'%>
+            <%= link_to '<span class="icon is-small"><i class="fa fa-edit"></i></span>'.html_safe, users_manage_question_path(question.id, group_id: @question_group.id,edit:true), data: {turbolinks: false}, class: 'button is-small is-primary action'%>
             <%= link_to '<span class="icon is-small"><i class="fa fa-times"></i></span>'.html_safe, users_manage_question_path(question.id, group_id: @question_group.id, survey_id: params[:survey_id]), :method => :delete, :data => {confirm: 'Are you sure want delete this question?'}, class: 'button is-small is-danger action'%>
         </p>
     </td>

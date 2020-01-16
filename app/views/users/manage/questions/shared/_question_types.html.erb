@@ -8,7 +8,7 @@
     <section class="modal-card-body">
       <div class="content">
         <div class="columns is-multiline">
-            <%= react_component("questions/TypeOptions", {group_id: @question_group.id, survey_id: @question_group.survey_id}) %>
+            <%= react_component("questions/TypeOptions", {group_id: @question_group.id, survey_id: @question_group.survey_id, questions: @question_group.questions.where(attached_to: nil).order(:position => :asc)}) %>
         </div>
       </div>
     </section>

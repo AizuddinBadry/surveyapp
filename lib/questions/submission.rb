@@ -15,7 +15,13 @@ module Questions
             @survey_id = args[:survey_id]
             
             @next_question = Questions::Submission.query_question(@next_question_pos, @survey_id) #Query next question for return data
-            @current_question = Questions::Submission.query_question(@current_question_pos, @survey_id) #Query current question to check validation, logic, etc
+
+            if args[:looping_question] == true
+                @current_question = Questions::Submission.query_looping_question(@current_question_pos, @survey_id) #Query current question as looping question
+                @question_position = @current_question.parent_question.survey_position
+            else
+                @current_question = Questions::Submission.query_question(@current_question_pos, @survey_id) #Query current question to check validation, logic, etc
+            end
             
             @question = @next_question
             @question_position = @next_question_pos
@@ -33,18 +39,32 @@ module Questions
                 if @current_question.conditions.present?
                     @previous_position = @current_question_pos
                     @condition_pos = Questions::Submission.condition_check(@current_question.id, args[:session], @answer, @survey_id)
-                    @question = Questions::Submission.query_question(@condition_pos, @survey_id) unless @condition_pos == false || @condition_pos == 'end'
+                    
                     if @condition_pos == 'end'
                         @question = Questions::Submission.query_question(0, @survey_id)
                     elsif @condition_pos == false
+                        if @current_question.attached_question.size > 0
+                            @question = Questions::Submission.query_looping_question(@current_question.attached_question.where(loop_position: 1).first.loop_position, @survey_id)
+                        else
+                            @question = Questions::Submission.query_question(@current_question.survey_position + 1, @survey_id)
+                        end
                     end
                 end
             end
-            @next_question_is_hidden = Question.find_by_survey_position(@question.survey_position)
+            @next_question_is_hidden = Question.find_by_survey_position(@question.survey_position) #Check if next question is hidden or not
+
             if @next_question_is_hidden.question_group.hidden == true && !@current_question.conditions.present?
                 @next_group = QuestionGroup.where(position: @next_question.question_group.position + 1).first
-                return @next_group.questions.first
+                return @next_group.questions.first # return next group question if next question to current question is hidden
             else
+                if @current_question.attached_to != nil #checking if current question is attached to parent question
+                    @parent_question = Question.find_by_id @question.attached_to
+                    @question = Questions::Submission.query_looping_question(@current_question.loop_position + 1, @survey_id)
+                    if @question.nil?
+                        @question = Questions::Submission.query_question(@parent_question.survey_position + 1, @survey_id)
+                    end
+                    
+                end
                 return @question
             end
         end
@@ -53,6 +73,10 @@ module Questions
 
         def self.query_question(position, survey_id)
             return Question.where(survey_id: survey_id, survey_position: position).first
+        end
+
+        def self.query_looping_question(position, survey_id)
+            return Question.where(survey_id: survey_id, loop_position: position).first
         end
 
         def self.message
@@ -167,11 +191,12 @@ module Questions
                         @next_group = QuestionGroup.where(position: @next_question.question_group.position + 1).first
                         return @next_group.questions.first.survey_position
                     else
-                        return @question.survey_position + 1
+                        Rails.logger.info "MASUK SINI"
+                        return false
                     end
                 end
             else
-                return @question.survey_position + 1
+                return false
             end
         end
     end

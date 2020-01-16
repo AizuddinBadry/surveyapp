@@ -10,8 +10,16 @@ p{
     <% @url = preview_users_manage_surveys_path %>
 <% end %>
 <%= form_for(:question, url: @url, method: :post, html: {id: 'form'}) do |f|%>
+
+<!-- Checking if the question is looping question or normal question -->
+<% if @question.survey_position != nil %>
 <%= f.hidden_field :position, value: @question.survey_position + 1 %>
 <%= hidden_field_tag 'current_question_position',@question.survey_position %>
+<% else %>
+<%= hidden_field_tag 'current_question_position',@question.loop_position %>
+<%= hidden_field_tag 'looping_question', true %>
+<% end %>
+
 <div class="columns is-mobile is-centered">
   <div class="column is-half">
      <h1 class="timer has-text-centered">Duration :<span id="time">00:00:00</span></h1>
@@ -61,10 +69,16 @@ p{
             <%= link_to 'Back', :back, method: :get , class: 'button is-dark'%>
         <% end %>
         
-        <% if @preview_mode != 'Question' %>   
-            <%= link_to 'Back', preview_users_manage_surveys_path(@survey.id, question: {position: cookies[:previous_question_position].present? ? cookies[:previous_question_position] : @question.survey_position - 1}, current_question_position: @question.survey_position, back_request: true, lang: params[:lang].present? ? params[:lang] : 'English') , class:'button is-dark', id: 'back-question', method: :post%>
+        <!-- Button for preview next or previous -->
+        <% if @preview_mode != 'Question' %>
+            <% if @question.survey_position != nil %>
+                <%= link_to 'Back', preview_users_manage_surveys_path(@survey.id, question: {position: cookies[:previous_question_position].present? ? cookies[:previous_question_position] : @question.survey_position - 1}, current_question_position: @question.survey_position, back_request: true, lang: params[:lang].present? ? params[:lang] : 'English') , class:'button is-dark', id: 'back-question', method: :post%>
+            <% else %>
+                <%= link_to 'Back', preview_users_manage_surveys_path(@survey.id, question: {position: @question.parent_question.survey_position}, back_request: true, lang: params[:lang].present? ? params[:lang] : 'English') , class:'button is-dark', id: 'back-question', method: :post%>
+            <% end %>
             <%= button_tag 'Next', class: 'button is-primary-gradient next-question'%>
         <% end %>
+
     </div>
 </div>
 <% end %>
