@@ -1,4 +1,5 @@
 class Question < ApplicationRecord
+  mount_uploader :media, MediaUploader
   include ImageUploader::Attachment.new(:image)
   before_save :default_values
   after_destroy :reorder_question_position, :reorder_loop_position

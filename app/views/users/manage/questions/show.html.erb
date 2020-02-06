@@ -50,6 +50,15 @@
                    <% if @question.q_type == 'Textarea'%>
                     
                     <% elsif @question.q_type == 'Textbox' %>
+
+                    <% elsif @question.q_type == 'File Upload' %>
+
+                    <% elsif @question.q_type == 'File Download' %>
+
+                    <% elsif @question.q_type == 'Video' %>
+
+                    <% elsif @question.q_type == 'Audio' %>
+                    
                         
                     <% else %>
                         <%= render '/users/manage/questions/tables/answers', f:f%>
