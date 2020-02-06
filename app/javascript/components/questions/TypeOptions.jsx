@@ -12,6 +12,7 @@ function Step(props) {
   const group_id = props.group_id;
   const types = props.types;
   const survey_id = props.survey_id;
+  const questions = props.questions;
   if (step == 0) {
     return <Main handler={handler} />;
   } else if (step == 1) {
@@ -21,6 +22,7 @@ function Step(props) {
         group_id={group_id}
         types={types}
         survey_id={survey_id}
+        questions={questions}
       />
     );
   } else if (step == 2) {
@@ -75,6 +77,7 @@ class TypeOptions extends React.Component {
         group_id={this.props.group_id}
         types={self.types}
         survey_id={this.props.survey_id}
+        questions={this.props.questions}
       />
     );
   }

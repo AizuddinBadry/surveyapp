@@ -26,6 +26,7 @@ class Api::V1::QuestionsController < Api::BaseController
             if @question.save
                 Question.reorder_survey_position(@question.survey_id)
                 @question.update mandatory: false unless question_params[:mandatory].present?
+                @question.update! survey_position: nil unless !question_params[:attached_to].present?
                 flash[:success] = 'Successful created new question.'
                 render json: {object: @question, status: 200}
             else
@@ -47,8 +48,9 @@ class Api::V1::QuestionsController < Api::BaseController
     private
 
     def question_params
-        params.require(:question).permit(:media,:question_group_id, :q_type, :code, :description, 
-                                            :help,:question_desc,:desc_question_code, :mandatory, :limit ,:position, :survey_id)
+        params.require(:question).permit(:question_group_id, :q_type, :code, :description, 
+                                            :help,:question_desc,:desc_question_code, :mandatory, :limit ,:position, :survey_id,
+                                            :attached_to)
     end
 
     

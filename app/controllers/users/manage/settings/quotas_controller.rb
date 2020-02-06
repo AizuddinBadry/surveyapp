@@ -39,10 +39,10 @@ class Users::Manage::Settings::QuotasController < Users::BaseController
 
   def check_quota
     @member = QuotaMember.joins(:quota).where(quota: {survey_id: params[:id]}, question_id: params[:question_id])
-    if @member.quota.release?
-      render json: {status: 200}
-    else
-      if @member.present?
+    if @member.present?
+      if @member.quota.release?
+        render json: {status: 200}
+      else
         @answer = JSON.parse params[:answer]
         @member.each do |m|
           if m.question.q_type.include?('Checkbox')
@@ -55,9 +55,9 @@ class Users::Manage::Settings::QuotasController < Users::BaseController
             end
           end
         end
-      else
-        render json: {status: 200}
       end
+    else
+      render json: {status: 200}
     end
   end
 

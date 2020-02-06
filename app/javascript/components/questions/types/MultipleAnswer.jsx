@@ -10,7 +10,8 @@ export default class MultipleAnswer extends React.Component {
       codes: [],
       status:
         '<span class="tag is-warning" id="status">This code is exists. Please use unique code for each question.</span>',
-      error: false
+      error: false,
+      attached_to: ""
     };
   }
 
@@ -70,6 +71,12 @@ export default class MultipleAnswer extends React.Component {
     var warning;
     const islimit = "Checkbox with Limit";
 
+    const questionOptions = self.questions.map((question, i) => (
+      <option key={i} value={question.id}>
+        {question.code + ". " + question.description}
+      </option>
+    ));
+
     if (islimit == self.types) {
       answer_limit = (
         <div className="field">
@@ -117,6 +124,26 @@ export default class MultipleAnswer extends React.Component {
                 id="questionDescription"
                 name="question[description]"
               />
+            </div>
+            <div className="field">
+              <label className="label">
+                Attached to (Optional){" "}
+                <span
+                  className="has-tooltip-right"
+                  data-tooltip="Select parent question for looping purposes (Optional)"
+                >
+                  <i className="fas fa-question-circle"></i>
+                </span>
+              </label>
+              <div class="select is-fullwidth">
+                <select
+                  name="question[attached_to]"
+                  onChange={e => this.handleChange(i, e)}
+                >
+                  <option>Select parent question</option>
+                  {questionOptions}
+                </select>
+              </div>
             </div>
             {answer_limit}
             <div className="field">
