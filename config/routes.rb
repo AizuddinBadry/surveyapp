@@ -37,6 +37,7 @@ Rails.application.routes.draw do
       resources :questions do
         collection do
           post :change_type
+          post :import_question
           get '/preview/:id', to: 'questions#preview', as: 'preview'
         end
       end
@@ -86,7 +87,7 @@ Rails.application.routes.draw do
           post :sort
         end
       end
-      resources :surveys, only: [:show]
+      resources :surveys, only: [:index,:show]
       resources :conditions, only: [:create,:destroy]
     end
   end

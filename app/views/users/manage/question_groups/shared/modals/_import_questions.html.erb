@@ -1,0 +1,54 @@
+<div id="modal-import-question" class="modal">
+  <div class="modal-background"></div>
+    <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Import Question</p>
+      <button type="button" class="delete modal--close" aria-label="close"></button>
+    </header>
+    <%= form_for(:import, url: import_question_users_manage_questions_path) do |f|%>
+        <%= f.hidden_field :question_group_id,value: @question_group.id%>
+        <section class="modal-card-body">
+            <div class="content">
+            <div class="columns is-multiline">
+                <div class="column is-12">
+                    <label>Select survey :</label>
+                    <div class="select is-fullwidth">
+                        <select id="select-survey">
+                            <option>Please select</option>
+                            <% Survey.where(user_id: current_user.id).each do |survey|%>
+                            <option value="<%= survey.id %>"><%= survey.title %></option>
+                            <% end %>
+                        </select>
+                    </div>
+                </div>
+                 <div class="column is-12">
+                    <label>Select questions :</label>
+                    <div class="select is-multiple is-fullwidth">
+                        <select multiple size="5" id="render-question" name="import[questions][]">
+                            
+                        </select>
+                    </div>
+                    <small class="help">Please select up to 5 questions</small>
+                </div>
+            </div>
+            </div>
+        </section>
+        <footer class="modal-card-foot">
+            <%= f.submit 'Save', class: 'button is-success'%>
+            <button type="button" class="button modal--close">Cancel</button>
+        </footer>
+    <% end %>
+  </div>
+</div>
+<script>
+$('#select-survey').on('change', function(){
+    $.get( "/api/v1/questions?survey_id=" + $(this).val(), function( data ) {
+        $('#render-question').html('');
+        $.each(data.object, function(key, value) {   
+            $('#render-question').append($("<option></option>")
+                            .attr("value", value.id)
+                            .text(value.code + ". " + value.description )); 
+        });
+    });
+})
+</script>

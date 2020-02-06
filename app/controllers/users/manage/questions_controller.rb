@@ -81,9 +81,26 @@ class Users::Manage::QuestionsController < ApplicationController
     end
   end
 
+  def import_question
+    @arr = params[:import][:questions]
+    @arr.each do |id|
+      @question = Question.find_by_id id
+      @dup = @question.dup
+      if @dup.save
+        @dup.update question_group_id: import_params[:question_group_id]
+      end
+    end
+    flash[:success] = 'Successful imported question'
+    redirect_to request.referrer
+  end
+
   private
     def set_question
       @question = Question.find(params[:id])
+    end
+
+    def import_params
+      params.require(:import).permit(:questions, :question_group_id)
     end
 
     def question_params

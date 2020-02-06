@@ -1,7 +1,7 @@
-<nav class="navbar" role="navigation" aria-label="main navigation">
+<nav class="navbar bg-color-gradient" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <a class="navbar-item" href="">
-      Surveyapp
+      Bluewing
     </a>
     <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
       <span aria-hidden="true"></span>
@@ -90,8 +90,7 @@
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">
-        <%= link_to 'Logout', destroy_user_session_path, :method => :delete, class: 'button is-black'%>
-
+        <%= link_to '<i class="fas fa-power-off"></i>'.html_safe, destroy_user_session_path, :method => :delete, style: 'color:white;font-size:25px'%>
         </div>
       </div>
     </div>

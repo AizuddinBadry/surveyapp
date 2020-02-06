@@ -1,6 +1,8 @@
 $success: #00e796;
 $color1: #f4f4f4;
-$color2: #3197ee;
+$color2: #096cc3;
+$color3: #03fff7;
+$color4: #41d19f;
 $secondary: #99dbb4;
 $gray: #cbcdd3;
 $dark: #777777;
@@ -21,18 +23,63 @@ input {
   border-radius: 0 !important;
 }
 
+label {
+  font-size: 14px;
+  font-family: "Montserrat", sans-serif !important;
+}
+
+.bg-color {
+  background-color: $color2;
+}
+
+.bg-color-gradient {
+  background-image: linear-gradient(to right, $color2 70%, $color3);
+  color: white;
+}
+
+h1.is-white {
+  color: white;
+}
+
+h1.large {
+  font-size: 40px;
+}
+
 .button.action {
   margin-bottom: 10px !important;
 }
+
+/* Navigation bar */
 .navbar-menu {
   text-align: center;
   padding-left: 80px !important;
   .navbar-item.main {
     margin-left: 30px !important;
   }
+  .navbar-item,
+  .navbar-link {
+    color: white;
+  }
+  .navbar-item:hover,
+  .navbar-link:hover {
+    color: black;
+  }
+  .navbar-item:after,
+  .navbar-link:after {
+    color: black;
+  }
+  .navbar-dropdown a {
+    color: black;
+  }
 }
+
 .navbar {
   box-shadow: 0 4px 2px -2px #f3f3f3;
+  .navbar-brand a {
+    color: white;
+    margin-left: 20px;
+    font-size: 21px;
+  }
 }
 
 /* Accordion styles */
@@ -210,6 +257,15 @@ label:active:after {
 .is-circle {
   margin-left: 10px;
   border-radius: 50px !important;
+}
+
+button.is-bluewing {
+  width: 100%;
+  font-family: "Montserrat", sans-serif !important;
+  border-radius: 5px;
+  background-color: $success;
+  color: white;
+  font-weight: 600;
 }
 
 /* Custom table*/
@@ -488,4 +544,41 @@ label:active:after {
 #menuToggle input:checked ~ ul {
   transform: scale(1, 1);
   opacity: 1;
+}
+
+/* Custom input */
+
+.input {
+  border-radius: 5px !important;
+}
+
+/* Custom Card */
+.card.info {
+  height: 200px;
+  width: 100%;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.1);
+  label {
+    color: white !important;
+    font-size: 18px;
+  }
+  .bg-color {
+    background-color: $color2;
+  }
+}
+
+.card.stats {
+  height: 130px;
+  width: 100%;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.1);
+}
+
+.card.info:hover {
+  background-color: $color4;
 }

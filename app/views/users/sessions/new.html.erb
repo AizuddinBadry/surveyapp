@@ -1,23 +1,24 @@
 
-<section class="hero is-primary is-fullheight">
+<section class="hero bg-color is-fullheight">
   <div class="hero-body">
     <div class="container">
-      <div class="columns is-centered">
-        <div class="column is-5-tablet is-4-desktop is-3-widescreen">
+      <div class="columns is-centered is-multiline">
+        <div class="column is-12 has-text-centered">
+          <h1 class="is-white large">BLUEWING</h1>
+        </div>
+        <div class="column is-12 is-5-tablet is-4-desktop is-3-widescreen">
         <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: 'box'}) do |f| %>
-            <div class="field">
-              <label for="" class="label">Email</label>
+            <div class="field pt-30">
               <div class="control has-icons-left">
-            <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: 'Email', class: 'input' %>
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: 'Email', class: 'input' %>
                 <span class="icon is-small is-left">
                   <i class="fa fa-envelope"></i>
                 </span>
               </div>
             </div>
             <div class="field">
-              <label for="" class="label">Password</label>
               <div class="control has-icons-left">
-            <%= f.password_field :password, autocomplete: "current-password", placeholder: 'Password', class: 'input' %>
+              <%= f.password_field :password, autocomplete: "current-password", placeholder: 'Password', class: 'input' %>
                 <span class="icon is-small is-left">
                   <i class="fa fa-lock"></i>
                 </span>
@@ -30,7 +31,7 @@
               </label>
             </div>
             <div class="field">
-              <button class="button is-success">
+              <button class="button is-bluewing">
                 Login
               </button>
             </div>

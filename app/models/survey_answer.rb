@@ -19,6 +19,10 @@ class SurveyAnswer < ApplicationRecord
     else
       @value
     end
-    
   end
+
+  def self.total_response(id)
+    self.joins(:survey).where(surveys: {user_id: id}).group_by(&:session).size
+  end
+
 end

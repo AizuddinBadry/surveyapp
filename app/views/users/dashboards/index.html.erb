@@ -5,129 +5,87 @@
                 <div class="title">Dashboard</div>
             </div>
         </div>
-        <div class="level-right">
-            <div class="level-item">
-                <button type="button" class="button is-small">
-                    March 8, 2017
-                </button>
+        <div class="level-right" style="margin-left:80px;">
+            <div class="columns is-multiline">
+                <div class="column is-12 has-text-centered">
+                    <div class="title">Welcome, <br/><%= current_user.email%></div>
+                </div>
+                <div class="column is-12 has-text-centered">
+                    <div class="subtitle">
+                        <h5><%=Date.today.strftime('%d %B %y')%></h5>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="columns is-multiline">
-        <div class="column">
-            <div class="box container">
-                <div class="heading ">Welcome <strong><%= @users.email %></strong>!</div>
-            </div>
-        </div>
-    </div>
-
-    <div class="columns is-multiline">
-        <div class="column is-one-third">
-            <div class="level-right">
-                <div class="level-item">
-                    <div class="card" style="width: 250px;">
-                        <%= link_to new_users_manage_survey_path do %>
-                           
-                            <div class="card-content">
-                                <div class="content">
-                                     <p class="card-title" style="text-align:center;">
-                                        <strong>Create Survey</strong>
-                                    </p>
-                                </div>
-                            </div>
-                            <% end %>
-                    </div>
+    <div class="columns is-multiline pt-40">
+        <div class="column is-8">
+            <div class="columns is-multiline">
+                <div class="column is-one-third">
+                    <a href="<%= new_users_manage_survey_path%>" class="card info is-white bg-color">
+                        <label>Create Survey</label>
+                    </a>
+                </div>
+                <div class="column is-one-third">
+                    <a href="<%= new_users_manage_survey_path%>" class="card info is-white bg-color">
+                        <label>List Survey</label>
+                    </a>
+                </div>
+                <div class="column is-one-third">
+                    <a href="<%= new_users_manage_survey_path%>" class="card info is-white bg-color">
+                        <label>Global Setting</label>
+                    </a>
+                </div>
+                <div class="column is-one-third">
+                    <a href="<%= new_users_manage_survey_path%>" class="card info is-white bg-color">
+                        <label>Comfort Update</label>
+                    </a>
+                </div>
+                <div class="column is-one-third">
+                    <a href="<%= new_users_manage_survey_path%>" class="card info is-white bg-color">
+                        <label>Bluewing Store</label>
+                    </a>
+                </div>
+                <div class="column is-one-third">
+                    <a href="<%= new_users_manage_survey_path%>" class="card info is-white bg-color">
+                        <label>Themes</label>
+                    </a>
                 </div>
             </div>
         </div>
-        <div class="column is-one-third">
-            <div class="level-center">
-                <div class="level-item">
-                    <div class="card" style="width: 250px;">
-                        <%= link_to users_manage_surveys_path do %>
-                            
-                            <div class="card-content">
-                                <div class="content">
-                                    <p class="card-title" style="text-align:center;">
-                                        <strong>List Surveys</strong>
-                                    </p>
-                                </div>
+        <div class="column is-1">
+        </div>
+        <div class="column is-3">
+            <div class="columns is-multiline has-text-centered">
+                <div class="column is-11">
+                    <div class="card stats" >
+                        <div class="card-content">
+                            <div class="subtitle">
+                                <h5>Survey Created</h5>
+                                <h1 class="title pt-20"><%= current_user.surveys.size %></h1>
                             </div>
-                            <% end %>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <div class="column is-one-third">
-            <div class="level-left">
-                <div class="level-item">
-                    <div class="card" style="width: 250px;">
-                        <a href="#">
-                            
-                            <div class="card-content">
-                                <div class="content">
-                                    <p class="card-title" style="text-align:center;">
-                                        <strong>Global Settings</strong>
-                                    </p>
-                                </div>
+                 <div class="column is-11">
+                    <div class="card stats" >
+                        <div class="card-content">
+                            <div class="subtitle">
+                                <h5>Active Survey</h5>
+                                <h1 class="title pt-20"><%= current_user.surveys.size %></h1>
                             </div>
-                        </a>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <div class="column is-one-third">
-            <div class="level-right">
-                <div class="level-item">
-                    <div class="card" style="width: 250px;">
-                        <a href="#">
-                            <div class="card-content">
-                                <div class="content">
-                                    <p class="card-title" style="text-align:center;">
-                                        <strong>Comfort Update</strong>
-                                    </p>
-                                </div>
+                 <div class="column is-11">
+                    <div class="card stats" >
+                        <div class="card-content">
+                            <div class="subtitle">
+                                <h5>Total Responses</h5>
+                                <h1 class="title pt-20"><%= SurveyAnswer.all.total_response(current_user.id) %></h1>
                             </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="column is-one-third">
-            <div class="level-center">
-                <div class="level-item">
-                    <div class="card" style="width: 250px;">
-                        <a href="#">
-                            <div class="card-content">
-                                <div class="content">
-                                    <p class="card-title" style="text-align:center;">
-                                        <strong>BlueWing Store</strong>
-                                    </p>
-                                </div>
-                            </div>
-                    </div>
-                </div>
-                </a>
-            </div>
-        </div>
-
-        <div class="column is-one-third">
-            <div class="level-left">
-                <div class="level-item">
-                    <div class="card" style="width: 250px;">
-                        <a href="#">
-                            <div class="card-content">
-                                <div class="content">
-                                    <p class="card-title" style="text-align:center;">
-                                        <strong>Themes</strong>
-                                    </p>
-                                </div>
-                            </div>
-                        </a>
+                        </div>
                     </div>
                 </div>
             </div>
