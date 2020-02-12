@@ -10,6 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 2020_01_16_041953) do
 
   # These are extensions that must be enabled in order to support this database
@@ -149,6 +150,7 @@ ActiveRecord::Schema.define(version: 2020_01_16_041953) do
     t.jsonb "question_desc_other_language", default: {}
     t.bigint "attached_to"
     t.bigint "loop_position"
+    t.text "media"
     t.index ["question_group_id"], name: "index_questions_on_question_group_id"
   end
 

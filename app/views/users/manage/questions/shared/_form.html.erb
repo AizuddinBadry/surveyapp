@@ -53,6 +53,21 @@
       <label class="label">Limit Answers</label>
       <%= f.number_field :limit, class: 'input', disabled: params[:edit].present? ? false : true%>
     </div>
+    <% elsif @question.q_type == "Audio" %>
+    <div class="field">
+      <label class="label">Upload File</label>
+      <%= f.file_field :media, class: 'input', value: @question.media.present? ? @question.media.file.filename : "No File Chosen" , disabled: params[:edit].present? ? false : true%>
+    </div>
+    <% elsif @question.q_type == "Video" %>
+    <div class="field">
+      <label class="label">Upload File</label>
+      <%= f.file_field :media, class: 'input', value: @question.media.present? ? @question.media.file.filename : "No File Chosen" , disabled: params[:edit].present? ? false : true%>
+    </div>
+    <% elsif @question.q_type == "File Download" %>
+    <div class="field">
+      <label class="label">Upload File</label>
+      <%= f.file_field :media, class: 'input', value: @question.media.present? ? @question.media.file.filename : "No File Chosen" , disabled: params[:edit].present? ? false : true%>
+    </div>
     <% end %>
     <% if @question.conditions.present? %>
       <div class="field">

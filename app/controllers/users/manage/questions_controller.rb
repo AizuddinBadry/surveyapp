@@ -107,7 +107,7 @@ class Users::Manage::QuestionsController < ApplicationController
       meta_keys_question = params.require(:question).fetch(:other_language, {}).keys
       meta_keys_help_question = params.require(:question).fetch(:help_other_language, {}).keys
       meta_keys_desc_question = params.require(:question).fetch(:question_desc_other_language, {}).keys
-      params.require(:question).permit(:question_group_id,:column,:randomize, :q_type, :code, :description, :help, 
+      params.require(:question).permit(:media, :question_group_id,:column,:randomize, :q_type, :code, :description, :help, 
                                         :mandatory, :logic, :position,:question_desc ,:desc_question_code , :limit, :structure,
                                         :enable_other_1, :enable_other_2, :other_language => meta_keys_question, :help_other_language => meta_keys_help_question, :question_desc_other_language => meta_keys_desc_question,
                                         question_answers_attributes: [:exact_value, :id, :code, :display_input_box_1, :display_input_box_2,

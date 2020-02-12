@@ -80,7 +80,7 @@ export default class OpenEnded extends React.Component {
               <input type="text" className="input" name="question[code]" />
             </div>
             <div className="field">
-              <label className="label">Title</label>
+              <label className="label">Question</label>
               <Trumbowyg
                 id="questionDescription"
                 name="question[description]"
