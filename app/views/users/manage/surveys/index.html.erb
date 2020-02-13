@@ -1,31 +1,16 @@
 <main class="column">
-<nav class="breadcrumb is-medium" aria-label="breadcrumbs">
-  <ul>
-    <li><%= link_to "Dashboard", root_path %></li>
-    <li class="is-active"><%= link_to "Survey Listings", users_manage_surveys_path, 'aria-current': "page" %></li>
-  </ul>
-</nav>
-    <div class="level">
-        <div class="level-left">
-        <div class="level-item">
-            <div class="title">Surveys Listing</div>
-        </div>
-        </div>
-        <div class="level-right">
-        <div class="level-item">
-            <button type="button" class="button is-small">
-            March 8, 2017
-            </button>
-        </div>
-        </div>
-    </div>
-
+    <nav class="breadcrumb is-medium" aria-label="breadcrumbs">
+        <ul class="title">
+            <li><%= link_to "Dashboard", root_path %></li>
+            <li class="is-active"><%= link_to "Survey Listings", users_manage_surveys_path, 'aria-current': "page" %></li>
+        </ul>
+    </nav>
     <section class="columns is-multiline">
         <div class="column is-12">
             <%= link_to 'Add new survey', new_users_manage_survey_path, class: 'button is-primary', data: { turbolinks: false }%>
         </div>
         <div class="column">
-            <div class="card">
+            <div class="card list">
                 <div class="card-content">
                     <div class="container">
                         <table class="display datatable" style="width:100%">
@@ -71,9 +56,9 @@
                                         <td>0</td>
                                         <td> 
                                         <p class="buttons">
-                                            <%= link_to '<span class="icon is-small"><i class="fa fa-cog"></i></span>'.html_safe, users_manage_survey_path(survey.id), data: {turbolinks: false}, class: 'button is-small is-primary action'%>
-                                            <%= link_to '<span class="icon is-small"><i class="fa fa-file"></i></span>'.html_safe, users_manage_submission_path(survey.id), data: {turbolinks: false}, class: 'button is-small is-info action'%>
-                                            <%= link_to '<span class="icon is-small"><i class="fa fa-times"></i></span>'.html_safe, users_manage_survey_path(survey.id), :method => :delete, class: 'button is-small is-danger action'%>
+                                            <%= link_to '<span class="icon is-small"><i class="fa fa-cog"></i></span>'.html_safe, users_manage_survey_path(survey.id), data: {turbolinks: false}, class: 'button is-small is-primary action is-outlined'%>
+                                            <%= link_to '<span class="icon is-small"><i class="fa fa-file"></i></span>'.html_safe, users_manage_submission_path(survey.id), data: {turbolinks: false}, class: 'button is-small is-info action is-outlined'%>
+                                            <%= link_to '<span class="icon is-small"><i class="fa fa-trash"></i></span>'.html_safe, users_manage_survey_path(survey.id), :method => :delete, class: 'button is-small is-danger action is-outlined'%>
                                         </p>
                                         </td>
                                     </tr>

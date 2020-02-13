@@ -81,6 +81,9 @@ h1.large {
     font-size: 21px;
   }
 }
+.navbar-link:not(.is-arrowless)::after {
+  border-color: white;
+}
 
 /* Accordion styles */
 .card + .card {
@@ -297,6 +300,23 @@ button.is-bluewing {
   text-align: left;
   background-color: grey;
   color: white;
+}
+
+table.display {
+  thead {
+    border-bottom: 1px solid rgb(206, 206, 206);
+    margin-bottom: 10px;
+    th {
+      padding: 10px;
+    }
+  }
+  tr {
+    border-bottom: 1px solid rgb(206, 206, 206);
+
+    td {
+      padding: 20px;
+    }
+  }
 }
 
 /* Progressbar */
@@ -581,4 +601,11 @@ button.is-bluewing {
 
 .card.info:hover {
   background-color: $color4;
+}
+
+.card.list {
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.1);
 }
