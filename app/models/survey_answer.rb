@@ -8,7 +8,7 @@ class SurveyAnswer < ApplicationRecord
  end
 
   def self.to_csv
-    attributes = %w{session  created_at question value time_per_question}
+    attributes = %w{session created_at question value time_per_question}
 
     CSV.generate(headers: true) do |csv|
       csv << attributes

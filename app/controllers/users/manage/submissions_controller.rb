@@ -10,6 +10,11 @@ class Users::Manage::SubmissionsController < Users::BaseController
         respond_to do |format|
             format.html
             format.csv { send_data @submission.to_csv, filename: "Survey-Submission-#{@survey.title}.csv" }
+            format.xlsx {
+                response.headers[
+                  'Content-Disposition'
+                ] = "attachment; filename=Survey-Submission-#{@survey.title}.xlsx"
+              }
           end
     end
 
@@ -20,6 +25,11 @@ class Users::Manage::SubmissionsController < Users::BaseController
         respond_to do |format|
             format.html
             format.csv { send_data @submissions.to_csv, filename: "Survey-Submission-#{@breadcrumb.session}.csv" }
+            format.xlsx {
+                response.headers[
+                  'Content-Disposition'
+                ] = "attachment; filename=Survey-Submission-#{@breadcrumb.session}.csv.xlsx"
+              }
           end
     end
 
