@@ -13,7 +13,8 @@ Rails.application.routes.draw do
     namespace :manage do
 
       resources :surveys do
-        collection do 
+        collection do
+          post '/clone/:id', to: 'surveys#clone', as: 'clone'
           match '/preview/:id', to: 'surveys#preview', as: 'preview', via: [:get, :post]
           get '/expire/:id', to: 'surveys#expire', as: 'expire'
         end

@@ -1,5 +1,5 @@
 class Users::Manage::SurveysController < Users::BaseController
-    before_action :get_survey, only: [:show, :update, :destroy, :preview, :expire]
+    before_action :get_survey, only: [:show, :update, :destroy, :preview, :expire, :clone]
     layout 'survey', only: [:preview]
     def index
         @surveys = Survey.all.order(:created_at => :desc)
@@ -87,6 +87,14 @@ class Users::Manage::SurveysController < Users::BaseController
                 cookies.delete(:previous_question_position)
                 @question = Question.where(survey_id: @survey.id, survey_position: cookies[:question_position]).first 
             end
+        end
+    end
+
+    def clone
+        new_survey = @survey.dup
+        if new_survey.save
+            flash[:success] = 'Successful cloned survey.'
+            redirect_to request.referrer
         end
     end
 

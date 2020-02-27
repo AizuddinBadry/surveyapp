@@ -56,8 +56,9 @@
                                         <td>0</td>
                                         <td> 
                                         <p class="buttons">
-                                            <%= link_to '<span class="icon is-small"><i class="fa fa-cog"></i></span>'.html_safe, users_manage_survey_path(survey.id), data: {turbolinks: false}, class: 'button is-small is-primary action is-outlined'%>
+                                            <%= link_to '<span class="icon is-small"><i class="fa fa-eye"></i></span>'.html_safe, users_manage_survey_path(survey.id), data: {turbolinks: false}, class: 'button is-small is-primary action is-outlined'%>
                                             <%= link_to '<span class="icon is-small"><i class="fa fa-file"></i></span>'.html_safe, users_manage_submission_path(survey.id), data: {turbolinks: false}, class: 'button is-small is-info action is-outlined'%>
+                                            <%= link_to '<span class="icon is-small"><i class="fa fa-clone"></i></span>'.html_safe, clone_users_manage_surveys_path(id: survey.id), data: {turbolinks: false, confirm: 'Are you sure want clone this survey?'}, method: :post, class: 'button is-small is-info action is-outlined'%>
                                             <%= link_to '<span class="icon is-small"><i class="fa fa-trash"></i></span>'.html_safe, users_manage_survey_path(survey.id), :method => :delete, class: 'button is-small is-danger action is-outlined'%>
                                         </p>
                                         </td>
