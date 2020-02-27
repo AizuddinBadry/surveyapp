@@ -54,6 +54,9 @@ group :development, :production do
   gem "shrine", "~> 2.11"
   gem 'acts_as_list', :require => 'acts_as_list'
   gem 'hash_dot', require: 'hash_dot'
+  gem 'rubyzip', '>= 1.2.1'
+gem 'axlsx', git: 'https://github.com/randym/axlsx.git', ref: 'c8ac844'
+gem 'axlsx_rails'
 end
 
 group :test do

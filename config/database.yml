@@ -23,7 +23,11 @@ default: &default
 
 development:
   <<: *default
-  database: surveyapp_development
+  username: nbstnrvxrunsak
+  password: 80219b1f608529a714c451ab9161457b1ebb0b80736b7376916aca56ed63ca87
+  host: ec2-107-20-185-16.compute-1.amazonaws.com
+  port: 5432
+  database: d5c3b86qdgr7im
 
 test:
   <<: *default
