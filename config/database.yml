@@ -28,7 +28,7 @@ development:
 test:
   <<: *default
   database: surveyapp_test
- 
+
 production:
   <<: *default
   database: surveyapp_production

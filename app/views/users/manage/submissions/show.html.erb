@@ -28,6 +28,8 @@
             <div class="card list">
                 <div class="card-content">
                     <div class="container">
+                        <%= link_to '<span> Export survey csv </span>'.html_safe, users_manage_submission_path(format: "csv" ), data: {turbolinks: false}, class: 'button is-normal is-success action'%>
+                        <%= link_to '<span> Export survey excel </span>'.html_safe, users_manage_submission_path(format: "xlsx" ), data: {turbolinks: false}, class: 'button is-normal is-success action'%>
                         <table class="display datatable" style="width:100%">
                             <thead>
                                 <tr>
@@ -48,6 +50,8 @@
                                         <td> 
                                         <p class="buttons">
                                             <%= link_to '<span class="icon is-small"><i class="fa fa-cog"></i></span>'.html_safe, detail_submissions_users_manage_submissions_path(a.session), data: {turbolinks: false}, class: 'button is-small is-primary action'%>
+                                            <%= link_to '<span> Export session csv</span>'.html_safe, detail_submissions_users_manage_submissions_path(a.session , format: "csv" ), data: {turbolinks: false}, class: 'button is-small is-success action'%>
+                                            <%= link_to '<span> Export session excel</span>'.html_safe, detail_submissions_users_manage_submissions_path(a.session , format: "xlsx" ), data: {turbolinks: false}, class: 'button is-small is-success action'%>
                                         </p>
                                         </td>
                                     </tr>

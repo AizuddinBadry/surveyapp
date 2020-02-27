@@ -6,11 +6,31 @@ class Users::Manage::SubmissionsController < Users::BaseController
 
     def show
         @submission = SurveyAnswer.joins(:survey,:question).where(survey_id: @survey.id).order(created_at: :desc)
+
+        respond_to do |format|
+            format.html
+            format.csv { send_data @submission.to_csv, filename: "Survey-Submission-#{@survey.title}.csv" }
+            format.xlsx {
+                response.headers[
+                  'Content-Disposition'
+                ] = "attachment; filename=Survey-Submission-#{@survey.title}.xlsx"
+              }
+          end
     end
 
     def detail_submissions
         @breadcrumb = SurveyAnswer.joins(:survey,:question).where(session: params[:id]).first
         @submissions = SurveyAnswer.joins(:survey,:question).where(session: params[:id]).order(created_at: :asc)
+
+        respond_to do |format|
+            format.html
+            format.csv { send_data @submissions.to_csv, filename: "Survey-Submission-#{@breadcrumb.session}.csv" }
+            format.xlsx {
+                response.headers[
+                  'Content-Disposition'
+                ] = "attachment; filename=Survey-Submission-#{@breadcrumb.session}.csv.xlsx"
+              }
+          end
     end
 
     def new
