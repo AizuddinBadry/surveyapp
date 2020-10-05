@@ -51,7 +51,7 @@ group :development, :production do
   gem 'mini_magick'
   gem 'react-rails'
   gem 'mini_racer', :platforms => :ruby
-  gem "shrine", "~> 2.11"
+  gem "shrine", "~> 3.3"
   gem 'acts_as_list', :require => 'acts_as_list'
   gem 'hash_dot', require: 'hash_dot'
   gem 'rubyzip', '>= 1.2.1'
