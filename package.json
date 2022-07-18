@@ -14,7 +14,7 @@
     "datatables.net-dt": "^1.10.19",
     "datatables.net-rowreorder-dt": "^1.2.6",
     "jquery": "^3.4.1",
-    "jquery-ui": "^1.12.1",
+    "jquery-ui": "^1.13.2",
     "prop-types": "^15.7.2",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
